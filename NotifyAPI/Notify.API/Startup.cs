@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Notify.API.Extensions;
-using Notify.API.Telemetry;
 using Notify.API.ValidationMiddleware;
 using NotifyApi.Common.Configuration;
 using NotifyApi.DAL;
@@ -43,17 +42,15 @@ namespace Notify.API
                     builder
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .SetIsOriginAllowed((host) => true)
+                        .SetIsOriginAllowed(host => true)
                         .AllowCredentials();
                 }));
 
             services.AddApplicationInsightsTelemetry(Configuration["ApplicationInsights:InstrumentationKey"]);
-            services.AddApplicationInsightsTelemetryProcessor<SuccessfulDependencyProcessor>();
 
             services.AddJsonOptions();
             RegisterSettings(services);
-            bool.TryParse(Configuration["UseStub"], out var useStub);
-            services.AddCustomTypes(Environment, useStub);
+            services.AddCustomTypes();
             RegisterAuth(services);
             services.AddTransient<IRequestModelValidatorService, RequestModelValidatorService>();
 
@@ -69,6 +66,7 @@ namespace Notify.API
         {
             services.Configure<AzureAdConfiguration>(options => Configuration.Bind("AzureAd", options));
             services.Configure<ServicesConfiguration>(options => Configuration.Bind("Services", options));
+            services.Configure<NotifyConfiguration>(options => Configuration.Bind("NotifyConfiguration", options));
         }
 
         private void RegisterAuth(IServiceCollection serviceCollection)
@@ -128,7 +126,6 @@ namespace Notify.API
             
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
             
-
             app.UseMiddleware<LogResponseBodyMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
         }

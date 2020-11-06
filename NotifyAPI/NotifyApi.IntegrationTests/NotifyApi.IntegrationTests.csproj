@@ -46,7 +46,4 @@
     <ItemGroup>
         <Content Include="Features\*.feature" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Features\" />
-    </ItemGroup>
 </Project>

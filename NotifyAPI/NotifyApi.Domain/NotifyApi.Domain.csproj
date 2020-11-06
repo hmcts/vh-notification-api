@@ -5,7 +5,4 @@
   <ItemGroup>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0.14119" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
 </Project>

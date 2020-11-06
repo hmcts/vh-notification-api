@@ -21,9 +21,4 @@
     <ProjectReference Include="..\NotifyApi.Common\NotifyApi.Common.csproj" />
     <ProjectReference Include="..\NotifyApi.Domain\NotifyApi.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-    <Folder Include="Mappings\" />
-    <Folder Include="Migrations\" />
-  </ItemGroup>
 </Project>

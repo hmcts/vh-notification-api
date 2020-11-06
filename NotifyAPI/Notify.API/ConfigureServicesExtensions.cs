@@ -15,6 +15,8 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Notify.API.Swagger;
+using Notify.Client;
+using Notify.Interfaces;
 using NotifyApi.Common;
 using NotifyApi.Common.Configuration;
 using NotifyApi.Common.Security;
@@ -71,15 +73,17 @@ namespace Notify.API
             return services;
         }
 
-        public static IServiceCollection AddCustomTypes(this IServiceCollection services, IWebHostEnvironment environment, bool useStub)
+        public static IServiceCollection AddCustomTypes(this IServiceCollection services)
         {
-            var container = services.BuildServiceProvider();
-            var servicesConfiguration = container.GetService<IOptions<ServicesConfiguration>>().Value;
-
+            services.AddScoped<IAsyncNotificationClient, NotificationClient>(sp =>
+            {
+                var notifyConfiguration = sp.GetService<IOptions<NotifyConfiguration>>().Value;
+                return new NotificationClient(notifyConfiguration.ApiKey);
+            });
+            
             services.AddMemoryCache();
 
             services.AddScoped<ITokenProvider, AzureTokenProvider>();
-            services.AddTransient<UserApiTokenHandler>();
             services.AddSingleton<ITelemetryInitializer, BadRequestTelemetry>();
 
             services.AddScoped<IQueryHandlerFactory, QueryHandlerFactory>();

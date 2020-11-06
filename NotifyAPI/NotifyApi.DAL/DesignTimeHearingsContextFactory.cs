@@ -10,7 +10,7 @@ namespace NotifyApi.DAL
         {
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .AddUserSecrets("9AECE566-336D-4D16-88FA-7A76C27321CD")
+                .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D")
                 .Build();
             var builder = new DbContextOptionsBuilder<NotifyApiDbContext>();
             builder.UseSqlServer(config.GetConnectionString("VhNotifyApi"));

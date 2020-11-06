@@ -26,9 +26,4 @@
     <ProjectReference Include="..\Notify.API\Notify.API.csproj" />
     <ProjectReference Include="..\NotifyApi.Domain\NotifyApi.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\Handlers\" />
-    <Folder Include="Services\Mappers\" />
-    <Folder Include="Validation\" />
-  </ItemGroup>
 </Project>

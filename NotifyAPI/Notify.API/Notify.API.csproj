@@ -11,7 +11,7 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
     <DocumentationFile>
     </DocumentationFile>
-    <UserSecretsId>9AECE566-336D-4D16-88FA-7A76C27321CD</UserSecretsId>
+    <UserSecretsId>4E35D845-27E7-4A19-BE78-CDA896BF907D</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -32,6 +32,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.12.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Notify" Version="2.9.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0.14119" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.0.0" />
@@ -55,12 +56,5 @@
       <CopyToPublishDirectory>Always</CopyToPublishDirectory>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Factories\" />
-    <Folder Include="Mappings\" />
-    <Folder Include="Validations\" />
   </ItemGroup>
 </Project>

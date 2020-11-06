@@ -18,7 +18,7 @@ namespace NotifyApi.AcceptanceTests.Hooks
 
         public ConfigHooks(TestContext context)
         {
-            _configRoot = ConfigurationManager.BuildConfig("9AECE566-336D-4D16-88FA-7A76C27321CD", GetTargetEnvironment());
+            _configRoot = ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", GetTargetEnvironment());
             context.Config = new Config();
             context.Tokens = new NotifyApiTokens();
         }

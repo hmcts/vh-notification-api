@@ -24,7 +24,4 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Helper\Builders\" />
-    </ItemGroup>
 </Project>

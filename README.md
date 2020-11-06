@@ -1,5 +1,18 @@
 # vh-notify-api
 
+## Setup nuget sources
+Include the vh-packages source
+
+```
+https://pkgs.dev.azure.com/hmctsreform/VirtualHearings/_packaging/vh-packages/nuget/v3/index.json
+```
+
+Include the govuk notify source
+
+```
+https://api.bintray.com/nuget/gov-uk-notify/nuget
+```
+
 ## Running Sonar Analysis
 
 ``` bash
@@ -27,14 +40,15 @@ Under the unit test project directory
 dotnet reportgenerator "-reports:../Artifacts/Coverage/coverage.opencover.xml" "-targetDir:../Artifacts/Coverage/Report" -reporttypes:HtmlInline_AzurePipelines
 ```
 
-##Branch name git hook will run on pre commit and control the standard for new branch name.
+## Branch name 
+git hook will run on pre commit and control the standard for new branch name.
 
 The branch name should start with: feature/VIH-XXXX-branchName  (X - is digit).
 If git version is less than 2.9 the pre-commit file from the .githooks folder need copy to local .git/hooks folder.
 To change git hooks directory to directory under source control run (works only for git version 2.9 or greater) :
 $ git config core.hooksPath .githooks
 
-##Commit message 
+## Commit message 
 The commit message will be validated by prepare-commit-msg hook.
 The commit message format should start with : 'feature/VIH-XXXX : ' folowing by 8 or more characters description of commit, otherwise the warning message will be presented.
 

@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.Azure.ServiceBus" Version="4.1.1" />
+        <PackageReference Include="Notify" Version="2.9.0" />
         <PackageReference Include="SonarAnalyzer.CSharp" Version="8.2.0.14119" />
     </ItemGroup>
 
@@ -14,12 +15,6 @@
       <ProjectReference Include="..\NotifyApi.Contract\NotifyApi.Contract.csproj" />
       <ProjectReference Include="..\NotifyApi.DAL\NotifyApi.DAL.csproj" />
       <ProjectReference Include="..\NotifyApi.Domain\NotifyApi.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Exceptions\" />
-      <Folder Include="Handlers\" />
-      <Folder Include="Models\" />
     </ItemGroup>
 
 </Project>

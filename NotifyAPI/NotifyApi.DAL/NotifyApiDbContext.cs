@@ -2,13 +2,16 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using NotifyApi.Domain;
 
 namespace NotifyApi.DAL
 {
     public class NotifyApiDbContext : DbContext
     {
+        public DbSet<Notification> Notifications { get; set; }
         public NotifyApiDbContext(DbContextOptions options) : base(options)
         {
+            
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,7 +21,7 @@ namespace NotifyApi.DAL
                                                 BindingFlags.FlattenHierarchy);
             var applyGenericApplyConfigurationMethods = applyGenericMethods.Where(m =>
                 m.IsGenericMethod && m.Name.Equals("ApplyConfiguration", StringComparison.OrdinalIgnoreCase));
-            var applyGenericMethod = applyGenericApplyConfigurationMethods.FirstOrDefault(m =>
+            var applyGenericMethod = applyGenericApplyConfigurationMethods.First(m =>
                 m.GetParameters().FirstOrDefault()?.ParameterType.Name == "IEntityTypeConfiguration`1");
 
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes()
@@ -31,7 +34,7 @@ namespace NotifyApi.DAL
                     {
 
                         var applyConcreteMethod = applyGenericMethod.MakeGenericMethod(iface.GenericTypeArguments[0]);
-                        applyConcreteMethod.Invoke(modelBuilder, new object[] {Activator.CreateInstance(type)});
+                        applyConcreteMethod.Invoke(modelBuilder, new[] {Activator.CreateInstance(type)});
                         break;
                     }
                 }
