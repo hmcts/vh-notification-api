@@ -1,30 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Reflection;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using Swashbuckle.AspNetCore.Swagger;
 using Notify.API.Swagger;
 using Notify.Client;
 using Notify.Interfaces;
 using NotifyApi.Common;
 using NotifyApi.Common.Configuration;
+using NotifyApi.Common.Helpers;
 using NotifyApi.Common.Security;
+using NotifyApi.Contract;
 using NotifyApi.DAL.Commands.Core;
 using NotifyApi.DAL.Queries.Core;
-using NotifyApi.Contract;
+using NotifyApi.Events;
+using Swashbuckle.AspNetCore.Swagger;
 
-namespace Notify.API
+namespace Notify.API.Extensions
 {
     public static class ConfigureServicesExtensions
     {
@@ -80,9 +79,11 @@ namespace Notify.API
                 var notifyConfiguration = sp.GetService<IOptions<NotifyConfiguration>>().Value;
                 return new NotificationClient(notifyConfiguration.ApiKey);
             });
+
+            services.AddScoped<INotificationService, NotificationService>();
             
             services.AddMemoryCache();
-
+            services.AddScoped<ILoggingDataExtractor, LoggingDataExtractor>();
             services.AddScoped<ITokenProvider, AzureTokenProvider>();
             services.AddSingleton<ITelemetryInitializer, BadRequestTelemetry>();
 
@@ -131,43 +132,24 @@ namespace Notify.API
             return builder;
         }
 
-        private static IEnumerable<Type> GetAllTypesOf<T>()
-        {
-            var platform = Environment.OSVersion.Platform.ToString();
-            var runtimeAssemblyNames = DependencyContext.Default.GetRuntimeAssemblyNames(platform);
-
-            return runtimeAssemblyNames
-                .Select(Assembly.Load)
-                .SelectMany(a => a.ExportedTypes)
-                .Where(t => typeof(T).IsAssignableFrom(t));
-        }
-
         private static void RegisterCommandHandlers(IServiceCollection serviceCollection)
         {
-            var commandHandlers = typeof(ICommand).Assembly.GetTypes().Where(t =>
-                t.GetInterfaces().Any(x =>
-                    x.IsGenericType &&
-                    x.GetGenericTypeDefinition() == typeof(ICommandHandler<>)));
-
-            foreach (var queryHandler in commandHandlers)
-            {
-                var serviceType = queryHandler.GetInterfaces()[0];
-                serviceCollection.AddScoped(serviceType, queryHandler);
-            }
+            serviceCollection.Scan(scan => scan.FromAssemblyOf<ICommand>()
+                .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>))
+                    .Where(_ => !_.IsGenericType))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+            serviceCollection.Decorate(typeof(ICommandHandler<>), typeof(CommandHandlerLoggingDecorator<>));
         }
 
         private static void RegisterQueryHandlers(IServiceCollection serviceCollection)
         {
-            var queryHandlers = typeof(IQuery).Assembly.GetTypes().Where(t =>
-                t.GetInterfaces().Any(x =>
-                    x.IsGenericType &&
-                    x.GetGenericTypeDefinition() == typeof(IQueryHandler<,>)));
-
-            foreach (var queryHandler in queryHandlers)
-            {
-                var serviceType = queryHandler.GetInterfaces()[0];
-                serviceCollection.AddScoped(serviceType, queryHandler);
-            }
+            serviceCollection.Scan(scan => scan.FromAssemblyOf<IQuery>()
+                .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>))
+                    .Where(_ => !_.IsGenericType))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+            serviceCollection.Decorate(typeof(IQueryHandler<,>), typeof(QueryHandlerLoggingDecorator<,>));
         }
 
         public static IServiceCollection AddJsonOptions(this IServiceCollection serviceCollection)

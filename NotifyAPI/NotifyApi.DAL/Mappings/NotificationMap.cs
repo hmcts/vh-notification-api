@@ -18,6 +18,7 @@ namespace NotifyApi.DAL.Mappings
             builder.Property(x => x.NotificationType).IsRequired();
             builder.Property(x => x.ParticipantRefId).IsRequired();
             builder.Property(x => x.HearingRefId).IsRequired();
+            builder.Property(x => x.ExternalId);
         }
     }
 }

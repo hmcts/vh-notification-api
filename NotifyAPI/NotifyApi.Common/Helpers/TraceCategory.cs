@@ -10,6 +10,11 @@ namespace NotifyApi.Common.Helpers
         /// <summary>
         /// API Exception
         /// </summary>
-        APIException
+        APIException,
+        
+        /// <summary>
+        /// Gov Notify
+        /// </summary>
+        GovNotify,
     }
 }

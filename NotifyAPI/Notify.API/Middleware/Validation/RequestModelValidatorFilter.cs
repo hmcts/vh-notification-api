@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using Notify.API.Extensions;
 
-namespace Notify.API.ValidationMiddleware
+namespace Notify.API.Middleware.Validation
 {
     public class RequestModelValidatorFilter : IAsyncActionFilter
     {
@@ -23,7 +23,7 @@ namespace Notify.API.ValidationMiddleware
 
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            _logger.LogDebug($"Processing request {context.ActionDescriptor.DisplayName}");
+            _logger.LogDebug("Processing request");
             foreach (var property in context.ActionDescriptor.Parameters)
             {
                 var valuePair = context.ActionArguments.SingleOrDefault(x => x.Key == property.Name);

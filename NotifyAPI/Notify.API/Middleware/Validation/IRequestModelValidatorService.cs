@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace Notify.API.ValidationMiddleware
+namespace Notify.API.Middleware.Validation
 {
     public interface IRequestModelValidatorService
     {

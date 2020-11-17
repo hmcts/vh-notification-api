@@ -12,6 +12,7 @@ namespace NotifyApi.Domain
         public NotificationType NotificationType { get; }
         public Guid ParticipantRefId { get; }
         public Guid HearingRefId { get; }
+        public string ExternalId { get; private set; }
 
         protected Notification()
         {
@@ -26,6 +27,11 @@ namespace NotifyApi.Domain
             Payload = payload;
             ParticipantRefId = participantRefId;
             HearingRefId = hearingRefId;
+        }
+
+        public void AssignExternalId(string externalNotificationId)
+        {
+            ExternalId = externalNotificationId;
         }
 
         public void UpdateDeliveryStatus(DeliveryStatus newStatus)
