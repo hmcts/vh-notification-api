@@ -92,8 +92,8 @@ namespace Notify.API.Extensions
 
             services.AddScoped<ICommandHandlerFactory, CommandHandlerFactory>();
             services.AddScoped<ICommandHandler, CommandHandler>();
-            RegisterCommandHandlers(services);
-            RegisterQueryHandlers(services);
+            // RegisterCommandHandlers(services);
+            // RegisterQueryHandlers(services);
                         
             return services;
         }

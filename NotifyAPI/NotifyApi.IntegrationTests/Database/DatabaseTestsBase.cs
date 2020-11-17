@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using NotifyApi.Common.Configuration;
+using NotifyApi.IntegrationTests.Helper;
 
 namespace NotifyApi.IntegrationTests.Database
 {
@@ -13,6 +14,7 @@ namespace NotifyApi.IntegrationTests.Database
         private string _databaseConnectionString;
         private ServicesConfiguration _services;
         protected DbContextOptions<NotifyApiDbContext> NotifyBookingsDbContextOptions;
+        protected TestDataManager TestDataManager;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -27,13 +29,13 @@ namespace NotifyApi.IntegrationTests.Database
             _services = Options.Create(configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
 
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotifyApiDbContext>();
-            dbContextOptionsBuilder.EnableSensitiveDataLogging();
             dbContextOptionsBuilder.UseSqlServer(_databaseConnectionString);
-            dbContextOptionsBuilder.EnableSensitiveDataLogging();
             NotifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
 
             var context = new NotifyApiDbContext(NotifyBookingsDbContextOptions);
             context.Database.Migrate();
+            
+            TestDataManager = new TestDataManager(_services, NotifyBookingsDbContextOptions);
         }
     }
 }
