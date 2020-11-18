@@ -169,8 +169,6 @@ extends:
         - group: vh-notification-api
       appSettings: ${{ parameters.appSettings }}
       acceptanceTestSettings:
-        - name: Services:NotificationApiUrl
-          value: $(notification_api_url_staging)
         - ${{ each setting in parameters.testSettings }}:
           - name: ${{ setting.name }}
             value: ${{ setting.value }}
