@@ -32,7 +32,7 @@ parameters:
 - name: RunACTests
   displayName: Run Acceptance Tests
   type: boolean
-  default: false
+  default: true
 
 - name: testSettings
   type: object
@@ -124,15 +124,15 @@ resources:
 extends:
   template: stages\dotnet-package.yml@templates
   parameters:
-    coreProjectPath: NotificationAPI/Notifcation.API
+    coreProjectPath: NotificationAPI/Notification.API
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       baseAgent: windows-latest
-      coreProjectPath: NotificationAPI/Notifcation.API
-      unitTestProjectPath: NotifcationAPI/NotificationApi.UnitTests
-      integTestProjectPath: NotifcationAPI/NotificationApi.IntegrationTests
+      coreProjectPath: NotificationAPI/Notification.API
+      unitTestProjectPath: NotificationAPI/NotificationApi.UnitTests
+      integTestProjectPath: NotificationAPI/NotificationApi.IntegrationTests
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       RunUnitTests: ${{ parameters.RunUnitTests }}
@@ -154,7 +154,7 @@ extends:
         - "[Testing.Common]*"
       sonarCloud_ExtraProperties: |
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
-        sonar.coverage.exclusions="**/Notification.API/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotifcationAPI.Common/**, **/NotifcationAPI.IntegrationTests/**, **/NotifcationAPI.UnitTests/**, **/Notifcation.API/Extensions/**"
+        sonar.coverage.exclusions="**/Notification.API/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationAPI.Common/**, **/NotificationAPI.IntegrationTests/**, **/NotificationAPI.UnitTests/**, **/Notification.API/Extensions/**"
         sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/Notification.API/Swagger/**"
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
@@ -165,7 +165,7 @@ extends:
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       devOpsResource: vh_notification_api
-      appName: vh-notifcation-api-$(environment)
+      appName: vh-notification-api-$(environment)
       resourceGroup: vh-notification-api-$(environment)
       variables:
         - group: vh-notification-api
