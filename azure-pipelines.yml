@@ -145,7 +145,7 @@ extends:
         - group: vh-notification-api
       coverletCoverageExclusions:
         - "[NotificationApi.*Tests?]*"
-        - "[NotificationApi.API]Startup"
+        - "[Notification.API]Startup"
         - "[NotificationApi.Common]*"
         - "[Testing.Common]*"
       sonarCloud_ExtraProperties: |
