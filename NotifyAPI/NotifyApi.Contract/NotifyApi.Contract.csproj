@@ -16,8 +16,4 @@
   <ItemGroup>
     <ProjectReference Include="..\NotifyApi.Domain\NotifyApi.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Requests\" />
-    <Folder Include="Responses\" />
-  </ItemGroup>
 </Project>
