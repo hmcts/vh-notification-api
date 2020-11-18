@@ -28,7 +28,7 @@ namespace NotificationApi.IntegrationTests.Hooks
         {
             _configRoot = ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D");
             context.Config = new Config();
-            context.Tokens = new NotifyApiTokens();
+            context.Tokens = new NotificationApiTokens();
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]
@@ -89,12 +89,12 @@ namespace NotificationApi.IntegrationTests.Hooks
 
         private static void GenerateBearerTokens(IntTestContext context, IOptions<AzureAdConfiguration> azureOptions)
         {
-            context.Tokens.NotifyApiBearerToken = new AzureTokenProvider(azureOptions).GetClientAccessToken(
+            context.Tokens.NotificationApiBearerToken = new AzureTokenProvider(azureOptions).GetClientAccessToken(
                 azureOptions.Value.ClientId, azureOptions.Value.ClientSecret,
                 context.Config.VhServices.VhNotificationsApiResourceId);
-            context.Tokens.NotifyApiBearerToken.Should().NotBeNullOrEmpty();
+            context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
 
-            Zap.SetAuthToken(context.Tokens.NotifyApiBearerToken);
+            Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);
         }
     }
 }

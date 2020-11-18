@@ -24,7 +24,7 @@ namespace NotificationApi.IntegrationTests
         [OneTimeTearDown]
         public void ZapReport()
         {
-            Zap.ReportAndShutDown("NotifyApi-Integration", ServicesConfiguration.NotifyApiUrl);
+            Zap.ReportAndShutDown("NotifyApi-Integration", ServicesConfiguration.NotificationApiUrl);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
         {
             _configRoot = ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", GetTargetEnvironment());
             context.Config = new Config();
-            context.Tokens = new NotifyApiTokens();
+            context.Tokens = new NotificationApiTokens();
         }
 
         private static string GetTargetEnvironment()
@@ -59,11 +59,11 @@ namespace NotificationApi.AcceptanceTests.Hooks
                 TenantId = context.Config.AzureAdConfiguration.TenantId
             };
 
-            context.Tokens.NotifyApiBearerToken = await ConfigurationManager.GetBearerToken(
+            context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
                 azureConfig, context.Config.VhServices.VhNotificationsApiResourceId);
-            context.Tokens.NotifyApiBearerToken.Should().NotBeNullOrEmpty();
+            context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
             
-            Zap.SetAuthToken(context.Tokens.NotifyApiBearerToken);
+            Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);
         }
     }
 

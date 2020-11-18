@@ -23,7 +23,7 @@ namespace NotificationApi.AcceptanceTests
         [OneTimeTearDown]
         public void ZapReport()
         {
-            Zap.ReportAndShutDown("NotifyApi - Acceptance",ServicesConfiguration.NotifyApiUrl); 
+            Zap.ReportAndShutDown("NotifyApi - Acceptance",ServicesConfiguration.NotificationApiUrl); 
         }
     }
 }

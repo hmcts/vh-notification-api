@@ -21,14 +21,14 @@ namespace NotificationApi.IntegrationTests.Contexts
         public TestServer Server { get; set; }
         public TestRun TestRun { get; set; }
         public TestDataManager TestDataManager { get; set; }
-        public NotifyApiTokens Tokens { get; set; }
+        public NotificationApiTokens Tokens { get; set; }
         public string Uri { get; set; }
         public DbContextOptions<NotificationsApiDbContext> NotifyBookingsDbContextOptions { get; set; }
 
         public HttpClient CreateClient()
         {
             var client = Server.CreateClient();
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Tokens.NotifyApiBearerToken}");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Tokens.NotificationApiBearerToken}");
             return client;
         }
     }

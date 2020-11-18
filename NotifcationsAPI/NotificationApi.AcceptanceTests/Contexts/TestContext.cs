@@ -11,14 +11,14 @@ namespace NotificationApi.AcceptanceTests.Contexts
         public Config Config { get; set; }
         public RestRequest Request { get; set; }
         public IRestResponse Response { get; set; }
-        public NotifyApiTokens Tokens { get; set; }
+        public NotificationApiTokens Tokens { get; set; }
         public AzureStorageManager AzureStorage { get; set; }
 
         public RestClient Client()
         {
-            var client = new RestClient(Config.VhServices.NotifyApiUrl) {Proxy = Zap.WebProxy};
+            var client = new RestClient(Config.VhServices.NotificationApiUrl) {Proxy = Zap.WebProxy};
             client.AddDefaultHeader("Accept", "application/json");
-            client.AddDefaultHeader("Authorization", $"Bearer {Tokens.NotifyApiBearerToken}");
+            client.AddDefaultHeader("Authorization", $"Bearer {Tokens.NotificationApiBearerToken}");
             return client;
         }
 
