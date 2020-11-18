@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
-using Notification.API.Extensions;
+using NotificationAPI.Extensions;
 
-namespace Notification.API.Middleware.Validation
+namespace NotificationAPI.Middleware.Validation
 {
     public class RequestModelValidatorFilter : IAsyncActionFilter
     {

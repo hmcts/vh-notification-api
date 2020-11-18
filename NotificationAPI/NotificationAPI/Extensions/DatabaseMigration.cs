@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NotificationApi.DAL;
 
-namespace Notification.API.Extensions
+namespace NotificationAPI.Extensions
 {
     public static class DatabaseMigration
     {

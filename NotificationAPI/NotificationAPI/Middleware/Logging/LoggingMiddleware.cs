@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using NotificationApi.Common.Helpers;
 
-namespace Notification.API.Middleware.Logging
+namespace NotificationAPI.Middleware.Logging
 {
     public class LoggingMiddleware : IAsyncActionFilter
     {

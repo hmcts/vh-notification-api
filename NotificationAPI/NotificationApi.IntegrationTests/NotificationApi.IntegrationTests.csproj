@@ -29,8 +29,8 @@
     <PackageReference Include="VH.AcceptanceTests.Common" Version="1.0.273" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Notification.API\Notification.API.csproj" />
     <ProjectReference Include="..\NotificationApi.DAL\NotificationApi.DAL.csproj" />
+    <ProjectReference Include="..\NotificationAPI\NotificationAPI.csproj" />
     <ProjectReference Include="..\Testing.Common\Testing.Common.csproj" />
   </ItemGroup>
   <ItemGroup>

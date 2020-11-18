@@ -2546,7 +2546,7 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "notification.api": {
+      "notificationapi": {
         "type": "Project",
         "dependencies": {
           "Azure.Identity": "1.3.0",

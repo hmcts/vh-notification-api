@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation;
 
-namespace Notification.API.Middleware.Validation
+namespace NotificationAPI.Middleware.Validation
 {
     public class RequestModelValidatorFactory : ValidatorFactoryBase
     {

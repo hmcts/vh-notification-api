@@ -9,7 +9,6 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
-using Notification.API.Swagger;
 using NotificationApi.Common;
 using NotificationApi.Common.Configuration;
 using NotificationApi.Common.Helpers;
@@ -18,11 +17,12 @@ using NotificationApi.Contract;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Services;
+using NotificationAPI.Swagger;
 using Notify.Client;
 using Notify.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Notification.API.Extensions
+namespace NotificationAPI.Extensions
 {
     public static class ConfigureServicesExtensions
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Notification.API.Extensions
+namespace NotificationAPI.Extensions
 {
     /// <summary>
     /// Middleware to intercept the response we're sending to the client in order to use for logging

@@ -12,13 +12,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using Notification.API.Extensions;
-using Notification.API.Middleware.Logging;
-using Notification.API.Middleware.Validation;
 using NotificationApi.Common.Configuration;
 using NotificationApi.DAL;
+using NotificationAPI.Extensions;
+using NotificationAPI.Middleware.Logging;
+using NotificationAPI.Middleware.Validation;
 
-namespace Notification.API
+namespace NotificationAPI
 {
     public class Startup
     {

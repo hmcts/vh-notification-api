@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace Notification.API.Extensions
+namespace NotificationAPI.Extensions
 {
     public static class EnumExtensions
     {
