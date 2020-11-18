@@ -10,14 +10,14 @@ using NotifyApi.DAL;
 namespace NotifyApi.DAL.Migrations
 {
     [DbContext(typeof(NotifyApiDbContext))]
-    [Migration("20201106171650_AddNotificationAndTemplate")]
+    [Migration("20201118162953_AddNotificationAndTemplate")]
     partial class AddNotificationAndTemplate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -33,6 +33,10 @@ namespace NotifyApi.DAL.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExternalId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -71,6 +75,10 @@ namespace NotifyApi.DAL.Migrations
 
                     b.Property<Guid>("NotifyTemplateId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Parameters")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -8,8 +8,12 @@ using Testing.Common.Models;
 
 namespace NotifyApi.IntegrationTests.Contexts
 {
-    public class TestContext
+    public class IntTestContext
     {
+        public IntTestContext()
+        {
+            TestRun= new TestRun();
+        }
         public Config Config { get; set; }
         public HttpContent HttpContent { get; set; }
         public HttpMethod HttpMethod { get; set; }

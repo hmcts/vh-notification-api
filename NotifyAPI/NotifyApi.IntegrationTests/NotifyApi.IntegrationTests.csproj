@@ -44,6 +44,6 @@
     </None>
   </ItemGroup>
     <ItemGroup>
-        <Content Include="Features\*.feature" />
+        <Content Include="ApiTests\*.feature" />
     </ItemGroup>
 </Project>

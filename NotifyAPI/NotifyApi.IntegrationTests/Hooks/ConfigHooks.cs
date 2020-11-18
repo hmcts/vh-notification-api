@@ -1,4 +1,3 @@
-using System;
 using System.Net.Http;
 using AcceptanceTests.Common.Api;
 using AcceptanceTests.Common.Configuration;
@@ -25,7 +24,7 @@ namespace NotifyApi.IntegrationTests.Hooks
     {
         private readonly IConfigurationRoot _configRoot;
 
-        public ConfigHooks(TestContext context)
+        public ConfigHooks(IntTestContext context)
         {
             _configRoot = ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D");
             context.Config = new Config();
@@ -33,7 +32,7 @@ namespace NotifyApi.IntegrationTests.Hooks
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]
-        public void RegisterSecrets(TestContext context)
+        public void RegisterSecrets(IntTestContext context)
         {
             var azureOptions = RegisterAzureSecrets(context);
             RegisterDefaultData(context);
@@ -44,7 +43,7 @@ namespace NotifyApi.IntegrationTests.Hooks
             GenerateBearerTokens(context, azureOptions);
         }
 
-        private IOptions<AzureAdConfiguration> RegisterAzureSecrets(TestContext context)
+        private IOptions<AzureAdConfiguration> RegisterAzureSecrets(IntTestContext context)
         {
             var azureOptions = Options.Create(_configRoot.GetSection("AzureAd").Get<AzureAdConfiguration>());
             context.Config.AzureAdConfiguration = azureOptions.Value;
@@ -52,18 +51,18 @@ namespace NotifyApi.IntegrationTests.Hooks
             return azureOptions;
         }
 
-        private static void RegisterDefaultData(TestContext context)
+        private static void RegisterDefaultData(IntTestContext context)
         {
-            throw new NotImplementedException();
+            // Method intentionally left empty.
         }
 
-        private void RegisterHearingServices(TestContext context)
+        private void RegisterHearingServices(IntTestContext context)
         {
             context.Config.VhServices = Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.VhServices);
         }
 
-        private void RegisterDatabaseSettings(TestContext context)
+        private void RegisterDatabaseSettings(IntTestContext context)
         {
             context.Config.DbConnection = Options.Create(_configRoot.GetSection("ConnectionStrings").Get<ConnectionStringsConfig>()).Value;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.DbConnection);
@@ -74,7 +73,7 @@ namespace NotifyApi.IntegrationTests.Hooks
             context.TestDataManager = new TestDataManager(context.Config.VhServices, context.NotifyBookingsDbContextOptions);
         }
 
-        private static void RegisterServer(TestContext context)
+        private static void RegisterServer(IntTestContext context)
         {
             var webHostBuilder = WebHost.CreateDefaultBuilder()
                     .UseKestrel(c => c.AddServerHeader = false)
@@ -83,12 +82,12 @@ namespace NotifyApi.IntegrationTests.Hooks
             context.Server = new TestServer(webHostBuilder);
         }
 
-        private static void RegisterApiSettings(TestContext context)
+        private static void RegisterApiSettings(IntTestContext context)
         {
             context.Response = new HttpResponseMessage(); 
         }
 
-        private static void GenerateBearerTokens(TestContext context, IOptions<AzureAdConfiguration> azureOptions)
+        private static void GenerateBearerTokens(IntTestContext context, IOptions<AzureAdConfiguration> azureOptions)
         {
             context.Tokens.NotifyApiBearerToken = new AzureTokenProvider(azureOptions).GetClientAccessToken(
                 azureOptions.Value.ClientId, azureOptions.Value.ClientSecret,

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Reflection;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.DependencyInjection;
@@ -92,44 +91,10 @@ namespace Notify.API.Extensions
 
             services.AddScoped<ICommandHandlerFactory, CommandHandlerFactory>();
             services.AddScoped<ICommandHandler, CommandHandler>();
-            // RegisterCommandHandlers(services);
-            // RegisterQueryHandlers(services);
+            RegisterCommandHandlers(services);
+            RegisterQueryHandlers(services);
                         
             return services;
-        }
-
-        /// <summary>
-        /// Temporary work-around until typed-client bug is restored
-        /// https://github.com/dotnet/aspnetcore/issues/13346#issuecomment-535544207
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="factory"></param>
-        /// <typeparam name="TClient"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        private static IHttpClientBuilder AddTypedClient<TClient>(this IHttpClientBuilder builder,
-            Func<HttpClient, TClient> factory)
-            where TClient : class
-        {
-            if (builder == null)
-            {
-                throw new ArgumentNullException(nameof(builder));
-            }
-
-            if (factory == null)
-            {
-                throw new ArgumentNullException(nameof(factory));
-            }
-
-            builder.Services.AddTransient(s =>
-            {
-                var httpClientFactory = s.GetRequiredService<IHttpClientFactory>();
-                var httpClient = httpClientFactory.CreateClient(builder.Name);
-
-                return factory(httpClient);
-            });
-
-            return builder;
         }
 
         private static void RegisterCommandHandlers(IServiceCollection serviceCollection)

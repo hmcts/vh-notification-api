@@ -14,6 +14,7 @@ namespace NotifyApi.DAL.Mappings
             builder.Property(x => x.NotifyTemplateId).IsRequired();
             builder.Property(x => x.NotificationType).IsRequired();
             builder.Property(x => x.MessageType).IsRequired();
+            builder.Property(x => x.Parameters).IsRequired();
         }
     }
 }

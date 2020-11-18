@@ -4,7 +4,6 @@ namespace NotifyApi.Events
 {
     public interface INotificationService
     {
-        
     }
     public class NotificationService : INotificationService
     {

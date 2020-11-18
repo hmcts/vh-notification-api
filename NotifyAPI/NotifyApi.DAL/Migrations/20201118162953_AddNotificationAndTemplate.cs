@@ -17,6 +17,7 @@ namespace NotifyApi.DAL.Migrations
                     NotificationType = table.Column<int>(nullable: false),
                     ParticipantRefId = table.Column<Guid>(nullable: false),
                     HearingRefId = table.Column<Guid>(nullable: false),
+                    ExternalId = table.Column<string>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     ToEmail = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true)
@@ -34,7 +35,8 @@ namespace NotifyApi.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NotifyTemplateId = table.Column<Guid>(nullable: false),
                     NotificationType = table.Column<int>(nullable: false),
-                    MessageType = table.Column<int>(nullable: false)
+                    MessageType = table.Column<int>(nullable: false),
+                    Parameters = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

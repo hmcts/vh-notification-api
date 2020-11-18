@@ -15,7 +15,7 @@ namespace NotifyApi.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -31,6 +31,10 @@ namespace NotifyApi.DAL.Migrations
                         .HasDefaultValue(0);
 
                     b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExternalId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -69,6 +73,10 @@ namespace NotifyApi.DAL.Migrations
 
                     b.Property<Guid>("NotifyTemplateId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Parameters")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
