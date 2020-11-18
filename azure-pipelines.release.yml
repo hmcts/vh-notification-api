@@ -125,6 +125,7 @@ extends:
           # GOV Notify Configuration
           - name: NotifyConfiguration:ApiKey
             value: $(notify-api-key)
+            secret: true
         acceptanceTestSettings:
           # AzureAd
           - name: AzureAd:TenantId

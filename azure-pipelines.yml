@@ -81,6 +81,12 @@ parameters:
   # GOV Notify Configuration
   - name: NotifyConfiguration:ApiKey
     value: $(notify-api-key)
+    secret: true
+
+  # Connection strings
+  - name: ConnectionStrings:VhNotificationsApi
+    value: NotificationApiDb-connection-str
+    secret: true
 
 variables:
   - group: vh-domains-and-urls
