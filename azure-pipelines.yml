@@ -124,13 +124,13 @@ resources:
 extends:
   template: stages\dotnet-package.yml@templates
   parameters:
-    coreProjectPath: NotifcationAPI/Notifcations.API
+    coreProjectPath: NotifcationAPI/Notifcation.API
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       baseAgent: windows-latest
-      coreProjectPath: NotifcationAPI/Notifcations.API
+      coreProjectPath: NotifcationAPI/Notifcation.API
       unitTestProjectPath: NotifcationAPI/NotificationApi.UnitTests
       integTestProjectPath: NotifcationAPI/NotificationApi.IntegrationTests
       secrets_KeyVault: $(pr_Secret_KeyVault)
