@@ -48,7 +48,7 @@ parameters:
     - name: AzureAd:TenantId
       value: tenantid
       secret: true
-    - name: Services:VhNotificationsApiResourceId
+    - name: Services:VhNotificationApiResourceId
       value: vh-notification-api-identifieruris
       secret: true
     - name: Services:NotificationApiUrl
@@ -72,7 +72,7 @@ parameters:
   - name: AzureAd:TenantId
     value: tenantid
     secret: true
-  - name: VhServices:VhNotificationsApiResourceId
+  - name: VhServices:VhNotificationApiResourceId
     value: vh-notification-api-identifieruris
     secret: true
   - name: Services:NotificationApiUrl
@@ -118,15 +118,15 @@ resources:
 extends:
   template: stages\dotnet-package.yml@templates
   parameters:
-    coreProjectPath: NotifcationsAPI/Notifcations.API
+    coreProjectPath: NotifcationAPI/Notifcations.API
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       baseAgent: windows-latest
-      coreProjectPath: NotifcationsAPI/Notifcations.API
-      unitTestProjectPath: NotifcationsAPI/NotificationApi.UnitTests
-      integTestProjectPath: NotifcationsAPI/NotificationApi.IntegrationTests
+      coreProjectPath: NotifcationAPI/Notifcations.API
+      unitTestProjectPath: NotifcationAPI/NotificationApi.UnitTests
+      integTestProjectPath: NotifcationAPI/NotificationApi.IntegrationTests
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       RunUnitTests: ${{ parameters.RunUnitTests }}
@@ -148,7 +148,7 @@ extends:
         - "[Testing.Common]*"
       sonarCloud_ExtraProperties: |
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
-        sonar.coverage.exclusions="**/Notification.API/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotifcationsAPI.Common/**, **/NotifcationsAPI.IntegrationTests/**, **/NotifcationsAPI.UnitTests/**, **/Notifcation.API/Extensions/**"
+        sonar.coverage.exclusions="**/Notification.API/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotifcationAPI.Common/**, **/NotifcationAPI.IntegrationTests/**, **/NotifcationAPI.UnitTests/**, **/Notifcation.API/Extensions/**"
         sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/Notification.API/Swagger/**"
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}

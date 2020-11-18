@@ -118,7 +118,7 @@ extends:
             secret: true
             
           # Services          
-          - name: Services:VhNotificationsApiResourceId
+          - name: Services:VhNotificationApiResourceId
             value: vh-notification-api-identifieruris
             secret: true
 
@@ -138,7 +138,7 @@ extends:
             secret: true
           
           # Services          
-          - name: Services:VhNotificationsApiResourceId
+          - name: Services:VhNotificationApiResourceId
             value: vh-notification-api-identifieruris
             secret: true
           - name: Services:NotificationApiUrl

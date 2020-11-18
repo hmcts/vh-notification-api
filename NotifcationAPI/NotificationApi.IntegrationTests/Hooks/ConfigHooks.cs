@@ -91,7 +91,7 @@ namespace NotificationApi.IntegrationTests.Hooks
         {
             context.Tokens.NotificationApiBearerToken = new AzureTokenProvider(azureOptions).GetClientAccessToken(
                 azureOptions.Value.ClientId, azureOptions.Value.ClientSecret,
-                context.Config.VhServices.VhNotificationsApiResourceId);
+                context.Config.VhServices.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
 
             Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);

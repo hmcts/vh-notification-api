@@ -60,7 +60,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
             };
 
             context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
-                azureConfig, context.Config.VhServices.VhNotificationsApiResourceId);
+                azureConfig, context.Config.VhServices.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
             
             Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);

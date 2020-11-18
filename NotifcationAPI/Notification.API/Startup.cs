@@ -86,7 +86,7 @@ namespace Notification.API
                     {
                         ClockSkew = TimeSpan.Zero,
                         ValidateLifetime = true,
-                        ValidAudience = serviceSettings.VhNotificationsApiResourceId
+                        ValidAudience = serviceSettings.VhNotificationApiResourceId
                     };
                 });
 
