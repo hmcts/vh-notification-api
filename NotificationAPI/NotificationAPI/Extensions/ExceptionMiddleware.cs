@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using NotificationApi.Common;
 using NotificationApi.Common.Helpers;
 
-namespace NotificationAPI.Extensions
+namespace NotificationApi.Extensions
 {
     public class ExceptionMiddleware
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace NotificationAPI.Swagger
+namespace NotificationApi.Swagger
 {
     public class AuthResponsesOperationFilter : IOperationFilter
     {

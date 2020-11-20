@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Moq;
-using NotificationAPI.Extensions;
+using NotificationApi.Extensions;
 using NotificationApi.Common;
 using NUnit.Framework;
 

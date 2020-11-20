@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace NotificationAPI
+namespace NotificationApi
 {
     public class Program
     {

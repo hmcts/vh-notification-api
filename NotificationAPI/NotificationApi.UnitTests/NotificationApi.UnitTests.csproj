@@ -26,7 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NotificationApi.Domain\NotificationApi.Domain.csproj" />
-    <ProjectReference Include="..\NotificationAPI\NotificationAPI.csproj" />
+    <ProjectReference Include="..\NotificationApi\NotificationApi.csproj" />
     <ProjectReference Include="..\Testing.Common\Testing.Common.csproj" />
   </ItemGroup>
 </Project>

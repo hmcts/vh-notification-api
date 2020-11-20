@@ -121,18 +121,18 @@ extends:
   template: stages\dotnet-package.yml@templates
   parameters:
     useNugetConfig: true
-    nugetConfigPath: NotificationAPI
-    coreProjectPath: NotificationAPI/NotificationAPI
+    nugetConfigPath: NotificationApi
+    coreProjectPath: NotificationApi/NotificationApi
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       baseAgent: windows-latest
-      coreProjectPath: NotificationAPI/NotificationAPI
+      coreProjectPath: NotificationApi/NotificationApi
       useNugetConfig: true
-      nugetConfigPath: NotificationAPI
-      unitTestProjectPath: NotificationAPI/NotificationApi.UnitTests
-      integTestProjectPath: NotificationAPI/NotificationApi.IntegrationTests
+      nugetConfigPath: NotificationApi
+      unitTestProjectPath: NotificationApi/NotificationApi.UnitTests
+      integTestProjectPath: NotificationApi/NotificationApi.IntegrationTests
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       RunUnitTests: ${{ parameters.RunUnitTests }}
@@ -149,13 +149,13 @@ extends:
         - group: vh-notification-api
       coverletCoverageExclusions:
         - "[NotificationApi.*Tests?]*"
-        - "[NotificationAPI]Startup"
+        - "[NotificationApi]Startup"
         - "[NotificationApi.Common]*"
         - "[Testing.Common]*"
       sonarCloud_ExtraProperties: |
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
-        sonar.coverage.exclusions="**/NotificationAPI/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationAPI.Common/**, **/NotificationAPI.IntegrationTests/**, **/NotificationAPI.UnitTests/**, **/NotificationAPI/Extensions/**"
-        sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationAPI/Swagger/**"
+        sonar.coverage.exclusions="**/NotificationApi/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationApi.Common/**, **/NotificationApi.IntegrationTests/**, **/NotificationApi.UnitTests/**, **/NotificationApi/Extensions/**"
+        sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationApi/Swagger/**"
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
     releaseParameters:

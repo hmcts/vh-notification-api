@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace NotificationAPI.Middleware.Validation
+namespace NotificationApi.Middleware.Validation
 {
     public class RequestModelValidatorService : IRequestModelValidatorService
     {

@@ -17,12 +17,12 @@ using NotificationApi.Contract;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Services;
-using NotificationAPI.Swagger;
+using NotificationApi.Swagger;
 using Notify.Client;
 using Notify.Interfaces;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace NotificationAPI.Extensions
+namespace NotificationApi.Extensions
 {
     public static class ConfigureServicesExtensions
     {

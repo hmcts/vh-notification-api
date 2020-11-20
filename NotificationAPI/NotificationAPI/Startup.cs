@@ -14,11 +14,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using NotificationApi.Common.Configuration;
 using NotificationApi.DAL;
-using NotificationAPI.Extensions;
-using NotificationAPI.Middleware.Logging;
-using NotificationAPI.Middleware.Validation;
+using NotificationApi.Extensions;
+using NotificationApi.Middleware.Logging;
+using NotificationApi.Middleware.Validation;
 
-namespace NotificationAPI
+namespace NotificationApi
 {
     public class Startup
     {

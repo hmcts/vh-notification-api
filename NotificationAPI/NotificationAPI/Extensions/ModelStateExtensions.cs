@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace NotificationAPI.Extensions
+namespace NotificationApi.Extensions
 {
     public static class ModelStateExtensions
     {
