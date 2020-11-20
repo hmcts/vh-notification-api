@@ -134,6 +134,9 @@ extends:
             
         acceptanceTestSettings:
           # AzureAd
+          - name: ApplicationInsights:InstrumentationKey
+            value: vh-core-infra-AppInsightsKey
+            secret: true
           - name: AzureAd:TenantId
             value: tenantid
             secret: true
