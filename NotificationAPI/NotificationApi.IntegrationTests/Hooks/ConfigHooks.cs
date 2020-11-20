@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using NotificationApi;
 using NotificationApi.Common.Configuration;
 using NotificationApi.Common.Security;
 using NotificationApi.DAL;

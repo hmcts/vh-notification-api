@@ -2,7 +2,6 @@ using NotificationApi.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using NotificationApi;
 using NotificationApi.Common.Configuration;
 using NotificationApi.IntegrationTests.Helper;
 using NUnit.Framework;
