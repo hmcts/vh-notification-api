@@ -25,7 +25,7 @@ namespace NotificationApi.IntegrationTests.Database
                 .AddUserSecrets<Startup>();
 
             var configRoot = configRootBuilder.Build();
-            _databaseConnectionString = configRoot.GetConnectionString("VhNotifyApi");
+            _databaseConnectionString = configRoot.GetConnectionString("VhNotificationsApi");
             _services = Options.Create(configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
 
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();

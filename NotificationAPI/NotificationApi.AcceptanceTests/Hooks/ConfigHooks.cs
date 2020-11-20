@@ -16,7 +16,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
     {
         private readonly IConfigurationRoot _configRoot;
 
-        public ConfigHooks(TestContext context)
+        public ConfigHooks(AcTestContext context)
         {
             _configRoot = ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", GetTargetEnvironment());
             context.Config = new Config();
@@ -29,27 +29,27 @@ namespace NotificationApi.AcceptanceTests.Hooks
         }
 
         [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]
-        public async Task RegisterSecrets(TestContext context)
+        public async Task RegisterSecrets(AcTestContext context)
         {
             RegisterAzureSecrets(context);
             RegisterHearingServices(context);
             await GenerateBearerTokens(context);
         }
 
-        private void RegisterAzureSecrets(TestContext context)
+        private void RegisterAzureSecrets(AcTestContext context)
         {
             context.Config.AzureAdConfiguration = Options.Create(_configRoot.GetSection("AzureAd").Get<AzureAdConfiguration>()).Value;
             context.Config.AzureAdConfiguration.Authority += context.Config.AzureAdConfiguration.TenantId;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
         }
 
-        private void RegisterHearingServices(TestContext context)
+        private void RegisterHearingServices(AcTestContext context)
         {
-            context.Config.VhServices = Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.VhServices);
+            context.Config.ServicesConfig = Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
+            ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
         }
 
-        private static async Task GenerateBearerTokens(TestContext context)
+        private static async Task GenerateBearerTokens(AcTestContext context)
         {
             var azureConfig = new AzureAdConfig()
             {
@@ -60,7 +60,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
             };
 
             context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
-                azureConfig, context.Config.VhServices.VhNotificationApiResourceId);
+                azureConfig, context.Config.ServicesConfig.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
             
             Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);

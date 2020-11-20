@@ -13,7 +13,7 @@ namespace NotificationApi.DAL
                 .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D")
                 .Build();
             var builder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
-            builder.UseSqlServer(config.GetConnectionString("VhNotifyApi"));
+            builder.UseSqlServer(config.GetConnectionString("VhNotificationsApi"));
             var context = new NotificationsApiDbContext(builder.Options);
             return context;
         }

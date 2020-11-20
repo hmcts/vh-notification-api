@@ -58,8 +58,8 @@ namespace NotificationApi.IntegrationTests.Hooks
 
         private void RegisterHearingServices(IntTestContext context)
         {
-            context.Config.VhServices = Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.VhServices);
+            context.Config.ServicesConfig = Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
+            ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
         }
 
         private void RegisterDatabaseSettings(IntTestContext context)
@@ -68,9 +68,9 @@ namespace NotificationApi.IntegrationTests.Hooks
             ConfigurationManager.VerifyConfigValuesSet(context.Config.DbConnection);
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.EnableSensitiveDataLogging();
-            dbContextOptionsBuilder.UseSqlServer(context.Config.DbConnection.VhNotifyApi);
+            dbContextOptionsBuilder.UseSqlServer(context.Config.DbConnection.VhNotificationsApi);
             context.NotifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
-            context.TestDataManager = new TestDataManager(context.Config.VhServices, context.NotifyBookingsDbContextOptions);
+            context.TestDataManager = new TestDataManager(context.Config.ServicesConfig, context.NotifyBookingsDbContextOptions);
         }
 
         private static void RegisterServer(IntTestContext context)
@@ -91,7 +91,7 @@ namespace NotificationApi.IntegrationTests.Hooks
         {
             context.Tokens.NotificationApiBearerToken = new AzureTokenProvider(azureOptions).GetClientAccessToken(
                 azureOptions.Value.ClientId, azureOptions.Value.ClientSecret,
-                context.Config.VhServices.VhNotificationApiResourceId);
+                context.Config.ServicesConfig.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
 
             Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);

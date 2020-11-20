@@ -81,7 +81,7 @@ parameters:
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi
-    value: NotificationApiDb-connection-str
+    value: vhnotificationDatabaseConnectionString
     secret: true
 
 variables:

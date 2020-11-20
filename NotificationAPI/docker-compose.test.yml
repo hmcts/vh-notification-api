@@ -9,7 +9,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
-      - SQLCONNSTR_VhNotifyAPi=Server=db_ac;Database=VhNotifyApi;User ID=sa;Password=VeryStrongPassword!
+      - SQLCONNSTR_VhNotificationsApi=Server=db_ac;Database=VhNotificationApi;User ID=sa;Password=VeryStrongPassword!
     ports:
       - "80"
       - "443"

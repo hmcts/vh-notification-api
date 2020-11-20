@@ -69,4 +69,8 @@
         <TargetPath>appsettings.test2.json</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ApiTests\*.feature" />
+  </ItemGroup>
 </Project>

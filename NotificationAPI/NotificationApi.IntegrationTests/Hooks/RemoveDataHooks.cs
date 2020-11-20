@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using NotificationApi.IntegrationTests.Contexts;
@@ -17,9 +16,9 @@ namespace NotificationApi.IntegrationTests.Hooks
 
         [BeforeScenario(Order = (int)HooksSequence.RemoveNotifications)]
         [AfterScenario(Order = (int)HooksSequence.RemoveNotifications)]
-        public static Task RemoveNotificationTestData(IntTestContext context)
+        public static void RemoveNotificationTestData(IntTestContext context)
         {
-            throw new NotImplementedException();
+            // Intentionally left empty
         }
 
         [AfterScenario(Order = (int)HooksSequence.RemoveServer)]

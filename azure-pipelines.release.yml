@@ -126,6 +126,12 @@ extends:
           - name: NotifyConfiguration:ApiKey
             value: $(notify-api-key)
             secret: true
+            
+          # Connection strings
+          - name: ConnectionStrings:VhNotificationsApi
+            value: vhnotificationDatabaseConnectionString
+            secret: true
+            
         acceptanceTestSettings:
           # AzureAd
           - name: AzureAd:TenantId

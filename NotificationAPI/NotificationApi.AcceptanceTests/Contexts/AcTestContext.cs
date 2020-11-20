@@ -6,7 +6,7 @@ using Testing.Common.Configuration;
 
 namespace NotificationApi.AcceptanceTests.Contexts
 {
-    public class TestContext
+    public class AcTestContext
     {
         public Config Config { get; set; }
         public RestRequest Request { get; set; }
@@ -16,7 +16,7 @@ namespace NotificationApi.AcceptanceTests.Contexts
 
         public RestClient Client()
         {
-            var client = new RestClient(Config.VhServices.NotificationApiUrl) {Proxy = Zap.WebProxy};
+            var client = new RestClient(Config.ServicesConfig.NotificationApiUrl) {Proxy = Zap.WebProxy};
             client.AddDefaultHeader("Accept", "application/json");
             client.AddDefaultHeader("Authorization", $"Bearer {Tokens.NotificationApiBearerToken}");
             return client;
