@@ -127,7 +127,6 @@ extends:
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
-      vstsFeedId: 
       baseAgent: windows-latest
       coreProjectPath: NotificationAPI/Notification.API
       useNugetConfig: true
