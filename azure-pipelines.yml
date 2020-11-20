@@ -122,13 +122,13 @@ extends:
   parameters:
     useNugetConfig: true
     nugetConfigPath: NotificationAPI
-    coreProjectPath: NotificationAPI/Notification.API
+    coreProjectPath: NotificationAPI/NotificationAPI
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       baseAgent: windows-latest
-      coreProjectPath: NotificationAPI/Notification.API
+      coreProjectPath: NotificationAPI/NotificationAPI
       useNugetConfig: true
       nugetConfigPath: NotificationAPI
       unitTestProjectPath: NotificationAPI/NotificationApi.UnitTests
@@ -149,13 +149,13 @@ extends:
         - group: vh-notification-api
       coverletCoverageExclusions:
         - "[NotificationApi.*Tests?]*"
-        - "[Notification.API]Startup"
+        - "[NotificationAPI]Startup"
         - "[NotificationApi.Common]*"
         - "[Testing.Common]*"
       sonarCloud_ExtraProperties: |
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
-        sonar.coverage.exclusions="**/Notification.API/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationAPI.Common/**, **/NotificationAPI.IntegrationTests/**, **/NotificationAPI.UnitTests/**, **/Notification.API/Extensions/**"
-        sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/Notification.API/Swagger/**"
+        sonar.coverage.exclusions="**/NotificationAPI/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationAPI.Common/**, **/NotificationAPI.IntegrationTests/**, **/NotificationAPI.UnitTests/**, **/NotificationAPI/Extensions/**"
+        sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationAPI/Swagger/**"
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
     releaseParameters:
