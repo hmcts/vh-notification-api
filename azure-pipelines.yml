@@ -121,7 +121,7 @@ extends:
   template: stages\dotnet-package.yml@templates
   parameters:
     useNugetConfig: true
-    nugetConfigPath: NotifcationAPI
+    nugetConfigPath: NotificationAPI
     coreProjectPath: NotificationAPI/Notification.API
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
@@ -130,7 +130,7 @@ extends:
       baseAgent: windows-latest
       coreProjectPath: NotificationAPI/Notification.API
       useNugetConfig: true
-      nugetConfigPath: NotifcationAPI
+      nugetConfigPath: NotificationAPI
       unitTestProjectPath: NotificationAPI/NotificationApi.UnitTests
       integTestProjectPath: NotificationAPI/NotificationApi.IntegrationTests
       secrets_KeyVault: $(pr_Secret_KeyVault)
