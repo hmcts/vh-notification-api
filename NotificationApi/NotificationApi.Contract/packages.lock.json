@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "dependencies": {
+    ".NETStandard,Version=v2.1": {
+      "SonarAnalyzer.CSharp": {
+        "type": "Direct",
+        "requested": "[8.14.0.22654, )",
+        "resolved": "8.14.0.22654",
+        "contentHash": "OxJIffzU1JtRTE+wL+zBpzZueA9N7iKjBgkFlxjm1QDymmDlAnLyjXAVyWph5Hbpz1gVvAG1rWYxpQA4w2FwVQ=="
+      },
+      "System.ComponentModel.Annotations": {
+        "type": "Direct",
+        "requested": "[4.7.0, )",
+        "resolved": "4.7.0",
+        "contentHash": "0YFqjhp/mYkDGpU0Ye1GjE53HMp9UVfGN7seGpAMttAC0C40v5gw598jCgpbBLMmCo0E5YRLBv5Z2doypO49ZQ=="
+      },
+      "notificationapi.domain": {
+        "type": "Project"
+      }
+    }
+  }
+}
