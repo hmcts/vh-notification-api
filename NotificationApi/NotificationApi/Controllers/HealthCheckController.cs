@@ -1,13 +1,12 @@
 using System;
 using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Contract.Responses;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace NotificationApi.Controller
+namespace NotificationApi.Controllers
 {
     [Produces("application/json")]
     [Route("Health")]

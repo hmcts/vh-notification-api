@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Contract.Responses;
-using NotificationApi.Controller;
+using NotificationApi.Controllers;
 using NUnit.Framework;
 
 namespace NotificationApi.UnitTests.Controller.HealthCheck
