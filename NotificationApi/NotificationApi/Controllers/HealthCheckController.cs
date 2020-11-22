@@ -4,7 +4,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Contract.Responses;
-using Swashbuckle.AspNetCore.Annotations;
+using NSwag.Annotations;
 
 namespace NotificationApi.Controllers
 {
@@ -19,7 +19,7 @@ namespace NotificationApi.Controllers
         /// </summary>
         /// <returns>Error if fails, otherwise OK status</returns>
         [HttpGet("health")]
-        [SwaggerOperation(OperationId = "CheckServiceHealth")]
+        [OpenApiOperation("CheckServiceHealthAuth")]
         [ProducesResponseType(typeof(HealthResponse), (int) HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HealthResponse), (int) HttpStatusCode.InternalServerError)]
         public IActionResult HealthAsync()

@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-using System.Reflection;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -11,14 +8,15 @@ using NotificationApi.Common;
 using NotificationApi.Common.Configuration;
 using NotificationApi.Common.Helpers;
 using NotificationApi.Common.Security;
-using NotificationApi.Contract;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Services;
+using NotificationApi.Swagger;
 using Notify.Client;
 using Notify.Interfaces;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using ZymLabs.NSwag.FluentValidation;
 
 namespace NotificationApi.Extensions
 {
@@ -26,47 +24,8 @@ namespace NotificationApi.Extensions
     {
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
-            var contractsXmlFile = $"{typeof(IAssemblyReference).Assembly.GetName().Name}.xml";
-            var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXmlFile);
-
-
-            // services.AddSwaggerGen(c =>
-            // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo {Title = "Notifications API", Version = "v1"});
-            //     c.AddFluentValidationRules();
-            //     c.IncludeXmlComments(xmlPath);
-            //     c.IncludeXmlComments(contractsXmlPath);
-            //     c.EnableAnnotations();
-            //
-            //     c.AddSecurityDefinition("Bearer", //Name the security scheme
-            //         new OpenApiSecurityScheme
-            //         {
-            //             Description = "JWT Authorization header using the Bearer scheme.",
-            //             Type = SecuritySchemeType.Http, //We set the scheme type to http since we're using bearer authentication
-            //             Scheme = "bearer" //The name of the HTTP Authorization scheme to be used in the Authorization header. In this case "bearer".
-            //         });
-            //
-            //     c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            //     {
-            //         {
-            //             new OpenApiSecurityScheme
-            //             {
-            //                 Reference = new OpenApiReference
-            //                 {
-            //                     Id = "Bearer", //The name of the previously defined security scheme.
-            //                     Type = ReferenceType.SecurityScheme
-            //                 }
-            //             },
-            //             new List<string>()
-            //         }
-            //     });
-            //     c.OperationFilter<AuthResponsesOperationFilter>();
-            // });
-            // services.AddSwaggerGenNewtonsoftSupport();
-            services.AddOpenApiDocument(document =>
+            services.AddSingleton<FluentValidationSchemaProcessor>();
+            services.AddOpenApiDocument((document, serviceProvider) =>
             {
                 document.Title = "Notification API";
                 document.DocumentProcessors.Add(
@@ -80,6 +39,11 @@ namespace NotificationApi.Extensions
                             Scheme = "bearer"
                         }));
                 document.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+                document.OperationProcessors.Add(new AuthResponseOperationProcessor());
+                var fluentValidationSchemaProcessor = serviceProvider.GetService<FluentValidationSchemaProcessor>();
+
+                // Add the fluent validations schema processor
+                document.SchemaProcessors.Add(fluentValidationSchemaProcessor);
             });
             return services;
         }

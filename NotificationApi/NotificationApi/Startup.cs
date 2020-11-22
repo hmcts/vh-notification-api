@@ -17,6 +17,7 @@ using NotificationApi.DAL;
 using NotificationApi.Extensions;
 using NotificationApi.Middleware.Logging;
 using NotificationApi.Middleware.Validation;
+using ZymLabs.NSwag.FluentValidation;
 
 namespace NotificationApi
 {
@@ -57,7 +58,6 @@ namespace NotificationApi
             services.AddMvc(opt => opt.Filters.Add(typeof(RequestModelValidatorFilter))).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRequestModelValidatorService>());
             services.AddTransient<IValidatorFactory, RequestModelValidatorFactory>();
-
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("VhNotificationsApi")));
         }
@@ -100,12 +100,10 @@ namespace NotificationApi
         {
             app.RunLatestMigrations();
             
-            // app.UseSwagger();
             app.UseOpenApi();
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUi3(c =>
             {
-                const string url = "/swagger/v1/swagger.json";
-                c.SwaggerEndpoint(url, "Notifications API V1");
+                c.DocumentTitle = "Notifications API V1";
             });
 
             if (env.IsDevelopment())

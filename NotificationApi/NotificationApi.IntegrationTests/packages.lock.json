@@ -282,27 +282,24 @@
       },
       "FluentValidation": {
         "type": "Transitive",
-        "resolved": "8.6.1",
-        "contentHash": "g0xw/YCVgJ1IYpBgKF9iuci/Arf6Dsq9H/WeeT9zaBpjrEA+Cr2GjWXHu1F0DKqVzp4J4hta4gGrRt6H4aESqQ==",
-        "dependencies": {
-          "System.ComponentModel.Annotations": "4.4.1"
-        }
+        "resolved": "9.3.0",
+        "contentHash": "C44l6Ih+YwpED/TsXfl6LIq6Z4wLXahstnr6T70uUg1Hs7/bLBKKAo9Nl0sLhVjDE8TA+fF+O3IM4nDrwabcSQ=="
       },
       "FluentValidation.AspNetCore": {
         "type": "Transitive",
-        "resolved": "8.6.1",
-        "contentHash": "vRMnNKf8W7Rfj4eOw/OCqDvsUooflCPpv/OUZ86MTevrUoVNJ236XYEegNWsv3U1t4dUcGxpK94VQZYyuBciYQ==",
+        "resolved": "9.3.0",
+        "contentHash": "0ZKHVvNIVgZEGgCe8z4NyVoPaCmM0kTRM0EySC23Enuc4jzBdhI+LtGhcvkF7lAulNlxR2S9IDnLibOM6RDaHg==",
         "dependencies": {
-          "FluentValidation": "8.6.1",
-          "FluentValidation.DependencyInjectionExtensions": "8.6.1"
+          "FluentValidation": "9.3.0",
+          "FluentValidation.DependencyInjectionExtensions": "9.3.0"
         }
       },
       "FluentValidation.DependencyInjectionExtensions": {
         "type": "Transitive",
-        "resolved": "8.6.1",
-        "contentHash": "AsI9IrXuTWbiJdkxMqQn3ZIg3EqfX2RdtaR3vZsXOx+lvAwEVpCdRiKJiypiUV0tkPpH76058MIJRUtNistk1g==",
+        "resolved": "9.3.0",
+        "contentHash": "5PnAIlsApzWPp9rjxfu3xVWSj2qMDeFnEE3P4yx/oIQO1aLhPEEn4yW7JiydP9kpQKAtZ53qwNaOoQ1xSxajuA==",
         "dependencies": {
-          "FluentValidation": "8.6.1",
+          "FluentValidation": "9.3.0",
           "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
         }
       },
@@ -332,15 +329,6 @@
           "System.ComponentModel.Primitives": "4.3.0",
           "System.Reflection.TypeExtensions": "4.5.1",
           "System.Security.Cryptography.Csp": "4.3.0"
-        }
-      },
-      "MicroElements.Swashbuckle.FluentValidation": {
-        "type": "Transitive",
-        "resolved": "3.0.0-rc.4",
-        "contentHash": "5nK9bHmcfxdhG+r3DWQsGynvdAuDNV371NUdz9x6R2IMVbhxg7j7WGtrQS8j8pg+ww/K7dIcML44daiSTQRWEQ==",
-        "dependencies": {
-          "FluentValidation": "8.3.0",
-          "Swashbuckle.AspNetCore": "[5.0.0-rc5, 6.0.0)"
         }
       },
       "Microsoft.ApplicationInsights": {
@@ -1278,11 +1266,6 @@
         "resolved": "1.1.3",
         "contentHash": "3Wrmi0kJDzClwAC+iBdUBpEKmEle8FQNsCs77fkiOIw/9oYA07bL1EZNX0kQ2OMN3xpwvl0vAtOCYY3ndDNlhQ=="
       },
-      "Microsoft.OpenApi": {
-        "type": "Transitive",
-        "resolved": "1.2.3",
-        "contentHash": "Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw=="
-      },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
         "resolved": "16.8.0",
@@ -1702,55 +1685,6 @@
         "type": "Transitive",
         "resolved": "85.0.4183.8300",
         "contentHash": "RhXYndWZgOdByh8im9zvGn98S6TDeDiat/kGlogrdHA5m4IkeEZeCRNM57EOQ6urUiZ/M+O3xhn03CO3TI2xzw=="
-      },
-      "Swashbuckle.AspNetCore": {
-        "type": "Transitive",
-        "resolved": "5.6.3",
-        "contentHash": "UkL9GU0mfaA+7RwYjEaBFvAzL8qNQhNqAeV5uaWUu/Z+fVgvK9FHkGCpTXBqSQeIHuZaIElzxnLDdIqGzuCnVg==",
-        "dependencies": {
-          "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
-          "Swashbuckle.AspNetCore.Swagger": "5.6.3",
-          "Swashbuckle.AspNetCore.SwaggerGen": "5.6.3",
-          "Swashbuckle.AspNetCore.SwaggerUI": "5.6.3"
-        }
-      },
-      "Swashbuckle.AspNetCore.Annotations": {
-        "type": "Transitive",
-        "resolved": "5.6.3",
-        "contentHash": "ucCJueBMJZ86z2w43wwdziBGdvjpkBXndSlr34Zz2dDXXfTA0kIsUbSzS/PWMCOINozJkFSWadWQ0BP+zOxQcA==",
-        "dependencies": {
-          "Swashbuckle.AspNetCore.SwaggerGen": "5.6.3"
-        }
-      },
-      "Swashbuckle.AspNetCore.Newtonsoft": {
-        "type": "Transitive",
-        "resolved": "5.6.3",
-        "contentHash": "nLVhWdyyOoapuA6NiSBPHBZcYiPUR7PaKwDfpojI0z/E/5RTkx1cLy2Ks0pSgtsAiFtwkYPAbqIEDEB+VNIjfA==",
-        "dependencies": {
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.0.0",
-          "Swashbuckle.AspNetCore.SwaggerGen": "5.6.3"
-        }
-      },
-      "Swashbuckle.AspNetCore.Swagger": {
-        "type": "Transitive",
-        "resolved": "5.6.3",
-        "contentHash": "rn/MmLscjg6WSnTZabojx5DQYle2GjPanSPbCU3Kw8Hy72KyQR3uy8R1Aew5vpNALjfUFm2M/vwUtqdOlzw+GA==",
-        "dependencies": {
-          "Microsoft.OpenApi": "1.2.3"
-        }
-      },
-      "Swashbuckle.AspNetCore.SwaggerGen": {
-        "type": "Transitive",
-        "resolved": "5.6.3",
-        "contentHash": "CkhVeod/iLd3ikVTDOwG5sym8BE5xbqGJ15iF3cC7ZPg2kEwDQL4a88xjkzsvC9oOB2ax6B0rK0EgRK+eOBX+w==",
-        "dependencies": {
-          "Swashbuckle.AspNetCore.Swagger": "5.6.3"
-        }
-      },
-      "Swashbuckle.AspNetCore.SwaggerUI": {
-        "type": "Transitive",
-        "resolved": "5.6.3",
-        "contentHash": "BPvcPxQRMsYZ3HnYmGKRWDwX4Wo29WHh14Q6B10BB8Yfbbcza+agOC2UrBFA1EuaZuOsFLbp6E2+mqVNF/Je8A=="
       },
       "System.AppContext": {
         "type": "Transitive",
@@ -3006,12 +2940,21 @@
           "System.ValueTuple": "4.4.0"
         }
       },
+      "ZymLabs.NSwag.FluentValidation": {
+        "type": "Transitive",
+        "resolved": "0.4.0",
+        "contentHash": "k57Y6NAlv1rqgHVbCV33gRfJWWX9JuI+zT4CdV/79P9kEecgtRI9tiLjL0DdMAT+PUWJSWG5VDBccSAQ3ZLuZw==",
+        "dependencies": {
+          "FluentValidation": "9.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.5",
+          "NJsonSchema": "10.1.23"
+        }
+      },
       "notificationapi": {
         "type": "Project",
         "dependencies": {
           "Azure.Identity": "1.3.0",
-          "FluentValidation.AspNetCore": "8.6.1",
-          "MicroElements.Swashbuckle.FluentValidation": "3.0.0-rc.4",
+          "FluentValidation.AspNetCore": "9.3.0",
           "Microsoft.ApplicationInsights.AspNetCore": "2.15.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "3.1.6",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.6",
@@ -3026,9 +2969,7 @@
           "NotificationApi.Services": "1.0.0",
           "Notify": "2.9.0",
           "Scrutor": "3.3.0",
-          "Swashbuckle.AspNetCore": "5.6.3",
-          "Swashbuckle.AspNetCore.Annotations": "5.6.3",
-          "Swashbuckle.AspNetCore.Newtonsoft": "5.6.3"
+          "ZymLabs.NSwag.FluentValidation": "0.4.0"
         }
       },
       "notificationapi.common": {

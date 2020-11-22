@@ -56,16 +56,16 @@ namespace NotificationApi.Client
         /// <summary>Check Service Health</summary>
         /// <returns>Error if fails, otherwise OK status</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAsync()
+        public System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync()
         {
-            return CheckServiceHealthAsync(System.Threading.CancellationToken.None);
+            return CheckServiceHealthAuthAsync(System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Check Service Health</summary>
         /// <returns>Error if fails, otherwise OK status</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Health/health");
@@ -140,16 +140,16 @@ namespace NotificationApi.Client
         /// <summary>Check Service Health</summary>
         /// <returns>Error if fails, otherwise OK status</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync()
+        public System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuth2Async()
         {
-            return CheckServiceHealthAuthAsync(System.Threading.CancellationToken.None);
+            return CheckServiceHealthAuth2Async(System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Check Service Health</summary>
         /// <returns>Error if fails, otherwise OK status</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuth2Async(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/HealthAuth/health-auth");
@@ -200,6 +200,12 @@ namespace NotificationApi.Client
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new ApiException<HealthResponse>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 401)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         {
