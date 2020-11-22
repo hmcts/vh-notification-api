@@ -17,7 +17,6 @@ using NotificationApi.DAL;
 using NotificationApi.Extensions;
 using NotificationApi.Middleware.Logging;
 using NotificationApi.Middleware.Validation;
-using ZymLabs.NSwag.FluentValidation;
 
 namespace NotificationApi
 {
