@@ -99,8 +99,9 @@ namespace NotificationApi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.RunLatestMigrations();
-
-            app.UseSwagger();
+            
+            // app.UseSwagger();
+            app.UseOpenApi();
             app.UseSwaggerUI(c =>
             {
                 const string url = "/swagger/v1/swagger.json";

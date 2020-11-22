@@ -34,6 +34,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
     <PackageReference Include="Notify" Version="2.9.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.9.4" />
+    <PackageReference Include="NSwag.MSBuild" Version="13.9.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Scrutor" Version="3.3.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
       <PrivateAssets>all</PrivateAssets>
@@ -61,4 +66,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+    
+<!--  <Target Name="NSwag" BeforeTargets="AfterBuild" Condition="'$(TF_BUILD)'!='True'">-->
+<!--    <Exec ConsoleToMSBuild="true" ContinueOnError="true" Command="$(NSwagExe_Core31) run nswag.json /runtime:NetCore31 /variables:Configuration=$(Configuration)">-->
+<!--        <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />-->
+<!--        <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />-->
+<!--    </Exec>-->
+
+<!--    <Message Text="$(NSwagOutput)" Importance="low" />-->
+<!--    <Error Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' != '0'" />-->
+<!--  </Target>-->
+
+    <Target Name="NSwag" AfterTargets="Build" Condition="'$(TF_BUILD)'!='True'">
+        <Copy SourceFiles="@(ReferencePath)" DestinationFolder="$(OutDir)References" />
+        <Exec Command="$(NSwagExe_Core31) run nswag.json /variables:ProjectPath=&quot;$(MSBuildProjectFullPath)&quot;" />
+        <RemoveDir Directories="$(OutDir)References" />
+    </Target>
 </Project>

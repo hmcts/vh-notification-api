@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationApi.AcceptanceT
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1AA310C5-D155-44E7-A18D-4D2564868DE0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{E5BAE221-2CFD-48BE-B384-485E69064B87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationApi.Client", "NotificationApi.Client\NotificationApi.Client.csproj", "{E63B741E-DB06-4894-9BF4-A7753C0502D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,10 @@ Global
 		{1AA310C5-D155-44E7-A18D-4D2564868DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA310C5-D155-44E7-A18D-4D2564868DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AA310C5-D155-44E7-A18D-4D2564868DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E63B741E-DB06-4894-9BF4-A7753C0502D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E63B741E-DB06-4894-9BF4-A7753C0502D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E63B741E-DB06-4894-9BF4-A7753C0502D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E63B741E-DB06-4894-9BF4-A7753C0502D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +94,7 @@ Global
 		{3EAF6BD8-3DE3-44BB-8116-09DEA9817BC2} = {4078E3A9-2AB6-4EF8-8904-B26E83CCA081}
 		{FDB89873-F1ED-4159-A654-4A73BF27F381} = {4078E3A9-2AB6-4EF8-8904-B26E83CCA081}
 		{B0F53513-880B-4409-BD93-AE3B668A6FD1} = {4078E3A9-2AB6-4EF8-8904-B26E83CCA081}
+		{E63B741E-DB06-4894-9BF4-A7753C0502D8} = {E5BAE221-2CFD-48BE-B384-485E69064B87}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6CCE57AE-E1E8-4567-AE3E-5E67544DB59A}
