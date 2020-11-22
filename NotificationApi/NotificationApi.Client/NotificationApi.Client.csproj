@@ -11,6 +11,15 @@
         <RepositoryUrl>https://github.com/hmcts/vh-notification-api</RepositoryUrl>
     </PropertyGroup>
     
+    <PropertyGroup Condition="'$(TF_BUILD)'=='True'">
+        <Version>$(GitVersion.NuGetVersion)</Version>
+        <PackageOutputPath>$(Build.ArtifactStagingDirectory)</PackageOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TF_BUILD)'=='True' AND '$(System.PullRequest.TargetBranch)' != 'master'">
+        <VersionSuffix>Preview</VersionSuffix>
+    </PropertyGroup>
+    
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
