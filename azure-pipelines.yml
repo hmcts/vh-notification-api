@@ -166,12 +166,11 @@ extends:
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
     releaseParameters:
-      environment: Preview
+      environment: Dev
       subscription: $(pr_Subscription)
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       devOpsResource: vh_notification_api
-      deploymentSlot: production
       appName: vh-notification-api-$(environment)
       resourceGroup: vh-notification-api-$(environment)
       appSettings: ${{ parameters.appSettings }}
@@ -179,7 +178,7 @@ extends:
         - group: vh-notification-api
       acceptanceTestSettings:
         - name: Services:NotificationApiUrl
-          value: $(notification_api_url)
+          value: $(notification_api_url_staging)
         - ${{ each setting in parameters.testSettings }}:
           - name: ${{ setting.name }}
             value: ${{ setting.value }}
