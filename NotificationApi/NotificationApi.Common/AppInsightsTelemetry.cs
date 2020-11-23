@@ -8,18 +8,18 @@ namespace NotificationApi.Common
     /// <summary>
     /// Adds bad request response bodies to AppInsights for better troubleshooting
     /// </summary>
-    public class BadRequestTelemetry : ITelemetryInitializer
+    public class AppInsightsTelemetry : ITelemetryInitializer
     {
         readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BadRequestTelemetry(IHttpContextAccessor httpContextAccessor)
+        public AppInsightsTelemetry(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
         public void Initialize(ITelemetry telemetry)
         {
-            telemetry.Context.Cloud.RoleName = "vh-notify-api";
+            telemetry.Context.Cloud.RoleName = "vh-notification-api";
             
             if (!(telemetry is RequestTelemetry requestTelemetry))
             {

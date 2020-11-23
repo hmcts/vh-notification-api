@@ -61,7 +61,7 @@ namespace NotificationApi.Extensions
             services.AddMemoryCache();
             services.AddScoped<ILoggingDataExtractor, LoggingDataExtractor>();
             services.AddScoped<ITokenProvider, AzureTokenProvider>();
-            services.AddSingleton<ITelemetryInitializer, BadRequestTelemetry>();
+            services.AddSingleton<ITelemetryInitializer, AppInsightsTelemetry>();
 
             services.AddScoped<IQueryHandlerFactory, QueryHandlerFactory>();
             services.AddScoped<IQueryHandler, QueryHandler>();
