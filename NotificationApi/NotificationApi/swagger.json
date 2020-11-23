@@ -36,45 +36,6 @@
           }
         }
       }
-    },
-    "/HealthAuth/health-auth": {
-      "get": {
-        "tags": [
-          "HealthCheckAuth"
-        ],
-        "summary": "Check Service Health\n            ",
-        "operationId": "CheckServiceHealthAuth2",
-        "responses": {
-          "200": {
-            "description": "Error if fails, otherwise OK status",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
     }
   },
   "components": {
@@ -83,13 +44,66 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "version": {
+          "database_health": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/HealthCheck"
+              }
+            ]
+          },
+          "app_version": {
             "nullable": true,
             "oneOf": [
               {
                 "$ref": "#/components/schemas/AppVersionResponse"
               }
             ]
+          }
+        }
+      },
+      "HealthCheck": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "successful": {
+            "type": "boolean"
+          },
+          "error_message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/IDictionary"
+              }
+            ]
+          }
+        }
+      },
+      "IDictionary": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "Item": {
+            "nullable": true
+          },
+          "Keys": {
+            "type": "array",
+            "items": {}
+          },
+          "Values": {
+            "type": "array",
+            "items": {}
+          },
+          "IsReadOnly": {
+            "type": "boolean"
+          },
+          "IsFixedSize": {
+            "type": "boolean"
           }
         }
       },

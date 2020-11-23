@@ -1,10 +1,14 @@
 namespace NotificationApi.Contract.Responses
 {
     public class HealthResponse
-    { public AppVersionResponse Version { get; set; }
+    {
+        public HealthCheck DatabaseHealth { get; set; }
+        public AppVersionResponse AppVersion { get; set; }
+
         public HealthResponse()
         {
-            Version = new AppVersionResponse();
+            DatabaseHealth = new HealthCheck();
+            AppVersion = new AppVersionResponse();
         }
     }
 }

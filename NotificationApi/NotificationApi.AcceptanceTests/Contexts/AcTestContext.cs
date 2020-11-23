@@ -1,6 +1,11 @@
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using AcceptanceTests.Common.Api;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.AudioRecordings;
+using NotificationApi.Client;
 using RestSharp;
 using Testing.Common.Configuration;
 
@@ -13,6 +18,9 @@ namespace NotificationApi.AcceptanceTests.Contexts
         public IRestResponse Response { get; set; }
         public NotificationApiTokens Tokens { get; set; }
         public AzureStorageManager AzureStorage { get; set; }
+        public NotificationApiClient ApiClient { get; set; }
+        public object ApiClientResponse { get; set; }
+        public string ApiClientMessage { get; set; }
 
         public RestClient Client()
         {
@@ -21,6 +29,21 @@ namespace NotificationApi.AcceptanceTests.Contexts
             client.AddDefaultHeader("Authorization", $"Bearer {Tokens.NotificationApiBearerToken}");
             return client;
         }
+
+        public async Task ExecuteApiRequest<T>(Func<Task<T>> apiFunc)
+        {
+            try
+            {
+                var result = await apiFunc();
+                ApiClientResponse = result;
+            }
+            catch (NotificationApiException e)
+            {
+                ApiClientResponse = e.Response;
+                ApiClientMessage = e.Message;
+            }
+        }
+
 
         public RestRequest Get(string path)
         {

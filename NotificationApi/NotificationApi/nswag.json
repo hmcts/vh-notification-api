@@ -65,7 +65,7 @@
       "disposeHttpClient": true,
       "protectedMethods": [],
       "generateExceptionClasses": true,
-      "exceptionClass": "ApiException",
+      "exceptionClass": "NotificationApiException",
       "wrapDtoExceptions": true,
       "useHttpClientCreationMethod": false,
       "httpClientType": "System.Net.Http.HttpClient",

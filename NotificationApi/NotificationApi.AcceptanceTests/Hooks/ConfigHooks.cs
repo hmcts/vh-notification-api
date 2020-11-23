@@ -1,3 +1,5 @@
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AcceptanceTests.Common.Api;
 using AcceptanceTests.Common.Configuration;
@@ -5,6 +7,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using NotificationApi.AcceptanceTests.Contexts;
+using NotificationApi.Client;
 using NotificationApi.Common.Configuration;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
@@ -18,7 +21,8 @@ namespace NotificationApi.AcceptanceTests.Hooks
 
         public ConfigHooks(AcTestContext context)
         {
-            _configRoot = ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", GetTargetEnvironment());
+            _configRoot =
+                ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", GetTargetEnvironment());
             context.Config = new Config();
             context.Tokens = new NotificationApiTokens();
         }
@@ -28,24 +32,27 @@ namespace NotificationApi.AcceptanceTests.Hooks
             return NUnit.Framework.TestContext.Parameters["TargetEnvironment"] ?? "";
         }
 
-        [BeforeScenario(Order = (int)HooksSequence.ConfigHooks)]
+        [BeforeScenario(Order = (int) HooksSequence.ConfigHooks)]
         public async Task RegisterSecrets(AcTestContext context)
         {
             RegisterAzureSecrets(context);
             RegisterHearingServices(context);
             await GenerateBearerTokens(context);
+            InitApiClient(context);
         }
 
         private void RegisterAzureSecrets(AcTestContext context)
         {
-            context.Config.AzureAdConfiguration = Options.Create(_configRoot.GetSection("AzureAd").Get<AzureAdConfiguration>()).Value;
+            context.Config.AzureAdConfiguration =
+                Options.Create(_configRoot.GetSection("AzureAd").Get<AzureAdConfiguration>()).Value;
             context.Config.AzureAdConfiguration.Authority += context.Config.AzureAdConfiguration.TenantId;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
         }
 
         private void RegisterHearingServices(AcTestContext context)
         {
-            context.Config.ServicesConfig = Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
+            context.Config.ServicesConfig =
+                Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
         }
 
@@ -62,8 +69,17 @@ namespace NotificationApi.AcceptanceTests.Hooks
             context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
                 azureConfig, context.Config.ServicesConfig.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
-            
+
             Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);
+        }
+
+        private void InitApiClient(AcTestContext context)
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("bearer", context.Tokens.NotificationApiBearerToken);
+            var baseUrl = context.Config.ServicesConfig.NotificationApiUrl;
+            context.ApiClient = NotificationApiClient.GetClient(baseUrl, httpClient);
         }
     }
 

@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NotificationApi.Client\NotificationApi.Client.csproj" />
     <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" />
     <ProjectReference Include="..\NotificationApi.Domain\NotificationApi.Domain.csproj" />
     <ProjectReference Include="..\NotificationApi\NotificationApi.csproj" />
