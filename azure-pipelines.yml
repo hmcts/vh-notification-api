@@ -167,16 +167,16 @@ extends:
     ACTest: ${{ parameters.RunACTests }}
     releaseParameters:
       environment: Preview
-
       subscription: $(pr_Subscription)
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       devOpsResource: vh_notification_api
+      deploymentSlot: production
       appName: vh-notification-api-$(environment)
       resourceGroup: vh-notification-api-$(environment)
+      appSettings: ${{ parameters.appSettings }}
       variables:
         - group: vh-notification-api
-      appSettings: ${{ parameters.appSettings }}
       acceptanceTestSettings:
         - name: Services:NotificationApiUrl
           value: $(notification_api_url)
