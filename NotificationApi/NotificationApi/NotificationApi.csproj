@@ -63,20 +63,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-    
-<!--  <Target Name="NSwag" BeforeTargets="AfterBuild" Condition="'$(TF_BUILD)'!='True'">-->
-<!--    <Exec ConsoleToMSBuild="true" ContinueOnError="true" Command="$(NSwagExe_Core31) run nswag.json /runtime:NetCore31 /variables:Configuration=$(Configuration)">-->
-<!--        <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />-->
-<!--        <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />-->
-<!--    </Exec>-->
 
-<!--    <Message Text="$(NSwagOutput)" Importance="low" />-->
-<!--    <Error Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' != '0'" />-->
-<!--  </Target>-->
-
-    <Target Name="NSwag" AfterTargets="Build" Condition="'$(TF_BUILD)'!='True'">
-        <Copy SourceFiles="@(ReferencePath)" DestinationFolder="$(OutDir)References" />
-        <Exec Command="$(NSwagExe_Core31) run nswag.json /variables:ProjectPath=&quot;$(MSBuildProjectFullPath)&quot;" />
-        <RemoveDir Directories="$(OutDir)References" />
-    </Target>
+  <Target Name="NSwag" AfterTargets="Build" Condition="'$(TF_BUILD)'!='True'">
+    <Copy SourceFiles="@(ReferencePath)" DestinationFolder="$(OutDir)References" />
+    <Exec Command="$(NSwagExe_Core31) run nswag.json /variables:ProjectPath=&quot;$(MSBuildProjectFullPath)&quot;" />
+    <RemoveDir Directories="$(OutDir)References" />
+  </Target>
 </Project>
