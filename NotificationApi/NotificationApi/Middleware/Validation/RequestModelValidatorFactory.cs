@@ -15,7 +15,11 @@ namespace NotificationApi.Middleware.Validation
         public override IValidator CreateInstance(Type validatorType)
         {
             var validator = (IValidator)_serviceProvider.GetService(validatorType);
-            if(validator == null) throw new InvalidOperationException($"No validator found for {validatorType}");
+            var isApiRequestContract = validatorType.FullName?.Contains("NotificationApi.Contract.Requests");
+            if (validator == null && isApiRequestContract.HasValue && isApiRequestContract.Value)
+            {
+                throw new InvalidOperationException($"No validator found for {validatorType}");
+            }
             return validator;
         }
     }
