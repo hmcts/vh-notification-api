@@ -42,6 +42,14 @@ parameters:
 - name: testSettings
   type: object
   default:
+    - name: ApplicationInsights:InstrumentationKey
+      value: vh-core-infra-AppInsightsKey
+    - name: AzureAd:ClientId
+      value: vh-notification-api-appid
+      secret: true
+    - name: Services:VhNotificationApiResourceId
+      value: vh-notification-api-identifieruris
+      secret: true
     
     # GOV Notify Configuration
     - name: NotifyConfiguration:ApiKey
