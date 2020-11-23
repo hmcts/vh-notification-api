@@ -9,10 +9,10 @@ namespace NotificationApi.AcceptanceTests
     public class TestSetupFixture
     {
         private ServicesConfiguration ServicesConfiguration => new ConfigurationBuilder()
-                                                            .AddJsonFile("appsettings.json")
-                                                            .Build()
-                                                            .GetSection("Services")
-                                                            .Get<ServicesConfiguration>();
+            .AddJsonFile("appsettings.json")
+            .Build()
+            .GetSection("Services")
+            .Get<ServicesConfiguration>();
 
         [OneTimeSetUp]
         public void ZapStart()
@@ -23,7 +23,7 @@ namespace NotificationApi.AcceptanceTests
         [OneTimeTearDown]
         public void ZapReport()
         {
-            Zap.ReportAndShutDown("NotifyApi - Acceptance",ServicesConfiguration.NotificationApiUrl); 
+            Zap.ReportAndShutDown("NotifyApi - Acceptance", ServicesConfiguration.NotificationApiUrl);
         }
     }
 }
