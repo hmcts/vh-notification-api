@@ -70,7 +70,7 @@ parameters:
   - name: AzureAd:TenantId
     value: tenantid
     secret: true
-  - name: Services:VhNotificationApiResourceId
+  - name: VhServices:VhNotificationApiResourceId
     value: vh-notification-api-identifieruris
     secret: true
   
