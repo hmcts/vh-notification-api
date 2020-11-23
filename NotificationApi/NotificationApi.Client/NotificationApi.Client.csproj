@@ -17,7 +17,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TF_BUILD)'=='True' AND '$(System.PullRequest.TargetBranch)' != 'master'">
-        <VersionSuffix>Preview</VersionSuffix>
+        <VersionSuffix>-beta</VersionSuffix>
     </PropertyGroup>
     
     <ItemGroup>
