@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using NotificationApi.AcceptanceTests.Contexts;
 using NotificationApi.Client;
 using NotificationApi.Common.Configuration;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
 
@@ -29,35 +30,42 @@ namespace NotificationApi.AcceptanceTests.Hooks
 
         private static string GetTargetEnvironment()
         {
-            return NUnit.Framework.TestContext.Parameters["TargetEnvironment"] ?? "";
+            return TestContext.Parameters["TargetEnvironment"] ?? "";
         }
 
         [BeforeScenario(Order = (int) HooksSequence.ConfigHooks)]
         public async Task RegisterSecrets(AcTestContext context)
         {
+            await TestContext.Out.WriteLineAsync("Registering secrets");
             RegisterAzureSecrets(context);
             RegisterHearingServices(context);
             await GenerateBearerTokens(context);
             InitApiClient(context);
+            await TestContext.Out.WriteLineAsync("Registering secrets complete");
         }
 
         private void RegisterAzureSecrets(AcTestContext context)
         {
+            TestContext.Out.WriteLine("Registering Azure secrets");
             context.Config.AzureAdConfiguration =
                 Options.Create(_configRoot.GetSection("AzureAd").Get<AzureAdConfiguration>()).Value;
             context.Config.AzureAdConfiguration.Authority += context.Config.AzureAdConfiguration.TenantId;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
+            TestContext.Out.WriteLine("Registering Azure secrets complete");
         }
 
         private void RegisterHearingServices(AcTestContext context)
         {
+            TestContext.Out.WriteLine("Registering hearing services");
             context.Config.ServicesConfig =
                 Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
+            TestContext.Out.WriteLine("Registering hearing services complete");
         }
 
         private static async Task GenerateBearerTokens(AcTestContext context)
         {
+            await TestContext.Out.WriteLineAsync("Generating bearer tokens");
             var azureConfig = new AzureAdConfig()
             {
                 Authority = context.Config.AzureAdConfiguration.Authority,
@@ -68,13 +76,14 @@ namespace NotificationApi.AcceptanceTests.Hooks
 
             context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
                 azureConfig, context.Config.ServicesConfig.VhNotificationApiResourceId);
-            context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
+            context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty("Bearer token for api must be set");
 
             Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);
         }
 
-        private void InitApiClient(AcTestContext context)
+        private static void InitApiClient(AcTestContext context)
         {
+            TestContext.Out.WriteLine("Initialising API Client");
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("bearer", context.Tokens.NotificationApiBearerToken);

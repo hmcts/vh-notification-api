@@ -75,6 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="ApiTests\*.feature" />
+    <Content Include="ApiTests\*.feature.cs" />
   </ItemGroup>
 </Project>
