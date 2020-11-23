@@ -9,6 +9,11 @@ parameters:
   type: boolean
   default: true
 
+- name: PackageNuget
+  displayName: Package Nuget Project
+  type: boolean
+  default: true
+
 - name: RunUnitTests
   displayName: Run Unit Tests
   type: boolean
@@ -122,6 +127,8 @@ extends:
     useNugetConfig: true
     nugetConfigPath: NotificationApi
     coreProjectPath: NotificationApi/NotificationApi
+    nugetProjectPath: NotificationApi/NotificationApi.Client
+    PackageNuget: ${{ parameters.PackageNuget }}
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
