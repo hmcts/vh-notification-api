@@ -166,7 +166,7 @@ extends:
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
     releaseParameters:
-      environment: Dev
+      environment: Preview
       subscription: $(pr_Subscription)
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
