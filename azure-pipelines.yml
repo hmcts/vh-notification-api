@@ -12,7 +12,7 @@ parameters:
 - name: PackageNuget
   displayName: Package Nuget Project
   type: boolean
-  default: true
+  default: false
 
 - name: RunUnitTests
   displayName: Run Unit Tests
@@ -178,7 +178,7 @@ extends:
       appSettings: ${{ parameters.appSettings }}
       acceptanceTestSettings:
         - name: Services:NotificationApiUrl
-          value: $(notification_api_url_staging)
+          value: $(notification_api_url)
         - ${{ each setting in parameters.testSettings }}:
           - name: ${{ setting.name }}
             value: ${{ setting.value }}
