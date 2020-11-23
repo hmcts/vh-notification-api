@@ -12,7 +12,7 @@ parameters:
 - name: PackageNuget
   displayName: Package Nuget Project
   type: boolean
-  default: false
+  default: true
 
 - name: RunUnitTests
   displayName: Run Unit Tests
