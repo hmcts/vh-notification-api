@@ -66,6 +66,7 @@ parameters:
   default:
   - name: ApplicationInsights:InstrumentationKey
     value: vh-core-infra-AppInsightsKey
+    secret: true
   - name: AzureAd:ClientId
     value: vh-notification-api-appid
     secret: true
