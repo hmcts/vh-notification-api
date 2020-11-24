@@ -103,7 +103,6 @@ extends:
           - name: ApplicationInsights:InstrumentationKey
             value: vh-core-infra-AppInsightsKey
             secret: true
-
           # AzureAd
           - name: AzureAd:ClientId
             value: vh-notification-api-appid
@@ -114,19 +113,13 @@ extends:
           - name: AzureAd:TenantId
             value: tenantid
             secret: true
-          - name: AzureAd:VhVideoWebResourceId
-            value: vh-notification-api-identifieruris
-            secret: true
-            
-          # Services          
-          - name: Services:VhNotificationApiResourceId
+          - name: AzureAd:VhNotificationApiResourceId
             value: vh-notification-api-identifieruris
             secret: true
 
           # GOV Notify Configuration
           - name: NotifyConfiguration:ApiKey
             value: $(notify-api-key)
-            secret: true
             
           # Connection strings
           - name: ConnectionStrings:VhNotificationsApi
@@ -153,7 +146,7 @@ extends:
             value: vh-notification-api-identifieruris
             secret: true
           - name: Services:NotificationApiUrl
-            value: $(notification_api_url)
+            value: $(notification_api_url_staging)
 
           # GOV Notify Configuration
           - name: NotifyConfiguration:ApiKey
