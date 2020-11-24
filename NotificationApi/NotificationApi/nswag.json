@@ -46,7 +46,7 @@
       "createWebHostBuilderMethod": null,
       "startupType": null,
       "allowNullableBodyParameters": true,
-      "output": "swagger.json",
+      "output": null,
       "outputType": "Swagger2",
       "assemblyPaths": [],
       "assemblyConfig": null,
