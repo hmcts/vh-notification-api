@@ -47,6 +47,12 @@ parameters:
     - name: AzureAd:ClientId
       value: vh-notification-api-appid
       secret: true
+    - name: AzureAd:ClientSecret
+      value: vh-notification-api-key
+      secret: true
+    - name: AzureAd:TenantId
+      value: tenantid
+      secret: true
     - name: Services:VhNotificationApiResourceId
       value: vh-notification-api-identifieruris
       secret: true
