@@ -60,7 +60,8 @@ resources:
   pipelines:
   - pipeline: CI
     source: hmcts.vh-notification-api
-    trigger: 
+    trigger:
+      enabled: true
       branches:
       - master
       - hotfix/*
