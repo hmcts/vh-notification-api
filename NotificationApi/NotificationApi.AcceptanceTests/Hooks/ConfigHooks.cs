@@ -80,8 +80,6 @@ namespace NotificationApi.AcceptanceTests.Hooks
             context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
                 azureConfig, context.Config.ServicesConfig.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty("Bearer token for api must be set");
-
-            Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);
         }
 
         private static void InitApiClient(AcTestContext context)
