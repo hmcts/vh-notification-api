@@ -67,7 +67,7 @@ resources:
       - release/*
 
 extends:
-  - template: templates/vh-release.yml@templates
+    template: templates/vh-release.yml@templates
     parameters:
       ${{ if ne(variables['Build.Reason'], 'ResourceTrigger') }}:
         environments:
