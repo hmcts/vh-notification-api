@@ -50,6 +50,9 @@ namespace NotificationApi.AcceptanceTests.Hooks
             context.Config.AzureAdConfiguration =
                 Options.Create(_configRoot.GetSection("AzureAd").Get<AzureAdConfiguration>()).Value;
             context.Config.AzureAdConfiguration.Authority += context.Config.AzureAdConfiguration.TenantId;
+            context.Config.AzureAdConfiguration.ClientId.Should().NotBeNullOrWhiteSpace();
+            context.Config.AzureAdConfiguration.ClientSecret.Should().NotBeNullOrWhiteSpace();
+            context.Config.AzureAdConfiguration.TenantId.Should().NotBeNullOrWhiteSpace();
             ConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
             TestContext.Out.WriteLine("Registering Azure secrets complete");
         }
