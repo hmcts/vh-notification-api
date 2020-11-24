@@ -60,14 +60,15 @@ resources:
   pipelines:
   - pipeline: CI
     source: hmcts.vh-notification-api
-    trigger: 
+    trigger:
+      enabled: true
       branches:
       - master
       - hotfix/*
       - release/*
 
 extends:
-  - template: templates/vh-release.yml@templates
+    template: templates/vh-release.yml@templates
     parameters:
       ${{ if ne(variables['Build.Reason'], 'ResourceTrigger') }}:
         environments:
