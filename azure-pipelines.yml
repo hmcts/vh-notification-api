@@ -7,7 +7,12 @@ parameters:
 - name: PackageACTests
   displayName: Package Acceptance Tests
   type: boolean
-  default: false
+  default: true
+
+- name: PackageNuget
+  displayName: Package Nuget Project
+  type: boolean
+  default: true
 
 - name: RunUnitTests
   displayName: Run Unit Tests
@@ -32,7 +37,7 @@ parameters:
 - name: RunACTests
   displayName: Run Acceptance Tests
   type: boolean
-  default: false
+  default: true
 
 - name: testSettings
   type: object
@@ -51,8 +56,6 @@ parameters:
     - name: Services:VhNotificationApiResourceId
       value: vh-notification-api-identifieruris
       secret: true
-    - name: Services:NotificationApiUrl
-      value: $(notification_api_url)
     
     # GOV Notify Configuration
     - name: NotifyConfiguration:ApiKey
@@ -63,6 +66,7 @@ parameters:
   default:
   - name: ApplicationInsights:InstrumentationKey
     value: vh-core-infra-AppInsightsKey
+    secret: true
   - name: AzureAd:ClientId
     value: vh-notification-api-appid
     secret: true
@@ -75,17 +79,14 @@ parameters:
   - name: VhServices:VhNotificationApiResourceId
     value: vh-notification-api-identifieruris
     secret: true
-  - name: Services:NotificationApiUrl
-    value: $(notification_api_url)
   
   # GOV Notify Configuration
   - name: NotifyConfiguration:ApiKey
     value: $(notify-api-key)
-    secret: true
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi
-    value: NotificationApiDb-connection-str
+    value: vhnotificationDatabaseConnectionString
     secret: true
 
 variables:
@@ -111,7 +112,7 @@ resources:
     - repository: templates
       type: github
       name: hmcts/azure-devops-templates
-      ref: refs/heads/master
+      ref: refs/heads/feature/support-nuget-config
       endpoint: hmcts_shaed
   containers:
   - container: dotnetsdk
@@ -124,15 +125,21 @@ resources:
 extends:
   template: stages\dotnet-package.yml@templates
   parameters:
-    coreProjectPath: NotifcationAPI/Notifcations.API
+    useNugetConfig: true
+    nugetConfigPath: NotificationApi
+    coreProjectPath: NotificationApi/NotificationApi
+    nugetProjectPath: NotificationApi/NotificationApi.Client
+    PackageNuget: ${{ parameters.PackageNuget }}
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     testParameters:
       baseAgent: windows-latest
-      coreProjectPath: NotifcationAPI/Notifcations.API
-      unitTestProjectPath: NotifcationAPI/NotificationApi.UnitTests
-      integTestProjectPath: NotifcationAPI/NotificationApi.IntegrationTests
+      coreProjectPath: NotificationApi/NotificationApi
+      useNugetConfig: true
+      nugetConfigPath: NotificationApi
+      unitTestProjectPath: NotificationApi/NotificationApi.UnitTests
+      integTestProjectPath: NotificationApi/NotificationApi.IntegrationTests
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       RunUnitTests: ${{ parameters.RunUnitTests }}
@@ -149,27 +156,26 @@ extends:
         - group: vh-notification-api
       coverletCoverageExclusions:
         - "[NotificationApi.*Tests?]*"
-        - "[NotificationApi.API]Startup"
+        - "[NotificationApi]Startup"
         - "[NotificationApi.Common]*"
         - "[Testing.Common]*"
       sonarCloud_ExtraProperties: |
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
-        sonar.coverage.exclusions="**/Notification.API/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotifcationAPI.Common/**, **/NotifcationAPI.IntegrationTests/**, **/NotifcationAPI.UnitTests/**, **/Notifcation.API/Extensions/**"
-        sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/Notification.API/Swagger/**"
+        sonar.coverage.exclusions="**/NotificationApi/Swagger/**, **/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationApi.Common/**, **/NotificationApi.IntegrationTests/**, **/NotificationApi.UnitTests/**, **/NotificationApi/Extensions/**"
+        sonar.cpd.exclusions="**/Program.cs, **/Startup.cs, **/Testing.Common/**, **/NotificationApi/Swagger/**"
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
     releaseParameters:
       environment: Preview
-
       subscription: $(pr_Subscription)
       secrets_KeyVault: $(pr_Secret_KeyVault)
       secrets_Subscription: $(pr_Secret_Subscription)
       devOpsResource: vh_notification_api
-      appName: vh-notifcation-api-$(environment)
+      appName: vh-notification-api-$(environment)
       resourceGroup: vh-notification-api-$(environment)
+      appSettings: ${{ parameters.appSettings }}
       variables:
         - group: vh-notification-api
-      appSettings: ${{ parameters.appSettings }}
       acceptanceTestSettings:
         - name: Services:NotificationApiUrl
           value: $(notification_api_url_staging)

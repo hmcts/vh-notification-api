@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>VH Notification API client</Title>
+        <Authors>HMCTS VH</Authors>
+        <Description>.NET client for Notification API</Description>
+        <PackageProjectUrl>https://github.com/hmcts/vh-notification-api</PackageProjectUrl>
+        <License>https://github.com/hmcts/vh-notification-api/blob/master/LICENSE</License>
+        <RepositoryUrl>https://github.com/hmcts/vh-notification-api</RepositoryUrl>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" />
+      <ProjectReference Include="..\NotificationApi\NotificationApi.csproj" />
+    </ItemGroup>
+</Project>
