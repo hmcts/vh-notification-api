@@ -10,7 +10,6 @@ using NotificationApi.Common.Helpers;
 using NotificationApi.Common.Security;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries.Core;
-using NotificationApi.Services;
 using NotificationApi.Swagger;
 using Notify.Client;
 using Notify.Interfaces;
@@ -55,8 +54,6 @@ namespace NotificationApi.Extensions
                 var notifyConfiguration = sp.GetService<IOptions<NotifyConfiguration>>().Value;
                 return new NotificationClient(notifyConfiguration.ApiKey);
             });
-
-            services.AddScoped<INotificationService, NotificationService>();
             
             services.AddMemoryCache();
             services.AddScoped<ILoggingDataExtractor, LoggingDataExtractor>();
