@@ -19,4 +19,10 @@
       <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" />
       <ProjectReference Include="..\NotificationApi\NotificationApi.csproj" />
     </ItemGroup>
+
+    <Target Name="PrePackage" BeforeTargets="BuildPackage">
+        <PropertyGroup>
+            <BuildCommand>$(BuildCommand) -IncludeReferencedProjects</BuildCommand>
+        </PropertyGroup>
+    </Target>
 </Project>
