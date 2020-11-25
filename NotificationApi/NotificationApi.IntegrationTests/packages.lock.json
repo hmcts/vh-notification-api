@@ -2985,10 +2985,7 @@
         }
       },
       "notificationapi.contract": {
-        "type": "Project",
-        "dependencies": {
-          "System.ComponentModel.Annotations": "4.7.0"
-        }
+        "type": "Project"
       },
       "notificationapi.dal": {
         "type": "Project",

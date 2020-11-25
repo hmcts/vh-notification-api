@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>VH Notification API client</Title>
         <Authors>HMCTS VH</Authors>
@@ -16,12 +16,6 @@
     </ItemGroup>
     
     <ItemGroup>
-      <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" />
+      <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" PrivateAssets="all" />
     </ItemGroup>
-
-    <Target Name="PrePackage" BeforeTargets="BuildPackage">
-        <PropertyGroup>
-            <BuildCommand>$(BuildCommand) -IncludeReferencedProjects</BuildCommand>
-        </PropertyGroup>
-    </Target>
 </Project>
