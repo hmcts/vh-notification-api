@@ -17,7 +17,6 @@
     
     <ItemGroup>
       <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" />
-      <ProjectReference Include="..\NotificationApi\NotificationApi.csproj" />
     </ItemGroup>
 
     <Target Name="PrePackage" BeforeTargets="BuildPackage">
