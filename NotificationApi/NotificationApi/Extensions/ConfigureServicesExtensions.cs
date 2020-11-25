@@ -56,8 +56,8 @@ namespace NotificationApi.Extensions
                 return new NotificationClient(notifyConfiguration.ApiKey);
             });
 
-            services.AddScoped<INotificationService, NotificationService>();
-            
+            services.AddScoped<ITemplateService, TemplateService>();
+
             services.AddMemoryCache();
             services.AddScoped<ILoggingDataExtractor, LoggingDataExtractor>();
             services.AddScoped<ITokenProvider, AzureTokenProvider>();
