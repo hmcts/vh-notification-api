@@ -2,6 +2,7 @@ namespace NotificationApi.Domain.Enums
 {
     public enum NotificationType
     {
-        CreateUser = 1       
+        CreateIndividual = 1,
+        CreateRepresentative = 2
     }
 }
