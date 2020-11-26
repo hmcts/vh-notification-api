@@ -19,7 +19,23 @@ namespace NotificationApi.Client
     using System = global::System;
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class NotificationApiClient 
+    public partial interface INotificationApiClient
+    {
+        /// <summary>Check Service Health</summary>
+        /// <returns>Error if fails, otherwise OK status</returns>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync();
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>Check Service Health</summary>
+        /// <returns>Error if fails, otherwise OK status</returns>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync(System.Threading.CancellationToken cancellationToken);
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
+    public partial class NotificationApiClient : INotificationApiClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
