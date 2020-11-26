@@ -1,5 +1,5 @@
 using System;
-using NotificationApi.Domain.Enums;
+using System.Collections.Generic;
 
 namespace NotificationApi.Contract.Requests
 {
@@ -8,14 +8,12 @@ namespace NotificationApi.Contract.Requests
     /// </summary>
     public class AddNotificationRequest
     {
-        public Guid ExternalId { get; set; }
         public string ContactEmail { get; set; }
-        public NotificationType NotificationType { get; set; }
+        public int NotificationType { get; set; }
         public string PhoneNumber { get; set; }
-        public string HearingId { get; set; }
-        public string ParticipantId { get; set; }
-        public MessageType MessageType { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public Guid HearingId { get; set; }
+        public Guid ParticipantId { get; set; }
+        public int MessageType { get; set; }
+        public Dictionary<string, string> Parameters { get; set; }
     }
 }
