@@ -123,9 +123,8 @@ namespace NotificationApi
             app.UseCors("CorsPolicy");
 
             app.UseMiddleware<ExceptionMiddleware>();
+
             app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
-            
-            app.UseMiddleware<LogResponseBodyMiddleware>();
         }
 
         private static void AddPolicies(AuthorizationOptions options)
