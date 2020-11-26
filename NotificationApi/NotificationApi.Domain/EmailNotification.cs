@@ -12,8 +12,8 @@ namespace NotificationApi.Domain
         {
         }
 
-        public EmailNotification(NotificationType notificationType, string payload, string toEmail,
-            Guid participantRefId, Guid hearingRefId) : base(notificationType, payload, participantRefId, hearingRefId)
+        public EmailNotification(NotificationType notificationType, string toEmail,
+            Guid participantRefId, Guid hearingRefId) : base(notificationType, participantRefId, hearingRefId)
         {
             ToEmail = toEmail;
         }
