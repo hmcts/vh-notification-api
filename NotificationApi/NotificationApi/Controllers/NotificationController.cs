@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -8,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Common;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Contract.Responses;
-using NotificationApi.DAL;
+using NotificationApi.DAL.Commands;
+using NotificationApi.DAL.Commands.Core;
+using NotificationApi.DAL.Queries;
+using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
-using NotificationApi.Services;
 using Notify.Interfaces;
 
 namespace NotificationApi.Controllers
@@ -21,23 +21,27 @@ namespace NotificationApi.Controllers
     [ApiController]
     public class NotificationController : ControllerBase
     {
-        private readonly ITemplateService _templateService;
+        private readonly IQueryHandler _queryHandler;
         private readonly IAsyncNotificationClient _asyncNotificationClient;
-        private readonly NotificationsApiDbContext _notificationsApiDbContext;
+        private readonly ICommandHandler _commandHandler;
 
-        public NotificationController(ITemplateService templateService, IAsyncNotificationClient asyncNotificationClient, NotificationsApiDbContext notificationsApiDbContext)
+        public NotificationController(IQueryHandler queryHandler, IAsyncNotificationClient asyncNotificationClient, ICommandHandler commandHandler)
         {
-            _templateService = templateService;
+            _queryHandler = queryHandler;
             _asyncNotificationClient = asyncNotificationClient;
-            _notificationsApiDbContext = notificationsApiDbContext;
+            _commandHandler = commandHandler;
         }
 
         [HttpGet("template/{notificationType}")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetTemplateByNotificationType(NotificationType notificationType)
+        public async Task<IActionResult> GetTemplateByNotificationType(int notificationType)
         {
-            var template = await _templateService.GetTemplateByNotificationType(notificationType);
+            var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
+            if (template == null)
+            {
+                throw new BadRequestException($"Invalid {nameof(notificationType)}: {notificationType}");
+            }
 
             return Ok(new NotificationTemplateResponse
             {
@@ -54,20 +58,18 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
         public async Task<IActionResult> CreateNewNotificationResponse(AddNotificationRequest request)
         {
-            var template = await _templateService.GetTemplateByNotificationType((NotificationType)request.NotificationType);
-           
-            var notification = new EmailNotification((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
-            _notificationsApiDbContext.Notifications.Add(notification); 
-            await _notificationsApiDbContext.SaveChangesAsync();
+            var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)request.NotificationType));
+            if (template == null)
+            {
+                throw new BadRequestException($"Invalid {nameof(request.NotificationType)}: {request.NotificationType}");
+            }
+
+            var notification = await _queryHandler.Handle<CreateEmailNotificationQuery, Notification>(new CreateEmailNotificationQuery(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId));
 
             var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);
             var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(request.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters);
-            notification.AssignPayload(emailNotificationResponse.content.body);
-            notification.AssignExternalId(emailNotificationResponse.id);
 
-            notification.UpdateDeliveryStatus(DeliveryStatus.Created);
-
-            await _notificationsApiDbContext.SaveChangesAsync();
+            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.Id, emailNotificationResponse.id, emailNotificationResponse.content.body));
 
             return Ok();
         }
