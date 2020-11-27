@@ -28,7 +28,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
         [Test]
         public async Task should_update_delivery_status_for_notification()
         {
-            var notification = await TestDataManager.SeedNotification();
+            var notification = await TestDataManager.SeedSendingNotification();
             _notifications.Add(notification);
             const DeliveryStatus deliveryStatus = DeliveryStatus.Delivered;
 
@@ -58,7 +58,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
         [Test]
         public async Task should_throw_mismatch_id_exception_when_id_and_external_id_do_not_match()
         {
-            var notification = await TestDataManager.SeedNotification();
+            var notification = await TestDataManager.SeedSendingNotification();
             _notifications.Add(notification);
             
             var command =

@@ -3,11 +3,21 @@ using System.Runtime.Serialization;
 
 namespace NotificationApi.DAL.Exceptions
 {
-    [Serializable]
-    public class NotificationNotFoundException : Exception
+    public abstract class NotificationDalException : Exception
     {
-        public NotificationNotFoundException()
-        {}
+        protected NotificationDalException(string message) : base(message)
+        {
+        }
+        
+        protected NotificationDalException(SerializationInfo info, StreamingContext context) 
+            : base(info, context)
+        {
+        }
+    }
+    
+    [Serializable]
+    public class NotificationNotFoundException : NotificationDalException
+    {
         public NotificationNotFoundException(Guid notificationId) : base(
             $"Notification {notificationId} does not exist")
         {
@@ -20,10 +30,8 @@ namespace NotificationApi.DAL.Exceptions
     }
 
     [Serializable]
-    public class NotificationIdMismatchException : Exception
+    public class NotificationIdMismatchException : NotificationDalException
     {
-        public NotificationIdMismatchException()
-        { }
         public NotificationIdMismatchException(Guid notificationId, string externalId): base(
             $"ExternalId {externalId} does not belong to Notification {notificationId}")
         {

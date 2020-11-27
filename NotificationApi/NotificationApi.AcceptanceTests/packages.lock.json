@@ -2846,6 +2846,7 @@
       "notificationapi.client": {
         "type": "Project",
         "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Newtonsoft.Json": "12.0.3",
           "NotificationApi.Contract": "1.0.0"
         }

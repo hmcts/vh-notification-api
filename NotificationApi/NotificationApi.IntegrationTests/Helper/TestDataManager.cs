@@ -20,11 +20,19 @@ namespace NotificationApi.IntegrationTests.Helper
             _services = services;
             _dbContextOptions = dbContextOptions;
         }
-
-        public Task<Notification> SeedNotification()
+        
+        public Task<Notification> SeedCreatedNotification()
         {
             var notification = new EmailNotification(NotificationType.CreateUser, "totest@auto.com", Guid.NewGuid(),
                 Guid.NewGuid());
+            return SeedNotification(notification);
+        }
+
+        public Task<Notification> SeedSendingNotification()
+        {
+            var notification = new EmailNotification(NotificationType.CreateUser, "totest@auto.com", Guid.NewGuid(),
+                Guid.NewGuid());
+            notification.UpdateDeliveryStatus(DeliveryStatus.Sending);
             notification.AssignExternalId(Guid.NewGuid().ToString());
             return SeedNotification(notification);
         }
