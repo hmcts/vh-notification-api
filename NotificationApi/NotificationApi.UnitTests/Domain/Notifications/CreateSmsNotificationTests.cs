@@ -13,16 +13,14 @@ namespace NotificationApi.UnitTests.Domain.Notifications
         {
             const NotificationType notificationType = NotificationType.CreateUser;
             const MessageType messageType = MessageType.SMS;
-            const string payload = "{name:first}";
             const string phoneNumber = "123456789";
             var patId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
             
-            var notification = new SmsNotification(notificationType, payload, phoneNumber, patId, hearingId);
+            var notification = new SmsNotification(notificationType, phoneNumber, patId, hearingId);
 
             notification.Id.Should().NotBeEmpty();
             notification.PhoneNumber.Should().Be(phoneNumber);
-            notification.Payload.Should().Be(payload);
             notification.ParticipantRefId.Should().Be(patId);
             notification.HearingRefId.Should().Be(hearingId);
             notification.DeliveryStatus.Should().Be(DeliveryStatus.NotSent);
