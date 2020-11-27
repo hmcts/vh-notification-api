@@ -6,7 +6,7 @@ using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.DAL.Queries
 {
-    public class CreateEmailNotificationQuery : IQuery
+    public class CreateEmailNotificationQuery : ICommand
     {
         public CreateEmailNotificationQuery(int notificationType, string contactEmail, Guid participantId, Guid hearingId)
         {
@@ -22,11 +22,11 @@ namespace NotificationApi.DAL.Queries
         public Guid HearingId { get; set; }
     }
 
-    public class CreateEmailNotificationQueryHandler : IQueryHandler<CreateEmailNotificationQuery, Notification>
+    public class CreateEmailNotificationCommandHandler : IQueryHandler<CreateEmailNotificationQuery, Notification>
     {
         private readonly NotificationsApiDbContext _notificationsApiDbContext;
 
-        public CreateEmailNotificationQueryHandler(NotificationsApiDbContext notificationsApiDbContext)
+        public CreateEmailNotificationCommandHandler(NotificationsApiDbContext notificationsApiDbContext)
         {
             _notificationsApiDbContext = notificationsApiDbContext;
         }
