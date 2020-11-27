@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.Common.Configuration;
 using NotificationApi.DAL;
+using NotificationApi.Domain;
+using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.IntegrationTests.Helper
 {
@@ -19,12 +21,15 @@ namespace NotificationApi.IntegrationTests.Helper
             _dbContextOptions = dbContextOptions;
         }
 
-        public Task<Domain.Notification> SeedNotification()
+        public Task<Notification> SeedNotification()
         {
-            throw new NotImplementedException();
+            var notification = new EmailNotification(NotificationType.CreateUser, "totest@auto.com", Guid.NewGuid(),
+                Guid.NewGuid());
+            notification.AssignExternalId(Guid.NewGuid().ToString());
+            return SeedNotification(notification);
         }
 
-        public async Task<Domain.Notification> SeedConference(Domain.Notification notification)
+        public async Task<Notification> SeedNotification(Notification notification)
         {
             await using var db = new NotificationsApiDbContext(_dbContextOptions);
             await db.Notifications.AddAsync(notification);
