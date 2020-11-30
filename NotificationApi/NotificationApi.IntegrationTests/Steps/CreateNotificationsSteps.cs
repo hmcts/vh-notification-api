@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
+using NotificationApi.Contract.Requests;
 using NotificationApi.Domain.Enums;
 using NotificationApi.IntegrationTests.Assertions;
 using NotificationApi.IntegrationTests.Contexts;
@@ -14,12 +18,12 @@ using Testing.Common.Helper;
 namespace NotificationApi.IntegrationTests.Steps
 {
     [Binding]
-    public class NotificationsSteps
+    public class CreateNotificationsSteps
     {
         private readonly IntTestContext _context;
         private NotificationResponse _notification;
         
-        public NotificationsSteps(IntTestContext context)
+        public CreateNotificationsSteps(IntTestContext context)
         {
             _context = context;
         }
@@ -27,8 +31,11 @@ namespace NotificationApi.IntegrationTests.Steps
         [Given("I have a valid create new email notification request")]
         public void I_have_a_valid_create_new_email_notification_request()
         {
-            _context.Uri = ApiUriFactory.NotificationEndpoints.CreateNewEmailNotificationResponse();
+            var request = BuildRequest();
+            _context.Uri = ApiUriFactory.NotificationEndpoints.CreateNewEmailNotificationResponse;
             _context.HttpMethod = HttpMethod.Post;
+            var body = RequestHelper.Serialise(request);
+            _context.HttpContent = new StringContent(body, Encoding.UTF8, "application/json");
         }
         
         [Then("the response should have the status (.*)")]
@@ -49,6 +56,22 @@ namespace NotificationApi.IntegrationTests.Steps
             _notification = await Response.GetResponses<NotificationResponse>(_context.Response.Content);
             _notification.Should().NotBeNull();
             AssertNotificationResponse.ForNotification(_notification);   
+        }
+        
+        private AddNotificationRequest BuildRequest()
+        {
+            var parameters = new Dictionary<string, string> {{"test", "test1"}};
+
+            return new AddNotificationRequest
+            {
+                ContactEmail = "email@email.com",
+                HearingId = Guid.NewGuid(),
+                MessageType = (int)MessageType.Email,
+                NotificationType = (int)NotificationType.CreateUser,
+                Parameters = parameters,
+                ParticipantId = Guid.NewGuid(),
+                PhoneNumber = "1234567890"
+            };
         }
     }
 }
