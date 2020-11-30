@@ -11,7 +11,7 @@ namespace NotificationApi.UnitTests.Domain.Notifications
         [Test]
         public void should_create_notification_with_sms_type_and_phone_number()
         {
-            const NotificationType notificationType = NotificationType.CreateUser;
+            const NotificationType notificationType = NotificationType.CreateIndividual;
             const MessageType messageType = MessageType.SMS;
             const string phoneNumber = "123456789";
             var patId = Guid.NewGuid();
