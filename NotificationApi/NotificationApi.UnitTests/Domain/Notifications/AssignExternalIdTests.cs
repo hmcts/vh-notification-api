@@ -16,7 +16,7 @@ namespace NotificationApi.UnitTests.Domain.Notifications
             var patId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
             var externalId = Guid.NewGuid().ToString();
-            var notification = new EmailNotification(notificationType, toEmail, patId, hearingId);
+            var notification = new EmailNotification(Guid.NewGuid(), notificationType, toEmail, patId, hearingId);
             notification.ExternalId.Should().BeNull();
             notification.AssignExternalId(externalId);
             notification.ExternalId.Should().Be(externalId);

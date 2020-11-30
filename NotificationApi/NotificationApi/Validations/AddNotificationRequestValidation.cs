@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using FluentValidation;
 using NotificationApi.Contract.Requests;
@@ -32,7 +29,7 @@ namespace NotificationApi.Validations
         {
             var availableNotifications = new[]
             {
-                1 //Create user
+                1 //Create individual
             };
 
             return availableNotifications.Contains(arg);

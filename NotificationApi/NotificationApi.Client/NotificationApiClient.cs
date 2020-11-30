@@ -41,20 +41,20 @@ namespace NotificationApi.Client
         System.Threading.Tasks.Task<NotificationTemplateResponse> Notification_GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationResponse> Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request);
+        System.Threading.Tasks.Task Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationResponse> Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Process callbacks from Gov Notify API</summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationResponse> Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest);
+        System.Threading.Tasks.Task Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Process callbacks from Gov Notify API</summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationResponse> Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest, System.Threading.CancellationToken cancellationToken);
     
     }
     
@@ -232,6 +232,22 @@ namespace NotificationApi.Client
                             return objectResponse_.Object;
                         }
                         else
+                        if (status_ == 500)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new NotificationApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new NotificationApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
                             throw new NotificationApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
@@ -252,14 +268,14 @@ namespace NotificationApi.Client
         }
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<NotificationResponse> Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request)
+        public System.Threading.Tasks.Task Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request)
         {
             return Notification_CreateNewNotificationResponseAsync(request, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<NotificationResponse> Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -277,7 +293,6 @@ namespace NotificationApi.Client
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
     
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
@@ -300,12 +315,7 @@ namespace NotificationApi.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<NotificationResponse>(response_, headers_).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
+                            return;
                         }
                         else
                         if (status_ == 500)
@@ -314,7 +324,7 @@ namespace NotificationApi.Client
                             throw new NotificationApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
-                        if (status_ == 401)
+                        if (status_ == 400)
                         {
                             var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
@@ -345,7 +355,7 @@ namespace NotificationApi.Client
     
         /// <summary>Process callbacks from Gov Notify API</summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<NotificationResponse> Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
+        public System.Threading.Tasks.Task Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
         {
             return Notification_HandleCallbackAsync(notificationCallbackRequest, System.Threading.CancellationToken.None);
         }
@@ -353,7 +363,7 @@ namespace NotificationApi.Client
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Process callbacks from Gov Notify API</summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<NotificationResponse> Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest, System.Threading.CancellationToken cancellationToken)
         {
             if (notificationCallbackRequest == null)
                 throw new System.ArgumentNullException("notificationCallbackRequest");
@@ -371,7 +381,6 @@ namespace NotificationApi.Client
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PATCH");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
     
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
@@ -394,12 +403,13 @@ namespace NotificationApi.Client
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<NotificationResponse>(response_, headers_).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
+                            return;
+                        }
+                        else
+                        if (status_ == 500)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new NotificationApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         if (status_ == 400)

@@ -17,7 +17,7 @@ namespace NotificationApi.UnitTests.Domain.Notifications
             var patId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
             
-            var notification = new SmsNotification(notificationType, phoneNumber, patId, hearingId);
+            var notification = new SmsNotification(Guid.NewGuid(), notificationType, phoneNumber, patId, hearingId);
 
             notification.Id.Should().NotBeEmpty();
             notification.PhoneNumber.Should().Be(phoneNumber);

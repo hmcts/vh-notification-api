@@ -113,7 +113,7 @@ namespace NotificationApi.UnitTests.Validation
                 ContactEmail = "email@email.com",
                 HearingId = Guid.NewGuid(),
                 MessageType = (int)MessageType.Email,
-                NotificationType = (int)NotificationType.CreateUser,
+                NotificationType = (int)NotificationType.CreateIndividual,
                 Parameters = parameters,
                 ParticipantId = Guid.NewGuid(),
                 PhoneNumber = "1234567890"

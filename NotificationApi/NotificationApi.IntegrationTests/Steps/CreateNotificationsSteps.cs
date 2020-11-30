@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Domain.Enums;
-using NotificationApi.IntegrationTests.Assertions;
 using NotificationApi.IntegrationTests.Contexts;
-using NotificationApi.IntegrationTests.Helper;
 using Notify.Models.Responses;
 using TechTalk.SpecFlow;
 using Testing.Common.Helper;
@@ -21,7 +18,6 @@ namespace NotificationApi.IntegrationTests.Steps
     public class CreateNotificationsSteps
     {
         private readonly IntTestContext _context;
-        private NotificationResponse _notification;
         
         public CreateNotificationsSteps(IntTestContext context)
         {
@@ -41,7 +37,7 @@ namespace NotificationApi.IntegrationTests.Steps
         [Then("the response should have the status (.*)")]
         public void the_response_should_have_the_status_created(HttpStatusCode statusCode)
         {
-            _context.Response.Should().Be(statusCode);
+            _context.Response.StatusCode.Should().Be(statusCode);
         }
         
         [Then("the success status should be (.*)")]
@@ -49,25 +45,24 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             _context.Response.IsSuccessStatusCode.Should().Be(isSuccess);
         }
-        
-        [Then("the notification details should be retrieved")]
-        public async Task the_notification_details_should_be_retrieved()
-        {
-            _notification = await Response.GetResponses<NotificationResponse>(_context.Response.Content);
-            _notification.Should().NotBeNull();
-            AssertNotificationResponse.ForNotification(_notification);   
-        }
-        
+
         private AddNotificationRequest BuildRequest()
         {
-            var parameters = new Dictionary<string, string> {{"test", "test1"}};
+            var parameters = new Dictionary<string, string>
+            {
+                {"Case number", "134"},
+                {"Name", "test"},
+                {"Day Month Year", "12/12/11"},
+                {"time", "DateTime"},
+                {"Username", "testUser"}
+            };
 
             return new AddNotificationRequest
             {
                 ContactEmail = "email@email.com",
                 HearingId = Guid.NewGuid(),
                 MessageType = (int)MessageType.Email,
-                NotificationType = (int)NotificationType.CreateUser,
+                NotificationType = (int)NotificationType.CreateIndividual,
                 Parameters = parameters,
                 ParticipantId = Guid.NewGuid(),
                 PhoneNumber = "1234567890"

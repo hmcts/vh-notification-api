@@ -6,6 +6,5 @@ Feature: Create Notifications
 Scenario: Creating a email new notification
   Given I have a valid create new email notification request 
   When I send the request
-  Then the response should have the status Created
+  Then the response should have the status OK
   And the success status should be True
-  And the notification details should be retrieved
