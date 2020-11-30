@@ -14,6 +14,7 @@ using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using NotificationApi.Extensions;
 using Notify.Interfaces;
+using NSwag.Annotations;
 
 namespace NotificationApi.Controllers
 {
@@ -36,6 +37,7 @@ namespace NotificationApi.Controllers
 
         [HttpGet("template/{notificationType}")]
         [AllowAnonymous]
+        [OpenApiOperation("GetTemplateByNotificationType")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetTemplateByNotificationType(int notificationType)
         {
@@ -55,6 +57,7 @@ namespace NotificationApi.Controllers
         }
 
         [HttpPost]
+        [OpenApiOperation("CreateNewNotification")]
         [ProducesResponseType(typeof(NotificationResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
@@ -81,6 +84,7 @@ namespace NotificationApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPatch]
+        [OpenApiOperation("ProcessNotifyCallback")]
         [ProducesResponseType(typeof(NotificationResponse), (int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
