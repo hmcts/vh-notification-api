@@ -27,13 +27,13 @@ namespace NotificationApi.IntegrationTests.Steps
             _context.HttpMethod = HttpMethod.Get;
         }
 
-        [Then(@"the response should contain a template")]
-        public async Task ThenTheResponseShouldContainATemplate()
+        [Then(@"the response should contain a template for notification type (.*)")]
+        public async Task ThenTheResponseShouldContainATemplate(NotificationType notificationType)
         {
             var templateResponse = await ApiClientResponse.GetResponses<NotificationTemplateResponse>(_context.Response.Content);
             templateResponse.Id.Should().BePositive();
             templateResponse.Parameters.Should().NotBeNullOrWhiteSpace();
-            templateResponse.NotificationType.Should().BePositive();
+            templateResponse.NotificationType.Should().Be((int) notificationType);
             templateResponse.NotifyemplateId.Should().NotBeEmpty();
         }
     }
