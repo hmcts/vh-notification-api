@@ -11,7 +11,7 @@ namespace NotificationApi.UnitTests.Domain.Notifications
         [Test]
         public void should_update_delivery_status()
         {
-            const NotificationType notificationType = NotificationType.CreateUser;
+            const NotificationType notificationType = NotificationType.CreateIndividual;
             const string payload = "{name:first}";
             const string toEmail = "test@unit.com";
             var patId = Guid.NewGuid();
