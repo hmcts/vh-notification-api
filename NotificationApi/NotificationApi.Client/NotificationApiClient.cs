@@ -34,11 +34,11 @@ namespace NotificationApi.Client
         System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync(System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationTemplateResponse> Notification_GetTemplateByNotificationTypeAsync(int notificationType);
+        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationTemplateResponse> Notification_GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request);
@@ -55,7 +55,6 @@ namespace NotificationApi.Client
         /// <summary>Process callbacks from Gov Notify API</summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest, System.Threading.CancellationToken cancellationToken);
-    
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.9.4.0 (NJsonSchema v10.3.1.0 (Newtonsoft.Json v12.0.0.0))")]
@@ -178,14 +177,14 @@ namespace NotificationApi.Client
         }
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<NotificationTemplateResponse> Notification_GetTemplateByNotificationTypeAsync(int notificationType)
+        public System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType)
         {
-            return Notification_GetTemplateByNotificationTypeAsync(notificationType, System.Threading.CancellationToken.None);
+            return GetTemplateByNotificationTypeAsync(notificationType, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<NotificationTemplateResponse> Notification_GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken)
         {
             if (notificationType == null)
                 throw new System.ArgumentNullException("notificationType");
@@ -270,7 +269,7 @@ namespace NotificationApi.Client
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
         public System.Threading.Tasks.Task Notification_CreateNewNotificationResponseAsync(AddNotificationRequest request)
         {
-            return Notification_CreateNewNotificationResponseAsync(request, System.Threading.CancellationToken.None);
+            return CreateNewNotificationAsync(request, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -357,7 +356,7 @@ namespace NotificationApi.Client
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
         public System.Threading.Tasks.Task Notification_HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
         {
-            return Notification_HandleCallbackAsync(notificationCallbackRequest, System.Threading.CancellationToken.None);
+            return ProcessNotifyCallbackAsync(notificationCallbackRequest, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>

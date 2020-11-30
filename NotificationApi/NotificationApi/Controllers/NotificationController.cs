@@ -13,6 +13,7 @@ using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using NotificationApi.Extensions;
 using Notify.Interfaces;
+using NSwag.Annotations;
 
 namespace NotificationApi.Controllers
 {

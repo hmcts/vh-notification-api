@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
 using NotificationApi.AcceptanceTests.Contexts;
 using NotificationApi.Contract.Responses;

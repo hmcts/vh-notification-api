@@ -1,0 +1,47 @@
+using System.Threading.Tasks;
+using FluentAssertions;
+using NotificationApi.AcceptanceTests.Contexts;
+using NotificationApi.Contract.Responses;
+using TechTalk.SpecFlow;
+
+namespace NotificationApi.AcceptanceTests.Steps
+{
+    [Binding]
+    public class GetTemplateSteps
+    {
+        private readonly AcTestContext _context;
+        private int _notificationType;
+
+        public GetTemplateSteps(AcTestContext context)
+        {
+            _context = context;
+        }
+        
+        [Given(@"I notification type (.*)")]
+        public async Task GivenIHaveAGetTemplateRequest(int notificationType)
+        {
+            _notificationType = notificationType;
+            await _context.ExecuteApiRequest(() =>
+                _context.ApiClient.GetTemplateByNotificationTypeAsync(notificationType));
+        }
+        
+        [When(@"I send a get template by notification type request")]
+        public async Task WhenIHaveAGetTemplateRequestRequest()
+        {
+            await _context.ExecuteApiRequest(() =>
+                _context.ApiClient.GetTemplateByNotificationTypeAsync(_notificationType));
+        }
+        
+        [Then(@"a template should return")]
+        public void ThenTheApplicationVersionShouldBeRetrieved()
+        {
+            _context.ApiClientResponse.Should().BeOfType<NotificationTemplateResponse>();
+            var model = (NotificationTemplateResponse)_context.ApiClientResponse;
+            model.Should().NotBeNull();
+            model.NotificationType.Should().Be(_notificationType);
+            model.Parameters.Should().NotBeNullOrWhiteSpace();
+            model.NotifyemplateId.Should().NotBeEmpty();
+            model.Id.Should().BePositive();
+        }
+    }
+}

@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
-using System.Threading.Tasks;
 
 namespace NotificationApi.DAL.Queries
 {
@@ -12,7 +12,7 @@ namespace NotificationApi.DAL.Queries
 
         public GetTemplateByNotificationTypeQuery(NotificationType notificationType)
         {
-            this.NotificationType = notificationType;
+            NotificationType = notificationType;
         }
     }
 
@@ -25,6 +25,8 @@ namespace NotificationApi.DAL.Queries
             _notificationsApiDbContext = notificationsApiDbContext;
         }
 
-        public Task<Template> Handle(GetTemplateByNotificationTypeQuery query) => _notificationsApiDbContext.Templates.SingleOrDefaultAsync(t => t.NotificationType == query.NotificationType);
+        public Task<Template> Handle(GetTemplateByNotificationTypeQuery query) =>
+            _notificationsApiDbContext.Templates.SingleOrDefaultAsync(t =>
+                t.NotificationType == query.NotificationType);
     }
 }
