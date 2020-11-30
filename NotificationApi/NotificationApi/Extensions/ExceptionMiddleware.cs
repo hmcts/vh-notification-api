@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NotificationApi.Common;
-using NotificationApi.Common.Helpers;
+using NotificationApi.DAL.Exceptions;
 
 namespace NotificationApi.Extensions
 {
@@ -23,14 +23,12 @@ namespace NotificationApi.Extensions
             {
                 await _next(httpContext);
             }
-            catch (BadRequestException ex)
+            catch(Exception ex) when( ex is NotificationDalException || ex is BadRequestException)
             {
-                ApplicationLogger.TraceException(TraceCategory.APIException.ToString(), "400 Exception", ex, null, null);
                 await HandleExceptionAsync(httpContext, HttpStatusCode.BadRequest, ex);
             }
             catch (Exception ex)
             {
-                ApplicationLogger.TraceException(TraceCategory.APIException.ToString(), "API Exception", ex,null, null);
                 await HandleExceptionAsync(httpContext, HttpStatusCode.InternalServerError, ex);
             }
         }

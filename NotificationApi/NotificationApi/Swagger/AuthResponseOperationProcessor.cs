@@ -14,8 +14,10 @@ namespace NotificationApi.Swagger
         {
             if (!(context is AspNetCoreOperationProcessorContext)) return true;
             var aspNetCoreContext = (AspNetCoreOperationProcessorContext) context;
-            
-            var endpointMetadata = aspNetCoreContext.ApiDescription?.ActionDescriptor?.TryGetPropertyValue<IList<object>>("EndpointMetadata");
+
+            var endpointMetadata =
+                aspNetCoreContext.ApiDescription?.ActionDescriptor?.TryGetPropertyValue<IList<object>>(
+                    "EndpointMetadata");
             if (endpointMetadata == null) return true;
             var allowAnonymous = endpointMetadata.OfType<AllowAnonymousAttribute>().Any();
             if (allowAnonymous)
@@ -28,6 +30,7 @@ namespace NotificationApi.Swagger
             {
                 return true;
             }
+
             aspNetCoreContext.OperationDescription.Operation.Responses.Add("401", new NSwag.OpenApiResponse()
             {
                 Description = "Unauthorized"

@@ -2848,7 +2848,6 @@
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Newtonsoft.Json": "12.0.3",
-          "NotificationApi": "1.0.0",
           "NotificationApi.Contract": "1.0.0"
         }
       },
@@ -2865,11 +2864,7 @@
         }
       },
       "notificationapi.contract": {
-        "type": "Project",
-        "dependencies": {
-          "NotificationApi.Domain": "1.0.0",
-          "System.ComponentModel.Annotations": "4.7.0"
-        }
+        "type": "Project"
       },
       "notificationapi.dal": {
         "type": "Project",

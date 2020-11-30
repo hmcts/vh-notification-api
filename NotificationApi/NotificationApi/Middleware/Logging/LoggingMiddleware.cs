@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -35,7 +36,16 @@ namespace NotificationApi.Middleware.Logging
 
             using (_logger.BeginScope(properties))
             {
-                await next();
+                _logger.LogDebug("Starting request");
+                var sw = Stopwatch.StartNew();
+                var action = await next();
+                if (action.Exception != null)
+                {
+                    var ex = action.Exception;
+                    _logger.LogError(ex, ex.Message);
+                }
+
+                _logger.LogDebug("Handled request in {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
             }
         }
     }

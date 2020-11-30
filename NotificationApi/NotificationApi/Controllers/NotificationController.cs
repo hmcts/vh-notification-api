@@ -12,6 +12,7 @@ using NotificationApi.DAL.Queries;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
+using NotificationApi.Extensions;
 using Notify.Interfaces;
 
 namespace NotificationApi.Controllers
@@ -25,7 +26,8 @@ namespace NotificationApi.Controllers
         private readonly IAsyncNotificationClient _asyncNotificationClient;
         private readonly ICommandHandler _commandHandler;
 
-        public NotificationController(IQueryHandler queryHandler, IAsyncNotificationClient asyncNotificationClient, ICommandHandler commandHandler)
+        public NotificationController(IQueryHandler queryHandler, IAsyncNotificationClient asyncNotificationClient,
+            ICommandHandler commandHandler)
         {
             _queryHandler = queryHandler;
             _asyncNotificationClient = asyncNotificationClient;
@@ -72,6 +74,24 @@ namespace NotificationApi.Controllers
 
             await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.NotificationId, emailNotificationResponse.id, emailNotificationResponse.content.body));
 
+            return Ok();
+        }
+
+        /// <summary>
+        /// Process callbacks from Gov Notify API
+        /// </summary>
+        /// <returns></returns>
+        [HttpPatch]
+        [ProducesResponseType(typeof(NotificationResponse), (int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
+        {
+            var notificationId = notificationCallbackRequest.ReferenceAsGuid();
+            var deliveryStatus = notificationCallbackRequest.DeliveryStatusAsEnum();
+            var externalId = notificationCallbackRequest.Id;
+            var command = new UpdateNotificationDeliveryStatusCommand(notificationId, externalId, deliveryStatus);
+
+            await _commandHandler.Handle(command);
             return Ok();
         }
     }

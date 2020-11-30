@@ -1,6 +1,13 @@
-# vh-notify-api
+# vh-notification-api
+
+[![Build Status](https://dev.azure.com/hmctsreform/VirtualHearings/_apis/build/status/Apps-CI/hmcts.vh-notification-api?repoName=hmcts%2Fvh-notification-api&branchName=VIH-6688_EndPoints)](https://dev.azure.com/hmctsreform/VirtualHearings/_build/latest?definitionId=188&repoName=hmcts%2Fvh-notification-api&branchName=VIH-6688_EndPoints)
+
+[![NotificationApi.Client package in vh-packages feed in Azure Artifacts](https://feeds.dev.azure.com/hmctsreform/3f69a23d-fbc7-4541-afc7-4cccefcad773/_apis/public/Packaging/Feeds/e48b2732-376c-4052-ba97-b28783c9bab5/Packages/903ad9ea-874b-4201-9841-66894e4f6cc1/Badge)](https://dev.azure.com/hmctsreform/VirtualHearings/_packaging?_a=package&feed=e48b2732-376c-4052-ba97-b28783c9bab5&package=903ad9ea-874b-4201-9841-66894e4f6cc1&preferRelease=true)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vh-notification-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=vh-notification-api)
 
 ## Setup nuget sources
+
 Include the vh-packages source
 
 ```
@@ -13,22 +20,14 @@ Include the govuk notify source
 https://api.bintray.com/nuget/gov-uk-notify/nuget
 ```
 
-## Running Sonar Analysis
-
-``` bash
-dotnet sonarscanner begin /k:"vh-notify-api" /d:sonar.cs.opencover.reportsPaths="NotifyAPI/Artifacts/Coverage/coverage.opencover.xml" /d:sonar.coverage.exclusions="Notify.API/Program.cs,Notify.API/Startup.cs,Notify.API/Extensions/**,Notify.API/Swagger/**,**/Notify.API/ConfigureServicesExtensions.cs,**/Testing.Common/**,**/Testing.Common/Helper/,Helper/Builders/Api/,Helper/Builders/Domain/,NotifyApi.Common/**,NotifyApi.DAL/Mappings/**,NotifyApi.DAL/SeedData/**,NotifyApi.DAL/NotifyApiDbContext.cs,NotifyApi.DAL/**/DesignTimeHearingsContextFactory.cs,NotifyApi.DAL/Migrations/**,NotifyApi.Domain/Ddd/**,NotifyApi.Domain/Validations/**" /d:sonar.cpd.exclusions="NotifyApi.DAL/Migrations/**" /d:sonar.verbose=true
-dotnet build NotifyAPI/NotifyApi.sln
-dotnet sonarscanner end
-```
-
 ## Running code coverage
 
-First ensure you are running a terminal in the NotifyAPI directory of this repository and then run the following commands.
+First ensure you are running a terminal in the Notification Api directory of this repository and then run the following commands.
 
-``` bash
-dotnet test --no-build NotifyApi.UnitTests/NotifyApi.UnitTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura,json,lcov\"" /p:CoverletOutput=../Artifacts/Coverage/ /p:MergeWith='../Artifacts/Coverage/coverage.json' /p:Exclude="\"[*]Notify.API.Extensions.*,[Notify.API]Notify.API.ConfigureServicesExtensions,[Notify.API]Notify.API.Startup,[Notify.API]Notify.API.Program,[*]Notify.API.Swagger.*,[NotifyApi.*Tests?]*,[*]NotifyApi.DAL.SeedData.*,[*]NotifyApi.DAL.Migrations.*,[*]NotifyApi.DAL.Mappings.*,[*]NotifyApi.Domain.Ddd.*,[*]NotifyApi.Domain.Validations.*,[NotifyApi.DAL]NotifyApi.DAL.NotifyApiDbContext,[NotifyApi.DAL]NotifyApi.DAL.DesignTimeHearingsContextFactory,[*]NotifyApi.Common.*,[*]Testing.Common.*,[*]NotifyApi.Services.*\""
+```bash
+dotnet test --no-build NotificationApi.UnitTests/NotificationApi.UnitTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura,json,lcov\"" /p:CoverletOutput=../Artifacts/Coverage/ /p:MergeWith='../Artifacts/Coverage/coverage.json' /p:Exclude="\"[*]NotificationApi.API.Extensions.*,[NotificationApi]NotificationApi.Startup,[NotificationApi]NotificationApi.Program,[*]NotificationApi.Swagger.*,[NotificationApi.*Tests?]*,[*]NotificationApi.DAL.Migrations.*,[*]NotificationApi.DAL.Mappings.*,[*]NotificationApi.Domain.Ddd.*,[*]NotificationApi.Domain.Validations.*,[NotificationApi.DAL]NotificationApi.DAL.NotificationApiDbContext,[NotificationApi.DAL]NotificationApi.DAL.DesignTimeHearingsContextFactory,[*]NotificationApi.Common.*,[*]Testing.Common.*"
 
-dotnet test --no-build NotifyApi.IntegrationTests/NotifyApi.IntegrationTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura,json,lcov\"" /p:CoverletOutput=../Artifacts/Coverage/ /p:MergeWith='../Artifacts/Coverage/coverage.json' /p:Exclude="\"[*]Notify.API.Extensions.*,[Notify.API]Notify.API.ConfigureServicesExtensions,[Notify.API]Notify.API.Startup,[Notify.API]Notify.API.Program,[*]Notify.API.Swagger.*,[NotifyApi.*Tests?]*,[*]NotifyApi.DAL.SeedData.*,[*]NotifyApi.DAL.Migrations.*,[*]NotifyApi.DAL.Mappings.*,[*]NotifyApi.Domain.Ddd.*,[*]NotifyApi.Domain.Validations.*,[NotifyApi.DAL]NotifyApi.DAL.NotifyApiDbContext,[NotifyApi.DAL]NotifyApi.DAL.DesignTimeHearingsContextFactory,[*]NotifyApi.Common.*,[*]Testing.Common.*,[*]NotifyApi.Services.*\""
+dotnet test --no-build NotificationApi.IntegrationTests/NotificationApi.IntegrationTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura,json,lcov\"" /p:CoverletOutput=../Artifacts/Coverage/ /p:MergeWith='../Artifacts/Coverage/coverage.json' /p:Exclude="\"[*]NotificationApi.API.Extensions.*,[NotificationApi]NotificationApi.Startup,[NotificationApi]NotificationApi.Program,[*]NotificationApi.Swagger.*,[NotificationApi.*Tests?]*,[*]NotificationApi.DAL.Migrations.*,[*]NotificationApi.DAL.Mappings.*,[*]NotificationApi.Domain.Ddd.*,[*]NotificationApi.Domain.Validations.*,[NotificationApi.DAL]NotificationApi.DAL.NotificationApiDbContext,[NotificationApi.DAL]NotificationApi.DAL.DesignTimeHearingsContextFactory,[*]NotificationApi.Common.*,[*]Testing.Common.*"
 
 ```
 
@@ -36,19 +35,21 @@ dotnet test --no-build NotifyApi.IntegrationTests/NotifyApi.IntegrationTests.csp
 
 Under the unit test project directory
 
-``` bash
+```bash
 dotnet reportgenerator "-reports:../Artifacts/Coverage/coverage.opencover.xml" "-targetDir:../Artifacts/Coverage/Report" -reporttypes:HtmlInline_AzurePipelines
 ```
 
-## Branch name 
+## Branch name
+
 git hook will run on pre commit and control the standard for new branch name.
 
-The branch name should start with: feature/VIH-XXXX-branchName  (X - is digit).
+The branch name should start with: feature/VIH-XXXX-branchName (X - is digit).
 If git version is less than 2.9 the pre-commit file from the .githooks folder need copy to local .git/hooks folder.
 To change git hooks directory to directory under source control run (works only for git version 2.9 or greater) :
 $ git config core.hooksPath .githooks
 
-## Commit message 
+## Commit message
+
 The commit message will be validated by prepare-commit-msg hook.
 The commit message format should start with : 'feature/VIH-XXXX : ' folowing by 8 or more characters description of commit, otherwise the warning message will be presented.
 
@@ -58,13 +59,13 @@ To run Zap scan locally update the following settings and run acceptance\integra
 
 User Secrets:
 
-- "Services:NotifyApiUrl": "https://NotifyApi_AC/"
+- "Services:NotificationApiUrl": "https://NotificationApi_AC/"
 
-Update following configuration under appsettings.json under NotifyApi.AcceptanceTests or  NotifyApi.IntegrationTests
+Update following configuration under appsettings.json under NotificationApi.AcceptanceTests or NotificationApi.IntegrationTests
 
-- "Services:NotifyApiUrl": "https://NotifyApi_AC/"
+- "Services:NotificationApiUrl": "https://NotificationApi_AC/"
 - "ZapConfiguration:ZapScan": true
-- "ConnectionStrings:VhNotifyApi": "Server=localhost,1433;Database=VhNotifyApi;User=sa;Password=VeryStrongPassword!;" (IntegrationTest alone)
+- "ConnectionStrings:VhNotificationApi": "Server=localhost,1433;Database=VhNotificationApi;User=sa;Password=VeryStrongPassword!;" (IntegrationTest alone)
 
 Note: Ensure you have Docker desktop engine installed and setup
 
@@ -78,14 +79,16 @@ dotnet stryker
 
 From the results look for line(s) of code highlighted with Survived\No Coverage and fix them.
 
-
 If in case you have not installed stryker previously, please use one of the following commands
 
 ### Global
+
 ```bash
 dotnet tool install -g dotnet-stryker
 ```
+
 ### Local
+
 ```bash
 dotnet tool install dotnet-stryker
 ```
