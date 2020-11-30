@@ -11,7 +11,7 @@ namespace NotificationApi.UnitTests.Domain.Notifications
         [Test]
         public void should_create_notification_with_email_type_and_email()
         {
-            const NotificationType notificationType = NotificationType.CreateUser;
+            const NotificationType notificationType = NotificationType.CreateIndividual;
             const MessageType messageType = MessageType.Email;
             const string toEmail = "test@unit.com";
             var patId = Guid.NewGuid();
