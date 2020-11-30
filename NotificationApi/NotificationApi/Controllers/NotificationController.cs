@@ -64,12 +64,13 @@ namespace NotificationApi.Controllers
                 throw new BadRequestException($"Invalid {nameof(request.NotificationType)}: {request.NotificationType}");
             }
 
-            var notification = await _queryHandler.Handle<CreateEmailNotificationQuery, Notification>(new CreateEmailNotificationQuery(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId));
+            var notification = new CreateEmailNotificationCommand(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
+            await _commandHandler.Handle(notification);
 
             var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);
             var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(request.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters);
 
-            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.Id, emailNotificationResponse.id, emailNotificationResponse.content.body));
+            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.NotificationId, emailNotificationResponse.id, emailNotificationResponse.content.body));
 
             return Ok();
         }

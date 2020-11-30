@@ -15,7 +15,7 @@ namespace NotificationApi.DAL.Commands
             Payload = payload;
         }
 
-        public Guid NotificationId { get; internal set; }
+        public Guid NotificationId { get; set; }
         public string ExternalId { get; set; }
         public string Payload { get; set; }
     }

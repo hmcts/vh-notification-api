@@ -1,14 +1,14 @@
 using System;
 using System.Threading.Tasks;
-using NotificationApi.DAL.Queries.Core;
+using NotificationApi.DAL.Commands.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 
-namespace NotificationApi.DAL.Queries
+namespace NotificationApi.DAL.Commands
 {
-    public class CreateEmailNotificationQuery : ICommand
+    public class CreateEmailNotificationCommand : ICommand
     {
-        public CreateEmailNotificationQuery(int notificationType, string contactEmail, Guid participantId, Guid hearingId)
+        public CreateEmailNotificationCommand(int notificationType, string contactEmail, Guid participantId, Guid hearingId)
         {
             NotificationType = notificationType;
             ContactEmail = contactEmail;
@@ -16,13 +16,14 @@ namespace NotificationApi.DAL.Queries
             HearingId = hearingId;
         }
 
+        public Guid NotificationId { get; set; }
         public int NotificationType { get; set; }
         public string ContactEmail { get; set; }
         public Guid ParticipantId { get; set; }
         public Guid HearingId { get; set; }
     }
 
-    public class CreateEmailNotificationCommandHandler : IQueryHandler<CreateEmailNotificationQuery, Notification>
+    public class CreateEmailNotificationCommandHandler : ICommandHandler<CreateEmailNotificationCommand>
     {
         private readonly NotificationsApiDbContext _notificationsApiDbContext;
 
@@ -31,13 +32,13 @@ namespace NotificationApi.DAL.Queries
             _notificationsApiDbContext = notificationsApiDbContext;
         }
 
-        public async Task<Notification> Handle(CreateEmailNotificationQuery query) 
+        public async Task Handle(CreateEmailNotificationCommand command) 
         {
-            var notification = new EmailNotification((NotificationType)query.NotificationType, query.ContactEmail, query.ParticipantId, query.HearingId);
+            var notification = new EmailNotification((NotificationType)command.NotificationType, command.ContactEmail, command.ParticipantId, command.HearingId);
             _notificationsApiDbContext.Notifications.Add(notification);
             await _notificationsApiDbContext.SaveChangesAsync();
 
-            return notification;
+            command.NotificationId = notification.Id;
         }
     }
 }
