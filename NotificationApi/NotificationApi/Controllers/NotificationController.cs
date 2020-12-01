@@ -35,7 +35,7 @@ namespace NotificationApi.Controllers
         }
 
         [HttpGet("template/{notificationType}")]
-        [OpenApiOperation("GetTemplateByNotificationTypeAsync")]
+        [OpenApiOperation("GetTemplateByNotificationType")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -51,13 +51,13 @@ namespace NotificationApi.Controllers
             {
                 Id = template.Id,
                 NotificationType = (int)template.NotificationType,
-                NotifyemplateId = template.NotifyTemplateId,
+                NotifyTemplateId = template.NotifyTemplateId,
                 Parameters = template.Parameters
             });
         }
 
         [HttpPost]
-        [OpenApiOperation("CreateNewNotificationAsync")]
+        [OpenApiOperation("CreateNewNotification")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -85,7 +85,7 @@ namespace NotificationApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPatch]
-        [OpenApiOperation("HandleCallbackAsync")]
+        [OpenApiOperation("HandleCallback")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]

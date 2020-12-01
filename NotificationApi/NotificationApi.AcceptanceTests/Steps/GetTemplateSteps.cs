@@ -40,7 +40,7 @@ namespace NotificationApi.AcceptanceTests.Steps
             model.Should().NotBeNull();
             model.NotificationType.Should().Be(_notificationType);
             model.Parameters.Should().NotBeNullOrWhiteSpace();
-            model.NotifyemplateId.Should().NotBeEmpty();
+            model.NotifyTemplateId.Should().NotBeEmpty();
             model.Id.Should().BePositive();
         }
     }

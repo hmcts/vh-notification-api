@@ -14,6 +14,10 @@ namespace NotificationApi.Contract.Requests
         public Guid HearingId { get; set; }
         public Guid ParticipantId { get; set; }
         public int MessageType { get; set; }
+        
+        /// <summary>
+        /// Includes data for the hearing such as Case Number, Name, Date, Time and Username
+        /// </summary>
         public Dictionary<string, string> Parameters { get; set; }
     }
 }

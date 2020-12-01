@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace NotificationApi.UnitTests.Controller.Notification
 {
-    public class GetTemplateByNotificationTypeShould
+    public class GetTemplateByNotificationTypeTests
     {
         private AutoMock _mocker;
 
@@ -51,7 +51,7 @@ namespace NotificationApi.UnitTests.Controller.Notification
                 var notificationTemplateResponse = okResult.Value as NotificationTemplateResponse;
                 notificationTemplateResponse.Id.Should().Be(template.Id);
                 notificationTemplateResponse.NotificationType.Should().Be((int)notificationType);
-                notificationTemplateResponse.NotifyemplateId.Should().Be(template.NotifyTemplateId);
+                notificationTemplateResponse.NotifyTemplateId.Should().Be(template.NotifyTemplateId);
                 notificationTemplateResponse.Parameters.Should().Be(template.Parameters);
             }
         }

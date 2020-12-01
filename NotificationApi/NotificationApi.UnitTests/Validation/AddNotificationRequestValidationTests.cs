@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace NotificationApi.UnitTests.Validation
 {
-    public class AddNotificationRequestValidationShould
+    public class AddNotificationRequestValidationTests
     {
         private AddNotificationRequestValidation _validator;
         private AddNotificationRequest _request;
@@ -28,16 +28,17 @@ namespace NotificationApi.UnitTests.Validation
         }
 
         [Test]
-        public async Task Validate_Successfully_With_A_Correct_Model()
+        public async Task Should_Validate_Successfully_With_A_Correct_Model()
         {
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeTrue();
         }
 
         [Test]
-        public async Task Fail_When_Email_Is_Missing()
+        public async Task Should_Fail_When_Email_Is_Missing_When_MessageType_Is_Email()
         {
             _request.ContactEmail = null;
+            _request.MessageType = (int)MessageType.Email;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingEmailMessage).Should()
@@ -45,7 +46,7 @@ namespace NotificationApi.UnitTests.Validation
         }
         
         [Test]
-        public async Task Fail_When_HearingId_Is_Missing()
+        public async Task Should_Fail_When_HearingId_Is_Missing()
         {
             _request.HearingId = Guid.Empty;
             var result = await _validator.ValidateAsync(_request);
@@ -55,7 +56,7 @@ namespace NotificationApi.UnitTests.Validation
         }
         
         [Test]
-        public async Task Fail_When_MessageType_Is_Invalid()
+        public async Task Should_Fail_When_MessageType_Is_Invalid()
         {
             _request.MessageType = 4;
             var result = await _validator.ValidateAsync(_request);
@@ -65,7 +66,7 @@ namespace NotificationApi.UnitTests.Validation
         }
         
         [Test]
-        public async Task Fail_When_NotificationType_Is_Invalid()
+        public async Task Should_Fail_When_NotificationType_Is_Invalid()
         {
             _request.NotificationType = 4;
             var result = await _validator.ValidateAsync(_request);
@@ -75,7 +76,7 @@ namespace NotificationApi.UnitTests.Validation
         }
 
         [Test]
-        public async Task Fail_When_Parameters_Are_Missing()
+        public async Task Should_Fail_When_Parameters_Are_Missing()
         {
             _request.Parameters = null;
             var result = await _validator.ValidateAsync(_request);
@@ -85,7 +86,7 @@ namespace NotificationApi.UnitTests.Validation
         }
         
         [Test]
-        public async Task Fail_When_ParticipantId_Is_Missing()
+        public async Task Should_Fail_When_ParticipantId_Is_Missing()
         {
             _request.ParticipantId = Guid.Empty;
             var result = await _validator.ValidateAsync(_request);
@@ -95,9 +96,10 @@ namespace NotificationApi.UnitTests.Validation
         }
         
         [Test]
-        public async Task Fail_When_Phone_Number_Is_Missing()
+        public async Task Should_Fail_When_Phone_Number_Is_Missing_When_MessageType_Is_SMS()
         {
             _request.PhoneNumber = null;
+            _request.MessageType = (int) MessageType.SMS;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingPhoneNumberMessage).Should()

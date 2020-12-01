@@ -34,7 +34,7 @@ namespace NotificationApi.IntegrationTests.Steps
             templateResponse.Id.Should().BePositive();
             templateResponse.Parameters.Should().NotBeNullOrWhiteSpace();
             templateResponse.NotificationType.Should().Be((int) notificationType);
-            templateResponse.NotifyemplateId.Should().NotBeEmpty();
+            templateResponse.NotifyTemplateId.Should().NotBeEmpty();
         }
     }
 }
