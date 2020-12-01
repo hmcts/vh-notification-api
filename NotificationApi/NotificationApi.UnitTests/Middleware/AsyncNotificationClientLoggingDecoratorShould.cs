@@ -1,10 +1,8 @@
 using Autofac.Extras.Moq;
-using Microsoft.Extensions.Logging;
 using Moq;
 using NotificationApi.Middleware.Logging;
 using Notify.Interfaces;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;

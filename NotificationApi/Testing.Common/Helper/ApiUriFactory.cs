@@ -6,6 +6,7 @@ namespace Testing.Common.Helper
         {
             private const string ApiRoot = "Notification";
             public static string CreateNewEmailNotificationResponse() => $"{ApiRoot}/email";
+            public static string UpdateNotification => $"{ApiRoot}";
         }
     }
 }

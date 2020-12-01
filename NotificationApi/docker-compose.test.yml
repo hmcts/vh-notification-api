@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  notifyapi:
-    container_name: notifyapi_ac
+  notificationapi:
+    container_name: notificationapi_ac
     build:
       context: Notify.API/bin/${CONFIGURATION}/netcoreapp3.1/publish
       dockerfile: ../../../../Dockerfile.publish
