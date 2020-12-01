@@ -89,6 +89,7 @@
       "operationGenerationMode": "SingleClientFromOperationId",
       "additionalNamespaceUsages": [
         "Microsoft.AspNetCore.Mvc",
+        "NotificationApi.Contract",
         "NotificationApi.Contract.Requests",
         "NotificationApi.Contract.Responses"
       ],

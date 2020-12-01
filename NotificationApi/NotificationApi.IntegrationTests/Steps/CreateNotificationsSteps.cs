@@ -6,7 +6,6 @@ using System.Text;
 using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
 using NotificationApi.Contract.Requests;
-using NotificationApi.Domain.Enums;
 using NotificationApi.IntegrationTests.Contexts;
 using TechTalk.SpecFlow;
 using Testing.Common.Helper;
@@ -60,8 +59,8 @@ namespace NotificationApi.IntegrationTests.Steps
             {
                 ContactEmail = "email@email.com",
                 HearingId = Guid.NewGuid(),
-                MessageType = (int)MessageType.Email,
-                NotificationType = (int)NotificationType.CreateIndividual,
+                MessageType = Contract.MessageType.Email,
+                NotificationType = Contract.NotificationType.CreateIndividual,
                 Parameters = parameters,
                 ParticipantId = Guid.NewGuid(),
                 PhoneNumber = "1234567890"

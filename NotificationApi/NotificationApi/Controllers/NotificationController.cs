@@ -39,7 +39,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(int notificationType)
+        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(Contract.NotificationType notificationType)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
             if (template == null)
@@ -50,7 +50,7 @@ namespace NotificationApi.Controllers
             return Ok(new NotificationTemplateResponse
             {
                 Id = template.Id,
-                NotificationType = (int)template.NotificationType,
+                NotificationType = (Contract.NotificationType)template.NotificationType,
                 NotifyTemplateId = template.NotifyTemplateId,
                 Parameters = template.Parameters
             });
@@ -69,7 +69,7 @@ namespace NotificationApi.Controllers
                 throw new BadRequestException($"Invalid {nameof(request.NotificationType)}: {request.NotificationType}");
             }
 
-            var notification = new CreateEmailNotificationCommand(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
+            var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
             await _commandHandler.Handle(notification);
 
             var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);

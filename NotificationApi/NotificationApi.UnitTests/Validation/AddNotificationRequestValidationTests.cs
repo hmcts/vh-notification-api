@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NotificationApi.Contract.Requests;
-using NotificationApi.Domain.Enums;
 using NotificationApi.Validations;
 using NUnit.Framework;
 
@@ -38,7 +37,7 @@ namespace NotificationApi.UnitTests.Validation
         public async Task Should_Fail_When_Email_Is_Missing_When_MessageType_Is_Email()
         {
             _request.ContactEmail = null;
-            _request.MessageType = (int)MessageType.Email;
+            _request.MessageType = Contract.MessageType.Email;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingEmailMessage).Should()
@@ -58,7 +57,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Should_Fail_When_MessageType_Is_Invalid()
         {
-            _request.MessageType = 4;
+            _request.MessageType = (Contract.MessageType)4;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidMessageTypeMessage).Should()
@@ -68,7 +67,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Should_Fail_When_NotificationType_Is_Invalid()
         {
-            _request.NotificationType = 4;
+            _request.NotificationType = (Contract.NotificationType)4;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidNotificationTypeMessage).Should()
@@ -99,7 +98,7 @@ namespace NotificationApi.UnitTests.Validation
         public async Task Should_Fail_When_Phone_Number_Is_Missing_When_MessageType_Is_SMS()
         {
             _request.PhoneNumber = null;
-            _request.MessageType = (int) MessageType.SMS;
+            _request.MessageType = Contract.MessageType.SMS;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingPhoneNumberMessage).Should()
@@ -114,8 +113,8 @@ namespace NotificationApi.UnitTests.Validation
             {
                 ContactEmail = "email@email.com",
                 HearingId = Guid.NewGuid(),
-                MessageType = (int)MessageType.Email,
-                NotificationType = (int)NotificationType.CreateIndividual,
+                MessageType = Contract.MessageType.Email,
+                NotificationType = Contract.NotificationType.CreateIndividual,
                 Parameters = parameters,
                 ParticipantId = Guid.NewGuid(),
                 PhoneNumber = "1234567890"
