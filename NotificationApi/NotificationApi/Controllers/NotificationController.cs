@@ -23,15 +23,13 @@ namespace NotificationApi.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly IQueryHandler _queryHandler;
-        private readonly IAsyncNotificationClient _asyncNotificationClient;
         private readonly ICommandHandler _commandHandler;
         private readonly ICreateNotificationService _createNotificationService;
 
-        public NotificationController(IQueryHandler queryHandler, IAsyncNotificationClient asyncNotificationClient,
+        public NotificationController(IQueryHandler queryHandler,
             ICommandHandler commandHandler, ICreateNotificationService createNotificationService)
         {
             _queryHandler = queryHandler;
-            _asyncNotificationClient = asyncNotificationClient;
             _commandHandler = commandHandler;
             _createNotificationService = createNotificationService;
         }

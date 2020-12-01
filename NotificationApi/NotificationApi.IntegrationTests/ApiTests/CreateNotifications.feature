@@ -8,10 +8,3 @@ Scenario: Creating a email notification
   When I send the request
   Then the response should have the status OK
   And the success status should be True
-
-    
-Scenario: Creating a sms notification
-  Given I have a valid create new sms notification request 
-  When I send the request
-  Then the response should have the status OK
-  And the success status should be True
