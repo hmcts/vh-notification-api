@@ -14,12 +14,12 @@ namespace NotificationApi.UnitTests.Domain.Notifications
         [TestCase(DeliveryStatus.Failed)]
         public void should_update_delivery_status(DeliveryStatus newStatus)
         {
-            const NotificationType notificationType = NotificationType.CreateUser;
+            const NotificationType notificationType = NotificationType.CreateIndividual;
             const string toEmail = "test@unit.com";
             var patId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
             
-            var notification = new EmailNotification(notificationType, toEmail, patId, hearingId);
+            var notification = new EmailNotification(Guid.NewGuid(), notificationType, toEmail, patId, hearingId);
             notification.DeliveryStatus.Should().Be(DeliveryStatus.NotSent);
             notification.UpdateDeliveryStatus(newStatus);
             notification.DeliveryStatus.Should().Be(newStatus);

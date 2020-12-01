@@ -12,8 +12,8 @@ namespace NotificationApi.Domain
         {
         }
 
-        public SmsNotification(NotificationType notificationType, string phoneNumber,
-            Guid participantRefId, Guid hearingRefId) : base(notificationType, participantRefId, hearingRefId)
+        public SmsNotification(Guid id, NotificationType notificationType, string phoneNumber,
+            Guid participantRefId, Guid hearingRefId) : base(id, notificationType, participantRefId, hearingRefId)
         {
             PhoneNumber = phoneNumber;
         }

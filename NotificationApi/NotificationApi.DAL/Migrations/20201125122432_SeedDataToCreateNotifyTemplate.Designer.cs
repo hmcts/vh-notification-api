@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NotificationApi.DAL;
 
 namespace NotificationApi.DAL.Migrations
 {
     [DbContext(typeof(NotificationsApiDbContext))]
-    partial class NotifyApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201125122432_SeedDataToCreateNotifyTemplate")]
+    partial class SeedDataToCreateNotifyTemplate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +37,7 @@ namespace NotificationApi.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExternalId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("HearingRefId")
@@ -47,6 +50,7 @@ namespace NotificationApi.DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Payload")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

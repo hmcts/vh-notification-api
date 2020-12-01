@@ -11,13 +11,13 @@ namespace NotificationApi.UnitTests.Domain.Notifications
         [Test]
         public void should_create_notification_with_sms_type_and_phone_number()
         {
-            const NotificationType notificationType = NotificationType.CreateUser;
+            const NotificationType notificationType = NotificationType.CreateIndividual;
             const MessageType messageType = MessageType.SMS;
             const string phoneNumber = "123456789";
             var patId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
             
-            var notification = new SmsNotification(notificationType, phoneNumber, patId, hearingId);
+            var notification = new SmsNotification(Guid.NewGuid(), notificationType, phoneNumber, patId, hearingId);
 
             notification.Id.Should().NotBeEmpty();
             notification.PhoneNumber.Should().Be(phoneNumber);

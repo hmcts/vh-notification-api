@@ -37,30 +37,15 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestAudioFiles\TestAudioFile.mp4">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="specflow.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
     <ItemGroup>
         <Content Include="ApiTests\*.feature" />
+        <Content Include="ApiTests\*.feature.cs" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Database\Commands\" />
-      <Folder Include="Features\" />
-    </ItemGroup>
-    <ItemGroup>
-      <SpecFlowFeatureFiles Update="Features\CreateNotification.feature">
-        <Visible>False</Visible>
-        <Generator>SpecFlowSingleFileGenerator</Generator>
-        <LastGenOutput>CreateNotification.feature.cs</LastGenOutput>
-      </SpecFlowFeatureFiles>
-    </ItemGroup>
-    <ItemGroup>
-      <SpecFlowObsoleteCodeBehindFiles Update="Features\Notifications.feature.cs">
-        <DependentUpon>Notifications.feature</DependentUpon>
-      </SpecFlowObsoleteCodeBehindFiles>
     </ItemGroup>
 </Project>

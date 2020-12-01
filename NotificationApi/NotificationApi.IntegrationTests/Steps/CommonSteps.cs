@@ -1,8 +1,8 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
-using FluentAssertions;
 using NotificationApi.IntegrationTests.Contexts;
+using System.Net;
+using FluentAssertions;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 
@@ -38,10 +38,9 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             _context.Response.StatusCode.Should().Be(statusCode);
             _context.Response.IsSuccessStatusCode.Should().Be(isSuccess);
-            NUnit.Framework.TestContext.WriteLine($"Status Code: {_context.Response.StatusCode}");
+            TestContext.WriteLine($"Status Code: {_context.Response.StatusCode}");
         }
         
-
         [Given(@"I have a notification")]
         public async Task GivenIHaveANotification()
         {

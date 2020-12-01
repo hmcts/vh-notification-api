@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using NotificationApi.Common.Configuration;
 using NotificationApi.DAL;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
@@ -12,25 +11,23 @@ namespace NotificationApi.IntegrationTests.Helper
 {
     public class TestDataManager
     {
-        private readonly ServicesConfiguration _services;
         private readonly DbContextOptions<NotificationsApiDbContext> _dbContextOptions;
 
-        public TestDataManager(ServicesConfiguration services, DbContextOptions<NotificationsApiDbContext> dbContextOptions)
+        public TestDataManager(DbContextOptions<NotificationsApiDbContext> dbContextOptions)
         {
-            _services = services;
             _dbContextOptions = dbContextOptions;
         }
         
         public Task<Notification> SeedCreatedNotification()
         {
-            var notification = new EmailNotification(NotificationType.CreateUser, "totest@auto.com", Guid.NewGuid(),
+            var notification = new EmailNotification(Guid.NewGuid(), NotificationType.CreateIndividual, "totest@auto.com", Guid.NewGuid(),
                 Guid.NewGuid());
             return SeedNotification(notification);
         }
 
         public Task<Notification> SeedSendingNotification()
         {
-            var notification = new EmailNotification(NotificationType.CreateUser, "totest@auto.com", Guid.NewGuid(),
+            var notification = new EmailNotification(Guid.NewGuid(), NotificationType.CreateIndividual, "totest@auto.com", Guid.NewGuid(),
                 Guid.NewGuid());
             notification.UpdateDeliveryStatus(DeliveryStatus.Sending);
             notification.AssignExternalId(Guid.NewGuid().ToString());

@@ -23,7 +23,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
         [Test]
         public async Task Should_save_new_notification()
         {
-            var notificationType = (int)NotificationType.CreateUser;
+            var notificationType = (int)NotificationType.CreateIndividual;
             const string email = "test@email.com";
             var participantId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
@@ -32,10 +32,6 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             await _handler.Handle(command);
 
             command.NotificationId.Should().NotBeEmpty();
-            command.NotificationType.Should().Be(notificationType);
-            command.ContactEmail.Should().Be(email);
-            command.ParticipantId.Should().Be(participantId);
-            command.HearingId.Should().Be(hearingId);
             _notificationId = command.NotificationId;
         }
 

@@ -3,7 +3,7 @@ using Notify.Models.Responses;
 
 namespace NotificationApi.IntegrationTests.Assertions
 {
-    public class AssertNotificationResponse
+    public static class AssertNotificationResponse
     {
         public static void ForNotification(NotificationResponse notification)
         {

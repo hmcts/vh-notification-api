@@ -69,7 +69,7 @@ namespace NotificationApi.IntegrationTests.Hooks
             dbContextOptionsBuilder.EnableSensitiveDataLogging();
             dbContextOptionsBuilder.UseSqlServer(context.Config.DbConnection.VhNotificationsApi);
             context.NotifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
-            context.TestDataManager = new TestDataManager(context.Config.ServicesConfig, context.NotifyBookingsDbContextOptions);
+            context.TestDataManager = new TestDataManager(context.NotifyBookingsDbContextOptions);
         }
 
         private static void RegisterServer(IntTestContext context)

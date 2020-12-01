@@ -11,13 +11,13 @@ namespace NotificationApi.UnitTests.Domain.Notifications
         [Test]
         public void should_create_notification_with_email_type_and_email()
         {
-            const NotificationType notificationType = NotificationType.CreateUser;
+            const NotificationType notificationType = NotificationType.CreateIndividual;
             const MessageType messageType = MessageType.Email;
             const string toEmail = "test@unit.com";
             var patId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
             
-            var notification = new EmailNotification(notificationType, toEmail, patId, hearingId);
+            var notification = new EmailNotification(Guid.NewGuid(), notificationType, toEmail, patId, hearingId);
 
             notification.Id.Should().NotBeEmpty();
             notification.ToEmail.Should().Be(toEmail);

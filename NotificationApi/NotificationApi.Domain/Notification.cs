@@ -14,14 +14,20 @@ namespace NotificationApi.Domain
         public Guid HearingRefId { get; }
         public string ExternalId { get; private set; }
 
+        protected Notification(Guid id)
+        {
+            Id = id;
+            DeliveryStatus = DeliveryStatus.NotSent;
+        }
+
         protected Notification()
         {
             Id = Guid.NewGuid();
             DeliveryStatus = DeliveryStatus.NotSent;
         }
 
-        protected Notification(NotificationType notificationType,
-            Guid participantRefId, Guid hearingRefId) : this()
+        protected Notification(Guid id, NotificationType notificationType,
+            Guid participantRefId, Guid hearingRefId) : this(id)
         {
             NotificationType = notificationType;
             ParticipantRefId = participantRefId;
