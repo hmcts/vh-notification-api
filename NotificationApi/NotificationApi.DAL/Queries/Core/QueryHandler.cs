@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace NotificationApi.DAL.Queries.Core
 {
@@ -11,10 +11,10 @@ namespace NotificationApi.DAL.Queries.Core
             _queryHandlerFactory = queryHandlerFactory;
         }
 
-        public async Task<TResult> Handle<TQuery, TResult>(TQuery query) where TQuery : IQuery where TResult : class
+        public Task<TResult> Handle<TQuery, TResult>(TQuery query) where TQuery : IQuery where TResult : class
         {
             var handler = _queryHandlerFactory.Create<TQuery, TResult>(query);
-            return await handler.Handle(query);
+            return handler.Handle(query);
         }
     }
 }

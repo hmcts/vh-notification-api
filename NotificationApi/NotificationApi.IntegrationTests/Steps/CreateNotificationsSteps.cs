@@ -8,7 +8,6 @@ using FluentAssertions;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Domain.Enums;
 using NotificationApi.IntegrationTests.Contexts;
-using Notify.Models.Responses;
 using TechTalk.SpecFlow;
 using Testing.Common.Helper;
 

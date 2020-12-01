@@ -35,10 +35,11 @@ namespace NotificationApi.Controllers
         }
 
         [HttpGet("template/{notificationType}")]
+        [OpenApiOperation("GetTemplateByNotificationTypeAsync")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetTemplateByNotificationType(int notificationType)
+        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(int notificationType)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
             if (template == null)
@@ -56,10 +57,11 @@ namespace NotificationApi.Controllers
         }
 
         [HttpPost]
+        [OpenApiOperation("CreateNewNotificationAsync")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateNewNotificationResponse(AddNotificationRequest request)
+        public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)request.NotificationType));
             if (template == null)
@@ -83,6 +85,7 @@ namespace NotificationApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPatch]
+        [OpenApiOperation("HandleCallbackAsync")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
