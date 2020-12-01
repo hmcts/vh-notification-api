@@ -2837,7 +2837,6 @@
           "NotificationApi.Contract": "1.0.0",
           "NotificationApi.DAL": "1.0.0",
           "NotificationApi.Domain": "1.0.0",
-          "NotificationApi.Services": "1.0.0",
           "Notify": "2.9.0",
           "Scrutor": "3.3.0",
           "ZymLabs.NSwag.FluentValidation": "0.4.0"
@@ -2883,16 +2882,6 @@
       },
       "notificationapi.domain": {
         "type": "Project"
-      },
-      "notificationapi.services": {
-        "type": "Project",
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.3",
-          "NotificationApi.Contract": "1.0.0",
-          "NotificationApi.DAL": "1.0.0",
-          "NotificationApi.Domain": "1.0.0",
-          "Notify": "2.9.0"
-        }
       },
       "testing.common": {
         "type": "Project",
