@@ -30,14 +30,8 @@ namespace NotificationApi.Validations
 
         private bool ValidMessageType(MessageType value) => Enum.IsDefined(typeof(MessageType), value);
 
-        private bool IsEmail(AddNotificationRequest arg)
-        {
-            return arg.MessageType == MessageType.Email;
-        }
-        
-        private bool IsPhone(AddNotificationRequest arg)
-        {
-            return arg.MessageType == MessageType.SMS;
-        }
+        private bool IsEmail(AddNotificationRequest arg) => arg.MessageType == MessageType.Email;
+
+        private bool IsPhone(AddNotificationRequest arg) => arg.MessageType == MessageType.SMS;
     }
 }

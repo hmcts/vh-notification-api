@@ -1,34 +1,41 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NotificationApi.Contract.Requests;
+using NotificationApi.Common;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
+using NotificationApi.DAL.Queries;
+using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
-using NotificationApi.Domain.Enums;
 using Notify.Interfaces;
 
 namespace NotificationApi.DAL.Services
 {
-    public class CreateNotificationService
+    public class CreateNotificationService : ICreateNotificationService
     {
         private readonly IAsyncNotificationClient _asyncNotificationClient;
         private readonly ICommandHandler _commandHandler;
-        
-        public CreateNotificationService(ICommandHandler commandHandler, IAsyncNotificationClient asyncNotificationClient)
+        private readonly IQueryHandler _queryHandler;
+
+        public CreateNotificationService(ICommandHandler commandHandler, IAsyncNotificationClient asyncNotificationClient, IQueryHandler queryHandler)
         {
             _commandHandler = commandHandler;
             _asyncNotificationClient = asyncNotificationClient;
+            _queryHandler = queryHandler;
         }
 
-        public async Task CreateNotificationAsync(AddNotificationRequest request, Template template)
+        public async Task CreateEmailNotificationAsync(CreateEmailNotificationCommand notificationCommand, Dictionary<string, string> parameters)
         {
-            var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
-            await _commandHandler.Handle(notification);
+            var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery(notificationCommand.NotificationType));
+            if (template == null)
+            {
+                throw new BadRequestException($"Invalid {nameof(notificationCommand.NotificationType)}: {notificationCommand.NotificationType}");
+            }
 
-            var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);
-            var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(request.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters, notification.NotificationId.ToString());
-
-            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.NotificationId, emailNotificationResponse.id, emailNotificationResponse.content.body));
+            await _commandHandler.Handle(notificationCommand);
+            var requestParameters = parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);
+            var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(notificationCommand.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters, notificationCommand.NotificationId.ToString());
+            await _commandHandler.Handle(new UpdateNotificationSentCommand(notificationCommand.NotificationId, emailNotificationResponse.id, emailNotificationResponse.content.body));
         }
     }
 }

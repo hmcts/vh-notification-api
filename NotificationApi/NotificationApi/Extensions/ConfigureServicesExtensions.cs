@@ -10,6 +10,7 @@ using NotificationApi.Common.Helpers;
 using NotificationApi.Common.Security;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries.Core;
+using NotificationApi.DAL.Services;
 using NotificationApi.Middleware.Logging;
 using NotificationApi.Swagger;
 using Notify.Client;
@@ -61,7 +62,7 @@ namespace NotificationApi.Extensions
             services.AddScoped<ILoggingDataExtractor, LoggingDataExtractor>();
             services.AddScoped<ITokenProvider, AzureTokenProvider>();
             services.AddSingleton<ITelemetryInitializer, AppInsightsTelemetry>();
-
+            services.AddScoped<ICreateNotificationService, CreateNotificationService>();
             services.AddScoped<IQueryHandlerFactory, QueryHandlerFactory>();
             services.AddScoped<IQueryHandler, QueryHandler>();
 

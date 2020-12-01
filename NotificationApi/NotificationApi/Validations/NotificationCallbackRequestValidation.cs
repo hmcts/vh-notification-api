@@ -27,14 +27,14 @@ namespace NotificationApi.Validations
             return Guid.TryParse(reference, out _);
         }
 
-        private static bool BeAValidStatus(NotificationCallbackRequest request, string statusString)
+        private bool BeAValidStatus(NotificationCallbackRequest request, string statusString)
         {
             try
             {
                 request.DeliveryStatusAsEnum();
                 return true;
             }
-            catch (ArgumentException)
+            catch (ArgumentOutOfRangeException)
             {
                 return false;
             }

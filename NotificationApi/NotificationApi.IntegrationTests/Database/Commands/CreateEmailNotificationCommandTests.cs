@@ -24,19 +24,20 @@ namespace NotificationApi.IntegrationTests.Database.Commands
         [Test]
         public async Task Should_save_new_notification()
         {
+            // Arrange
             var notificationType = NotificationType.CreateIndividual;
             const string email = "test@email.com";
             var participantId = Guid.NewGuid();
-            var hearingId = Guid.NewGuid();
-            
+            var hearingId = Guid.NewGuid();            
             var command = new CreateEmailNotificationCommand(notificationType, email, participantId, hearingId);
             
+            // Act
             await _handler.Handle(command);
-            await using (var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions))
-            {
-                await db.Notifications.SingleOrDefaultAsync(x => x.Id == command.NotificationId);
-            }
 
+            // Assert
+            await using var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
+            var notification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == command.NotificationId);
+            notification.Should().NotBeNull();
             command.NotificationId.Should().NotBeEmpty();
             _notificationId = command.NotificationId;
         }

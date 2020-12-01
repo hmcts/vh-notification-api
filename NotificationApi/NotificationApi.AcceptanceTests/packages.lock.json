@@ -2877,7 +2877,6 @@
           "Microsoft.Extensions.Configuration.UserSecrets": "3.1.1",
           "Newtonsoft.Json": "12.0.3",
           "NotificationApi.Common": "1.0.0",
-          "NotificationApi.Contract": "1.0.0",
           "NotificationApi.Domain": "1.0.0",
           "Notify": "2.9.0"
         }

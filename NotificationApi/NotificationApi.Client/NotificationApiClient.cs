@@ -35,11 +35,11 @@ namespace NotificationApi.Client
         System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync(System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType);
+        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType, System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task CreateNewNotificationAsync(AddNotificationRequest request);
@@ -179,14 +179,14 @@ namespace NotificationApi.Client
         }
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType)
+        public System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType)
         {
             return GetTemplateByNotificationTypeAsync(notificationType, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType, System.Threading.CancellationToken cancellationToken)
         {
             if (notificationType == null)
                 throw new System.ArgumentNullException("notificationType");

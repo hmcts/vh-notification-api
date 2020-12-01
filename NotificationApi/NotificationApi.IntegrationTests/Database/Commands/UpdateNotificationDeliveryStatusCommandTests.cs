@@ -28,23 +28,20 @@ namespace NotificationApi.IntegrationTests.Database.Commands
         [Test]
         public async Task should_update_delivery_status_for_notification()
         {
+            // Arrange
             var notification = await TestDataManager.SeedSendingNotification();
             _notifications.Add(notification);
             const DeliveryStatus deliveryStatus = DeliveryStatus.Delivered;
+            var command = new UpdateNotificationDeliveryStatusCommand(notification.Id, notification.ExternalId, deliveryStatus);
 
-            var command =
-                new UpdateNotificationDeliveryStatusCommand(notification.Id, notification.ExternalId, deliveryStatus);
-
+            // Act
             await _handler.Handle(command);
-            
-            Notification updatedNotification;
-            await using (var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions))
-            {
-                updatedNotification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == notification.Id);
-            }
 
+            // Assert
+            await using var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
+            var updatedNotification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == notification.Id);
             updatedNotification.Should().NotBeNull();
-            updatedNotification.DeliveryStatus.Should().Be(deliveryStatus);
+            updatedNotification.DeliveryStatus.Should().Be(deliveryStatus);           
         }
 
         [Test]

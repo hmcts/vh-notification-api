@@ -23,14 +23,14 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             _notificationType = notificationType;
             await _context.ExecuteApiRequest(() =>
-                _context.ApiClient.GetTemplateByNotificationTypeAsync((int)notificationType));
+                _context.ApiClient.GetTemplateByNotificationTypeAsync(notificationType));
         }
         
         [When(@"I send a get template by notification type request")]
         public async Task WhenIHaveAGetTemplateRequestRequest()
         {
             await _context.ExecuteApiRequest(() =>
-                _context.ApiClient.GetTemplateByNotificationTypeAsync((int)_notificationType));
+                _context.ApiClient.GetTemplateByNotificationTypeAsync(_notificationType));
         }
         
         [Then(@"a template should return")]

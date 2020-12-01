@@ -25,13 +25,15 @@ namespace NotificationApi.Controllers
         private readonly IQueryHandler _queryHandler;
         private readonly IAsyncNotificationClient _asyncNotificationClient;
         private readonly ICommandHandler _commandHandler;
+        private readonly ICreateNotificationService _createNotificationService;
 
         public NotificationController(IQueryHandler queryHandler, IAsyncNotificationClient asyncNotificationClient,
-            ICommandHandler commandHandler)
+            ICommandHandler commandHandler, ICreateNotificationService createNotificationService)
         {
             _queryHandler = queryHandler;
             _asyncNotificationClient = asyncNotificationClient;
             _commandHandler = commandHandler;
+            _createNotificationService = createNotificationService;
         }
 
         [HttpGet("template/{notificationType}")]
@@ -39,7 +41,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetTemplateByNotificationType(int notificationType)
+        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(Contract.NotificationType notificationType)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
             if (template == null)
@@ -61,17 +63,10 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateNewNotification(AddNotificationRequest request)
+        public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
-            var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)request.NotificationType));
-            if (template == null)
-            {
-                throw new BadRequestException($"Invalid {nameof(request.NotificationType)}: {request.NotificationType}");
-            }
-            
-            var notificationService = new CreateNotificationService(_commandHandler, _asyncNotificationClient);
-            await notificationService.CreateNotificationAsync(request, template);
-            
+            var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
+            await _createNotificationService.CreateEmailNotificationAsync(notification, request.Parameters);            
             return Ok();
         }
 
@@ -84,7 +79,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> HandleCallback(NotificationCallbackRequest notificationCallbackRequest)
+        public async Task<IActionResult> HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
         {
             var notificationId = notificationCallbackRequest.ReferenceAsGuid();
             var deliveryStatus = notificationCallbackRequest.DeliveryStatusAsEnum();
