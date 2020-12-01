@@ -16,8 +16,8 @@ namespace NotificationApi.UnitTests.Domain.Notifications
             const string toEmail = "test@unit.com";
             var patId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
-            
-            var notification = new EmailNotification(notificationType, toEmail, patId, hearingId);
+            var notificationId = Guid.NewGuid();
+            var notification = new EmailNotification(notificationId, notificationType, toEmail, patId, hearingId);
 
             notification.Id.Should().NotBeEmpty();
             notification.ToEmail.Should().Be(toEmail);

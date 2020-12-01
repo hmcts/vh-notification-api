@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Common;
 using NotificationApi.Contract.Requests;
@@ -36,10 +35,11 @@ namespace NotificationApi.Controllers
         }
 
         [HttpGet("template/{notificationType}")]
-        [AllowAnonymous]
-        [OpenApiOperation("GetTemplateByNotificationType")]
+        [OpenApiOperation("GetTemplateByNotificationTypeAsync")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetTemplateByNotificationType(int notificationType)
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(int notificationType)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
             if (template == null)
@@ -57,11 +57,11 @@ namespace NotificationApi.Controllers
         }
 
         [HttpPost]
-        [OpenApiOperation("CreateNewNotification")]
-        [ProducesResponseType(typeof(NotificationResponse), (int)HttpStatusCode.OK)]
+        [OpenApiOperation("CreateNewNotificationAsync")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType((int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> CreateNewNotificationResponse(AddNotificationRequest request)
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)request.NotificationType));
             if (template == null)
@@ -69,12 +69,13 @@ namespace NotificationApi.Controllers
                 throw new BadRequestException($"Invalid {nameof(request.NotificationType)}: {request.NotificationType}");
             }
 
-            var notification = await _queryHandler.Handle<CreateEmailNotificationQuery, Notification>(new CreateEmailNotificationQuery(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId));
+            var notification = new CreateEmailNotificationCommand(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
+            await _commandHandler.Handle(notification);
 
             var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);
-            var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(request.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters);
+            var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(request.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters, notification.NotificationId.ToString());
 
-            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.Id, emailNotificationResponse.id, emailNotificationResponse.content.body));
+            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.NotificationId, emailNotificationResponse.id, emailNotificationResponse.content.body));
 
             return Ok();
         }
@@ -84,8 +85,9 @@ namespace NotificationApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPatch]
-        [OpenApiOperation("ProcessNotifyCallback")]
-        [ProducesResponseType(typeof(NotificationResponse), (int) HttpStatusCode.OK)]
+        [OpenApiOperation("HandleCallbackAsync")]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
         {
