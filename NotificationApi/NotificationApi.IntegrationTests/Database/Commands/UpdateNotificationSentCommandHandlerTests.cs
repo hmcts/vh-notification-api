@@ -13,54 +13,59 @@ using NUnit.Framework;
 
 namespace NotificationApi.IntegrationTests.Database.Commands
 {
-    public class UpdateNotificationDeliveryStatusCommandTests : DatabaseTestsBase
+    public class UpdateNotificationSentCommandHandlerTests : DatabaseTestsBase
     {
         private readonly List<Notification> _notifications = new List<Notification>();
-        private UpdateNotificationDeliveryStatusCommandHandler _handler;
-        
+        private UpdateNotificationSentCommandHandler _handler;
+
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
             var context = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
-            _handler = new UpdateNotificationDeliveryStatusCommandHandler(context);
+            _handler = new UpdateNotificationSentCommandHandler(context);
         }
-        
+
         [Test]
-        public async Task should_update_delivery_status_for_notification()
+        public async Task Should_Update_Delivery_Status_To_Created()
         {
-            // Arrange
             var notification = await TestDataManager.SeedSendingNotification();
             _notifications.Add(notification);
-            const DeliveryStatus deliveryStatus = DeliveryStatus.Delivered;
-            var command = new UpdateNotificationDeliveryStatusCommand(notification.Id, notification.ExternalId, deliveryStatus);
+            const DeliveryStatus expectedDeliveryStatus = DeliveryStatus.Created;
+            var command = new UpdateNotificationSentCommand(notification.Id, notification.ExternalId, notification.Payload);
 
-            // Act
             await _handler.Handle(command);
-
-            // Assert
+            
             await using var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
             var updatedNotification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == notification.Id);
             updatedNotification.Should().NotBeNull();
-            updatedNotification.DeliveryStatus.Should().Be(deliveryStatus);           
+            updatedNotification.DeliveryStatus.Should().Be(expectedDeliveryStatus);
         }
-
+        
         [Test]
-        public void should_throw_not_found_exception_when_id_does_not_exist()
+        public void Should_Throw_Not_Found_Exception_When_Id_Does_Not_Exist()
         {
             var command =
-                new UpdateNotificationDeliveryStatusCommand(Guid.NewGuid(), "1234", DeliveryStatus.Delivered);
+                new UpdateNotificationSentCommand(Guid.NewGuid(), "1234", "payload");
             Assert.ThrowsAsync<NotificationNotFoundException>(() => _handler.Handle(command));
         }
         
         [Test]
-        public async Task should_throw_mismatch_id_exception_when_id_and_external_id_do_not_match()
+        public async Task Should_Assign_ExternalId_And_Payload()
         {
             var notification = await TestDataManager.SeedSendingNotification();
             _notifications.Add(notification);
+            const string expectedExternalId = "1234";
+            const string expectedPayload = "payload";
+            notification.AssignExternalId(expectedExternalId);
+            notification.AssignPayload(expectedPayload);
+            var command = new UpdateNotificationSentCommand(notification.Id, notification.ExternalId, notification.Payload);
+
+            await _handler.Handle(command);
             
-            var command =
-                new UpdateNotificationDeliveryStatusCommand(notification.Id, "1234", DeliveryStatus.Delivered);
-            Assert.ThrowsAsync<NotificationIdMismatchException>(() => _handler.Handle(command));
+            await using var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
+            var updatedNotification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == notification.Id);
+            updatedNotification.Payload.Should().Be(expectedPayload);
+            updatedNotification.ExternalId.Should().Be(expectedExternalId);
         }
 
         [TearDown]
