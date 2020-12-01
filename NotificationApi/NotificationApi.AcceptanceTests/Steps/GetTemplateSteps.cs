@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using NotificationApi.AcceptanceTests.Contexts;
+using NotificationApi.Contract;
 using NotificationApi.Contract.Responses;
 using TechTalk.SpecFlow;
 
@@ -10,7 +11,7 @@ namespace NotificationApi.AcceptanceTests.Steps
     public class GetTemplateSteps
     {
         private readonly AcTestContext _context;
-        private int _notificationType;
+        private NotificationType _notificationType;
 
         public GetTemplateSteps(AcTestContext context)
         {
@@ -18,18 +19,18 @@ namespace NotificationApi.AcceptanceTests.Steps
         }
         
         [Given(@"I notification type (.*)")]
-        public async Task GivenIHaveAGetTemplateRequest(int notificationType)
+        public async Task GivenIHaveAGetTemplateRequest(NotificationType notificationType)
         {
             _notificationType = notificationType;
             await _context.ExecuteApiRequest(() =>
-                _context.ApiClient.GetTemplateByNotificationTypeAsync(notificationType));
+                _context.ApiClient.GetTemplateByNotificationTypeAsync((int)notificationType));
         }
         
         [When(@"I send a get template by notification type request")]
         public async Task WhenIHaveAGetTemplateRequestRequest()
         {
             await _context.ExecuteApiRequest(() =>
-                _context.ApiClient.GetTemplateByNotificationTypeAsync(_notificationType));
+                _context.ApiClient.GetTemplateByNotificationTypeAsync((int)_notificationType));
         }
         
         [Then(@"a template should return")]

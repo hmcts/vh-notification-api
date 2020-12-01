@@ -24,7 +24,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
         [Test]
         public async Task Should_save_new_notification()
         {
-            var notificationType = (int)NotificationType.CreateIndividual;
+            var notificationType = NotificationType.CreateIndividual;
             const string email = "test@email.com";
             var participantId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();

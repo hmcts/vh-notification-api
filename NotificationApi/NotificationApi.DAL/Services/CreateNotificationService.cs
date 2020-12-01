@@ -4,6 +4,7 @@ using NotificationApi.Contract.Requests;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.Domain;
+using NotificationApi.Domain.Enums;
 using Notify.Interfaces;
 
 namespace NotificationApi.DAL.Services
@@ -21,7 +22,7 @@ namespace NotificationApi.DAL.Services
 
         public async Task CreateNotificationAsync(AddNotificationRequest request, Template template)
         {
-            var notification = new CreateEmailNotificationCommand(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
+            var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
             await _commandHandler.Handle(notification);
 
             var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);

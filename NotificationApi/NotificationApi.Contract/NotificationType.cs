@@ -1,6 +1,6 @@
-namespace NotificationApi.Domain.Enums
+namespace NotificationApi.Contract
 {
-    // Public contract at NotificationApi.Contract.NotificationType
+    // Public contract for NotificationApi.Domain.Enums.NotificationType
     public enum NotificationType
     {
         CreateIndividual = 1,

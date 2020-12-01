@@ -50,7 +50,7 @@ namespace NotificationApi.Controllers
             return Ok(new NotificationTemplateResponse
             {
                 Id = template.Id,
-                NotificationType = (int)template.NotificationType,
+                NotificationType = (Contract.NotificationType)template.NotificationType,
                 NotifyTemplateId = template.NotifyTemplateId,
                 Parameters = template.Parameters
             });

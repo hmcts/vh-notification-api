@@ -5,6 +5,7 @@
 //----------------------
 
 using Microsoft.AspNetCore.Mvc;
+using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Contract.Responses;
 
