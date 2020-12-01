@@ -4,7 +4,6 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.DAL;
 using NotificationApi.DAL.Commands;
-using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using NUnit.Framework;
 

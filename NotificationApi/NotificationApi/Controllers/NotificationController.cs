@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +8,7 @@ using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries;
 using NotificationApi.DAL.Queries.Core;
+using NotificationApi.DAL.Services;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using NotificationApi.Extensions;
@@ -39,7 +39,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(int notificationType)
+        public async Task<IActionResult> GetTemplateByNotificationType(int notificationType)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
             if (template == null)
@@ -61,22 +61,17 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
+        public async Task<IActionResult> CreateNewNotification(AddNotificationRequest request)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)request.NotificationType));
             if (template == null)
             {
                 throw new BadRequestException($"Invalid {nameof(request.NotificationType)}: {request.NotificationType}");
             }
-
-            var notification = new CreateEmailNotificationCommand(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
-            await _commandHandler.Handle(notification);
-
-            var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);
-            var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(request.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters, notification.NotificationId.ToString());
-
-            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.NotificationId, emailNotificationResponse.id, emailNotificationResponse.content.body));
-
+            
+            var notificationService = new CreateNotificationService(_commandHandler, _asyncNotificationClient);
+            await notificationService.CreateNotificationAsync(request, template);
+            
             return Ok();
         }
 
@@ -89,7 +84,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
+        public async Task<IActionResult> HandleCallback(NotificationCallbackRequest notificationCallbackRequest)
         {
             var notificationId = notificationCallbackRequest.ReferenceAsGuid();
             var deliveryStatus = notificationCallbackRequest.DeliveryStatusAsEnum();
