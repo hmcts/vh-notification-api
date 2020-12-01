@@ -45,7 +45,4 @@
         <Content Include="ApiTests\*.feature" />
         <Content Include="ApiTests\*.feature.cs" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Database\Commands\" />
-    </ItemGroup>
 </Project>
