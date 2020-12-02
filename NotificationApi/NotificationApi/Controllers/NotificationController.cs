@@ -8,10 +8,10 @@ using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries;
 using NotificationApi.DAL.Queries.Core;
-using NotificationApi.DAL.Services;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using NotificationApi.Extensions;
+using NotificationApi.Services;
 using NSwag.Annotations;
 
 namespace NotificationApi.Controllers

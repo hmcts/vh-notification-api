@@ -9,7 +9,7 @@ using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using Notify.Interfaces;
 
-namespace NotificationApi.DAL.Services
+namespace NotificationApi.Services
 {
     public class CreateNotificationService : ICreateNotificationService
     {
@@ -27,10 +27,6 @@ namespace NotificationApi.DAL.Services
         public async Task CreateEmailNotificationAsync(CreateEmailNotificationCommand notificationCommand, Dictionary<string, string> parameters)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery(notificationCommand.NotificationType));
-            if (template == null)
-            {
-                throw new BadRequestException($"Invalid {nameof(notificationCommand.NotificationType)}: {notificationCommand.NotificationType}");
-            }
 
             await _commandHandler.Handle(notificationCommand);
             var requestParameters = parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);

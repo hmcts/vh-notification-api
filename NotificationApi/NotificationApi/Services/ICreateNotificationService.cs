@@ -1,8 +1,8 @@
-using NotificationApi.DAL.Commands;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NotificationApi.DAL.Commands;
 
-namespace NotificationApi.DAL.Services
+namespace NotificationApi.Services
 {
     public interface ICreateNotificationService
     {
