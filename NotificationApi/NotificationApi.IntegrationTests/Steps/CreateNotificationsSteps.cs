@@ -6,7 +6,6 @@ using System.Text;
 using AcceptanceTests.Common.Api.Helpers;
 using FluentAssertions;
 using NotificationApi.Contract.Requests;
-using NotificationApi.Domain.Enums;
 using NotificationApi.IntegrationTests.Contexts;
 using TechTalk.SpecFlow;
 using Testing.Common.Helper;
@@ -26,13 +25,23 @@ namespace NotificationApi.IntegrationTests.Steps
         [Given("I have a valid create new email notification request")]
         public void I_have_a_valid_create_new_email_notification_request()
         {
-            var request = BuildRequest();
+            var request = BuildNotificationRequest(Contract.MessageType.Email);
             _context.Uri = ApiUriFactory.NotificationEndpoints.CreateNewEmailNotificationResponse;
             _context.HttpMethod = HttpMethod.Post;
             var body = RequestHelper.Serialise(request);
             _context.HttpContent = new StringContent(body, Encoding.UTF8, "application/json");
         }
-        
+
+        [Given("I have a valid create new sms notification request")]
+        public void I_have_a_valid_create_new_sms_notification_request()
+        {
+            var request = BuildNotificationRequest(Contract.MessageType.SMS);
+            _context.Uri = ApiUriFactory.NotificationEndpoints.CreateNewEmailNotificationResponse;
+            _context.HttpMethod = HttpMethod.Post;
+            var body = RequestHelper.Serialise(request);
+            _context.HttpContent = new StringContent(body, Encoding.UTF8, "application/json");
+        }
+
         [Then("the response should have the status (.*)")]
         public void the_response_should_have_the_status_created(HttpStatusCode statusCode)
         {
@@ -45,7 +54,7 @@ namespace NotificationApi.IntegrationTests.Steps
             _context.Response.IsSuccessStatusCode.Should().Be(isSuccess);
         }
 
-        private AddNotificationRequest BuildRequest()
+        private AddNotificationRequest BuildNotificationRequest(Contract.MessageType messageType)
         {
             var parameters = new Dictionary<string, string>
             {
@@ -58,13 +67,13 @@ namespace NotificationApi.IntegrationTests.Steps
 
             return new AddNotificationRequest
             {
-                ContactEmail = "email@email.com",
+                ContactEmail = messageType == Contract.MessageType.Email ? "email@email.com" : null,
                 HearingId = Guid.NewGuid(),
-                MessageType = (int)MessageType.Email,
-                NotificationType = (int)NotificationType.CreateIndividual,
+                MessageType = messageType,
+                NotificationType = Contract.NotificationType.CreateIndividual,
                 Parameters = parameters,
                 ParticipantId = Guid.NewGuid(),
-                PhoneNumber = "1234567890"
+                PhoneNumber = messageType == Contract.MessageType.SMS ? "01234567890" : null,
             };
         }
     }

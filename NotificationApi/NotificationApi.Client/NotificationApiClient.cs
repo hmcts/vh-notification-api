@@ -5,6 +5,7 @@
 //----------------------
 
 using Microsoft.AspNetCore.Mvc;
+using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Contract.Responses;
 
@@ -34,11 +35,11 @@ namespace NotificationApi.Client
         System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync(System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType);
+        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType, System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task CreateNewNotificationAsync(AddNotificationRequest request);
@@ -178,20 +179,20 @@ namespace NotificationApi.Client
         }
     
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType)
+        public System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType)
         {
             return GetTemplateByNotificationTypeAsync(notificationType, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(int notificationType, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<NotificationTemplateResponse> GetTemplateByNotificationTypeAsync(NotificationType notificationType, System.Threading.CancellationToken cancellationToken)
         {
             if (notificationType == null)
                 throw new System.ArgumentNullException("notificationType");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Notification/template/{notificationType}");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/notification/template/{notificationType}");
             urlBuilder_.Replace("{notificationType}", System.Uri.EscapeDataString(ConvertToString(notificationType, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
@@ -281,7 +282,7 @@ namespace NotificationApi.Client
                 throw new System.ArgumentNullException("request");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Notification");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/notification");
     
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -369,7 +370,7 @@ namespace NotificationApi.Client
                 throw new System.ArgumentNullException("notificationCallbackRequest");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Notification");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/notification/callback");
     
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -380,7 +381,7 @@ namespace NotificationApi.Client
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(notificationCallbackRequest, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("PATCH");
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
     
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
@@ -420,6 +421,12 @@ namespace NotificationApi.Client
                                 throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new NotificationApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 401)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new NotificationApiException("Unauthorized", status_, responseText_, headers_, null);
                         }
                         else
                         {

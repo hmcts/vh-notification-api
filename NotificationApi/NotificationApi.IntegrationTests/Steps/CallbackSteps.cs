@@ -25,7 +25,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var request = BuildRequest(deliveryStatus);
             _context.Uri = NotificationEndpoints.UpdateNotification;
-            _context.HttpMethod = HttpMethod.Patch;
+            _context.HttpMethod = HttpMethod.Post;
             var jsonBody = RequestHelper.Serialise(request);
             _context.HttpContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
         }
@@ -41,7 +41,7 @@ namespace NotificationApi.IntegrationTests.Steps
                 Status = "failed"
             };
             _context.Uri = NotificationEndpoints.UpdateNotification;
-            _context.HttpMethod = HttpMethod.Patch;
+            _context.HttpMethod = HttpMethod.Post;
             var jsonBody = RequestHelper.Serialise(request);
             _context.HttpContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
         }
@@ -57,7 +57,7 @@ namespace NotificationApi.IntegrationTests.Steps
                 Status = "permanent-failure"
             };
             _context.Uri = NotificationEndpoints.UpdateNotification;
-            _context.HttpMethod = HttpMethod.Patch;
+            _context.HttpMethod = HttpMethod.Post;
             var jsonBody = RequestHelper.Serialise(request);
             _context.HttpContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
         }

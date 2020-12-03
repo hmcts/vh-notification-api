@@ -1,7 +1,7 @@
 using System;
-using System.Linq;
 using FluentValidation;
 using NotificationApi.Contract.Requests;
+using NotificationApi.Extensions;
 
 namespace NotificationApi.Validations
 {
@@ -27,11 +27,17 @@ namespace NotificationApi.Validations
             return Guid.TryParse(reference, out _);
         }
 
-        private static bool BeAValidStatus(string statusString)
+        private bool BeAValidStatus(NotificationCallbackRequest request, string statusString)
         {
-            var validCallbackStatuses = new[]
-                {"delivered", "permanent-failure", "temporary-failure", "technical-failure"};
-            return validCallbackStatuses.Contains(statusString);
+            try
+            {
+                request.DeliveryStatusAsEnum();
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return false;
+            }
         }
     }
 }

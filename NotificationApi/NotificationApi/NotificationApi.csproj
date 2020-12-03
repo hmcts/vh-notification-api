@@ -50,7 +50,6 @@
     <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" />
     <ProjectReference Include="..\NotificationApi.DAL\NotificationApi.DAL.csproj" />
     <ProjectReference Include="..\NotificationApi.Domain\NotificationApi.Domain.csproj" />
-    <ProjectReference Include="..\NotificationApi.Services\NotificationApi.Services.csproj" />
   </ItemGroup>
   
   <ItemGroup>

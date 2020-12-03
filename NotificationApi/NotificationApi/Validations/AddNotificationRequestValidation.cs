@@ -1,7 +1,7 @@
 using System;
 using FluentValidation;
+using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
-using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.Validations
 {
@@ -26,18 +26,12 @@ namespace NotificationApi.Validations
             RuleFor(x => x.PhoneNumber).NotEmpty().When(IsPhone).WithMessage(MissingPhoneNumberMessage);
         }
 
-        private bool ValidNotificationType(int value) => Enum.IsDefined(typeof(NotificationType), value);
+        private bool ValidNotificationType(NotificationType value) => Enum.IsDefined(typeof(NotificationType), value);
 
-        private bool ValidMessageType(int value) => Enum.IsDefined(typeof(MessageType), value);
+        private bool ValidMessageType(MessageType value) => Enum.IsDefined(typeof(MessageType), value);
 
-        private bool IsEmail(AddNotificationRequest arg)
-        {
-            return arg.MessageType == (int) MessageType.Email;
-        }
-        
-        private bool IsPhone(AddNotificationRequest arg)
-        {
-            return arg.MessageType == (int) MessageType.SMS;
-        }
+        private bool IsEmail(AddNotificationRequest arg) => arg.MessageType == MessageType.Email;
+
+        private bool IsPhone(AddNotificationRequest arg) => arg.MessageType == MessageType.SMS;
     }
 }

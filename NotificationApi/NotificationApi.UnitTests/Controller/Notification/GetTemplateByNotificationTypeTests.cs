@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace NotificationApi.UnitTests.Controller.Notification
 {
-    public class GetTemplateByNotificationTypeShould
+    public class GetTemplateByNotificationTypeTests
     {
         private AutoMock _mocker;
 
@@ -39,7 +39,7 @@ namespace NotificationApi.UnitTests.Controller.Notification
                 _mocker.Mock<IQueryHandler>().Setup(x => x.Handle<GetTemplateByNotificationTypeQuery, Template>(It.Is<GetTemplateByNotificationTypeQuery>(y => y.NotificationType == notificationType))).ReturnsAsync(template);
 
                 // Act
-                var result = await _sut.GetTemplateByNotificationTypeAsync((int)notificationType);
+                var result = await _sut.GetTemplateByNotificationTypeAsync((Contract.NotificationType)notificationType);
 
                 // Assert
                 _mocker.Mock<IQueryHandler>().Verify(x => x.Handle<GetTemplateByNotificationTypeQuery, Template>(It.Is<GetTemplateByNotificationTypeQuery>(y => y.NotificationType == notificationType)), Times.Once);
@@ -51,7 +51,7 @@ namespace NotificationApi.UnitTests.Controller.Notification
                 var notificationTemplateResponse = okResult.Value as NotificationTemplateResponse;
                 notificationTemplateResponse.Id.Should().Be(template.Id);
                 notificationTemplateResponse.NotificationType.Should().Be((int)notificationType);
-                notificationTemplateResponse.NotifyemplateId.Should().Be(template.NotifyTemplateId);
+                notificationTemplateResponse.NotifyTemplateId.Should().Be(template.NotifyTemplateId);
                 notificationTemplateResponse.Parameters.Should().Be(template.Parameters);
             }
         }
@@ -62,7 +62,7 @@ namespace NotificationApi.UnitTests.Controller.Notification
             // Arrange
 
             // Act / Assert
-            var exception = Assert.ThrowsAsync<BadRequestException>(() => _sut.GetTemplateByNotificationTypeAsync(100000));
+            var exception = Assert.ThrowsAsync<BadRequestException>(() => _sut.GetTemplateByNotificationTypeAsync((Contract.NotificationType)100000));
             _mocker.Mock<IQueryHandler>().Verify(x => x.Handle<GetTemplateByNotificationTypeQuery, Template>(It.IsAny<GetTemplateByNotificationTypeQuery>()), Times.Once);
             exception.Message.Should().Be($"Invalid notificationType: 100000");
         }

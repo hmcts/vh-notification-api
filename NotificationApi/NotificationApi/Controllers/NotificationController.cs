@@ -1,6 +1,6 @@
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Common;
 using NotificationApi.Contract.Requests;
@@ -12,34 +12,34 @@ using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using NotificationApi.Extensions;
-using Notify.Interfaces;
+using NotificationApi.Services;
 using NSwag.Annotations;
 
 namespace NotificationApi.Controllers
 {
     [Produces("application/json")]
-    [Route("Notification")]
+    [Route("notification")]
     [ApiController]
     public class NotificationController : ControllerBase
     {
         private readonly IQueryHandler _queryHandler;
-        private readonly IAsyncNotificationClient _asyncNotificationClient;
         private readonly ICommandHandler _commandHandler;
+        private readonly ICreateNotificationService _createNotificationService;
 
-        public NotificationController(IQueryHandler queryHandler, IAsyncNotificationClient asyncNotificationClient,
-            ICommandHandler commandHandler)
+        public NotificationController(IQueryHandler queryHandler,
+            ICommandHandler commandHandler, ICreateNotificationService createNotificationService)
         {
             _queryHandler = queryHandler;
-            _asyncNotificationClient = asyncNotificationClient;
             _commandHandler = commandHandler;
+            _createNotificationService = createNotificationService;
         }
 
         [HttpGet("template/{notificationType}")]
-        [OpenApiOperation("GetTemplateByNotificationTypeAsync")]
+        [OpenApiOperation("GetTemplateByNotificationType")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(int notificationType)
+        public async Task<IActionResult> GetTemplateByNotificationTypeAsync(Contract.NotificationType notificationType)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
             if (template == null)
@@ -50,33 +50,21 @@ namespace NotificationApi.Controllers
             return Ok(new NotificationTemplateResponse
             {
                 Id = template.Id,
-                NotificationType = (int)template.NotificationType,
-                NotifyemplateId = template.NotifyTemplateId,
+                NotificationType = (Contract.NotificationType)template.NotificationType,
+                NotifyTemplateId = template.NotifyTemplateId,
                 Parameters = template.Parameters
             });
         }
 
         [HttpPost]
-        [OpenApiOperation("CreateNewNotificationAsync")]
+        [OpenApiOperation("CreateNewNotification")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
-            var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)request.NotificationType));
-            if (template == null)
-            {
-                throw new BadRequestException($"Invalid {nameof(request.NotificationType)}: {request.NotificationType}");
-            }
-
-            var notification = new CreateEmailNotificationCommand(request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
-            await _commandHandler.Handle(notification);
-
-            var requestParameters = request.Parameters.ToDictionary(x => x.Key, x => (dynamic)x.Value);
-            var emailNotificationResponse = await _asyncNotificationClient.SendEmailAsync(request.ContactEmail, template.NotifyTemplateId.ToString(), requestParameters, notification.NotificationId.ToString());
-
-            await _commandHandler.Handle(new UpdateNotificationSentCommand(notification.NotificationId, emailNotificationResponse.id, emailNotificationResponse.content.body));
-
+            var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
+            await _createNotificationService.CreateEmailNotificationAsync(notification, request.Parameters);            
             return Ok();
         }
 
@@ -84,8 +72,9 @@ namespace NotificationApi.Controllers
         /// Process callbacks from Gov Notify API
         /// </summary>
         /// <returns></returns>
-        [HttpPatch]
-        [OpenApiOperation("HandleCallbackAsync")]
+        [HttpPost("callback")]
+        [OpenApiOperation("HandleCallback")]
+        [Authorize(AuthenticationSchemes = "Callback")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]

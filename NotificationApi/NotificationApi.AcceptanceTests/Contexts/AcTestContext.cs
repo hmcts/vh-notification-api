@@ -4,6 +4,7 @@ using AcceptanceTests.Common.Api;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.AudioRecordings;
 using NotificationApi.Client;
+using Notify.Interfaces;
 using RestSharp;
 using Testing.Common.Configuration;
 
@@ -17,6 +18,7 @@ namespace NotificationApi.AcceptanceTests.Contexts
         public NotificationApiTokens Tokens { get; set; }
         public AzureStorageManager AzureStorage { get; set; }
         public NotificationApiClient ApiClient { get; set; }
+        public IAsyncNotificationClient NotificationClient { get; set; }
         public object ApiClientResponse { get; set; }
         public string ApiClientMessage { get; set; }
 
