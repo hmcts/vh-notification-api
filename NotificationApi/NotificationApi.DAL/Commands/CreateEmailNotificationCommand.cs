@@ -35,7 +35,7 @@ namespace NotificationApi.DAL.Commands
 
         public async Task Handle(CreateEmailNotificationCommand command) 
         {
-            var notification = new EmailNotification(command.NotificationId, command.NotificationType, command.ContactEmail, command.ParticipantId, command.HearingId);
+            var notification = new EmailNotification(command.NotificationId, (NotificationType)command.NotificationType, command.ContactEmail, command.ParticipantId, command.HearingId);
             _notificationsApiDbContext.Notifications.Add(notification);
             await _notificationsApiDbContext.SaveChangesAsync();
         }

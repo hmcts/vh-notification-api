@@ -76,5 +76,8 @@
 
   <ItemGroup>
     <Content Include="ApiTests\*.feature.cs" />
+    <Content Update="ApiTests\CreateNotification.feature.cs">
+      <DependentUpon>CreateNotification.feature</DependentUpon>
+    </Content>
   </ItemGroup>
 </Project>

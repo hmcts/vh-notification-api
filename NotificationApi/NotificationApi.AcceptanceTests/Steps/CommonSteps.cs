@@ -29,5 +29,11 @@ namespace NotificationApi.AcceptanceTests.Steps
             _context.Response.StatusCode.Should().Be(httpStatusCode);
             _context.Response.IsSuccessful.Should().Be(isSuccess);
         }
+        
+        [Then(@"the api client should return true")]
+        public void ThenApiClientShouldReturnTrue()
+        {
+            _context.ApiClientResponse.Should().Be(true);
+        }
     }
 }

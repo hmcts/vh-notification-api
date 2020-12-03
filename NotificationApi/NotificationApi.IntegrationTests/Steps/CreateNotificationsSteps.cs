@@ -58,11 +58,11 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var parameters = new Dictionary<string, string>
             {
-                {"Case number", "134"},
                 {"Name", "test"},
                 {"Day Month Year", "12/12/11"},
                 {"time", "DateTime"},
-                {"Username", "testUser"}
+                {"Username", "testUser"},
+                {"random password", "testpass"}
             };
 
             return new AddNotificationRequest
