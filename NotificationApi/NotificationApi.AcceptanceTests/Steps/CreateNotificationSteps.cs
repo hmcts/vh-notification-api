@@ -6,6 +6,7 @@ using FluentAssertions;
 using NotificationApi.AcceptanceTests.Contexts;
 using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
+using Notify.Models;
 using TechTalk.SpecFlow;
 
 namespace NotificationApi.AcceptanceTests.Steps
@@ -14,7 +15,8 @@ namespace NotificationApi.AcceptanceTests.Steps
     public class CreateNotificationSteps
     {
         private readonly AcTestContext _context;
-        private AddNotificationRequest _request;
+        public AddNotificationRequest Request { get; private set; }
+        public Notification RecentNotification { get; private set; }
         
         public CreateNotificationSteps(AcTestContext context)
         {
@@ -24,27 +26,28 @@ namespace NotificationApi.AcceptanceTests.Steps
         [Given(@"I have a request to create an email notification")]
         public void Given_I_Have_A_Request_To_Create_An_Email_Notification()
         {
-            _request = BuildNotificationRequest(MessageType.Email);
+            Request = BuildNotificationRequest(MessageType.Email);
         }
         
         [When(@"I send the create notification request")]
         public async Task WhenISendTheCreateNotificationRequest()
         {
             await _context.ExecuteApiRequest(() =>
-                _context.ApiClient.CreateNewNotificationAsync(_request));
+                _context.ApiClient.CreateNewNotificationAsync(Request));
         }
         
         [Then(@"Notify should have my request")]
         public async Task ThenNotifyShouldHaveMyRequest()
         {
-            var allNotifications = await _context.NotificationClient.GetNotificationsAsync("email");
-            var name = _request.Parameters["name"];
-            var username = _request.Parameters["username"];
-            var recentNotification =
+            var allNotifications = await _context.NotifyClient.GetNotificationsAsync("email");
+            var name = Request.Parameters["name"];
+            var username = Request.Parameters["username"];
+            RecentNotification =
                 allNotifications.notifications.LastOrDefault(x => x.body.Contains(name) && x.body.Contains(username));
-            recentNotification.Should().NotBeNull();
+            RecentNotification.Should().NotBeNull();
+            
         }
-        
+
         private AddNotificationRequest BuildNotificationRequest(MessageType messageType)
         {
             var parameters = new Dictionary<string, string>

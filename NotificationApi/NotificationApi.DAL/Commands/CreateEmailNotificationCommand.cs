@@ -8,7 +8,8 @@ namespace NotificationApi.DAL.Commands
 {
     public class CreateEmailNotificationCommand : ICommand
     {
-        public CreateEmailNotificationCommand(NotificationType notificationType, string contactEmail, Guid participantId, Guid hearingId)
+        public CreateEmailNotificationCommand(NotificationType notificationType, string contactEmail,
+            Guid participantId, Guid hearingId)
         {
             NotificationId = Guid.NewGuid();
             NotificationType = notificationType;
@@ -33,9 +34,10 @@ namespace NotificationApi.DAL.Commands
             _notificationsApiDbContext = notificationsApiDbContext;
         }
 
-        public async Task Handle(CreateEmailNotificationCommand command) 
+        public async Task Handle(CreateEmailNotificationCommand command)
         {
-            var notification = new EmailNotification(command.NotificationId, (NotificationType)command.NotificationType, command.ContactEmail, command.ParticipantId, command.HearingId);
+            var notification = new EmailNotification(command.NotificationId, command.NotificationType,
+                command.ContactEmail, command.ParticipantId, command.HearingId);
             _notificationsApiDbContext.Notifications.Add(notification);
             await _notificationsApiDbContext.SaveChangesAsync();
         }

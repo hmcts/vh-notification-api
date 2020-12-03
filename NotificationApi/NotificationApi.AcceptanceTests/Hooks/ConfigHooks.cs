@@ -12,6 +12,7 @@ using Notify.Client;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
+using Testing.Common.Security;
 
 namespace NotificationApi.AcceptanceTests.Hooks
 {
@@ -41,6 +42,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
             RegisterHearingServices(context);
             await GenerateBearerTokens(context);
             InitApiClient(context);
+            InitApiCallbackClient(context);
             await TestContext.Out.WriteLineAsync("Registering secrets complete");
         }
 
@@ -84,6 +86,12 @@ namespace NotificationApi.AcceptanceTests.Hooks
             context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
                 azureConfig, context.Config.ServicesConfig.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty("Bearer token for api must be set");
+
+            context.Tokens.NotificationCallbackBearerToken =
+                new CustomJwtTokenProvider().GenerateTokenForCallbackEndpoint(
+                    context.Config.NotifyConfiguration.CallbackSecret, 60);
+            context.Tokens.NotificationCallbackBearerToken.Should()
+                .NotBeNullOrWhiteSpace("Bearer token for callback must be set");
         }
 
         private static void InitApiClient(AcTestContext context)
@@ -95,7 +103,17 @@ namespace NotificationApi.AcceptanceTests.Hooks
             var baseUrl = context.Config.ServicesConfig.NotificationApiUrl;
             context.ApiClient = NotificationApiClient.GetClient(baseUrl, httpClient);
             
-            context.NotificationClient = new NotificationClient(context.Config.NotifyConfiguration.ApiKey);
+            context.NotifyClient = new NotificationClient(context.Config.NotifyConfiguration.ApiKey);
+        }
+        
+        private static void InitApiCallbackClient(AcTestContext context)
+        {
+            TestContext.Out.WriteLine("Initialising API Callback Client");
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("bearer", context.Tokens.NotificationCallbackBearerToken);
+            var baseUrl = context.Config.ServicesConfig.NotificationApiUrl;
+            context.ApiCallbackClient = NotificationApiClient.GetClient(baseUrl, httpClient);
         }
     }
 

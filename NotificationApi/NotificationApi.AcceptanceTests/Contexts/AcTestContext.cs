@@ -17,7 +17,8 @@ namespace NotificationApi.AcceptanceTests.Contexts
         public IRestResponse Response { get; set; }
         public NotificationApiTokens Tokens { get; set; }
         public NotificationApiClient ApiClient { get; set; }
-        public IAsyncNotificationClient NotificationClient { get; set; }
+        public NotificationApiClient ApiCallbackClient { get; set; }
+        public IAsyncNotificationClient NotifyClient { get; set; }
         public object ApiClientResponse { get; set; }
         public string ApiClientMessage { get; set; }
 
