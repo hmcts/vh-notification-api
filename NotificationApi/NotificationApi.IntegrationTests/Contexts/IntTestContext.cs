@@ -28,7 +28,15 @@ namespace NotificationApi.IntegrationTests.Contexts
         public HttpClient CreateClient()
         {
             var client = Server.CreateClient();
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Tokens.NotificationApiBearerToken}");
+            if (Uri.ToLower().Contains("callback"))
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Tokens.NotificationCallbackBearerToken}");
+            }
+            else
+            {
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Tokens.NotificationApiBearerToken}");
+            }
+
             return client;
         }
     }
