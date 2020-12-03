@@ -16,7 +16,6 @@ namespace NotificationApi.AcceptanceTests.Contexts
         public RestRequest Request { get; set; }
         public IRestResponse Response { get; set; }
         public NotificationApiTokens Tokens { get; set; }
-        public AzureStorageManager AzureStorage { get; set; }
         public NotificationApiClient ApiClient { get; set; }
         public IAsyncNotificationClient NotificationClient { get; set; }
         public object ApiClientResponse { get; set; }

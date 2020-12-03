@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using NotificationApi.AcceptanceTests.Contexts;
 using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
@@ -32,15 +34,24 @@ namespace NotificationApi.AcceptanceTests.Steps
                 _context.ApiClient.CreateNewNotificationAsync(_request));
         }
         
+        [Then(@"Notify should have my request")]
+        public async Task ThenNotifyShouldHaveMyRequest()
+        {
+            var allNotifications = await _context.NotificationClient.GetNotificationsAsync("email");
+            var name = _request.Parameters["name"];
+            var username = _request.Parameters["username"];
+            var recentNotification =
+                allNotifications.notifications.LastOrDefault(x => x.body.Contains(name) && x.body.Contains(username));
+            recentNotification.Should().NotBeNull();
+        }
+        
         private AddNotificationRequest BuildNotificationRequest(MessageType messageType)
         {
             var parameters = new Dictionary<string, string>
             {
-                {"Name", "test"},
-                {"Day Month Year", "12/12/11"},
-                {"time", "DateTime"},
-                {"Username", "testUser"},
-                {"random password", "testpass"}
+                {"name", $"AC Test ${Guid.NewGuid().ToString()}"},
+                {"username", $"{Guid.NewGuid().ToString()}@automation.com"},
+                {"random password", "testpassword!"}
             };
 
             return new AddNotificationRequest
