@@ -13,7 +13,7 @@ namespace NotificationApi.DAL.Migrations
                 keyValue: 1,
                 columns: new [] {"NotifyTemplateId", "Parameters"},
                 values: new object[] {
-                "145dd703-6b4e-4570-bc48-dce1f10e76c7",
+                "94d06843-4608-4cda-9933-9d0f3d7ce535",
                 "name,username,random password"
             } );
             
@@ -21,8 +21,9 @@ namespace NotificationApi.DAL.Migrations
                 table: nameof(Template),
                 keyColumn: "Id",
                 keyValue: 2,
-                columns: new [] {"Parameters"},
+                columns: new [] {"NotifyTemplateId", "Parameters"},
                 values: new object[] {
+                    "e61575fc-05c8-40da-b7a7-f7b1d04ff2db",
                     "name,username,random password"
                 } );
         }
