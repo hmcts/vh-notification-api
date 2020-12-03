@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NotificationApi.Common;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries;

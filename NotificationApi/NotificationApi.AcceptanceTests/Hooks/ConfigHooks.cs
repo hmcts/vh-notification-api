@@ -1,7 +1,6 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using AcceptanceTests.Common.Api;
 using AcceptanceTests.Common.Configuration;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +8,7 @@ using Microsoft.Extensions.Options;
 using NotificationApi.AcceptanceTests.Contexts;
 using NotificationApi.Client;
 using NotificationApi.Common.Configuration;
+using Notify.Client;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
@@ -63,6 +63,10 @@ namespace NotificationApi.AcceptanceTests.Hooks
             context.Config.ServicesConfig =
                 Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
             ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
+            
+            context.Config.NotifyConfiguration =
+                Options.Create(_configRoot.GetSection("NotifyConfiguration").Get<NotifyConfiguration>()).Value;
+            ConfigurationManager.VerifyConfigValuesSet(context.Config.NotifyConfiguration);
             TestContext.Out.WriteLine("Registering hearing services complete");
         }
 
@@ -90,6 +94,8 @@ namespace NotificationApi.AcceptanceTests.Hooks
                 new AuthenticationHeaderValue("bearer", context.Tokens.NotificationApiBearerToken);
             var baseUrl = context.Config.ServicesConfig.NotificationApiUrl;
             context.ApiClient = NotificationApiClient.GetClient(baseUrl, httpClient);
+            
+            context.NotificationClient = new NotificationClient(context.Config.NotifyConfiguration.ApiKey);
         }
     }
 

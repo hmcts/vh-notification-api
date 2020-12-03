@@ -17,7 +17,7 @@ using NSwag.Annotations;
 namespace NotificationApi.Controllers
 {
     [Produces("application/json")]
-    [Route("Notification")]
+    [Route("notification")]
     [ApiController]
     public class NotificationController : ControllerBase
     {
@@ -71,7 +71,7 @@ namespace NotificationApi.Controllers
         /// Process callbacks from Gov Notify API
         /// </summary>
         /// <returns></returns>
-        [HttpPatch]
+        [HttpPost("callback")]
         [OpenApiOperation("HandleCallback")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.InternalServerError)]

@@ -7,5 +7,6 @@ namespace Testing.Common.Configuration
         public AzureAdConfiguration AzureAdConfiguration { get; set; }
         public ConnectionStringsConfig DbConnection { get; set; }
         public ServicesConfiguration ServicesConfig { get; set; }
+        public NotifyConfiguration NotifyConfiguration { get; set; }
     }
 }

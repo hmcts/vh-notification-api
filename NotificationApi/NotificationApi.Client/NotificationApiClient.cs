@@ -192,7 +192,7 @@ namespace NotificationApi.Client
                 throw new System.ArgumentNullException("notificationType");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Notification/template/{notificationType}");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/notification/template/{notificationType}");
             urlBuilder_.Replace("{notificationType}", System.Uri.EscapeDataString(ConvertToString(notificationType, System.Globalization.CultureInfo.InvariantCulture)));
     
             var client_ = _httpClient;
@@ -282,7 +282,7 @@ namespace NotificationApi.Client
                 throw new System.ArgumentNullException("request");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Notification");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/notification");
     
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -370,7 +370,7 @@ namespace NotificationApi.Client
                 throw new System.ArgumentNullException("notificationCallbackRequest");
     
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Notification");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/notification/callback");
     
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -381,7 +381,7 @@ namespace NotificationApi.Client
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(notificationCallbackRequest, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("PATCH");
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
     
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
