@@ -86,18 +86,30 @@ extends:
         appName: vh-notification-api-$(environment)
         resourceGroup: vh-notification-api-$(environment)
         variables:
-          - group: govuk-notify-test
+          - group: govuk-notify-preview
             env:
              - Preview
+          - group: govuk-notify-dev
+            env:
              - Dev
+          - group: govuk-notify-aat
+            env:
              - AAT
+          - group: govuk-notify-sandbox
+            env:
              - Sandbox
+          - group: govuk-notify-test1
+            env:
              - Test1
              - Test2
+          - group: govuk-notify-demo
+            env:
              - Demo
-          - group: govuk-notify-prod
+          - group: govuk-notify-preprod
             env:
              - PreProd
+          - group: govuk-notify-prod
+            env:
              - Prod
         appSettings:
           - name: ApplicationInsights:InstrumentationKey
@@ -120,6 +132,8 @@ extends:
           # GOV Notify Configuration
           - name: NotifyConfiguration:ApiKey
             value: $(notify-api-key)
+          - name: NotifyConfiguration:CallbackSecret
+            value: $(notify-callback-secret)
             
           # Connection strings
           - name: ConnectionStrings:VhNotificationsApi
