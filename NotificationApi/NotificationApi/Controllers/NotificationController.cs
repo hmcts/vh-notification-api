@@ -1,5 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Common;
 using NotificationApi.Contract.Requests;
@@ -73,6 +74,7 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("callback")]
         [OpenApiOperation("HandleCallback")]
+        [Authorize(AuthenticationSchemes = "Callback")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
