@@ -19,11 +19,9 @@ namespace NotificationApi.AcceptanceTests.Steps
         }
         
         [Given(@"I notification type (.*)")]
-        public async Task GivenIHaveAGetTemplateRequest(NotificationType notificationType)
+        public void GivenIHaveAGetTemplateRequest(NotificationType notificationType)
         {
             _notificationType = notificationType;
-            await _context.ExecuteApiRequest(() =>
-                _context.ApiClient.GetTemplateByNotificationTypeAsync(notificationType));
         }
         
         [When(@"I send a get template by notification type request")]

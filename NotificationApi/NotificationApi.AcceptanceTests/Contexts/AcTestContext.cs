@@ -43,8 +43,21 @@ namespace NotificationApi.AcceptanceTests.Contexts
                 ApiClientMessage = e.Message;
             }
         }
-
-
+        
+        public async Task ExecuteApiRequest(Func<Task> apiFunc)
+        {
+            try
+            {
+                await apiFunc();
+                ApiClientResponse = true;
+            }
+            catch (NotificationApiException e)
+            {
+                ApiClientResponse = e.Response;
+                ApiClientMessage = e.Message;
+            }
+        }
+        
         public RestRequest Get(string path)
         {
             return new RestRequest(path, Method.GET);

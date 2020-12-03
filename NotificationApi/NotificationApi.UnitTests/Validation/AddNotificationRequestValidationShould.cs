@@ -7,6 +7,8 @@ using NotificationApi.Contract.Requests;
 using NotificationApi.Domain.Enums;
 using NotificationApi.Validations;
 using NUnit.Framework;
+using MessageType = NotificationApi.Contract.MessageType;
+using NotificationType = NotificationApi.Contract.NotificationType;
 
 namespace NotificationApi.UnitTests.Validation
 {
@@ -57,7 +59,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Fail_When_MessageType_Is_Invalid()
         {
-            _request.MessageType = 4;
+            _request.MessageType = (Contract.MessageType)4;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidMessageTypeMessage).Should()
@@ -67,7 +69,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Fail_When_NotificationType_Is_Invalid()
         {
-            _request.NotificationType = 4;
+            _request.NotificationType = (Contract.NotificationType)4;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidNotificationTypeMessage).Should()
@@ -95,9 +97,10 @@ namespace NotificationApi.UnitTests.Validation
         }
         
         [Test]
-        public async Task Fail_When_Phone_Number_Is_Missing()
+        public async Task Fail_When_Phone_Number_Is_Missing_With_SMS()
         {
             _request.PhoneNumber = null;
+            _request.MessageType = MessageType.SMS;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingPhoneNumberMessage).Should()
@@ -112,8 +115,8 @@ namespace NotificationApi.UnitTests.Validation
             {
                 ContactEmail = "email@email.com",
                 HearingId = Guid.NewGuid(),
-                MessageType = (int)MessageType.Email,
-                NotificationType = (int)NotificationType.CreateIndividual,
+                MessageType = MessageType.Email,
+                NotificationType = NotificationType.CreateIndividual,
                 Parameters = parameters,
                 ParticipantId = Guid.NewGuid(),
                 PhoneNumber = "1234567890"
