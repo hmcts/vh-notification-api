@@ -93,6 +93,7 @@ namespace NotificationApi
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
+                        RequireExpirationTime = false,
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(notifySettings.CallbackSecret))

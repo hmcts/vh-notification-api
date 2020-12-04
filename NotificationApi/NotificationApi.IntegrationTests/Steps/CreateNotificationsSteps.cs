@@ -58,11 +58,9 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var parameters = new Dictionary<string, string>
             {
-                {"Name", "test"},
-                {"Day Month Year", "12/12/11"},
-                {"time", "DateTime"},
-                {"Username", "testUser"},
-                {"random password", "testpass"}
+                {"name", $"Int Test ${Guid.NewGuid().ToString()}"},
+                {"username", $"{Guid.NewGuid().ToString()}@intautomation.com"},
+                {"random password", "inttestpassword!"}
             };
 
             return new AddNotificationRequest
