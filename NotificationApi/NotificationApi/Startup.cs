@@ -72,6 +72,7 @@ namespace NotificationApi
         {
             var securitySettings = Configuration.GetSection("AzureAd").Get<AzureAdConfiguration>();
             var serviceSettings = Configuration.GetSection("Services").Get<ServicesConfiguration>();
+            var notifySettings = Configuration.GetSection("NotifyConfiguration").Get<NotifyConfiguration>();
 
             serviceCollection.AddAuthentication(options =>
                 {
@@ -87,9 +88,20 @@ namespace NotificationApi
                         ValidateLifetime = true,
                         ValidAudience = serviceSettings.VhNotificationApiResourceId
                     };
+                })
+                .AddJwtBearer("Callback", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        RequireExpirationTime = false,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(notifySettings.CallbackSecret))
+                    };
                 });
 
             serviceCollection.AddAuthorization(AddPolicies);
+            
             serviceCollection.AddMvc(AddMvcPolicies);
         }
 
@@ -121,11 +133,10 @@ namespace NotificationApi
             
             app.UseAuthentication();
             app.UseCors("CorsPolicy");
-            
-            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
-            
-            app.UseMiddleware<LogResponseBodyMiddleware>();
+
             app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
         }
 
         private static void AddPolicies(AuthorizationOptions options)

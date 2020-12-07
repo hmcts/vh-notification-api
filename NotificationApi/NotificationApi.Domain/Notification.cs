@@ -7,12 +7,18 @@ namespace NotificationApi.Domain
     public abstract class Notification : Entity<Guid>
     {
         public abstract MessageType MessageType { get; }
-        public string Payload { get; }
+        public string Payload { get; private set; }
         public DeliveryStatus DeliveryStatus { get; private set; }
         public NotificationType NotificationType { get; }
         public Guid ParticipantRefId { get; }
         public Guid HearingRefId { get; }
         public string ExternalId { get; private set; }
+
+        protected Notification(Guid id)
+        {
+            Id = id;
+            DeliveryStatus = DeliveryStatus.NotSent;
+        }
 
         protected Notification()
         {
@@ -20,11 +26,10 @@ namespace NotificationApi.Domain
             DeliveryStatus = DeliveryStatus.NotSent;
         }
 
-        protected Notification(NotificationType notificationType, string payload,
-            Guid participantRefId, Guid hearingRefId) : this()
+        protected Notification(Guid id, NotificationType notificationType,
+            Guid participantRefId, Guid hearingRefId) : this(id)
         {
             NotificationType = notificationType;
-            Payload = payload;
             ParticipantRefId = participantRefId;
             HearingRefId = hearingRefId;
         }
@@ -37,6 +42,11 @@ namespace NotificationApi.Domain
         public void UpdateDeliveryStatus(DeliveryStatus newStatus)
         {
             DeliveryStatus = newStatus;
+        }
+
+        public void AssignPayload(string payload)
+        {
+            Payload = payload;
         }
     }
 }

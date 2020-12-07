@@ -4,6 +4,7 @@ using AcceptanceTests.Common.Api;
 using AcceptanceTests.Common.Api.Helpers;
 using AcceptanceTests.Common.AudioRecordings;
 using NotificationApi.Client;
+using Notify.Interfaces;
 using RestSharp;
 using Testing.Common.Configuration;
 
@@ -15,8 +16,9 @@ namespace NotificationApi.AcceptanceTests.Contexts
         public RestRequest Request { get; set; }
         public IRestResponse Response { get; set; }
         public NotificationApiTokens Tokens { get; set; }
-        public AzureStorageManager AzureStorage { get; set; }
         public NotificationApiClient ApiClient { get; set; }
+        public NotificationApiClient ApiCallbackClient { get; set; }
+        public IAsyncNotificationClient NotifyClient { get; set; }
         public object ApiClientResponse { get; set; }
         public string ApiClientMessage { get; set; }
 
@@ -41,8 +43,21 @@ namespace NotificationApi.AcceptanceTests.Contexts
                 ApiClientMessage = e.Message;
             }
         }
-
-
+        
+        public async Task ExecuteApiRequest(Func<Task> apiFunc)
+        {
+            try
+            {
+                await apiFunc();
+                ApiClientResponse = true;
+            }
+            catch (NotificationApiException e)
+            {
+                ApiClientResponse = e.Response;
+                ApiClientMessage = e.Message;
+            }
+        }
+        
         public RestRequest Get(string path)
         {
             return new RestRequest(path, Method.GET);

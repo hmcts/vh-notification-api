@@ -1,13 +1,13 @@
 version: '3.4'
 
 services:
-  notifyapi:
-    container_name: notifyapi
-    image: ${DOCKER_REGISTRY-}notifyapi
+  notificationapi:
+    container_name: notificationapi
+    image: ${DOCKER_REGISTRY-}notificationapi
     restart: always
     build:
       context: .
-      dockerfile: Notify.API/Dockerfile
+      dockerfile: NotificationApi/Dockerfile
     depends_on:
       - "db"
     environment:

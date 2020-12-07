@@ -15,6 +15,7 @@ using NotificationApi.IntegrationTests.Contexts;
 using NotificationApi.IntegrationTests.Helper;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
+using Testing.Common.Security;
 
 namespace NotificationApi.IntegrationTests.Hooks
 {
@@ -34,12 +35,13 @@ namespace NotificationApi.IntegrationTests.Hooks
         public void RegisterSecrets(IntTestContext context)
         {
             var azureOptions = RegisterAzureSecrets(context);
-            RegisterDefaultData(context);
+            var notifyOptions = RegisterNotifySecrets(context);
+            RegisterDefaultData();
             RegisterHearingServices(context);
             RegisterDatabaseSettings(context);
             RegisterServer(context);
             RegisterApiSettings(context);
-            GenerateBearerTokens(context, azureOptions);
+            GenerateBearerTokens(context, azureOptions, notifyOptions);
         }
 
         private IOptions<AzureAdConfiguration> RegisterAzureSecrets(IntTestContext context)
@@ -49,8 +51,16 @@ namespace NotificationApi.IntegrationTests.Hooks
             ConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
             return azureOptions;
         }
+        
+        private NotifyConfiguration RegisterNotifySecrets(IntTestContext context)
+        {
+            var notifyOptions =  Options.Create(_configRoot.GetSection("NotifyConfiguration").Get<NotifyConfiguration>()).Value;
+            context.Config.NotifyConfiguration = notifyOptions;
+            ConfigurationManager.VerifyConfigValuesSet(context.Config.NotifyConfiguration);
+            return notifyOptions;
+        }
 
-        private static void RegisterDefaultData(IntTestContext context)
+        private static void RegisterDefaultData()
         {
             // Method intentionally left empty.
         }
@@ -69,7 +79,7 @@ namespace NotificationApi.IntegrationTests.Hooks
             dbContextOptionsBuilder.EnableSensitiveDataLogging();
             dbContextOptionsBuilder.UseSqlServer(context.Config.DbConnection.VhNotificationsApi);
             context.NotifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
-            context.TestDataManager = new TestDataManager(context.Config.ServicesConfig, context.NotifyBookingsDbContextOptions);
+            context.TestDataManager = new TestDataManager(context.NotifyBookingsDbContextOptions);
         }
 
         private static void RegisterServer(IntTestContext context)
@@ -86,13 +96,18 @@ namespace NotificationApi.IntegrationTests.Hooks
             context.Response = new HttpResponseMessage(); 
         }
 
-        private static void GenerateBearerTokens(IntTestContext context, IOptions<AzureAdConfiguration> azureOptions)
+        private static void GenerateBearerTokens(IntTestContext context, IOptions<AzureAdConfiguration> azureOptions,
+            NotifyConfiguration notifyConfiguration)
         {
             context.Tokens.NotificationApiBearerToken = new AzureTokenProvider(azureOptions).GetClientAccessToken(
                 azureOptions.Value.ClientId, azureOptions.Value.ClientSecret,
                 context.Config.ServicesConfig.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty();
 
+            context.Tokens.NotificationCallbackBearerToken =
+                new CustomJwtTokenProvider().GenerateTokenForCallbackEndpoint(notifyConfiguration.CallbackSecret, 60);
+            context.Tokens.NotificationCallbackBearerToken.Should().NotBeNullOrWhiteSpace();
+            
             Zap.SetAuthToken(context.Tokens.NotificationApiBearerToken);
         }
     }

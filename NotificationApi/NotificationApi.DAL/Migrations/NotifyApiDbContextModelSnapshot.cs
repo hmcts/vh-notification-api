@@ -35,7 +35,6 @@ namespace NotificationApi.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExternalId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("HearingRefId")
@@ -48,7 +47,6 @@ namespace NotificationApi.DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Payload")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

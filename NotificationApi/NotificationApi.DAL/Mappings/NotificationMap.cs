@@ -13,12 +13,12 @@ namespace NotificationApi.DAL.Mappings
             
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Payload).IsRequired();
+            builder.Property(x => x.Payload);
             builder.Property(x => x.DeliveryStatus).IsRequired().HasDefaultValue(DeliveryStatus.NotSent);
             builder.Property(x => x.NotificationType).IsRequired();
             builder.Property(x => x.ParticipantRefId).IsRequired();
             builder.Property(x => x.HearingRefId).IsRequired();
-            builder.Property(x => x.ExternalId).IsRequired();
+            builder.Property(x => x.ExternalId);
         }
     }
 }

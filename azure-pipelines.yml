@@ -60,6 +60,8 @@ parameters:
     # GOV Notify Configuration
     - name: NotifyConfiguration:ApiKey
       value: $(notify-api-key)
+    - name: NotifyConfiguration:CallbackSecret
+      value: $(notify-callback-secret)
 
 - name: appSettings
   type: object
@@ -83,6 +85,8 @@ parameters:
   # GOV Notify Configuration
   - name: NotifyConfiguration:ApiKey
     value: $(notify-api-key)
+  - name: NotifyConfiguration:CallbackSecret
+    value: $(notify-callback-secret)
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi
@@ -93,7 +97,7 @@ variables:
   - group: vh-domains-and-urls
   - group: vh-apps-settings-generic
   - group: vh-preview
-  - group: govuk-notify-test
+  - group: govuk-notify-preview
 
 trigger:
   branches:
