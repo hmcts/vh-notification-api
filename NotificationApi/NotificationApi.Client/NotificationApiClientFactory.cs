@@ -7,9 +7,9 @@ namespace NotificationApi.Client
 {
     public partial class NotificationApiClient
     {
-        public static NotificationApiClient GetClient(string baseUrl, HttpClient httpClient)
+        public static NotificationApiClient GetClient(HttpClient httpClient)
         {
-            var apiClient = new NotificationApiClient(baseUrl, httpClient)
+            var apiClient = new NotificationApiClient(httpClient)
             {
                 ReadResponseAsString = true
             };
