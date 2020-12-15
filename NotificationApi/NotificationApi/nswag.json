@@ -84,6 +84,7 @@
       "generateUpdateJsonSerializerSettingsMethod": true,
       "useRequestAndResponseSerializationSettings": false,
       "serializeTypeInformation": false,
+      "serviceHost": "https://vh-notification-api-dev.azurewebsites.net",
       "queryNullValue": "null",
       "className": "NotificationApiClient",
       "operationGenerationMode": "SingleClientFromOperationId",
@@ -139,7 +140,6 @@
       "typeNameGeneratorType": null,
       "propertyNameGeneratorType": null,
       "enumNameGeneratorType": null,
-      "serviceHost": null,
       "serviceSchemes": null,
       "output": "../NotificationApi.Client/NotificationApiClient.cs",
       "newLineBehavior": "Auto"

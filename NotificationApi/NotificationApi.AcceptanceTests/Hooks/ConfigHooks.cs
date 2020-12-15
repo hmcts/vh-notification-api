@@ -102,7 +102,6 @@ namespace NotificationApi.AcceptanceTests.Hooks
                 new AuthenticationHeaderValue("bearer", context.Tokens.NotificationApiBearerToken);
             var baseUrl = context.Config.ServicesConfig.NotificationApiUrl;
             context.ApiClient = NotificationApiClient.GetClient(baseUrl, httpClient);
-            
             context.NotifyClient = new NotificationClient(context.Config.NotifyConfiguration.ApiKey);
         }
         

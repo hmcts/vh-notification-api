@@ -7,15 +7,22 @@ namespace NotificationApi.Client
 {
     public partial class NotificationApiClient
     {
-        public static NotificationApiClient GetClient(string baseUrl, HttpClient httpClient)
+        public static NotificationApiClient GetClient(HttpClient httpClient)
         {
-            var apiClient = new NotificationApiClient(baseUrl, httpClient)
+            var apiClient = new NotificationApiClient(httpClient)
             {
                 ReadResponseAsString = true
             };
             apiClient.JsonSerializerSettings.ContractResolver = new DefaultContractResolver {NamingStrategy = new SnakeCaseNamingStrategy()};
             apiClient.JsonSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             apiClient.JsonSerializerSettings.Converters.Add(new StringEnumConverter());
+            return apiClient;
+        }
+        
+        public static NotificationApiClient GetClient(string baseUrl, HttpClient httpClient)
+        {
+            var apiClient = GetClient(httpClient);
+            apiClient.BaseUrl = baseUrl;
             return apiClient;
         }
     }
