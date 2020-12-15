@@ -101,9 +101,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
             httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("bearer", context.Tokens.NotificationApiBearerToken);
             var baseUrl = context.Config.ServicesConfig.NotificationApiUrl;
-            var apiClient = NotificationApiClient.GetClient(httpClient);
-            apiClient.BaseUrl = baseUrl;
-            context.ApiCallbackClient = apiClient;
+            context.ApiClient = NotificationApiClient.GetClient(baseUrl, httpClient);
             context.NotifyClient = new NotificationClient(context.Config.NotifyConfiguration.ApiKey);
         }
         
@@ -114,9 +112,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
             httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("bearer", context.Tokens.NotificationCallbackBearerToken);
             var baseUrl = context.Config.ServicesConfig.NotificationApiUrl;
-            var apiClient = NotificationApiClient.GetClient(httpClient);
-            apiClient.BaseUrl = baseUrl;
-            context.ApiCallbackClient = apiClient;
+            context.ApiCallbackClient = NotificationApiClient.GetClient(baseUrl, httpClient);
         }
     }
 

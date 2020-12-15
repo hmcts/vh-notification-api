@@ -18,5 +18,12 @@ namespace NotificationApi.Client
             apiClient.JsonSerializerSettings.Converters.Add(new StringEnumConverter());
             return apiClient;
         }
+        
+        public static NotificationApiClient GetClient(string baseUrl, HttpClient httpClient)
+        {
+            var apiClient = GetClient(httpClient);
+            apiClient.BaseUrl = baseUrl;
+            return apiClient;
+        }
     }
 }
