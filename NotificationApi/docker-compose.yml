@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   notificationapi:
-    image: ${DOCKER_REGISTRY-}notificationapi
+    image: ${DOCKER_REGISTRY-}notificationapi:latest
     build:
       context: .
       dockerfile: NotificationApi/Dockerfile
