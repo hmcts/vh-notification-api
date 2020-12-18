@@ -2,22 +2,7 @@ version: '3.4'
 
 services:
   notificationapi:
-    container_name: notificationapi
-    image: ${DOCKER_REGISTRY-}notificationapi
-    restart: always
+    image: ${DOCKER_REGISTRY-}notificationapi:latest
     build:
       context: .
       dockerfile: NotificationApi/Dockerfile
-    depends_on:
-      - "db"
-    environment:
-      SQLCONNSTR_VhNotificationsApi: 'Server=db;Database=VhNotificationApi;User ID=sa;Password=VeryStrongPassword!'
-
-  db:
-    container_name: db
-    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
-    expose:
-      - "1433"
-    environment:
-      ACCEPT_EULA: 'yes'
-      SA_PASSWORD: 'VeryStrongPassword!'
