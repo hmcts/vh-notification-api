@@ -13,7 +13,7 @@ using NSwag.Annotations;
 namespace NotificationApi.Controllers
 {
     [Produces("application/json")]
-    [Route("Health")]
+    [Route("HealthCheck")]
     [AllowAnonymous]
     [ApiController]
     public class HealthCheckController : ControllerBase

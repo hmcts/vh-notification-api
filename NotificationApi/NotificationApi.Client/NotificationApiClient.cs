@@ -108,7 +108,7 @@ namespace NotificationApi.Client
         public async System.Threading.Tasks.Task<HealthResponse> CheckServiceHealthAuthAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/Health/health");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/HealthCheck/health");
     
             var client_ = _httpClient;
             var disposeClient_ = false;
