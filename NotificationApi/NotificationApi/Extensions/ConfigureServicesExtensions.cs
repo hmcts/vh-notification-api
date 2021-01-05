@@ -76,6 +76,7 @@ namespace NotificationApi.Extensions
 
         private static void RegisterCommandHandlers(IServiceCollection serviceCollection)
         {
+            //Scruptor package : https://andrewlock.net/using-scrutor-to-automatically-register-your-services-with-the-asp-net-core-di-container/
             serviceCollection.Scan(scan => scan.FromAssemblyOf<ICommand>()
                 .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>))
                     .Where(_ => !_.IsGenericType))
