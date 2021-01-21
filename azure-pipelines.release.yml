@@ -115,6 +115,9 @@ extends:
           - name: ApplicationInsights:InstrumentationKey
             value: vh-core-infra-AppInsightsKey
             secret: true
+          - name: Services:VhNotificationApiResourceId
+            value: vh-notification-api-identifieruris
+            secret: true
           # AzureAd
           - name: AzureAd:ClientId
             value: vh-notification-api-appid
