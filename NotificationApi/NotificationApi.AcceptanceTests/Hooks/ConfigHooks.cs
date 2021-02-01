@@ -1,7 +1,9 @@
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AcceptanceTests.Common.Configuration;
+using AcceptanceTests.Common.Exceptions;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -24,14 +26,9 @@ namespace NotificationApi.AcceptanceTests.Hooks
         public ConfigHooks(AcTestContext context)
         {
             _configRoot =
-                ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", GetTargetEnvironment());
+                ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", "fa265f5a-ee84-47a8-836c-4789584918e4");
             context.Config = new Config();
             context.Tokens = new NotificationApiTokens();
-        }
-
-        private static string GetTargetEnvironment()
-        {
-            return TestContext.Parameters["TargetEnvironment"] ?? "";
         }
 
         [BeforeScenario(Order = (int) HooksSequence.ConfigHooks)]
@@ -62,14 +59,21 @@ namespace NotificationApi.AcceptanceTests.Hooks
         private void RegisterHearingServices(AcTestContext context)
         {
             TestContext.Out.WriteLine("Registering hearing services");
-            context.Config.ServicesConfig =
-                Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
+            context.Config.ServicesConfig = GetTargetTestEnvironment() == string.Empty ? Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value :
+                Options.Create(_configRoot.GetSection($"Testing.{GetTargetTestEnvironment()}.Services").Get<ServicesConfiguration>()).Value;
+            if (context.Config.ServicesConfig == null && GetTargetTestEnvironment() != string.Empty) throw new TestSecretsFileMissingException(GetTargetTestEnvironment());
             ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
             
-            context.Config.NotifyConfiguration =
-                Options.Create(_configRoot.GetSection("NotifyConfiguration").Get<NotifyConfiguration>()).Value;
+            context.Config.NotifyConfiguration = GetTargetTestEnvironment() == string.Empty ? Options.Create(_configRoot.GetSection("NotifyConfiguration").Get<NotifyConfiguration>()).Value
+                    : Options.Create(_configRoot.GetSection($"Testing.{GetTargetTestEnvironment()}.NotifyConfiguration").Get<NotifyConfiguration>()).Value;
+            if (context.Config.NotifyConfiguration == null && GetTargetTestEnvironment() != string.Empty) throw new TestSecretsFileMissingException(GetTargetTestEnvironment());
             ConfigurationManager.VerifyConfigValuesSet(context.Config.NotifyConfiguration);
             TestContext.Out.WriteLine("Registering hearing services complete");
+        }
+
+        private static string GetTargetTestEnvironment()
+        {
+            return TestContext.Parameters["TargetTestEnvironment"] ?? string.Empty;
         }
 
         private static async Task GenerateBearerTokens(AcTestContext context)
