@@ -12,7 +12,6 @@ COPY ["NotificationApi.Common/NotificationApi.Common.csproj", "NotificationApi.C
 COPY ["NotificationApi.Contract/NotificationApi.Contract.csproj", "NotificationApi.Contract/"]
 COPY ["NotificationApi.Domain/NotificationApi.Domain.csproj", "NotificationApi.Domain/"]
 COPY ["NotificationApi.DAL/NotificationApi.DAL.csproj", "NotificationApi.DAL/"]
-COPY ["NotificationApi.Services/NotificationApi.Services.csproj", "NotificationApi.Services/"]
 COPY ["nuget.config", "nuget.config"]
 RUN dotnet restore --configfile nuget.config "NotificationApi/NotificationApi.csproj"
 COPY . .
