@@ -7,7 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Notifications.API/Notifications.API.csproj", "Notifications.API/"]
+COPY ["Notifications.Api/Notifications.Api.csproj", "Notifications.Api/"]
 COPY ["NotificationsApi.Common/NotificationsApi.Common.csproj", "NotificationsApi.Common/"]
 COPY ["NotificationsApi.Contract/NotificationsApi.Contract.csproj", "NotificationsApi.Contract/"]
 COPY ["NotificationsApi.Domain/NotificationsApi.Domain.csproj", "NotificationsApi.Domain/"]
