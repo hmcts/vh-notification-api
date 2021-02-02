@@ -13,7 +13,8 @@ COPY ["NotificationsApi.Contract/NotificationsApi.Contract.csproj", "Notificatio
 COPY ["NotificationsApi.Domain/NotificationsApi.Domain.csproj", "NotificationsApi.Domain/"]
 COPY ["NotificationsApi.DAL/NotificationsApi.DAL.csproj", "NotificationsApi.DAL/"]
 COPY ["NotificationsApi.Services/NotificationsApi.Services.csproj", "NotificationsApi.Services/"]
-RUN dotnet restore "NotificationsApi.API/NotificationsApi.API.csproj"
+COPY ["nuget.config", "nuget.config"]
+RUN dotnet restore --configfile nuget.config "NotificationsApi.API/NotificationsApi.API.csproj"
 COPY . .
 WORKDIR "/src/NotificationsApi.API"
 RUN dotnet build "NotificationsApi.API.csproj" -c Release -o /app/build
