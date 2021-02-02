@@ -7,21 +7,21 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Notifications.API/Notifications.API.csproj", "Notifications.API/"]
-COPY ["NotificationsApi.Common/NotificationsApi.Common.csproj", "NotificationsApi.Common/"]
-COPY ["NotificationsApi.Contract/NotificationsApi.Contract.csproj", "NotificationsApi.Contract/"]
-COPY ["NotificationsApi.Domain/NotificationsApi.Domain.csproj", "NotificationsApi.Domain/"]
-COPY ["NotificationsApi.DAL/NotificationsApi.DAL.csproj", "NotificationsApi.DAL/"]
-COPY ["NotificationsApi.Services/NotificationsApi.Services.csproj", "NotificationsApi.Services/"]
-RUN dotnet restore "NotificationsApi.API/NotificationsApi.API.csproj"
+COPY ["NotificationApi/NotificationApi.csproj", "NotificationApi/"]
+COPY ["NotificationApi.Common/NotificationApi.Common.csproj", "NotificationApi.Common/"]
+COPY ["NotificationApi.Contract/NotificationApi.Contract.csproj", "NotificationApi.Contract/"]
+COPY ["NotificationApi.Domain/NotificationApi.Domain.csproj", "NotificationApi.Domain/"]
+COPY ["NotificationApi.DAL/NotificationApi.DAL.csproj", "NotificationApi.DAL/"]
+COPY ["nuget.config", "nuget.config"]
+RUN dotnet restore --configfile nuget.config "NotificationApi/NotificationApi.csproj"
 COPY . .
-WORKDIR "/src/NotificationsApi.API"
-RUN dotnet build "NotificationsApi.API.csproj" -c Release -o /app/build
+WORKDIR "/src/NotificationApi"
+RUN dotnet build "NotificationApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "NotificationsApi.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "NotificationApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "NotificationsApi.API.dll"]
+ENTRYPOINT ["dotnet", "NotificationApi.dll"]
