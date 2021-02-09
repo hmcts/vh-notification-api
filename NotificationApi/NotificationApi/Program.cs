@@ -18,12 +18,14 @@ namespace NotificationApi
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            const string mountPath = "/mnt/secrets/vh-notification-api";
+            const string vhInfraCore = "/mnt/secrets/vh-infra-core";
+			const string vhNotificationApi = "/mnt/secrets/vh-notification-api";
 
             return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((configBuilder) =>
                 {
-                    configBuilder.AddAksKeyVaultSecretProvider(mountPath);
+                    configBuilder.AddAksKeyVaultSecretProvider(vhInfraCore);
+					configBuilder.AddAksKeyVaultSecretProvider(vhNotificationApi);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
@@ -32,7 +34,8 @@ namespace NotificationApi
                     webBuilder.UseStartup<Startup>();
                     webBuilder.ConfigureAppConfiguration(configBuilder =>
                     {
-                        configBuilder.AddAksKeyVaultSecretProvider(mountPath);
+                        configBuilder.AddAksKeyVaultSecretProvider(vhInfraCore);
+						configBuilder.AddAksKeyVaultSecretProvider(vhNotificationApi);
                     });
                 });
         }
