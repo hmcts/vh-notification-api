@@ -40,7 +40,7 @@ namespace NotificationApi.AcceptanceTests.Steps
                 {"name", Faker.Name.FullName()},
                 {"password", "ACTestPasswordReset!"}
             };
-            Request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+            Request = AddNotificationRequestBuilder.BuildNonHearingRequest(messageType, templateType, parameters);
         }
         
         [When(@"I send the create notification request")]

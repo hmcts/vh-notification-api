@@ -19,10 +19,10 @@ namespace NotificationApi.Validations
         {
             RuleFor(x => x.Parameters).NotEmpty().WithMessage(MissingParametersMessage);
             RuleFor(x => x.ContactEmail).NotEmpty().When(IsEmail).WithMessage(MissingEmailMessage);
-            RuleFor(x => x.HearingId).NotEmpty().WithMessage(MissingHearingIdMessage);
+            RuleFor(x => x.HearingId).NotEmpty().When(IsHearingNotification).WithMessage(MissingHearingIdMessage);
             RuleFor(x => x.MessageType).Must(ValidMessageType).WithMessage(InvalidMessageTypeMessage);
             RuleFor(x => x.NotificationType).Must(ValidNotificationType).WithMessage(InvalidNotificationTypeMessage);
-            RuleFor(x => x.ParticipantId).NotEmpty().WithMessage(MissingParticipantIdMessage);
+            RuleFor(x => x.ParticipantId).NotEmpty().When(IsHearingNotification).WithMessage(MissingParticipantIdMessage);
             RuleFor(x => x.PhoneNumber).NotEmpty().When(IsPhone).WithMessage(MissingPhoneNumberMessage);
         }
 
@@ -33,5 +33,8 @@ namespace NotificationApi.Validations
         private bool IsEmail(AddNotificationRequest arg) => arg.MessageType == MessageType.Email;
 
         private bool IsPhone(AddNotificationRequest arg) => arg.MessageType == MessageType.SMS;
+
+        private bool IsHearingNotification(AddNotificationRequest arg) =>
+            arg.NotificationType != NotificationType.PasswordReset;
     }
 }

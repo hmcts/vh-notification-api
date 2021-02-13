@@ -9,7 +9,7 @@ namespace NotificationApi.DAL.Commands
     public class CreateEmailNotificationCommand : ICommand
     {
         public CreateEmailNotificationCommand(NotificationType notificationType, string contactEmail,
-            Guid participantId, Guid hearingId)
+            Guid? participantId, Guid? hearingId)
         {
             NotificationId = Guid.NewGuid();
             NotificationType = notificationType;
@@ -21,8 +21,8 @@ namespace NotificationApi.DAL.Commands
         public Guid NotificationId { get; set; }
         public NotificationType NotificationType { get; set; }
         public string ContactEmail { get; set; }
-        public Guid ParticipantId { get; set; }
-        public Guid HearingId { get; set; }
+        public Guid? ParticipantId { get; set; }
+        public Guid? HearingId { get; set; }
     }
 
     public class CreateEmailNotificationCommandHandler : ICommandHandler<CreateEmailNotificationCommand>
