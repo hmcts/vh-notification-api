@@ -11,8 +11,8 @@ namespace NotificationApi.Contract.Requests
         public string ContactEmail { get; set; }
         public NotificationType NotificationType { get; set; }
         public string PhoneNumber { get; set; }
-        public Guid HearingId { get; set; }
-        public Guid ParticipantId { get; set; }
+        public Guid? HearingId { get; set; }
+        public Guid? ParticipantId { get; set; }
         public MessageType MessageType { get; set; }
         
         /// <summary>

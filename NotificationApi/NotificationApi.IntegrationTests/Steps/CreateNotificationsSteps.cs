@@ -41,7 +41,7 @@ namespace NotificationApi.IntegrationTests.Steps
                 {"name", $"{Faker.Name.FullName()}"},
                 {"password", "inttestpassword!"}
             };
-            var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+            var request = AddNotificationRequestBuilder.BuildNonHearingRequest(messageType, templateType, parameters);
             InitCreateNotificationRequest(request);
         }
 

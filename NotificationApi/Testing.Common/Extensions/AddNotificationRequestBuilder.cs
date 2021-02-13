@@ -21,5 +21,20 @@ namespace Testing.Common.Extensions
                 PhoneNumber = messageType == MessageType.SMS ? "01234567890" : null,
             };
         }
+        
+        public static AddNotificationRequest BuildNonHearingRequest(MessageType messageType, NotificationType notificationType,
+            Dictionary<string, string> parameters)
+        {
+            return new AddNotificationRequest
+            {
+                ContactEmail = messageType == MessageType.Email ? "email@email.com" : null,
+                MessageType = messageType,
+                NotificationType = notificationType,
+                Parameters = parameters,
+                HearingId = null,
+                ParticipantId = null,
+                PhoneNumber = messageType == MessageType.SMS ? "01234567890" : null,
+            };
+        }
     }
 }

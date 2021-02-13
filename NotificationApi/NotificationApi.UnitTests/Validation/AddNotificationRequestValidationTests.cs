@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Validations;
 using NUnit.Framework;
@@ -37,7 +38,7 @@ namespace NotificationApi.UnitTests.Validation
         public async Task Should_Fail_When_Email_Is_Missing_When_MessageType_Is_Email()
         {
             _request.ContactEmail = null;
-            _request.MessageType = Contract.MessageType.Email;
+            _request.MessageType = MessageType.Email;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingEmailMessage).Should()
@@ -47,7 +48,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Should_Fail_When_HearingId_Is_Missing()
         {
-            _request.HearingId = Guid.Empty;
+            _request.HearingId = null;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingHearingIdMessage).Should()
@@ -57,7 +58,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Should_Fail_When_MessageType_Is_Invalid()
         {
-            _request.MessageType = (Contract.MessageType)4;
+            _request.MessageType = (MessageType)4;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidMessageTypeMessage).Should()
@@ -67,7 +68,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Should_Fail_When_NotificationType_Is_Invalid()
         {
-            _request.NotificationType = (Contract.NotificationType)4;
+            _request.NotificationType = (NotificationType)4;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidNotificationTypeMessage).Should()
@@ -87,7 +88,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Should_Fail_When_ParticipantId_Is_Missing()
         {
-            _request.ParticipantId = Guid.Empty;
+            _request.ParticipantId = null;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingParticipantIdMessage).Should()
@@ -98,11 +99,22 @@ namespace NotificationApi.UnitTests.Validation
         public async Task Should_Fail_When_Phone_Number_Is_Missing_When_MessageType_Is_SMS()
         {
             _request.PhoneNumber = null;
-            _request.MessageType = Contract.MessageType.SMS;
+            _request.MessageType = MessageType.SMS;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingPhoneNumberMessage).Should()
                 .BeTrue();
+        }
+
+        [Test]
+        public async Task should_pass_validation_when_password_reset_and_hearing_details_are_not_provided()
+        {
+            _request.HearingId = null;
+            _request.ParticipantId = null;
+            _request.NotificationType = NotificationType.PasswordReset;
+            
+            var result = await _validator.ValidateAsync(_request);
+            result.IsValid.Should().BeTrue();
         }
         
         private AddNotificationRequest InitRequest()
@@ -113,8 +125,8 @@ namespace NotificationApi.UnitTests.Validation
             {
                 ContactEmail = "email@email.com",
                 HearingId = Guid.NewGuid(),
-                MessageType = Contract.MessageType.Email,
-                NotificationType = Contract.NotificationType.CreateIndividual,
+                MessageType = MessageType.Email,
+                NotificationType = NotificationType.CreateIndividual,
                 Parameters = parameters,
                 ParticipantId = Guid.NewGuid(),
                 PhoneNumber = "1234567890"

@@ -16,8 +16,8 @@ namespace NotificationApi.DAL.Mappings
             builder.Property(x => x.Payload);
             builder.Property(x => x.DeliveryStatus).IsRequired().HasDefaultValue(DeliveryStatus.NotSent);
             builder.Property(x => x.NotificationType).IsRequired();
-            builder.Property(x => x.ParticipantRefId).IsRequired();
-            builder.Property(x => x.HearingRefId).IsRequired();
+            builder.Property(x => x.ParticipantRefId).IsRequired(false);
+            builder.Property(x => x.HearingRefId).IsRequired(false);
             builder.Property(x => x.ExternalId);
         }
     }

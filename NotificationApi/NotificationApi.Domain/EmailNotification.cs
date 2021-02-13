@@ -13,7 +13,7 @@ namespace NotificationApi.Domain
         }
 
         public EmailNotification(Guid id, NotificationType notificationType, string toEmail,
-            Guid participantRefId, Guid hearingRefId) : base(id, notificationType, participantRefId, hearingRefId)
+            Guid? participantRefId, Guid? hearingRefId) : base(id, notificationType, participantRefId, hearingRefId)
         {
             ToEmail = toEmail;
         }
