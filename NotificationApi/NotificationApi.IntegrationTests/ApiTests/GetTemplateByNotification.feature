@@ -12,3 +12,4 @@ Feature: Get Template By Notification Type
       |notificationType     |
       |CreateIndividual     |
       |CreateRepresentative |
+      |PasswordReset        |

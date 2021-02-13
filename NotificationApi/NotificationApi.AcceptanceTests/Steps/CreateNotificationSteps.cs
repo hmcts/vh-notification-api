@@ -8,6 +8,7 @@ using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
 using Notify.Models;
 using TechTalk.SpecFlow;
+using Testing.Common.Extensions;
 
 namespace NotificationApi.AcceptanceTests.Steps
 {
@@ -23,10 +24,23 @@ namespace NotificationApi.AcceptanceTests.Steps
             _context = context;
         }
         
-        [Given(@"I have a request to create an email notification")]
-        public void Given_I_Have_A_Request_To_Create_An_Email_Notification()
+        [Given(@"I have a request to create an email notification for new individual")]
+        public void Given_I_Have_A_Request_To_Create_An_Email_Notification_For_New_Individual()
         {
-            Request = BuildNotificationRequest(MessageType.Email);
+            Request = BuildNewIndividualNotificationRequest(MessageType.Email);
+        }
+        
+        [Given(@"I have a request to create an email notification for password reset")]
+        public void Given_I_Have_A_Request_To_Create_An_Email_Notification_For_Password_Reset()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.PasswordReset;
+            var parameters = new Dictionary<string, string>
+            {
+                {"name", Faker.Name.FullName()},
+                {"password", "ACTestPasswordReset!"}
+            };
+            Request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
         
         [When(@"I send the create notification request")]
@@ -39,34 +53,41 @@ namespace NotificationApi.AcceptanceTests.Steps
         [Then(@"Notify should have my request")]
         public async Task ThenNotifyShouldHaveMyRequest()
         {
-            var allNotifications = await _context.NotifyClient.GetNotificationsAsync("email");
             var name = Request.Parameters["name"];
             var username = Request.Parameters["username"];
-            RecentNotification =
-                allNotifications.notifications.LastOrDefault(x => x.body.Contains(name) && x.body.Contains(username));
-            RecentNotification.Should().NotBeNull();
-            
+            var randomPassword = Request.Parameters["random password"];
+            await AssertNotifyHasMyRequest(notification =>
+                notification.body.Contains(name) && notification.body.Contains(username) &&
+                notification.body.Contains(randomPassword));
+        }
+        
+        [Then(@"Notify should have my password reset request")]
+        public async Task ThenNotifyShouldHaveMyPasswordResetRequest()
+        {
+            var name = Request.Parameters["name"];
+            var username = Request.Parameters["password"];
+            await AssertNotifyHasMyRequest(notification =>
+                notification.body.Contains(name) && notification.body.Contains(username));
         }
 
-        private AddNotificationRequest BuildNotificationRequest(MessageType messageType)
+        private async Task AssertNotifyHasMyRequest(Func<Notification, bool> predicate)
+        {
+            var allNotifications = await _context.NotifyClient.GetNotificationsAsync("email");
+            RecentNotification = allNotifications.notifications.LastOrDefault(predicate);
+            RecentNotification.Should().NotBeNull();
+        }
+
+        private AddNotificationRequest BuildNewIndividualNotificationRequest(MessageType messageType)
         {
             var parameters = new Dictionary<string, string>
             {
-                {"name", $"AC Test ${Guid.NewGuid().ToString()}"},
+                {"name", $"{Faker.Name.FullName()}"},
                 {"username", $"{Guid.NewGuid().ToString()}@automation.com"},
                 {"random password", "testpassword!"}
             };
 
-            return new AddNotificationRequest
-            {
-                ContactEmail = messageType == MessageType.Email ? "email@email.com" : null,
-                HearingId = Guid.NewGuid(),
-                MessageType = messageType,
-                NotificationType = NotificationType.CreateIndividual,
-                Parameters = parameters,
-                ParticipantId = Guid.NewGuid(),
-                PhoneNumber = messageType == MessageType.SMS ? "01234567890" : null
-            };
+            return AddNotificationRequestBuilder.BuildRequest(messageType, NotificationType.CreateIndividual,
+                parameters);
         }
     }
 }

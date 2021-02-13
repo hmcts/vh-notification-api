@@ -4,6 +4,7 @@ namespace NotificationApi.Contract
     public enum NotificationType
     {
         CreateIndividual = 1,
-        CreateRepresentative = 2
+        CreateRepresentative = 2,
+        PasswordReset = 3
     }
 }
