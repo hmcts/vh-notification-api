@@ -68,7 +68,7 @@ namespace NotificationApi.UnitTests.Validation
         [Test]
         public async Task Should_Fail_When_NotificationType_Is_Invalid()
         {
-            _request.NotificationType = (NotificationType)4;
+            _request.NotificationType = (NotificationType)999;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
             result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidNotificationTypeMessage).Should()
