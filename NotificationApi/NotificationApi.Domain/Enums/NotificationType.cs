@@ -21,6 +21,5 @@ namespace NotificationApi.Domain.Enums
         HearingReminderLip = 16,
         HearingReminderRepresentative = 17,
         HearingReminderJoh = 18
-        
     }
 }

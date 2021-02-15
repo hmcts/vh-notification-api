@@ -1,6 +1,10 @@
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using AcceptanceTests.Common.Api.Helpers;
+using NotificationApi.Contract.Requests;
 using NotificationApi.IntegrationTests.Contexts;
+using Testing.Common.Helper;
 
 namespace NotificationApi.IntegrationTests.Steps
 {
@@ -34,6 +38,14 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             using var client = intTestContext.CreateClient();
             return await client.DeleteAsync(intTestContext.Uri);
+        }
+        
+        protected void InitCreateNotificationRequest(AddNotificationRequest request, IntTestContext intTestContext)
+        {
+            intTestContext.Uri = ApiUriFactory.NotificationEndpoints.CreateNewEmailNotification;
+            intTestContext.HttpMethod = HttpMethod.Post;
+            var body = RequestHelper.Serialise(request);
+            intTestContext.HttpContent = new StringContent(body, Encoding.UTF8, "application/json");
         }
     }
 }
