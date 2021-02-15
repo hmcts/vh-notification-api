@@ -13,4 +13,4 @@ Feature: Create Notification
     Given I have a request to create an email notification for password reset
     When I send the create notification request
     Then the api client should return true
-    And Notify should have my password reset request
+    And Notify should have my request

@@ -42,5 +42,9 @@
 
   <ItemGroup>
     <Content Include="ApiTests\*.feature.cs" />
+    <Content Include="ApiTests\HearingAmendment.feature" />
+    <Content Include="ApiTests\HearingConfirmation.feature" />
+    <Content Include="ApiTests\HearingConfirmationMultiDay.feature" />
+    <Content Include="ApiTests\HearingReminder.feature" />
   </ItemGroup>
 </Project>

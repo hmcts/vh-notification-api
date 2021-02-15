@@ -2,8 +2,8 @@ using System;
 using System.Threading.Tasks;
 using AcceptanceTests.Common.Api;
 using AcceptanceTests.Common.Api.Helpers;
-using AcceptanceTests.Common.AudioRecordings;
 using NotificationApi.Client;
+using NotificationApi.Contract.Requests;
 using Notify.Interfaces;
 using RestSharp;
 using Testing.Common.Configuration;
@@ -19,6 +19,8 @@ namespace NotificationApi.AcceptanceTests.Contexts
         public NotificationApiClient ApiClient { get; set; }
         public NotificationApiClient ApiCallbackClient { get; set; }
         public IAsyncNotificationClient NotifyClient { get; set; }
+        public AddNotificationRequest CreateNotificationRequest { get; set; }
+        public Notify.Models.Notification RecentNotification { get; set; }
         public object ApiClientResponse { get; set; }
         public string ApiClientMessage { get; set; }
 
