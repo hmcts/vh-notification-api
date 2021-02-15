@@ -1,0 +1,39 @@
+---
+java:
+  image: 'sdshmctspublic.azurecr.io/vh/notification-api:20210210.11'
+  applicationPort: 8080
+  replicas: 2
+  ingressHost: vh-notification-api.{{ .Values.global.environment }}.platform.hmcts.net
+  releaseNameOverride: vh-notification-api
+  readinessPath: /healthcheck/health
+  livenessPath: /healthcheck/health
+  livenessDelay: 360
+  livenessPeriod: 120
+  aadIdentityName: vh-aad-identity
+  keyVaults:
+    vh-infra-core:
+      excludeEnvironmentSuffix: false
+      resourceGroup: vh-infra-core-{{ .Values.global.environment }}
+      usePodIdentity: true
+      secrets:
+        - notifyconfiguration--apikey
+        - notifyconfiguration--callbacksecret
+        - connectionstrings--notificationsapi
+    vh-notification-api:
+      excludeEnvironmentSuffix: false
+      resourceGroup: vh-infra-core-{{ .Values.global.environment }}
+      usePodIdentity: true
+      secrets:
+        - azuread--clientsecret
+        - azuread--clientid
+        - applicationinsights-instrumentationkey
+  environment:
+    ASPNETCORE_URLS: http://+:8080
+    AZUREAD__TENANTID: "fb6e0e22-0da3-4c35-972a-9d61eb256508"
+    DISABLEHTTPSREDIRECTION: true
+    Logging__LogLevel__Default: debug
+    Logging__LogLevel__System: debug
+    Logging__LogLevel__Microsoft: debug
+    SERVICES__VHNOTIFICATIONAPIRESOURCEID: https://vh-notification-api.{{ .Values.global.environment }}.platform.hmcts.net
+
+
