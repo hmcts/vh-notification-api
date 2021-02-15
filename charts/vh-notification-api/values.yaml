@@ -1,6 +1,6 @@
 ---
 java:
-  image: 'sdshmctspublic.azurecr.io/vh/notification-api:20210210.11'
+  image: 'sdshmctspublic.azurecr.io/vh/notification-api:20210210.9'
   applicationPort: 8080
   replicas: 2
   ingressHost: vh-notification-api.{{ .Values.global.environment }}.platform.hmcts.net
