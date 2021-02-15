@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NotificationApi.AcceptanceTests.Contexts;
@@ -17,20 +16,6 @@ namespace NotificationApi.AcceptanceTests.Steps
         public CommonSteps(AcTestContext acTestContext)
         {
             _context = acTestContext;
-        }
-
-        [When(@"I send the request to the endpoint")]
-        [When(@"I resend the request to the endpoint")]
-        public void WhenISendTheRequestToTheEndpoint()
-        {
-            _context.Response = _context.Client().Execute(_context.Request);
-        }
-
-        [Then(@"the response should have the status (.*) and success status (.*)")]
-        public void ThenTheResponseShouldHaveTheStatusAndSuccessStatus(HttpStatusCode httpStatusCode, bool isSuccess)
-        {
-            _context.Response.StatusCode.Should().Be(httpStatusCode);
-            _context.Response.IsSuccessful.Should().Be(isSuccess);
         }
         
         [Then(@"the api client should return true")]
