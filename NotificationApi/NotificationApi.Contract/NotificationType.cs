@@ -9,8 +9,6 @@ namespace NotificationApi.Contract
         HearingConfirmationLip = 4,
         HearingConfirmationRepresentative = 5,
         HearingConfirmationJudge = 6,
-        HearingAmendmentLip = 7,
-        HearingAmendmentRepresentative = 8,
-        HearingAmendmentJudge = 9,
+        HearingConfirmationJoh = 7
     }
 }
