@@ -20,6 +20,7 @@ namespace NotificationApi.IntegrationTests.Database.Queries
 
         [TestCase(NotificationType.CreateIndividual)]
         [TestCase(NotificationType.CreateRepresentative)]
+        [TestCase(NotificationType.PasswordReset)]
         public async Task should_get_template_for_notification_type(NotificationType notificationType)
         {
             var query = new GetTemplateByNotificationTypeQuery(notificationType);

@@ -1,10 +1,16 @@
 Feature: Create Notifications
-  In order to manage notifcations
+  In order to manage notifications
   As an API service
   I want to create notifications data
   
-Scenario: Creating a email notification
-  Given I have a valid create new email notification request 
+Scenario: Creating a new user email notification
+  Given I have a valid new user email notification request 
+  When I send the request
+  Then the response should have the status OK
+  And the success status should be True
+
+Scenario: Creating a password reset email notification
+  Given I have a valid password reset email notification request
   When I send the request
   Then the response should have the status OK
   And the success status should be True

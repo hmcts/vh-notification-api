@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using NotificationApi.AcceptanceTests.Contexts;
-using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
 using TechTalk.SpecFlow;
 
@@ -25,7 +21,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         [Given(@"I have a notification that has been sent")]
         public async Task GivenIHaveANotificationThatHasBeenSent()
         {
-            _createNotificationSteps.Given_I_Have_A_Request_To_Create_An_Email_Notification();
+            _createNotificationSteps.Given_I_Have_A_Request_To_Create_An_Email_Notification_For_New_Individual();
             await _createNotificationSteps.WhenISendTheCreateNotificationRequest();
             await _createNotificationSteps.ThenNotifyShouldHaveMyRequest();
         }

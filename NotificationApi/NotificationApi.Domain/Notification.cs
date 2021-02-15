@@ -10,8 +10,8 @@ namespace NotificationApi.Domain
         public string Payload { get; private set; }
         public DeliveryStatus DeliveryStatus { get; private set; }
         public NotificationType NotificationType { get; }
-        public Guid ParticipantRefId { get; }
-        public Guid HearingRefId { get; }
+        public Guid? ParticipantRefId { get; }
+        public Guid? HearingRefId { get; }
         public string ExternalId { get; private set; }
 
         protected Notification(Guid id)
@@ -27,7 +27,7 @@ namespace NotificationApi.Domain
         }
 
         protected Notification(Guid id, NotificationType notificationType,
-            Guid participantRefId, Guid hearingRefId) : this(id)
+            Guid? participantRefId, Guid? hearingRefId) : this(id)
         {
             NotificationType = notificationType;
             ParticipantRefId = participantRefId;

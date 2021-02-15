@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NotificationApi.DAL;
 
 namespace NotificationApi.DAL.Migrations
 {
     [DbContext(typeof(NotificationsApiDbContext))]
-    partial class NotifyApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210213145149_AddPasswordReset")]
+    partial class AddPasswordReset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,13 +39,13 @@ namespace NotificationApi.DAL.Migrations
                     b.Property<string>("ExternalId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("HearingRefId")
+                    b.Property<Guid>("HearingRefId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("NotificationType")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ParticipantRefId")
+                    b.Property<Guid>("ParticipantRefId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Payload")
