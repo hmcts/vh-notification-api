@@ -6,11 +6,9 @@ Feature: Create Notifications
 Scenario: Creating a new user email notification
   Given I have a valid new user email notification request 
   When I send the request
-  Then the response should have the status OK
-  And the success status should be True
+  Then the response should have the status OK and success status True
 
 Scenario: Creating a password reset email notification
   Given I have a valid password reset email notification request
   When I send the request
-  Then the response should have the status OK
-  And the success status should be True
+  Then the response should have the status OK and success status True

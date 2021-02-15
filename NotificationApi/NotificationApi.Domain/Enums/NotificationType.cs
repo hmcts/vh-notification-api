@@ -9,8 +9,17 @@ namespace NotificationApi.Domain.Enums
         HearingConfirmationLip = 4,
         HearingConfirmationRepresentative = 5,
         HearingConfirmationJudge = 6,
-        HearingAmendmentLip = 7,
-        HearingAmendmentRepresentative = 8,
-        HearingAmendmentJudge = 9,
+        HearingConfirmationJoh = 7,
+        HearingConfirmationLipMultiDay = 8,
+        HearingConfirmationRepresentativeMultiDay = 9,
+        HearingConfirmationJudgeMultiDay = 10,
+        HearingConfirmationJohMultiDay = 11,
+        HearingAmendmentLip = 12,
+        HearingAmendmentRepresentative = 13,
+        HearingAmendmentJudge = 14,
+        HearingAmendmentJoh = 15,
+        HearingReminderLip = 16,
+        HearingReminderRepresentative = 17,
+        HearingReminderJoh = 18
     }
 }
