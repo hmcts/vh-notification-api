@@ -14,22 +14,22 @@ namespace NotificationApi.DAL.Migrations
                 new object[,]
                 {
                     {
-                        "e07120b8-7fb8-43b6-88d4-909953453f05", (int) NotificationType.HearingConfirmationJudgeMultiDay,
+                        "a85b7c4b-bc32-41b9-ab3b-0eedc0ff8617", (int) NotificationType.HearingConfirmationJudgeMultiDay,
                         (int) MessageType.Email,
                         "case name,case number,judge,Start Day Month Year,time,number of days,courtroom account username,account password"
                     },
                     {
-                        "7926b67c-d9f7-4a42-a9aa-674b9ef8783b", (int) NotificationType.HearingConfirmationJohMultiDay,
+                        "77f66714-fafc-4642-b505-33517e8a6ba8", (int) NotificationType.HearingConfirmationJohMultiDay,
                         (int) MessageType.Email,
                         "case name,case number,judicial office holder,Start Day Month Year,time,number of days,time"
                     },
                     {
-                        "3dc60474-92ea-488f-a9ee-42a1d7c604a2", (int) NotificationType.HearingConfirmationLipMultiDay,
+                        "bf20004c-258b-4de9-83a1-d7b260750b9f", (int) NotificationType.HearingConfirmationLipMultiDay,
                         (int) MessageType.Email,
                         "case name,case number,name,Start Day Month Year,time,number of days,time"
                     },
                     {
-                        "39fb2e4b-6a1a-4bd2-8763-889966dd6be0",
+                        "c06b60b0-ca26-43ee-b6b6-7e5aa5a2b170",
                         (int) NotificationType.HearingConfirmationRepresentativeMultiDay,
                         (int) MessageType.Email,
                         "case name,case number,client name,solicitor name,Start Day Month Year,time,number of days,time"

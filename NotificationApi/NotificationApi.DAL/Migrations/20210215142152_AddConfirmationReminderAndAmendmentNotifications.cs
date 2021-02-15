@@ -59,12 +59,12 @@ namespace NotificationApi.DAL.Migrations
                         "case name,case number,judicial office holder,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password"
                     },
                     {
-                        "02817327-5533-4051-ae69-3609ddeba8fb", (int) NotificationType.HearingAmendmentLip,
+                        "7f09a0c3-0af6-49f1-85b4-259511fad474", (int) NotificationType.HearingAmendmentLip,
                         (int) MessageType.Email,
                         "case name,case number,name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password"
                     },
                     {
-                        "5299ac1f-bf42-4c68-82bd-e9c0f0ee51ba", (int) NotificationType.HearingAmendmentRepresentative,
+                        "79bbd6c3-14ba-4c8e-bd7c-10cedfdfe3f0", (int) NotificationType.HearingAmendmentRepresentative,
                         (int) MessageType.Email,
                         "case name,case number,client name,solicitor name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password"
                     }
