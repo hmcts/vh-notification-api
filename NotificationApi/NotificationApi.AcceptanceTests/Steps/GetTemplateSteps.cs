@@ -32,7 +32,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         }
         
         [Then(@"a template should return")]
-        public void ThenTheApplicationVersionShouldBeRetrieved()
+        public void ThenTheTemplateShouldReturn()
         {
             _context.ApiClientResponse.Should().BeOfType<NotificationTemplateResponse>();
             var model = (NotificationTemplateResponse)_context.ApiClientResponse;
@@ -41,6 +41,14 @@ namespace NotificationApi.AcceptanceTests.Steps
             model.Parameters.Should().NotBeNullOrWhiteSpace();
             model.NotifyTemplateId.Should().NotBeEmpty();
             model.Id.Should().BePositive();
+        }
+        
+        [Then(@"should exist in GovUK notify")]
+        public async Task ThenAndShouldExistInGovUkNotify()
+        {
+            var model = (NotificationTemplateResponse)_context.ApiClientResponse;
+            var template = await _context.NotifyClient.GetTemplateByIdAsync(model.NotifyTemplateId.ToString());
+            template.Should().NotBeNull();
         }
     }
 }
