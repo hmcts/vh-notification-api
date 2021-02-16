@@ -7,7 +7,23 @@ Feature: Get Templates
     Given I notification type <notificationType>
     When I send a get template by notification type request
     Then a template should return
+    And should exist in GovUK notify
     Examples:
-      |notificationType |
-      |1                |
-      |2                |
+      |notificationType                           |
+      |CreateIndividual                           |
+      |CreateRepresentative                       |
+      |HearingConfirmationLip                     |
+      |HearingConfirmationRepresentative          |
+      |HearingConfirmationJudge                   |
+      |HearingConfirmationJoh                     |
+      |HearingConfirmationLipMultiDay             |
+      |HearingConfirmationRepresentativeMultiDay  |
+      |HearingConfirmationJudgeMultiDay           |
+      |HearingConfirmationJohMultiDay             |
+      |HearingAmendmentLip                        |
+      |HearingAmendmentRepresentative             |
+      |HearingAmendmentJudge                      |
+      |HearingAmendmentJoh                        |
+      |HearingReminderLip                         |
+      |HearingReminderRepresentative              |
+      |HearingReminderJoh                         |
