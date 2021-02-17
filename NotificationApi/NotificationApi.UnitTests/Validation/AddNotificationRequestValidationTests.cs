@@ -123,7 +123,7 @@ namespace NotificationApi.UnitTests.Validation
 
             return new AddNotificationRequest
             {
-                ContactEmail = "email@email.com",
+                ContactEmail = "email@hmcts.net",
                 HearingId = Guid.NewGuid(),
                 MessageType = MessageType.Email,
                 NotificationType = NotificationType.CreateIndividual,

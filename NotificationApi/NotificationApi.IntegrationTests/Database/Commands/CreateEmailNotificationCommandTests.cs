@@ -26,7 +26,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
         {
             // Arrange
             var notificationType = NotificationType.CreateIndividual;
-            const string email = "test@email.com";
+            const string email = "test@hmcts.net";
             var participantId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();            
             var command = new CreateEmailNotificationCommand(notificationType, email, participantId, hearingId);
