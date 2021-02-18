@@ -12,7 +12,7 @@ namespace Testing.Common.Extensions
         {
             return new AddNotificationRequest
             {
-                ContactEmail = messageType == MessageType.Email ? "email@email.com" : null,
+                ContactEmail = messageType == MessageType.Email ? "email@hmcts.net" : null,
                 HearingId = Guid.NewGuid(),
                 MessageType = messageType,
                 NotificationType = notificationType,
@@ -27,7 +27,7 @@ namespace Testing.Common.Extensions
         {
             return new AddNotificationRequest
             {
-                ContactEmail = messageType == MessageType.Email ? "email@email.com" : null,
+                ContactEmail = messageType == MessageType.Email ? "email@hmcts.net" : null,
                 MessageType = messageType,
                 NotificationType = notificationType,
                 Parameters = parameters,
