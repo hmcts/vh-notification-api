@@ -19,7 +19,7 @@ java:
         - notifyconfiguration--apikey
         - notifyconfiguration--callbacksecret
         - connectionstrings--vhnotificationsapi
-        - applicationinsights-instrumentationkey
+        - applicationinsights--instrumentationkey
     vh-notification-api:
       excludeEnvironmentSuffix: false
       resourceGroup: vh-infra-core-{{ .Values.global.environment }}
