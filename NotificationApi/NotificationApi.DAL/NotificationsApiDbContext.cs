@@ -10,6 +10,8 @@ namespace NotificationApi.DAL
     {
         public DbSet<Notification> Notifications { get; set; }
 
+        public DbSet<EmailNotification> EmailNotifications { get; set; }
+
         public DbSet<Template> Templates { get; set; }
 
         public NotificationsApiDbContext(DbContextOptions options) : base(options)
