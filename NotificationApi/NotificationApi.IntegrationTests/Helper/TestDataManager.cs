@@ -20,14 +20,20 @@ namespace NotificationApi.IntegrationTests.Helper
         
         public Task<Notification> SeedCreatedNotification()
         {
-            var notification = new EmailNotification(Guid.NewGuid(), NotificationType.CreateIndividual, "totest@auto.com", Guid.NewGuid(),
+            var notification = new EmailNotification(Guid.NewGuid(), NotificationType.CreateIndividual, "totest@hmcts.net", Guid.NewGuid(),
                 Guid.NewGuid());
             return SeedNotification(notification);
         }
 
+        public Task<Notification> SeedPasswordNotification(string email)
+        {
+            var notification = new EmailNotification(Guid.NewGuid(), NotificationType.PasswordReset, email, Guid.Empty, Guid.Empty);
+            return SeedNotification(notification);
+        }        
+
         public Task<Notification> SeedSendingNotification()
         {
-            var notification = new EmailNotification(Guid.NewGuid(), NotificationType.CreateIndividual, "totest@auto.com", Guid.NewGuid(),
+            var notification = new EmailNotification(Guid.NewGuid(), NotificationType.CreateIndividual, "totest@hmcts.net", Guid.NewGuid(),
                 Guid.NewGuid());
             notification.UpdateDeliveryStatus(DeliveryStatus.Sending);
             notification.AssignExternalId(Guid.NewGuid().ToString());
