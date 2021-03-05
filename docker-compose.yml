@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}notificationapi:latest
     build:
       context: .
-      dockerfile: NotificationApi/Dockerfile
+      dockerfile: NotificationApi/NotificationApi/Dockerfile
