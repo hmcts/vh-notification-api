@@ -13,7 +13,6 @@ using NSwag.Annotations;
 namespace NotificationApi.Controllers
 {
     [Produces("application/json")]
-    [Route("HealthCheck")]
     [AllowAnonymous]
     [ApiController]
     public class HealthCheckController : ControllerBase
@@ -27,7 +26,8 @@ namespace NotificationApi.Controllers
         ///     Check Service Health
         /// </summary>
         /// <returns>Error if fails, otherwise OK status</returns>
-        [HttpGet("health")]
+        [HttpGet("HealthCheck/health")]
+        [HttpGet("health/liveness")]
         [OpenApiOperation("CheckServiceHealthAuth")]
         [ProducesResponseType(typeof(HealthResponse), (int) HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HealthResponse), (int) HttpStatusCode.InternalServerError)]

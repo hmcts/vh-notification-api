@@ -18,8 +18,15 @@ namespace NotificationApi
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
+            const string vhInfraCore = "/mnt/secrets/vh-infra-core";
+            const string vhBookingsApi = "/mnt/secrets/vh-notification-api";
+
             return Host.CreateDefaultBuilder(args)
-                .AddAksKeyVaultSecretProvider()
+                .ConfigureAppConfiguration((configBuilder) =>
+                {
+                    configBuilder.AddAksKeyVaultSecretProvider(vhInfraCore);
+                    configBuilder.AddAksKeyVaultSecretProvider(vhBookingsApi);
+                })
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
                     webBuilder.UseIISIntegration();
