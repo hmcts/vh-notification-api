@@ -3,8 +3,8 @@ java:
   image: 'sdshmctspublic.azurecr.io/vh/notification-api:20210306.5'
   applicationPort: 8080
   replicas: 2
-  ingressHost: vh-notifications-api.{{ .Values.global.environment }}.platform.hmcts.net
-  releaseNameOverride: vh-notifications-api
+  ingressHost: vh-notification-api.{{ .Values.global.environment }}.platform.hmcts.net
+  releaseNameOverride: vh-notification-api
   readinessPath: /health/liveness
   livenessPath: /health/liveness
   livenessDelay: 360
@@ -34,6 +34,6 @@ java:
     Logging__LogLevel__Default: debug
     Logging__LogLevel__System: debug
     Logging__LogLevel__Microsoft: debug
-    SERVICES__VHNOTIFICATIONAPIRESOURCEID: https://vh-notifications-api.{{ .Values.global.environment }}.platform.hmcts.net
+    SERVICES__VHNOTIFICATIONAPIRESOURCEID: https://vh-notification-api.{{ .Values.global.environment }}.platform.hmcts.net
 
 
