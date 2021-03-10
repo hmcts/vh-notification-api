@@ -3,7 +3,6 @@ Feature: Create Multi-Day Hearing confirmation notifications
   As an API service
   I want to create hearing multi-day confirmation notifications data
 
-  @Ignore until template is updated
   Scenario: Create a multi-day hearing confirmation for a judge
     Given I have a multi-day hearing confirmation for a judge email notification request
     When I send the create notification request

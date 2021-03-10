@@ -3,7 +3,6 @@ Feature: Create Hearing confirmation notifications
   As an API service
   I want to create hearing confirmation notifications data
 
-  @Ignore until template is updated
   Scenario: Create a hearing confirmation for a judge
     Given I have a hearing confirmation for a judge email notification request
     When I send the create notification request

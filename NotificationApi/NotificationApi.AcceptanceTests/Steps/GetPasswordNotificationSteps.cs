@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NotificationApi.AcceptanceTests.Contexts;
-using NotificationApi.Contract;
 using NotificationApi.Contract.Responses;
 using TechTalk.SpecFlow;
 
@@ -12,7 +11,6 @@ namespace NotificationApi.AcceptanceTests.Steps
     public class GetPasswordNotificationSteps
     {
         private readonly AcTestContext _context;
-        private NotificationType _notificationType;
 
         public GetPasswordNotificationSteps(AcTestContext context)
         {
