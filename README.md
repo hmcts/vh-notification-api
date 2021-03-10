@@ -20,6 +20,10 @@ Include the govuk notify source
 https://api.bintray.com/nuget/gov-uk-notify/nuget
 ```
 
+## Setup templates locally
+
+Execute the environment template scripts to setup your local against it's respective notify environment
+
 ## Running code coverage
 
 First ensure you are running a terminal in the Notification Api directory of this repository and then run the following commands.
