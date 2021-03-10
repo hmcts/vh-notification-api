@@ -58,44 +58,6 @@ namespace NotificationApi.Controllers
             });
         }
 
-        [HttpGet("{email}")]
-        [OpenApiOperation("GetPasswordNotificationByEmail")]
-        [ProducesResponseType(typeof(List<NotificationResponse>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetPasswordNotificationByEmailAsync(string email)
-        {
-            var notification = await _queryHandler.Handle<GetNotificationByEmailQuery, List<EmailNotification>>(new GetNotificationByEmailQuery(email));
-            if (notification == null)
-            {
-                throw new BadRequestException($"Notification does not exists for {nameof(email)}: {email}");
-            }
-
-            var notificationResponses = notification.Select(n => new NotificationResponse { Id = n.Id }).ToList();
-
-            return Ok(notificationResponses);
-        }
-
-        [HttpGet("{notificationType}/{hearingId}/{participantId}")]
-        [OpenApiOperation("GetNotificationByHearingAndParticipant")]
-        [ProducesResponseType(typeof(NotificationResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetNotificationByHearingAndParticipantAsync(Contract.NotificationType notificationType, string hearingId, string participantId)
-        {
-            var notification = await _queryHandler.Handle<GetNotificationByParticipantAndHearingQuery, EmailNotification>(new GetNotificationByParticipantAndHearingQuery((NotificationType)notificationType, hearingId, participantId));
-            if (notification == null)
-            {
-                throw new BadRequestException($"{nameof(notificationType)}: {notificationType} does not exists for {nameof(hearingId)}: {hearingId}  and {nameof(participantId)}: {participantId}");
-            }
-
-            return Ok(new NotificationResponse
-            {
-                Id = notification.Id
-            });
-        }
-
-
         [HttpPost]
         [OpenApiOperation("CreateNewNotification")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
