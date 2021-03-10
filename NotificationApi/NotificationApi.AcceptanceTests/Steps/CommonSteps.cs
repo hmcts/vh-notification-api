@@ -25,7 +25,6 @@ namespace NotificationApi.AcceptanceTests.Steps
         }
         
         [When(@"I send the create notification request")]
-        [Given(@"I send the create notification request")]
         public async Task WhenISendTheCreateNotificationRequest()
         {
             await _context.ExecuteApiRequest(() =>
