@@ -27,6 +27,19 @@
           "FluentValidation.DependencyInjectionExtensions": "9.3.0"
         }
       },
+      "GovukNotify": {
+        "type": "Direct",
+        "requested": "[4.0.0, )",
+        "resolved": "4.0.0",
+        "contentHash": "b53ojVaWEgy6jvEUWrUZKmPUWtHg/gKokPfmFMSWOBYoxGFls7CTsjIueFGiFX4JF2oCi+zjLzIo1odfxvOByA==",
+        "dependencies": {
+          "JWT": "[7.0.0, 8.0.0)",
+          "Newtonsoft.Json": "10.0.3",
+          "System.Collections.Specialized": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0"
+        }
+      },
       "Microsoft.ApplicationInsights.AspNetCore": {
         "type": "Direct",
         "requested": "[2.15.0, )",
@@ -99,19 +112,6 @@
         "contentHash": "ZHXVe8nDkHXmPlBNGOl3SIxoUKfah2OJOKKmq769gBMqHJMaOrFKhPYsHdTORjKUtwc3AlO1CMLgnljFyyxA/Q==",
         "dependencies": {
           "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "3.1.0"
-        }
-      },
-      "Notify": {
-        "type": "Direct",
-        "requested": "[2.9.0, )",
-        "resolved": "2.9.0",
-        "contentHash": "BMtBAu2uWs4qoALJTO95W03tTOjOqmOG2/FmrNlFdM+cLx7r9EK+8LdPvmGDLwtAxlGcbRtqrUM+IR9xeil/8g==",
-        "dependencies": {
-          "JWT": "5.0.1",
-          "Newtonsoft.Json": "10.0.3",
-          "System.Collections.Specialized": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Runtime.Extensions": "4.3.0"
         }
       },
       "NSwag.AspNetCore": {
@@ -226,13 +226,12 @@
       },
       "JWT": {
         "type": "Transitive",
-        "resolved": "5.0.1",
-        "contentHash": "9zwqx/Ii2WH3UK1qzEYmWEUD7YxDNsC/ikcxJxjnV+dbE+LN1rdtDRtJwEaNqBZNycVyw+Ga9d8SM8lXa4a2CA==",
+        "resolved": "7.1.0",
+        "contentHash": "z33XjdWSKszw/SRde6fvVsCL2gaKdktZDHJIfpp0RqzNU7RQIaWC4wHUVV2i3RzQSsvQ4bjI3/2kwEAT5S62nA==",
         "dependencies": {
-          "NETStandard.Library": "1.6.1",
           "Newtonsoft.Json": "9.0.1",
           "System.ComponentModel.Primitives": "4.3.0",
-          "System.Reflection.TypeExtensions": "4.5.1",
+          "System.Reflection.TypeExtensions": "4.7.0",
           "System.Security.Cryptography.Csp": "4.3.0"
         }
       },
@@ -2108,8 +2107,8 @@
       },
       "System.Reflection.TypeExtensions": {
         "type": "Transitive",
-        "resolved": "4.5.1",
-        "contentHash": "fO8GMEkgoKioJ7cglZbhcnBgkCWWn9poS3G2jevS+fuwW9xJXMx7/1kr7dkwOJfo0pWqxLFWVcxlOr+WeK5ipA=="
+        "resolved": "4.7.0",
+        "contentHash": "VybpaOQQhqE6siHppMktjfGBw1GCwvCqiufqmP8F1nj7fTUNtW35LOEt3UZTEsECfo+ELAl/9o9nJx3U91i7vA=="
       },
       "System.Resources.ResourceManager": {
         "type": "Transitive",
@@ -2639,6 +2638,7 @@
       "notificationapi.dal": {
         "type": "Project",
         "dependencies": {
+          "GovukNotify": "4.0.0",
           "Microsoft.EntityFrameworkCore": "3.1.9",
           "Microsoft.EntityFrameworkCore.Proxies": "3.1.9",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.9",
@@ -2647,8 +2647,7 @@
           "Microsoft.Extensions.Configuration.UserSecrets": "3.1.1",
           "Newtonsoft.Json": "12.0.3",
           "NotificationApi.Common": "1.0.0",
-          "NotificationApi.Domain": "1.0.0",
-          "Notify": "2.9.0"
+          "NotificationApi.Domain": "1.0.0"
         }
       },
       "notificationapi.domain": {
