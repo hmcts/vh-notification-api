@@ -20,6 +20,9 @@ namespace NotificationApi.Domain.Enums
         HearingAmendmentJoh = 15,
         HearingReminderLip = 16,
         HearingReminderRepresentative = 17,
-        HearingReminderJoh = 18
+        HearingReminderJoh = 18,
+        HearingConfirmationEJudJudge = 19,
+        HearingConfirmationEJudJudgeMultiDay = 20,
+        HearingAmendmentEJudJudge = 21
     }
 }

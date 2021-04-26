@@ -27,3 +27,6 @@ Feature: Get Templates
       |HearingReminderLip                         |
       |HearingReminderRepresentative              |
       |HearingReminderJoh                         |
+      |HearingConfirmationEJudJudge               |
+      |HearingConfirmationEJudJudgeMultiDay       |
+      |HearingAmendmentEJudJudge                  |
