@@ -27,3 +27,6 @@ Feature: Get Template By Notification Type
       |HearingReminderLip                         |
       |HearingReminderRepresentative              |
       |HearingReminderJoh                         |
+      |HearingConfirmationEJudJudge               |
+      |HearingConfirmationEJudJudgeMultiDay       |
+      |HearingAmendmentEJudJudge                  |
