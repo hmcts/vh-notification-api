@@ -35,7 +35,7 @@ parameters:
 # Set variables once
 variables:
   - name: env_runACTests
-    value: true
+    type: string
   - group: vh-domains-and-urls
   - group: vh-apps-settings-generic
   - group: vh-notification-api
