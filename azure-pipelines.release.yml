@@ -95,7 +95,7 @@ extends:
               - Preview
               - Dev
               - AAT
-              - Sandox
+              - Sandbox
               - Test1
               - Test2
               - Demo
