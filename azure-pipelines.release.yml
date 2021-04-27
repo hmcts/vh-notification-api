@@ -78,7 +78,7 @@ extends:
       ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
         deploymentBranch: resources.pipeline.CI.sourceBranch
       releaseParameters:
-        runACTests: $(env_runACTests)
+        runACTests: ${{ variables.env_runACTests }}
         runZapTests: ${{ parameters.RunZap }}
         subscription: $(env_Subscription)
         secrets_KeyVault: $(env_Secret_KeyVault)
@@ -88,7 +88,6 @@ extends:
         resourceGroup: vh-notification-api-$(environment)
         variables:
           - name: env_runACTests
-            type: Boolean
             value: true
             env: 
               - Preview
