@@ -78,7 +78,7 @@ extends:
       ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
         deploymentBranch: resources.pipeline.CI.sourceBranch
       releaseParameters:
-        runACTests: false
+        runACTests: $(env_runACTests)
         runZapTests: ${{ parameters.RunZap }}
         subscription: $(env_Subscription)
         secrets_KeyVault: $(env_Secret_KeyVault)
@@ -87,6 +87,21 @@ extends:
         appName: vh-notification-api-$(environment)
         resourceGroup: vh-notification-api-$(environment)
         variables:
+          - name: env_runACTests
+            value: true
+            env: 
+              - Preview
+              - Dev
+              - AAT
+              - Sandox
+              - Test1
+              - Test2
+              - Demo
+              - PreProd
+          - name: env_runACTests
+            value: false
+            env: 
+              - Prod
           - group: govuk-notify-preview
             env:
              - Preview
