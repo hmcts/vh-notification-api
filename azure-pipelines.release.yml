@@ -89,7 +89,7 @@ extends:
         variables:
           - name: env_runACTests
             type: string
-            value: ${{ true }}
+            value: true
             env: 
               - Preview
               - Dev
