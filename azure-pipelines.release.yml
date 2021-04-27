@@ -88,6 +88,7 @@ extends:
         resourceGroup: vh-notification-api-$(environment)
         variables:
           - name: env_runACTests
+            type: string
             value: ${{ true }}
             env: 
               - Preview
