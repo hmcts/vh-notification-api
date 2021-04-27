@@ -88,7 +88,7 @@ extends:
         resourceGroup: vh-notification-api-$(environment)
         variables:
           - name: env_runACTests
-            value: true
+            value: ${{ true }}
             env: 
               - Preview
               - Dev
@@ -99,7 +99,7 @@ extends:
               - Demo
               - PreProd
           - name: env_runACTests
-            value: false
+            value: ${{ false }}
             env: 
               - Prod
           - group: govuk-notify-preview
