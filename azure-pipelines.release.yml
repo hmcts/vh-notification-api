@@ -186,3 +186,5 @@ extends:
           # GOV Notify Configuration
           - name: NotifyConfiguration:ApiKey
             value: $(notify-api-key)
+          - name: NotifyConfiguration:CallbackSecret
+            value: $(notify-callback-secret)
