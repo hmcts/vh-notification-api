@@ -25,6 +25,11 @@ parameters:
   type: boolean
   default: false
 
+- name: RunACTests
+  displayName: Execute AC Tests
+  type: boolean
+  default: true
+
 - name: prodEnvs
   displayName: Environments Using Prod Subscription
   type: object
@@ -34,8 +39,6 @@ parameters:
 
 # Set variables once
 variables:
-  - name: env_runACTests
-    value: true
   - group: vh-domains-and-urls
   - group: vh-apps-settings-generic
   - group: vh-notification-api
@@ -80,7 +83,7 @@ extends:
       ${{ if eq(variables['Build.Reason'], 'ResourceTrigger') }}:
         deploymentBranch: resources.pipeline.CI.sourceBranch
       releaseParameters:
-        runACTests: $(env_runACTests)
+        runACTests: ${{ parameters.RunACTests }}
         runZapTests: ${{ parameters.RunZap }}
         subscription: $(env_Subscription)
         secrets_KeyVault: $(env_Secret_KeyVault)
@@ -89,21 +92,6 @@ extends:
         appName: vh-notification-api-$(environment)
         resourceGroup: vh-notification-api-$(environment)
         variables:
-          - name: env_runACTests
-            value: True
-            env: 
-              - Preview
-              - Dev
-              - AAT
-              - Sandbox
-              - Test1
-              - Test2
-              - Demo
-              - PreProd
-          - name: env_runACTests
-            value: False
-            env: 
-              - Prod
           - group: govuk-notify-preview
             env:
              - Preview
