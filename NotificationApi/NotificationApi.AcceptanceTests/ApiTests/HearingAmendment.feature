@@ -15,6 +15,12 @@ Feature: Create Hearing amendment notifications
     Then the api client should return true
     And Notify should have my request
 
+  Scenario: Create a hearing amendment for an ejud joh
+    Given I have a hearing amendment for an ejud joh email notification request
+    When I send the create notification request
+    Then the api client should return true
+    And Notify should have my request
+
   Scenario: Create a hearing amendment for a judicial office holder
     Given I have a hearing amendment for a joh email notification request
     When I send the create notification request
