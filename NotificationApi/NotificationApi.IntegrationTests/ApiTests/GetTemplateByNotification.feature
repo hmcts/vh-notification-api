@@ -9,24 +9,25 @@ Feature: Get Template By Notification Type
     Then the response should have the status OK and success status True
     And the response should contain a template for notification type <notificationType>
     Examples:
-      |notificationType                           |
-      |CreateIndividual                           |
-      |CreateRepresentative                       |
-      |HearingConfirmationLip                     |
-      |HearingConfirmationRepresentative          |
-      |HearingConfirmationJudge                   |
-      |HearingConfirmationJoh                     |
-      |HearingConfirmationLipMultiDay             |
-      |HearingConfirmationRepresentativeMultiDay  |
-      |HearingConfirmationJudgeMultiDay           |
-      |HearingConfirmationJohMultiDay             |
-      |HearingAmendmentLip                        |
-      |HearingAmendmentRepresentative             |
-      |HearingAmendmentJudge                      |
-      |HearingAmendmentJoh                        |
-      |HearingReminderLip                         |
-      |HearingReminderRepresentative              |
-      |HearingReminderJoh                         |
-      |HearingConfirmationEJudJudge               |
-      |HearingConfirmationEJudJudgeMultiDay       |
-      |HearingAmendmentEJudJudge                  |
+      | notificationType                          |
+      | CreateIndividual                          |
+      | CreateRepresentative                      |
+      | HearingConfirmationLip                    |
+      | HearingConfirmationRepresentative         |
+      | HearingConfirmationJudge                  |
+      | HearingConfirmationJoh                    |
+      | HearingConfirmationLipMultiDay            |
+      | HearingConfirmationRepresentativeMultiDay |
+      | HearingConfirmationJudgeMultiDay          |
+      | HearingConfirmationJohMultiDay            |
+      | HearingAmendmentLip                       |
+      | HearingAmendmentRepresentative            |
+      | HearingAmendmentJudge                     |
+      | HearingAmendmentJoh                       |
+      | HearingReminderLip                        |
+      | HearingReminderRepresentative             |
+      | HearingReminderJoh                        |
+      | HearingConfirmationEJudJudge              |
+      | HearingConfirmationEJudJudgeMultiDay      |
+      | HearingAmendmentEJudJudge                 |
+      | HearingAmendmentEJudJoh                   |
