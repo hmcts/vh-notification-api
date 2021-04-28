@@ -47,7 +47,7 @@ namespace NotificationApi.IntegrationTests.Steps
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingAmendmentEJudJoh;
             var parameters = InitGenericAmendmentParams();
-            parameters.Add("judge", $"{Faker.Name.FullName()}");
+            parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
             InitCreateNotificationRequest(request, _context);
