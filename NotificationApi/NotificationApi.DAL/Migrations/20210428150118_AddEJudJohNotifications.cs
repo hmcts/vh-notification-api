@@ -16,7 +16,7 @@ namespace NotificationApi.DAL.Migrations
                     {
                         "ca353650-c43b-46e4-890c-b8dad47a825a", (int) NotificationType.HearingAmendmentEJudJoh,
                         (int) MessageType.Email,
-                        "case name,case number,judge,day month year,time"
+                        "case name,case number,judicial office holder,day month year,time"
                     }
                });
         }
