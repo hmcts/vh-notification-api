@@ -31,7 +31,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         public void GivenIHaveAHearingReminderForAnEJudJohEmailNotificationRequest()
         {
             var messageType = MessageType.Email;
-            var templateType = NotificationType.HearingAmendmentEJudJoh;
+            var templateType = NotificationType.HearingReminderEJudJoh;
             var parameters = InitGenericAmendmentParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest =
