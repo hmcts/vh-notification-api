@@ -8,6 +8,11 @@ Feature: Create Hearing reminder notifications
     When I send the request
     Then the response should have the status OK and success status True
 
+  Scenario: Create a hearing reminder for an ejud judicial office holder
+    Given I have a hearing reminder for an ejud joh email notification request
+    When I send the request
+    Then the response should have the status OK and success status True
+
   Scenario: Create a hearing reminder for a LIP
     Given I have a hearing reminder for a LIP email notification request
     When I send the request
