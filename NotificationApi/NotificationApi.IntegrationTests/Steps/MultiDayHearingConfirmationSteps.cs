@@ -53,6 +53,18 @@ namespace NotificationApi.IntegrationTests.Steps
             InitCreateNotificationRequest(request, _context);
         }
         
+        [Given(@"I have a multi-day hearing confirmation for an ejud joh email notification request")]
+        public void GivenIHaveAMulti_DayHearingConfirmationForAnEJudJohEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.HearingConfirmationEJudJohMultiDay;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
+            var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+            
+            InitCreateNotificationRequest(request, _context);
+        }
+        
         [Given(@"I have a multi-day hearing confirmation for a LIP email notification request")]
         public void GivenIHaveAMulti_DayHearingConfirmationForALipEmailNotificationRequest()
         {
