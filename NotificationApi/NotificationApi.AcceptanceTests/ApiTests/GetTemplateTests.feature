@@ -33,3 +33,5 @@ Scenario Outline: Get a template for a notification type
 		| HearingAmendmentEJudJudge                 |
 		| HearingAmendmentEJudJoh                   |
 		| HearingReminderEJudJoh                    |
+		| HearingConfirmationEJudJoh                |
+		| HearingConfirmationEJudJohMultiDay        |
