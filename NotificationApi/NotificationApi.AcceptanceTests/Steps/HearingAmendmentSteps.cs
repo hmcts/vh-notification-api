@@ -77,7 +77,20 @@ namespace NotificationApi.AcceptanceTests.Steps
             parameters.Add("client name", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
-        
+
+        [Given(@"I have a hearing amendment for a participant demo or test email notification request")]
+        public void GivenIHaveAHearingAmendmentForAParticipantDemoOrTestEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.ParticipantDemoOrTest;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("name", $"{Faker.Name.FullName()}");
+            parameters.Add("test type", $"{Faker.Name.FullName()}");
+            parameters.Add("date", "15 February 2021");
+            parameters.Add("time", "12:15pm");
+            parameters.Add("username", "test User Name");
+            _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
         private Dictionary<string, string> InitGenericAmendmentParams()
         {
             return new Dictionary<string, string>

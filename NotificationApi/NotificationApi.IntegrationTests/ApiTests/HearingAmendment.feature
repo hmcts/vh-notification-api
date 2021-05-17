@@ -32,3 +32,8 @@ Feature: Create Hearing amendment notifications
     Given I have a hearing amendment for a representative email notification request
     When I send the request
     Then the response should have the status OK and success status True
+
+  Scenario: Create a hearing amendment for a participant demo or test
+	  Given I have a hearing amendment for a participant demo or test email notification request
+	  When I send the request
+	  Then the response should have the status OK and success status True

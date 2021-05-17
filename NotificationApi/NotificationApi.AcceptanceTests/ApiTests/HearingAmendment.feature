@@ -38,3 +38,10 @@ Feature: Create Hearing amendment notifications
     When I send the create notification request
     Then the api client should return true
     And Notify should have my request
+
+  Scenario: Create a hearing amendment for a participant demo or test
+	  Given I have a hearing amendment for a participant demo or test email notification request
+	  When I send the create notification request
+    Then the api client should return true
+	  And Notify should have my request
+
