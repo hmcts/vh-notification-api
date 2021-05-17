@@ -60,6 +60,10 @@ namespace NotificationApi.IntegrationTests.Steps
             var templateType = NotificationType.EJudJohDemoOrTest;
             var parameters = InitGenericAmendmentParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
+            parameters.Add("test type", $"{Faker.Name.FullName()}");
+            parameters.Add("date", "15 February 2021");
+            parameters.Add("time", "12:15pm");
+            parameters.Add("username", "test USer Name");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
             InitCreateNotificationRequest(request, _context);
