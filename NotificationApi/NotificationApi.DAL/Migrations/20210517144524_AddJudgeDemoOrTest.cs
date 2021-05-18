@@ -14,12 +14,12 @@ namespace NotificationApi.DAL.Migrations
                new object[,]
                {
                     {
-                        "e2709c28-9e12-4bc5-b2ea-3fc8147e7373", (int) NotificationType.AddJudgeDemoOrTest,
+                        "e2709c28-9e12-4bc5-b2ea-3fc8147e7373", (int) NotificationType.JudgeDemoOrTest,
                         (int) MessageType.Email,
                         "test type,date,time,case number,Judge,courtroom account username"
                     },
                     {
-                        "6f16c9df-9ddd-4c4d-a743-7d87853fd753", (int) NotificationType.AddEJudJudgeDemoOrTest,
+                        "6f16c9df-9ddd-4c4d-a743-7d87853fd753", (int) NotificationType.EJudJudgeDemoOrTest,
                         (int) MessageType.Email,
                         "test type,date,time,case number,judicial office holder,username"
                     }
@@ -31,12 +31,12 @@ namespace NotificationApi.DAL.Migrations
             migrationBuilder.DeleteData(
                 nameof(Template),
                 "NotificationType",
-                (int)NotificationType.AddJudgeDemoOrTest
+                (int)NotificationType.JudgeDemoOrTest
             );
             migrationBuilder.DeleteData(
                 nameof(Template),
                 "NotificationType",
-                (int)NotificationType.AddEJudJudgeDemoOrTest
+                (int)NotificationType.EJudJudgeDemoOrTest
             );
         }
     }

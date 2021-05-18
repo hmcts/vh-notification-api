@@ -8,8 +8,18 @@ Feature: Create Hearing amendment notifications
     When I send the request
     Then the response should have the status OK and success status True
 
+  Scenario: Create a hearing amendment for a judge demo or test
+    Given I have a hearing amendment for a judge demo or test email notification request
+    When I send the request
+    Then the response should have the status OK and success status True
+
   Scenario: Create a hearing amendment for an ejud judge
     Given I have a hearing amendment for an ejud judge email notification request
+    When I send the request
+    Then the response should have the status OK and success status True
+
+  Scenario: Create a hearing amendment for an ejud judge demo or test
+    Given I have a hearing amendment for an ejud judge demo or test email notification request
     When I send the request
     Then the response should have the status OK and success status True
   
