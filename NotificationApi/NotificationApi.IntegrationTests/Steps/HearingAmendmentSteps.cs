@@ -57,7 +57,7 @@ namespace NotificationApi.IntegrationTests.Steps
             InitCreateNotificationRequest(request, _context);
         }
 
-        [Given(@"I have a hearing amendment for an ejud judge demo or test  email notification request")]
+        [Given(@"I have a hearing amendment for an ejud judge demo or test email notification request")]
         public void GivenIHaveAHearingAmendmentForAnEjudJudgeDemoOrTestEmailNotificationRequest()
         {
             var messageType = MessageType.Email;
