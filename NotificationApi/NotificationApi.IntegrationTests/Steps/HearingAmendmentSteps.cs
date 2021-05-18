@@ -61,7 +61,7 @@ namespace NotificationApi.IntegrationTests.Steps
         public void GivenIHaveAHearingAmendmentForAnEjudJudgeDemoOrTestEmailNotificationRequest()
         {
             var messageType = MessageType.Email;
-            var templateType = NotificationType.HearingAmendmentEJudJudge;
+            var templateType = NotificationType.EJudJudgeDemoOrTest;
             var parameters = InitGenericAmendmentParams();
             parameters.Add("test type", $"{Faker.Name.FullName()}");
             parameters.Add("date", "15 February 2021");

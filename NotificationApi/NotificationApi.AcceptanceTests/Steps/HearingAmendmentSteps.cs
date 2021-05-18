@@ -31,7 +31,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         public void GivenIHaveAHearingAmendmentForAJudgeDemoOrTestEmailNotificationRequest()
         {
             var messageType = MessageType.Email;
-            var templateType = NotificationType.HearingAmendmentJudge;
+            var templateType = NotificationType.JudgeDemoOrTest;
             var parameters = InitGenericAmendmentParams();
             parameters.Add("test type", $"{Faker.Name.FullName()}");
             parameters.Add("date", "15 February 2021");
@@ -55,7 +55,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         public void GivenIHaveAHearingAmendmentForAnEjudJudgeDemoOrTestEmailNotificationRequest()
         {
             var messageType = MessageType.Email;
-            var templateType = NotificationType.HearingAmendmentEJudJudge;
+            var templateType = NotificationType.EJudJudgeDemoOrTest;
             var parameters = InitGenericAmendmentParams();
             parameters.Add("test type", $"{Faker.Name.FullName()}");
             parameters.Add("date", "15 February 2021");
