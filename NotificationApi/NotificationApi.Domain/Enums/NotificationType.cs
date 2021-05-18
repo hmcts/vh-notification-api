@@ -29,7 +29,7 @@ namespace NotificationApi.Domain.Enums
         HearingConfirmationEJudJoh = 24,
         HearingConfirmationEJudJohMultiDay = 25,
         EJudJudgeDemoOrTest = 27,
-        JudgeDemoOrTest = 28
+        JudgeDemoOrTest = 28,
         EJudJohDemoOrTest=26
     }
 }
