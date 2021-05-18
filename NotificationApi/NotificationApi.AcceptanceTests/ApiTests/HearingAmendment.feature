@@ -50,9 +50,3 @@ Scenario: Create a hearing amendment for a LIP
 	When I send the create notification request
 	Then the api client should return true
 	And Notify should have my request
-
-Scenario: Create a hearing amendment for a representative
-	Given I have a hearing amendment for a representative email notification request
-	When I send the create notification request
-	Then the api client should return true
-	And Notify should have my request

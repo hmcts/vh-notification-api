@@ -42,8 +42,3 @@ Scenario: Create a hearing amendment for a LIP
 	Given I have a hearing amendment for a LIP email notification request
 	When I send the request
 	Then the response should have the status OK and success status True
-
-Scenario: Create a hearing amendment for a representative
-	Given I have a hearing amendment for a representative email notification request
-	When I send the request
-	Then the response should have the status OK and success status True
