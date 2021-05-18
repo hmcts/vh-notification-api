@@ -51,6 +51,22 @@ namespace NotificationApi.IntegrationTests.Steps
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
             InitCreateNotificationRequest(request, _context);
+        } 
+        
+        [Given(@"I have a hearing amendment for an ejud joh demo or test email notification request")]
+        public void GivenIHaveAHearingAmendmentForAnEjudJohDemoOrTestEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.EJudJohDemoOrTest;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
+            parameters.Add("test type", $"{Faker.Name.FullName()}");
+            parameters.Add("date", "15 February 2021");
+            parameters.Add("time", "12:15pm");
+            parameters.Add("username", "test USer Name");
+            var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+            
+            InitCreateNotificationRequest(request, _context);
         }
         
         [Given(@"I have a hearing amendment for a joh email notification request")]
