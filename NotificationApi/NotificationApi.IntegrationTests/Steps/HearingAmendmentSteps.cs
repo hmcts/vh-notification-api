@@ -66,7 +66,7 @@ namespace NotificationApi.IntegrationTests.Steps
             parameters.Add("test type", $"{Faker.Name.FullName()}");
             parameters.Add("date", "15 February 2021");
             parameters.Add("time", "12:15pm");
-            parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
+            parameters.Add("Judge", $"{Faker.Name.FullName()}");
             parameters.Add("username", "test user name");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
 
