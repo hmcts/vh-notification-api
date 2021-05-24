@@ -19,7 +19,7 @@ namespace NotificationApi.DAL.Migrations
                         "test type,date,time,case number,Judge,courtroom account username"
                     },
                     {
-                        "6f16c9df-9ddd-4c4d-a743-7d87853fd753", (int) NotificationType.EJudJudgeDemoOrTest,
+                        "56e9ff91-267f-4154-814a-0281dd100cc6", (int) NotificationType.EJudJudgeDemoOrTest,
                         (int) MessageType.Email,
                         "test type,date,time,case number,Judge,username"
                     }
