@@ -30,6 +30,7 @@ namespace NotificationApi.Contract
         HearingConfirmationEJudJohMultiDay = 25,
         EJudJudgeDemoOrTest = 27,
         JudgeDemoOrTest = 28,
-        EJudJohDemoOrTest = 26
+        EJudJohDemoOrTest = 26,
+        ParticipantDemoOrTest = 29
     }
 }

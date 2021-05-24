@@ -35,6 +35,7 @@ Scenario Outline: Successfully get a template for a notification type
 		| HearingReminderEJudJoh                    |
 		| HearingConfirmationEJudJoh                |
 		| HearingConfirmationEJudJohMultiDay        |
+    | ParticipantDemoOrTest                     |
 		| JudgeDemoOrTest                           |
 		| EJudJudgeDemoOrTest                       |
 		| EJudJohDemoOrTest                         |
