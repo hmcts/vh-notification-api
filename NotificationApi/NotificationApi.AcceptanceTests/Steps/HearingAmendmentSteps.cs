@@ -37,7 +37,7 @@ namespace NotificationApi.AcceptanceTests.Steps
             parameters.Add("date", "15 February 2021");
             parameters.Add("time", "12:15pm");
             parameters.Add("Judge", $"{Faker.Name.FullName()}");
-            parameters.Add("username", "test user name");
+            parameters.Add("courtroom account username", "test user name");
             _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
 
@@ -61,7 +61,6 @@ namespace NotificationApi.AcceptanceTests.Steps
             parameters.Add("date", "15 February 2021");
             parameters.Add("time", "12:15pm");
             parameters.Add("Judge", $"{Faker.Name.FullName()}");
-            parameters.Add("courtroom account username", Faker.Internet.Email());
             _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
 
