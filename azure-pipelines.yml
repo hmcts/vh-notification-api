@@ -87,6 +87,10 @@ parameters:
     value: $(notify-api-key)
   - name: NotifyConfiguration:CallbackSecret
     value: $(notify-callback-secret)
+  - name: NotifyConfiguration:EJudJudgeDemoOrTest
+    value: $(EJudJudgeDemoOrTest)          
+  - name: NotifyConfiguration:JudgeDemoOrTest
+    value: $(JudgeDemoOrTest)
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi
