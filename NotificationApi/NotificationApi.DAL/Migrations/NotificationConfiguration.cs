@@ -8,8 +8,10 @@ namespace NotificationApi.DAL.Migrations
     {
         public static IConfiguration GetConfiguration()
         {
+            var appSettingsPath = Directory.GetCurrentDirectory().Contains("Tests") ? Path.GetFullPath(Path.GetRelativePath("NotificationApi\\NotificationApi", "../")) : Path.GetFullPath("../NotificationApi/");
+
             var builder = new ConfigurationBuilder()
-               .SetBasePath(Path.GetFullPath("../NotificationApi/"))
+               .SetBasePath(appSettingsPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                .AddEnvironmentVariables();
 
