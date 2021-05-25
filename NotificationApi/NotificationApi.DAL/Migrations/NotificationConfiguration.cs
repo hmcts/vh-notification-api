@@ -16,6 +16,9 @@ namespace NotificationApi.DAL.Migrations
             return config.GetSection("NotifyConfiguration");
         }
 
-        public static Guid GetValue(string key) => GetConfiguration().GetValue<Guid>(key);
+        public static Guid GetValue(IConfiguration configuration, string key)
+        {
+            return configuration.GetValue<Guid>(key);
+        }
     }
 }
