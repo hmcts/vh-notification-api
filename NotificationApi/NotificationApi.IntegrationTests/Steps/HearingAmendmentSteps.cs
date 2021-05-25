@@ -39,7 +39,7 @@ namespace NotificationApi.IntegrationTests.Steps
             parameters.Add("date", "15 February 2021");
             parameters.Add("time", "12:15pm");
             parameters.Add("Judge", $"{Faker.Name.FullName()}");
-            parameters.Add("courtroom account username", "test user name");
+            parameters.Add("courtroom account username", Faker.Internet.Email());
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
 
             InitCreateNotificationRequest(request, _context);
