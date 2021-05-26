@@ -337,6 +337,7 @@ ASALocalRun/
 
 # Local environment settings files
 /NotifyAPI/NotifyApi.AcceptanceTests/Environments/
+appsettings.template.json
 
 # azds
 values.dev.yaml

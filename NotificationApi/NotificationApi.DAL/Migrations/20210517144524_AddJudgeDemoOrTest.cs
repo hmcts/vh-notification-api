@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.Extensions.Configuration;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using System;
@@ -10,12 +9,11 @@ namespace NotificationApi.DAL.Migrations
     {
         private Guid _judgeDemoOrTest;
         private Guid _ejudJudgeDemoOrTest;
-        private readonly IConfiguration _configuration = NotificationConfiguration.GetConfiguration();
 
         public AddJudgeDemoOrTest()
         {
-            _judgeDemoOrTest = NotificationConfiguration.GetValue(_configuration, nameof(NotificationType.JudgeDemoOrTest));
-            _ejudJudgeDemoOrTest = NotificationConfiguration.GetValue(_configuration, nameof(NotificationType.EJudJudgeDemoOrTest));
+            _judgeDemoOrTest = NotificationConfiguration.GetValue(nameof(NotificationType.JudgeDemoOrTest));
+            _ejudJudgeDemoOrTest = NotificationConfiguration.GetValue(nameof(NotificationType.EJudJudgeDemoOrTest));
         }
 
         protected override void Up(MigrationBuilder migrationBuilder)
