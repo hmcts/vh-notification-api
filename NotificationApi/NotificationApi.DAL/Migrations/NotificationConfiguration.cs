@@ -1,25 +1,24 @@
 using Microsoft.Extensions.Configuration;
-using System;
 
 namespace NotificationApi.DAL.Migrations
 {
     public static class NotificationConfiguration
     {
-        private static IConfigurationRoot _notifyConfiguration;
+        private static NotifySection _notifySection;
 
-        public static IConfigurationSection GetConfiguration()
+        public static NotifySection Get()
         {
-            if(_notifyConfiguration == null)
+            if (_notifySection == null)
             {
                 var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D");
 
-                _notifyConfiguration = builder.Build();
+                var config = builder.Build();
+                _notifySection = config.GetSection("NotifyConfiguration").Get<NotifySection>();
             }
 
-            return _notifyConfiguration.GetSection("NotifyConfiguration");
+            return _notifySection;
         }
-
-        public static Guid GetValue(string key) => GetConfiguration().GetValue<Guid>(key);
     }
 }
