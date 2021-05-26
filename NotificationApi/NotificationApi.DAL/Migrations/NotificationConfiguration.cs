@@ -5,9 +5,9 @@ namespace NotificationApi.DAL.Migrations
 {
     public static class NotificationConfiguration
     {
-        private static IConfiguration _notifyConfiguration;
+        private static IConfigurationRoot _notifyConfiguration;
 
-        public static IConfiguration GetConfiguration()
+        public static IConfigurationSection GetConfiguration()
         {
             if(_notifyConfiguration == null)
             {
