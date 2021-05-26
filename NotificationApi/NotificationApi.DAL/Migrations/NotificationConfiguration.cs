@@ -5,20 +5,19 @@ namespace NotificationApi.DAL.Migrations
 {
     public static class NotificationConfiguration
     {
-        private static IConfiguration _configuration;
+        private static IConfiguration _notifyConfiguration;
 
         public static IConfiguration GetConfiguration()
         {
-            if(_configuration == null)
+            if(_notifyConfiguration == null)
             {
                 var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile("appsettings.template.json", optional: true);
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-                _configuration = builder.Build();
+                _notifyConfiguration = builder.Build();
             }
 
-            return _configuration.GetSection("NotifyConfiguration");
+            return _notifyConfiguration.GetSection("NotifyConfiguration");
         }
 
         public static Guid GetValue(string key) => GetConfiguration().GetValue<Guid>(key);
