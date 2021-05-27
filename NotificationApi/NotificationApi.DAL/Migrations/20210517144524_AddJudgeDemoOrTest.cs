@@ -9,11 +9,21 @@ namespace NotificationApi.DAL.Migrations
     {
         private Guid _ejudJudgeDemoOrTest;
         private Guid _judgeDemoOrTest;
+        private NotifySection _templateConfiguration = NotificationConfiguration.Get();
 
         public AddJudgeDemoOrTest()
         {
-            _ejudJudgeDemoOrTest = NotificationConfiguration.Get().EJudJudgeDemoOrTest.Value;
-            _judgeDemoOrTest = NotificationConfiguration.Get().JudgeDemoOrTest.Value;
+            if (_templateConfiguration.EJudJudgeDemoOrTest == null)
+            {
+                throw new ArgumentNullException("EJudJudgeDemoOrTest is not found");
+            }
+            
+            if (_templateConfiguration.JudgeDemoOrTest == null)
+            {
+                throw new ArgumentNullException("JudgeDemoOrTest is not found");
+            }
+            _ejudJudgeDemoOrTest = _templateConfiguration.EJudJudgeDemoOrTest.Value;
+            _judgeDemoOrTest = _templateConfiguration.JudgeDemoOrTest.Value;
         }
 
         protected override void Up(MigrationBuilder migrationBuilder)

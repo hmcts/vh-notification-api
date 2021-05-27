@@ -19,6 +19,7 @@ namespace NotificationApi.DAL.Migrations
 
                 var config = builder.Build();
                 var sect = config.GetSection("NotifyConfiguration").Value;
+                Console.WriteLine($"The values of parameters are: {sect}");
                 Console.WriteLine(sect);
                 _notifySection = config.GetSection("NotifyConfiguration").Get<NotifySection>();
             }
