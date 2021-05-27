@@ -12,8 +12,8 @@ namespace NotificationApi.DAL.Migrations
 
         public AddJudgeDemoOrTest()
         {
-            _ejudJudgeDemoOrTest = NotificationConfiguration.Get().EJudJudgeDemoOrTest;
-            _judgeDemoOrTest = NotificationConfiguration.Get().JudgeDemoOrTest;
+            _ejudJudgeDemoOrTest = NotificationConfiguration.Get().EJudJudgeDemoOrTest.Value;
+            _judgeDemoOrTest = NotificationConfiguration.Get().JudgeDemoOrTest.Value;
         }
 
         protected override void Up(MigrationBuilder migrationBuilder)
