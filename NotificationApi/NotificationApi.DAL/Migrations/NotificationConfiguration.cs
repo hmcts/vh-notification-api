@@ -4,21 +4,20 @@ namespace NotificationApi.DAL.Migrations
 {
     public static class NotificationConfiguration
     {
-        private static NotifySection _notifySection;
+        private static NotifyConfiguration _notifyConfiguration;
 
-        public static NotifySection Get()
+        public static NotifyConfiguration Get()
         {
-            if (_notifySection == null)
-            {
-                var builder = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                    .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D");
+            if (_notifyConfiguration != null) return _notifyConfiguration;
 
-                var config = builder.Build();
-                _notifySection = config.GetSection("NotifyConfiguration").Get<NotifySection>();
-            }
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D");
 
-            return _notifySection;
+            var config = builder.Build();
+            _notifyConfiguration = config.GetSection("NotifyConfiguration").Get<NotifyConfiguration>();
+
+            return _notifyConfiguration;
         }
     }
 }
