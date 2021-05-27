@@ -9,11 +9,13 @@ namespace NotificationApi.DAL.Migrations
     {
         private Guid _ejudJudgeDemoOrTest;
         private Guid _judgeDemoOrTest;
+        
 
         public AddJudgeDemoOrTest()
         {
-            _ejudJudgeDemoOrTest = NotificationConfiguration.Get().EJudJudgeDemoOrTest;
-            _judgeDemoOrTest = NotificationConfiguration.Get().JudgeDemoOrTest;
+            var  templateFactory = NotifyTemplateFactory.Get();
+            _ejudJudgeDemoOrTest = templateFactory.EJudJudgeDemoOrTest.Value;
+            _judgeDemoOrTest = templateFactory.JudgeDemoOrTest.Value;
         }
 
         protected override void Up(MigrationBuilder migrationBuilder)
