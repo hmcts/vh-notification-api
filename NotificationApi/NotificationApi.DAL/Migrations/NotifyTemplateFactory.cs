@@ -3,13 +3,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace NotificationApi.DAL.Migrations
 {
-    public static class NotificationConfiguration
+    public static class NotifyTemplateFactory
     {
-        private static NotifySection _notifySection = null;
+        private static NotifyTemplates _notifyTemplates = null;
 
-        public static NotifySection Get()
+        public static NotifyTemplates Get()
         {
-            if (_notifySection == null)
+            if (_notifyTemplates == null)
             {
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
@@ -18,10 +18,10 @@ namespace NotificationApi.DAL.Migrations
                     .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D");
 
                 var config = builder.Build();
-                _notifySection = config.GetSection("NotifyConfiguration").Get<NotifySection>();
+                _notifyTemplates = config.GetSection("NotifyConfiguration").Get<NotifyTemplates>();
             }
 
-            return _notifySection;
+            return _notifyTemplates;
         }
     }
 }

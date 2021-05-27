@@ -2,7 +2,7 @@ using System;
 
 namespace NotificationApi.DAL.Migrations
 {
-    public class NotifySection
+    public class NotifyTemplates
     {
         public Guid? EJudJudgeDemoOrTest { get; set; }
 
