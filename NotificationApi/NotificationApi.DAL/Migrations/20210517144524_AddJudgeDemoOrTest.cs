@@ -14,19 +14,6 @@ namespace NotificationApi.DAL.Migrations
         public AddJudgeDemoOrTest()
         {
             var  _templateConfiguration = NotificationConfiguration.Get();
-            if (_templateConfiguration == null)
-            {
-                throw new ArgumentNullException("_templateConfiguration is null");
-            }
-            if (_templateConfiguration.EJudJudgeDemoOrTest == null)
-            {
-                throw new ArgumentNullException("EJudJudgeDemoOrTest is not found");
-            }
-            
-            if (_templateConfiguration.JudgeDemoOrTest == null)
-            {
-                throw new ArgumentNullException("JudgeDemoOrTest is not found");
-            }
             _ejudJudgeDemoOrTest = _templateConfiguration.EJudJudgeDemoOrTest.Value;
             _judgeDemoOrTest = _templateConfiguration.JudgeDemoOrTest.Value;
         }
