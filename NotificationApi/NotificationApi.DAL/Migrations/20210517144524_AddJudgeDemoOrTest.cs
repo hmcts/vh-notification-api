@@ -7,13 +7,13 @@ namespace NotificationApi.DAL.Migrations
 {
     public partial class AddJudgeDemoOrTest : Migration
     {
-        private Guid _ejudJudgeDemoOrTest;
-        private Guid _judgeDemoOrTest;
+        private Guid? _ejudJudgeDemoOrTest;
+        private Guid? _judgeDemoOrTest;
 
         public AddJudgeDemoOrTest()
         {
-            _ejudJudgeDemoOrTest = NotificationConfiguration.Get().EJudJudgeDemoOrTest;
-            _judgeDemoOrTest = NotificationConfiguration.Get().JudgeDemoOrTest;
+            _ejudJudgeDemoOrTest = NotificationConfiguration.Get().EJudJudgeDemoOrTest.Value;
+            _judgeDemoOrTest = NotificationConfiguration.Get().JudgeDemoOrTest.Value;
         }
 
         protected override void Up(MigrationBuilder migrationBuilder)
