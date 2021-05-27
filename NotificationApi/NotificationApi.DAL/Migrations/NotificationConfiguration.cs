@@ -14,7 +14,7 @@ namespace NotificationApi.DAL.Migrations
             {
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", false, true)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D");
 
                 var config = builder.Build();
