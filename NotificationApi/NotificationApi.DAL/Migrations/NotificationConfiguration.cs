@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
@@ -17,6 +18,8 @@ namespace NotificationApi.DAL.Migrations
                     .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D");
 
                 var config = builder.Build();
+                var sect = config.GetSection("NotifyConfiguration").Value;
+                Console.WriteLine(sect);
                 _notifySection = config.GetSection("NotifyConfiguration").Get<NotifySection>();
             }
 
