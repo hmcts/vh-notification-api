@@ -6,7 +6,7 @@ namespace NotificationApi.DAL.Migrations
 {
     public static class NotificationConfiguration
     {
-        private static NotifySection _notifySection;
+        private static NotifySection _notifySection = null;
 
         public static NotifySection Get()
         {
@@ -14,13 +14,10 @@ namespace NotificationApi.DAL.Migrations
             {
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile("appsettings.json", true, true)
                     .AddUserSecrets("4E35D845-27E7-4A19-BE78-CDA896BF907D");
 
                 var config = builder.Build();
-                var sect = config.GetSection("NotifyConfiguration").Value;
-                Console.WriteLine($"The values of parameters are: {sect}");
-                Console.WriteLine(sect);
                 _notifySection = config.GetSection("NotifyConfiguration").Get<NotifySection>();
             }
 

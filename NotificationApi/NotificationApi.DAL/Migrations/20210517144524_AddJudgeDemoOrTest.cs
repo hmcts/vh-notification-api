@@ -9,10 +9,15 @@ namespace NotificationApi.DAL.Migrations
     {
         private Guid _ejudJudgeDemoOrTest;
         private Guid _judgeDemoOrTest;
-        private NotifySection _templateConfiguration = NotificationConfiguration.Get();
+        
 
         public AddJudgeDemoOrTest()
         {
+            var  _templateConfiguration = NotificationConfiguration.Get();
+            if (_templateConfiguration == null)
+            {
+                throw new ArgumentNullException("_templateConfiguration is null");
+            }
             if (_templateConfiguration.EJudJudgeDemoOrTest == null)
             {
                 throw new ArgumentNullException("EJudJudgeDemoOrTest is not found");
