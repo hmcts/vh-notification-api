@@ -9,7 +9,6 @@ namespace NotificationApi.DAL.Migrations
     {
         private Guid _ejudJudgeDemoOrTest;
         private Guid _judgeDemoOrTest;
-        
 
         public AddJudgeDemoOrTest()
         {
