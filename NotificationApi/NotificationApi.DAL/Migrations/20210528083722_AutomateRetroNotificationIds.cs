@@ -7,256 +7,199 @@ namespace NotificationApi.DAL.Migrations
 {
     public partial class AutomateRetroNotificationIds : Migration
     {
-        private Guid _createIndividual;
-        private Guid _createRepresentative;
-        private Guid _passwordReset;
-        private Guid _hearingConfirmationLip;
-        private Guid _hearingConfirmationRepresentative;
-        private Guid _hearingConfirmationJudge;
-        private Guid _hearingConfirmationJoh;
-        private Guid _hearingConfirmationLipMultiDay;
-        private Guid _hearingConfirmationRepresentativeMultiDay;
-        private Guid _hearingConfirmationJudgeMultiDay;
-        private Guid _hearingConfirmationJohMultiDay;
-        private Guid _hearingAmendmentLip;
-        private Guid _hearingAmendmentRepresentative;
-        private Guid _hearingAmendmentJudge;
-        private Guid _hearingAmendmentJoh;
-        private Guid _hearingReminderLip;
-        private Guid _hearingReminderRepresentative;
-        private Guid _hearingReminderJoh;
-        private Guid _hearingConfirmationEJudJudge;
-        private Guid _hearingConfirmationEJudJudgeMultiDay;
-        private Guid _hearingAmendmentEJudJudge;
-        private Guid _hearingAmendmentEJudJoh;
-        private Guid _hearingReminderEJudJoh;
-        private Guid _hearingConfirmationEJudJoh;
-        private Guid _hearingConfirmationEJudJohMultiDay;
-        private Guid _eJudJohDemoOrTest;
-        private Guid _participantDemoOrTest;
-
-        public AutomateRetroNotificationIds()
-        {
-            var templateFactory = NotifyTemplateFactory.Get();
-            _createIndividual = templateFactory.CreateIndividual.Value;
-            _createRepresentative = templateFactory.CreateRepresentative.Value;
-            _passwordReset = templateFactory.PasswordReset.Value;
-            _hearingConfirmationLip = templateFactory.HearingConfirmationLip.Value;
-            _hearingConfirmationRepresentative = templateFactory.HearingConfirmationRepresentative.Value;
-            _hearingConfirmationJudge = templateFactory.HearingConfirmationJudge.Value;
-            _hearingConfirmationJoh = templateFactory.HearingConfirmationJoh.Value;
-            _hearingConfirmationLipMultiDay = templateFactory.HearingConfirmationLipMultiDay.Value;
-            _hearingConfirmationRepresentativeMultiDay = templateFactory.HearingConfirmationRepresentativeMultiDay.Value;
-            _hearingConfirmationJudgeMultiDay = templateFactory.HearingConfirmationJudgeMultiDay.Value;
-            _hearingConfirmationJohMultiDay = templateFactory.HearingConfirmationJohMultiDay.Value;
-            _hearingAmendmentLip = templateFactory.HearingAmendmentLip.Value;
-            _hearingAmendmentRepresentative = templateFactory.HearingAmendmentRepresentative.Value;
-            _hearingAmendmentJudge = templateFactory.HearingAmendmentJudge.Value;
-            _hearingAmendmentJoh = templateFactory.HearingAmendmentJoh.Value;
-            _hearingReminderLip = templateFactory.HearingReminderLip.Value;
-            _hearingReminderRepresentative = templateFactory.HearingReminderRepresentative.Value;
-            _hearingReminderJoh = templateFactory.HearingReminderJoh.Value;
-            _hearingConfirmationEJudJudge = templateFactory.HearingConfirmationEJudJudge.Value;
-            _hearingConfirmationEJudJudgeMultiDay = templateFactory.HearingConfirmationEJudJudgeMultiDay.Value;
-            _hearingAmendmentEJudJudge = templateFactory.HearingAmendmentEJudJudge.Value;
-            _hearingAmendmentEJudJoh = templateFactory.HearingAmendmentEJudJoh.Value;
-            _hearingReminderEJudJoh = templateFactory.HearingReminderEJudJoh.Value;
-            _hearingConfirmationEJudJoh = templateFactory.HearingConfirmationEJudJoh.Value;
-            _hearingConfirmationEJudJohMultiDay = templateFactory.HearingConfirmationEJudJohMultiDay.Value;
-            _eJudJohDemoOrTest = templateFactory.EJudJohDemoOrTest.Value;
-            _participantDemoOrTest = templateFactory.ParticipantDemoOrTest.Value;
-        }
-
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            var templateFactory = NotifyTemplateFactory.Get();
+
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.CreateIndividual,
                 column: "NotifyTemplateId",
-                value: _createIndividual);
+                value: templateFactory.CreateIndividual.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.CreateRepresentative,
                 column: "NotifyTemplateId",
-                value: _createRepresentative);
+                value: templateFactory.CreateRepresentative.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.PasswordReset,
                 column: "NotifyTemplateId",
-                value: _passwordReset);
+                value: templateFactory.PasswordReset.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationLip,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationLip);
+                value: templateFactory.HearingConfirmationLip.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationRepresentative,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationRepresentative);
+                value: templateFactory.HearingConfirmationRepresentative.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationJudge,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationJudge);
+                value: templateFactory.HearingConfirmationJudge.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationJoh,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationJoh);
+                value: templateFactory.HearingConfirmationJoh.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationLipMultiDay,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationLipMultiDay);
+                value: templateFactory.HearingConfirmationLipMultiDay.Value);
+
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationRepresentativeMultiDay,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationRepresentativeMultiDay);
+                value: templateFactory.HearingConfirmationRepresentativeMultiDay.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationJudgeMultiDay,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationJudgeMultiDay);
+                value: templateFactory.HearingConfirmationJudgeMultiDay.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationJohMultiDay,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationJohMultiDay);
+                value: templateFactory.HearingConfirmationJohMultiDay.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingAmendmentLip,
                 column: "NotifyTemplateId",
-                value: _hearingAmendmentLip);
+                value: templateFactory.HearingAmendmentLip.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingAmendmentRepresentative,
                 column: "NotifyTemplateId",
-                value: _hearingAmendmentRepresentative);
+                value: templateFactory.HearingAmendmentRepresentative.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingAmendmentJudge,
                 column: "NotifyTemplateId",
-                value: _hearingAmendmentJudge);
+                value: templateFactory.HearingAmendmentJudge.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingAmendmentJoh,
                 column: "NotifyTemplateId",
-                value: _hearingAmendmentJoh);
+                value: templateFactory.HearingAmendmentJoh.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingReminderLip,
                 column: "NotifyTemplateId",
-                value: _hearingReminderLip);
+                value: templateFactory.HearingReminderLip.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingReminderRepresentative,
                 column: "NotifyTemplateId",
-                value: _hearingReminderRepresentative);
+                value: templateFactory.HearingReminderRepresentative.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingReminderJoh,
                 column: "NotifyTemplateId",
-                value: _hearingReminderJoh);
+                value: templateFactory.HearingReminderJoh.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationEJudJudge,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationEJudJudge);
+                value: templateFactory.HearingConfirmationEJudJudge.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationEJudJudgeMultiDay,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationEJudJudgeMultiDay);
+                value: templateFactory.HearingConfirmationEJudJudgeMultiDay.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingAmendmentEJudJudge,
                 column: "NotifyTemplateId",
-                value: _hearingAmendmentEJudJudge);
+                value: templateFactory.HearingAmendmentEJudJudge.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingAmendmentEJudJoh,
                 column: "NotifyTemplateId",
-                value: _hearingAmendmentEJudJoh);
+                value: templateFactory.HearingAmendmentEJudJoh.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingReminderEJudJoh,
                 column: "NotifyTemplateId",
-                value: _hearingReminderEJudJoh);
+                value: templateFactory.HearingReminderEJudJoh.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationEJudJoh,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationEJudJoh);
+                value: templateFactory.HearingConfirmationEJudJoh.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.HearingConfirmationEJudJohMultiDay,
                 column: "NotifyTemplateId",
-                value: _hearingConfirmationEJudJohMultiDay);
+                value: templateFactory.HearingConfirmationEJudJohMultiDay.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.EJudJohDemoOrTest,
                 column: "NotifyTemplateId",
-                value: _eJudJohDemoOrTest);
+                value: templateFactory.EJudJohDemoOrTest.Value);
 
             migrationBuilder.UpdateData(
                 table: nameof(Template),
                 keyColumn: "NotificationType",
                 keyValue: (int)NotificationType.ParticipantDemoOrTest,
                 column: "NotifyTemplateId",
-                value: _participantDemoOrTest);
+                value: templateFactory.ParticipantDemoOrTest.Value);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
