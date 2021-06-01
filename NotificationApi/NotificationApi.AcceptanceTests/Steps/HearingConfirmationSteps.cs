@@ -62,6 +62,18 @@ namespace NotificationApi.AcceptanceTests.Steps
 
         }
 
+        [Given(@"I have a hearing confirmation for a telephone LIP email notification request")]
+        public void GivenIHaveAHearingConfirmationForATelephoneLipEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.TelephoneHearingConfirmationLip;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("name", $"{Faker.Name.FullName()}");
+            _context.CreateNotificationRequest =
+                AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+
+        }
+
         [Given(@"I have a hearing confirmation for a representative email notification request")]
         public void GivenIHaveAHearingConfirmationForARepresentativeEmailNotificationRequest()
         {

@@ -1,5 +1,5 @@
-using System.IO;
 using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace NotificationApi.DAL.Migrations
 {

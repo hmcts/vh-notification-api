@@ -28,6 +28,11 @@ Scenario: Create a hearing confirmation for a LIP
 	When I send the request
 	Then the response should have the status OK and success status True
 
+Scenario: Create a telephone hearing confirmation for a LIP
+	Given I have a telephone hearing confirmation for a LIP email notification request
+	When I send the request
+	Then the response should have the status OK and success status True
+
 Scenario: Create a hearing confirmation for a representative
 	Given I have a hearing confirmation for a representative email notification request
 	When I send the request

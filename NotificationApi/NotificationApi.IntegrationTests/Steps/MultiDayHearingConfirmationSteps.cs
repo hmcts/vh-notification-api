@@ -77,6 +77,18 @@ namespace NotificationApi.IntegrationTests.Steps
             InitCreateNotificationRequest(request, _context);
         }
         
+        [Given(@"I have a multi-day telephone hearing confirmation for a LIP email notification request")]
+        public void GivenIHaveAMulti_DayTelephoneHearingConfirmationForALipEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.HearingConfirmationLipMultiDay;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("name", $"{Faker.Name.FullName()}");
+            var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+            
+            InitCreateNotificationRequest(request, _context);
+        }
+        
         [Given(@"I have a multi-day hearing confirmation for a representative email notification request")]
         public void GivenIHaveAMulti_DayHearingConfirmationForARepresentativeEmailNotificationRequest()
         {
