@@ -27,8 +27,8 @@ Scenario: Create a multi-day hearing confirmation for a LIP
 	Then the api client should return true
 	And Notify should have my request
 
-Scenario: Create a multi-day telephone hearing confirmation for a LIP
-	Given I have a multi-day telephone hearing confirmation for a LIP email notification request
+Scenario: Create a multi-day telephone hearing confirmation
+	Given I have a multi-day telephone hearing confirmation for a email notification request
 	When I send the create notification request
 	Then the api client should return true
 	And Notify should have my request

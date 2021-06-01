@@ -28,8 +28,8 @@ Scenario: Create a multi-day hearing confirmation for a LIP
 	When I send the request
 	Then the response should have the status OK and success status True
 
-Scenario: Create a multi-day telephone hearing confirmation for a LIP
-	Given I have a multi-day telephone hearing confirmation for a LIP email notification request
+Scenario: Create a multi-day telephone hearing confirmation
+	Given I have a multi-day telephone hearing confirmation for an email notification request
 	When I send the request
 	Then the response should have the status OK and success status True
 

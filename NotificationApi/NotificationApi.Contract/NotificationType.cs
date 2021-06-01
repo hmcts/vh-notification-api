@@ -32,7 +32,7 @@ namespace NotificationApi.Contract
         EJudJudgeDemoOrTest = 27,
         JudgeDemoOrTest = 28,
         ParticipantDemoOrTest = 29,
-        TelephoneHearingConfirmationLip = 30,
-        TelephoneHearingConfirmationLipMultiDay = 31,
+        TelephoneHearingConfirmation = 30,
+        TelephoneHearingConfirmationMultiDay = 31,
     }
 }

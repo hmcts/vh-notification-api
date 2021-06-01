@@ -39,5 +39,5 @@ Scenario Outline: Get a template for a notification type
 		| EJudJohDemoOrTest                         |
 		| JudgeDemoOrTest                           |
 		| EJudJudgeDemoOrTest                       |
-		| TelephoneHearingConfirmationLip           |
-		| TelephoneHearingConfirmationLipMultiDay   |
+		| TelephoneHearingConfirmation           |
+		| TelephoneHearingConfirmationMultiDay   |

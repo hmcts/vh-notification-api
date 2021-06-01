@@ -4,7 +4,7 @@ using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.DAL.Migrations
 {
-    public partial class AddTelephoneHearingConfirmationLip : Migration
+    public partial class AddTelephoneHearingConfirmation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,12 +16,12 @@ namespace NotificationApi.DAL.Migrations
                 new object[,]
                 {
                     {
-                        templateFactory.TelephoneHearingConfirmationLip, (int) NotificationType.TelephoneHearingConfirmationLip,
+                        templateFactory.TelephoneHearingConfirmation, (int) NotificationType.TelephoneHearingConfirmation,
                         (int) MessageType.Email,
                         "case name,case number,name,day month year,time"
                     },
                     {
-                        templateFactory.TelephoneHearingConfirmationLipMultiDay, (int) NotificationType.TelephoneHearingConfirmationLipMultiDay,
+                        templateFactory.TelephoneHearingConfirmationMultiDay, (int) NotificationType.TelephoneHearingConfirmationMultiDay,
                         (int) MessageType.Email,
                         "case name,case number,name,day month year,time,number of days"
                     }
@@ -33,13 +33,13 @@ namespace NotificationApi.DAL.Migrations
             migrationBuilder.DeleteData(
                 nameof(Template),
                 "NotificationType",
-                (int)NotificationType.TelephoneHearingConfirmationLip
+                (int)NotificationType.TelephoneHearingConfirmation
             );
 
             migrationBuilder.DeleteData(
                 nameof(Template),
                 "NotificationType",
-                (int)NotificationType.TelephoneHearingConfirmationLipMultiDay
+                (int)NotificationType.TelephoneHearingConfirmationMultiDay
             );
         }
     }
