@@ -64,6 +64,7 @@ namespace NotificationApi.AcceptanceTests.Steps
             var templateType = NotificationType.TelephoneHearingConfirmationLipMultiDay;
             var parameters = InitGenericAmendmentParams();
             parameters.Add("name", $"{Faker.Name.FullName()}");
+            parameters.Add("Day Month Year", "12 October 202");
             _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
         
