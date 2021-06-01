@@ -18,12 +18,12 @@ namespace NotificationApi.DAL.Migrations
                     {
                         templateFactory.TelephoneHearingConfirmationLip, (int) NotificationType.TelephoneHearingConfirmationLip,
                         (int) MessageType.Email,
-                        "case name, case number, name, Day Month Year, time"
+                        "case name,case number,name,day month year,time"
                     },
                     {
                         templateFactory.TelephoneHearingConfirmationLipMultiDay, (int) NotificationType.TelephoneHearingConfirmationLipMultiDay,
                         (int) MessageType.Email,
-                        "case name, case number, name, Day Month Year, time, number of days"
+                        "case name,case number,name,day month year,time,number of days"
                     }
                 });
         }
