@@ -128,10 +128,10 @@ parameters:
 - name: testSettings
   type: object
   default:
-    - ${{ each setting in parameters.defaultSettings }}:
-      - name: ${{ setting.name }}
-        value: ${{ setting.value }}
-        secret: ${{ setting.secret }}
+  - ${{ each setting in parameters.defaultSettings }}:
+    - name: ${{ setting.name }}
+      value: ${{ setting.value }}
+      secret: ${{ setting.secret }}
 
 - name: appSettings
   type: object
