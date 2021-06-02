@@ -201,6 +201,10 @@ extends:
             value: $(JudgeDemoOrTest)
           - name: NotifyConfiguration:ParticipantDemoOrTest
             value: $(ParticipantDemoOrTest)
+          - name: NotifyConfiguration:TelephoneHearingConfirmation
+            value: $(TelephoneHearingConfirmation)
+          - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
+            value: $(TelephoneHearingConfirmationMultiDay)
             
           # Connection strings
           - name: ConnectionStrings:VhNotificationsApi
@@ -292,3 +296,7 @@ extends:
             value: $(JudgeDemoOrTest)
           - name: NotifyConfiguration:ParticipantDemoOrTest
             value: $(ParticipantDemoOrTest)
+          - name: NotifyConfiguration:TelephoneHearingConfirmation
+            value: $(TelephoneHearingConfirmation)
+          - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
+            value: $(TelephoneHearingConfirmationMultiDay)

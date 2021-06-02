@@ -120,6 +120,10 @@ parameters:
       value: $(JudgeDemoOrTest)
     - name: NotifyConfiguration:ParticipantDemoOrTest
       value: $(ParticipantDemoOrTest)
+    - name: NotifyConfiguration:TelephoneHearingConfirmation
+      value: $(TelephoneHearingConfirmation)
+    - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
+      value: $(TelephoneHearingConfirmationMultiDay)
 
 - name: appSettings
   type: object
@@ -203,6 +207,10 @@ parameters:
     value: $(JudgeDemoOrTest)
   - name: NotifyConfiguration:ParticipantDemoOrTest
     value: $(ParticipantDemoOrTest)
+  - name: NotifyConfiguration:TelephoneHearingConfirmation
+    value: $(TelephoneHearingConfirmation)
+  - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
+    value: $(TelephoneHearingConfirmationMultiDay)
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi

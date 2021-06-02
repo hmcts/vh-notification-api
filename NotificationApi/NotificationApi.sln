@@ -27,7 +27,7 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{E5BAE221-2CFD-48BE-B384-485E69064B87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationApi.Client", "NotificationApi.Client\NotificationApi.Client.csproj", "{E63B741E-DB06-4894-9BF4-A7753C0502D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationApi.Client", "NotificationApi.Client\NotificationApi.Client.csproj", "{E63B741E-DB06-4894-9BF4-A7753C0502D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
