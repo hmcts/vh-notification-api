@@ -120,9 +120,9 @@ parameters:
       value: $(JudgeDemoOrTest)
     - name: NotifyConfiguration:ParticipantDemoOrTest
       value: $(ParticipantDemoOrTest)
-    - name: NotifyConfiguration:TelephoneHearingConfirmationLip
+    - name: NotifyConfiguration:TelephoneHearingConfirmation
       value: $(TelephoneHearingConfirmation)
-    - name: NotifyConfiguration:TelephoneHearingConfirmationLipMultiDay
+    - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
       value: $(TelephoneHearingConfirmationMultiDay)
 
 - name: appSettings
@@ -207,9 +207,9 @@ parameters:
     value: $(JudgeDemoOrTest)
   - name: NotifyConfiguration:ParticipantDemoOrTest
     value: $(ParticipantDemoOrTest)
-  - name: NotifyConfiguration:TelephoneHearingConfirmationLip
+  - name: NotifyConfiguration:TelephoneHearingConfirmation
     value: $(TelephoneHearingConfirmation)
-  - name: NotifyConfiguration:TelephoneHearingConfirmationLipMultiDay
+  - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
     value: $(TelephoneHearingConfirmationMultiDay)
 
   # Connection strings

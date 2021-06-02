@@ -201,9 +201,9 @@ extends:
             value: $(JudgeDemoOrTest)
           - name: NotifyConfiguration:ParticipantDemoOrTest
             value: $(ParticipantDemoOrTest)
-          - name: NotifyConfiguration:TelephoneHearingConfirmationLip
+          - name: NotifyConfiguration:TelephoneHearingConfirmation
             value: $(TelephoneHearingConfirmation)
-          - name: NotifyConfiguration:TelephoneHearingConfirmationLipMultiDay
+          - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
             value: $(TelephoneHearingConfirmationMultiDay)
             
           # Connection strings
@@ -296,7 +296,7 @@ extends:
             value: $(JudgeDemoOrTest)
           - name: NotifyConfiguration:ParticipantDemoOrTest
             value: $(ParticipantDemoOrTest)
-          - name: NotifyConfiguration:TelephoneHearingConfirmationLip
+          - name: NotifyConfiguration:TelephoneHearingConfirmation
             value: $(TelephoneHearingConfirmation)
-          - name: NotifyConfiguration:TelephoneHearingConfirmationLipMultiDay
+          - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
             value: $(TelephoneHearingConfirmationMultiDay)
