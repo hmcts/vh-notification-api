@@ -121,9 +121,9 @@ parameters:
     - name: NotifyConfiguration:ParticipantDemoOrTest
       value: $(ParticipantDemoOrTest)
     - name: NotifyConfiguration:TelephoneHearingConfirmationLip
-      value: $(TelephoneHearingConfirmationLip)
+      value: $(TelephoneHearingConfirmation)
     - name: NotifyConfiguration:TelephoneHearingConfirmationLipMultiDay
-      value: $(TelephoneHearingConfirmationLipMultiDay)
+      value: $(TelephoneHearingConfirmationMultiDay)
 
 - name: appSettings
   type: object
@@ -208,9 +208,9 @@ parameters:
   - name: NotifyConfiguration:ParticipantDemoOrTest
     value: $(ParticipantDemoOrTest)
   - name: NotifyConfiguration:TelephoneHearingConfirmationLip
-    value: $(TelephoneHearingConfirmationLip)
+    value: $(TelephoneHearingConfirmation)
   - name: NotifyConfiguration:TelephoneHearingConfirmationLipMultiDay
-    value: $(TelephoneHearingConfirmationLipMultiDay)
+    value: $(TelephoneHearingConfirmationMultiDay)
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi
