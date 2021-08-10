@@ -21,9 +21,22 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationJudgeMultiDay;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationMultiParams();
             parameters.Add("judge", $"{Faker.Name.FullName()}");
             parameters.Add("courtroom account username", Faker.Internet.Email());
+            var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+            
+            InitCreateNotificationRequest(request, _context);
+        }
+        
+        [Given(@"I have a multi-day hearing confirmation for a staffmember email notification request")]
+        public void GivenIHaveAMulti_DayHearingConfirmationForAStaffMemberEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.HearingConfirmationStaffMemberMultiDay;
+            var parameters = InitGenericConfirmationMultiParams();
+            parameters.Add("staff member", $"{Faker.Name.Last()}");
+            parameters.Add("username", Faker.Internet.Email());
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
             InitCreateNotificationRequest(request, _context);
@@ -34,7 +47,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationEJudJudgeMultiDay;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationMultiParams();
             parameters.Add("judge", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
@@ -46,7 +59,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationJohMultiDay;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationMultiParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
@@ -58,7 +71,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationEJudJohMultiDay;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationMultiParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
@@ -70,7 +83,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationLipMultiDay;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationMultiParams();
             parameters.Add("name", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
@@ -82,7 +95,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationLipMultiDay;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationMultiParams();
             parameters.Add("name", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
             
@@ -94,7 +107,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationRepresentativeMultiDay;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationMultiParams();
             parameters.Add("solicitor name", $"{Faker.Name.FullName()}");
             parameters.Add("client name", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
@@ -102,7 +115,7 @@ namespace NotificationApi.IntegrationTests.Steps
             InitCreateNotificationRequest(request, _context);
         }
         
-        private Dictionary<string, string> InitGenericAmendmentParams()
+        private Dictionary<string, string> InitGenericConfirmationMultiParams()
         {
             return new Dictionary<string, string>
             {

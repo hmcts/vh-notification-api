@@ -34,5 +34,10 @@ namespace NotificationApi.Domain.Enums
         ParticipantDemoOrTest = 29,
         TelephoneHearingConfirmation = 30,
         TelephoneHearingConfirmationMultiDay = 31,
+        CreateStaffMember = 32,
+        HearingAmendmentStaffMember = 33,
+        HearingConfirmationStaffMember = 34,
+        HearingConfirmationStaffMemberMultiDay = 35,
+        StaffMemberDemoOrTest = 36
     }
 }

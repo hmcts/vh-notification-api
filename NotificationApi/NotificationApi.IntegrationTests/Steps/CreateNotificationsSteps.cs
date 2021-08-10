@@ -21,7 +21,14 @@ namespace NotificationApi.IntegrationTests.Steps
         [Given("I have a valid new user email notification request")]
         public void I_have_a_valid_create_new_email_notification_request()
         {
-            var request = BuildNewUserNotificationRequest(MessageType.Email);
+            var request = BuildNewUserNotificationRequest(MessageType.Email, NotificationType.CreateIndividual);
+            InitCreateNotificationRequest(request, _context);
+        }
+        
+        [Given("I have a valid new staffmember email notification request")]
+        public void I_have_a_valid_create_new_staffmember_email_notification_request()
+        {
+            var request = BuildNewUserNotificationRequest(MessageType.Email, NotificationType.CreateStaffMember);
             InitCreateNotificationRequest(request, _context);
         }
 
@@ -39,17 +46,16 @@ namespace NotificationApi.IntegrationTests.Steps
             InitCreateNotificationRequest(request, _context);
         }
 
-        private AddNotificationRequest BuildNewUserNotificationRequest(MessageType messageType)
+        private AddNotificationRequest BuildNewUserNotificationRequest(MessageType messageType, NotificationType notificationType)
         {
             var parameters = new Dictionary<string, string>
             {
                 {"name", $"{Faker.Name.FullName()}"},
-                {"username", $"{Guid.NewGuid().ToString()}@intautomation.com"},
+                {"username", $"{Guid.NewGuid()}@intautomation.com"},
                 {"random password", "inttestpassword!"}
             };
 
-            return AddNotificationRequestBuilder.BuildRequest(messageType, NotificationType.CreateIndividual,
-                parameters);
+            return AddNotificationRequestBuilder.BuildRequest(messageType, notificationType, parameters);
         }
     }
 }

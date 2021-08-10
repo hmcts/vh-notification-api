@@ -15,7 +15,7 @@ namespace NotificationApi.IntegrationTests.Steps
         {
             _context = context;
         }
-        
+
         [Given(@"I have a hearing amendment for a judge email notification request")]
         public void GivenIHaveAHearingAmendmentForAJudgeEmailNotificationRequest()
         {
@@ -25,7 +25,19 @@ namespace NotificationApi.IntegrationTests.Steps
             parameters.Add("judge", $"{Faker.Name.FullName()}");
             parameters.Add("courtroom account username", Faker.Internet.Email());
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
-            
+
+            InitCreateNotificationRequest(request, _context);
+        }
+
+        [Given(@"I have a hearing amendment for a staffmember email notification request")]
+        public void GivenIHaveAHearingAmendmentForAStaffMemberEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.HearingAmendmentStaffMember;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("staff member", $"{Faker.Name.FullName()}");
+            var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+
             InitCreateNotificationRequest(request, _context);
         }
 
@@ -44,6 +56,21 @@ namespace NotificationApi.IntegrationTests.Steps
 
             InitCreateNotificationRequest(request, _context);
         }
+        
+        [Given(@"I have a hearing amendment for a staffmember demo or test email notification request")]
+        public void GivenIHaveAHearingAmendmentForAStaffMemberDemoOrTestEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.StaffMemberDemoOrTest;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("test type", $"{Faker.Name.FullName()}");
+            parameters.Add("date", "15 February 2021");
+            parameters.Add("time", "12:15pm");
+            parameters.Add("staff member", $"{Faker.Name.FullName()}");
+            var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+
+            InitCreateNotificationRequest(request, _context);
+        }
 
         [Given(@"I have a hearing amendment for an ejud judge email notification request")]
         public void GivenIHaveAHearingAmendmentForAnEjudJudgeEmailNotificationRequest()
@@ -53,7 +80,7 @@ namespace NotificationApi.IntegrationTests.Steps
             var parameters = InitGenericAmendmentParams();
             parameters.Add("judge", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
-            
+
             InitCreateNotificationRequest(request, _context);
         }
 
@@ -80,10 +107,10 @@ namespace NotificationApi.IntegrationTests.Steps
             var parameters = InitGenericAmendmentParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
-            
+
             InitCreateNotificationRequest(request, _context);
-        } 
-        
+        }
+
         [Given(@"I have a hearing amendment for an ejud joh demo or test email notification request")]
         public void GivenIHaveAHearingAmendmentForAnEjudJohDemoOrTestEmailNotificationRequest()
         {
@@ -96,10 +123,10 @@ namespace NotificationApi.IntegrationTests.Steps
             parameters.Add("time", "12:15pm");
             parameters.Add("username", "test USer Name");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
-            
+
             InitCreateNotificationRequest(request, _context);
         }
-        
+
         [Given(@"I have a hearing amendment for a joh email notification request")]
         public void GivenIHaveAHearingAmendmentForAJohEmailNotificationRequest()
         {
@@ -108,10 +135,10 @@ namespace NotificationApi.IntegrationTests.Steps
             var parameters = InitGenericAmendmentParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
-            
+
             InitCreateNotificationRequest(request, _context);
         }
-        
+
         [Given(@"I have a hearing amendment for a LIP email notification request")]
         public void GivenIHaveAHearingAmendmentForALipEmailNotificationRequest()
         {
@@ -120,10 +147,10 @@ namespace NotificationApi.IntegrationTests.Steps
             var parameters = InitGenericAmendmentParams();
             parameters.Add("name", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
-            
+
             InitCreateNotificationRequest(request, _context);
         }
-        
+
         [Given(@"I have a hearing amendment for a representative email notification request")]
         public void GivenIHaveAHearingAmendmentForARepresentativeEmailNotificationRequest()
         {
@@ -133,7 +160,7 @@ namespace NotificationApi.IntegrationTests.Steps
             parameters.Add("solicitor name", $"{Faker.Name.FullName()}");
             parameters.Add("client name", $"{Faker.Name.FullName()}");
             var request = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
-            
+
             InitCreateNotificationRequest(request, _context);
         }
 

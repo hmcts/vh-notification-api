@@ -8,6 +8,11 @@ Scenario: Create a multi-day hearing confirmation for a judge
 	When I send the request
 	Then the response should have the status OK and success status True
 
+Scenario: Create a multi-day hearing confirmation for a staffmember
+	Given I have a multi-day hearing confirmation for a staffmember email notification request
+	When I send the request
+	Then the response should have the status OK and success status True
+
 Scenario: Create a multi-day hearing confirmation for an ejud judge
 	Given I have a multi-day hearing confirmation for an ejud judge email notification request
 	When I send the request
