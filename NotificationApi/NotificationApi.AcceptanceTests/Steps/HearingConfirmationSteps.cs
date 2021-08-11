@@ -21,9 +21,21 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationJudge;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationParams();
             parameters.Add("judge", $"{Faker.Name.FullName()}");
             parameters.Add("courtroom account username", Faker.Internet.Email());
+            _context.CreateNotificationRequest =
+                AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
+
+        [Given(@"I have a hearing confirmation for a staffmember email notification request")]
+        public void GivenIHaveAHearingConfirmationForAStaffMemberEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.HearingConfirmationStaffMember;
+            var parameters = InitGenericConfirmationParams();
+            parameters.Add("staff member", Faker.Name.Last());
+            parameters.Add("username", Faker.Internet.Email());
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
@@ -33,7 +45,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationEJudJudge;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationParams();
             parameters.Add("judge", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
@@ -44,7 +56,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationJoh;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
@@ -55,7 +67,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationLip;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationParams();
             parameters.Add("name", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
@@ -67,7 +79,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.TelephoneHearingConfirmation;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationParams();
             parameters.Add("name", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
@@ -79,14 +91,14 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             var messageType = MessageType.Email;
             var templateType = NotificationType.HearingConfirmationRepresentative;
-            var parameters = InitGenericAmendmentParams();
+            var parameters = InitGenericConfirmationParams();
             parameters.Add("solicitor name", $"{Faker.Name.FullName()}");
             parameters.Add("client name", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
 
-        private Dictionary<string, string> InitGenericAmendmentParams()
+        private Dictionary<string, string> InitGenericConfirmationParams()
         {
             return new Dictionary<string, string>
             {

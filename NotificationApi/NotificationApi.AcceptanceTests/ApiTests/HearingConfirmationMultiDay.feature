@@ -9,6 +9,12 @@ Scenario: Create a multi-day hearing confirmation for a judge
 	Then the api client should return true
 	And Notify should have my request
 
+Scenario: Create a multi-day hearing confirmation for a staffmember
+	Given I have a multi-day hearing confirmation for a staffmember email notification request
+	When I send the create notification request
+	Then the api client should return true
+	And Notify should have my request
+
 Scenario: Create a multi-day hearing confirmation for an ejud judge
 	Given I have a multi-day hearing confirmation for an ejud judge email notification request
 	When I send the create notification request

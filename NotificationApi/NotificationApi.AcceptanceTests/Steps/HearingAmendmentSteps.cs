@@ -26,6 +26,16 @@ namespace NotificationApi.AcceptanceTests.Steps
             parameters.Add("courtroom account username", Faker.Internet.Email());
             _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
+        
+        [Given(@"I have a hearing amendment for a staffmember email notification request")]
+        public void GivenIHaveAHearingAmendmentForAStaffMemberEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.HearingAmendmentStaffMember;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("staff member", $"{Faker.Name.FullName()}");
+            _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
 
         [Given(@"I have a hearing amendment for a judge demo or test email notification request")]
         public void GivenIHaveAHearingAmendmentForAJudgeDemoOrTestEmailNotificationRequest()
@@ -38,6 +48,19 @@ namespace NotificationApi.AcceptanceTests.Steps
             parameters.Add("time", "12:15pm");
             parameters.Add("Judge", $"{Faker.Name.FullName()}");
             parameters.Add("courtroom account username", "test user name");
+            _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
+        
+        [Given(@"I have a hearing amendment for a staffmember demo or test email notification request")]
+        public void GivenIHaveAHearingAmendmentForAStaffMemberDemoOrTestEmailNotificationRequest()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.StaffMemberDemoOrTest;
+            var parameters = InitGenericAmendmentParams();
+            parameters.Add("test type", $"{Faker.Name.FullName()}");
+            parameters.Add("date", "15 February 2021");
+            parameters.Add("time", "12:15pm");
+            parameters.Add("staff member", $"{Faker.Name.FullName()}");
             _context.CreateNotificationRequest = AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
 

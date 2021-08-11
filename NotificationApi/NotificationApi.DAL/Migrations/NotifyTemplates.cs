@@ -35,5 +35,10 @@ namespace NotificationApi.DAL.Migrations
         public Guid? ParticipantDemoOrTest { get; set; }
         public Guid? TelephoneHearingConfirmation { get; set; }
         public Guid? TelephoneHearingConfirmationMultiDay { get; set; }
+        public Guid? CreateStaffMember { get; set; }
+        public Guid? HearingAmendmentStaffMember { get; set; }
+        public Guid? HearingConfirmationStaffMember { get; set; }
+        public Guid? HearingConfirmationStaffMemberMultiDay { get; set; }
+        public Guid? StaffMemberDemoOrTest { get; set; }
     }
 }

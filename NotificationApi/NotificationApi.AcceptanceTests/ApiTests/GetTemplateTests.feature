@@ -41,3 +41,8 @@ Scenario Outline: Get a template for a notification type
 		| EJudJudgeDemoOrTest                       |
 		| TelephoneHearingConfirmation              |
 		| TelephoneHearingConfirmationMultiDay      |
+		| CreateStaffMember                         |
+		| HearingAmendmentStaffMember               |
+		| HearingConfirmationStaffMember            |
+		| HearingConfirmationStaffMemberMultiDay    |
+		| StaffMemberDemoOrTest                     |
