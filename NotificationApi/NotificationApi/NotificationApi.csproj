@@ -38,6 +38,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Polly" Version="7.2.1" />
         <PackageReference Include="Scrutor" Version="3.3.0" />
         <PackageReference Include="SonarAnalyzer.CSharp" Version="8.14.0.22654">
             <PrivateAssets>all</PrivateAssets>

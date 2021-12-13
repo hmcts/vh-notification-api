@@ -1299,6 +1299,11 @@
         "resolved": "5.0.0",
         "contentHash": "c5JVjuVAm4f7E9Vj+v09Z9s2ZsqFDjBpcsyS3M9xRo0bEdm/LVZSzLxxNvfvAwRiiE8nwe1h2G4OwiwlzFKXlA=="
       },
+      "Polly": {
+        "type": "Transitive",
+        "resolved": "7.2.1",
+        "contentHash": "Od8SnPlpQr+PuAS0YzY3jgtzaDNknlIuAaldN2VEIyTvm/wCg22C5nUkUV1BEG8rIsub5RFMoV/NEQ0tM/+7Uw=="
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": {
         "type": "Transitive",
         "resolved": "4.3.2",
@@ -2693,6 +2698,7 @@
           "NotificationApi.Contract": "1.0.0",
           "NotificationApi.DAL": "1.0.0",
           "NotificationApi.Domain": "1.0.0",
+          "Polly": "7.2.1",
           "Scrutor": "3.3.0",
           "VH.Core.Configuration": "0.1.12",
           "ZymLabs.NSwag.FluentValidation": "0.4.0"
