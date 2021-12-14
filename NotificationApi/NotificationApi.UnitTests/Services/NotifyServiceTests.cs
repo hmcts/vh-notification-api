@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
-using NotificationApi.DAL.Queries;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
@@ -15,7 +14,6 @@ using Notify.Models.Responses;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-
 using System.Threading.Tasks;
 
 namespace NotificationApi.UnitTests.Services
@@ -25,20 +23,15 @@ namespace NotificationApi.UnitTests.Services
         private Mock<IPollyRetryService> _pollyRetryService;
         private Mock<ILogger<CreateNotificationService>> _loggerMock;
         private Mock<IAsyncNotificationClient> _asyncNotificationClient;
-        protected Mock<ICommandHandler> _commandHandlerMock;
-        protected Mock<IQueryHandler> _queryHandlerMock;
-        protected Template _template;
-        protected CreateEmailNotificationCommand _createEmailNotificationCommand;
-        protected GetTemplateByNotificationTypeQuery _query;
+        private Mock<ICommandHandler> _commandHandlerMock;
+        private Mock<IQueryHandler> _queryHandlerMock;
+        private Template _template;
+        private CreateEmailNotificationCommand _createEmailNotificationCommand;
         private AutoMock _mocker;        
         private EmailResponseContent _emailResponseContent;
         private EmailNotificationResponse _expectedEmailNotificationResponse;
-        private Dictionary<string, dynamic> _parameters;
-        
-
-
+        private Dictionary<string, dynamic> _parameters;     
         private CreateNotificationService _createNotificationService;
-
 
         [SetUp]
         public void Setup()
@@ -56,8 +49,7 @@ namespace NotificationApi.UnitTests.Services
               _queryHandlerMock.Object,
               _pollyRetryService.Object,
               _loggerMock.Object
-              );
-
+              );          
             _emailResponseContent = new EmailResponseContent()
             {
                 body = "Email reponse Body"
@@ -85,7 +77,7 @@ namespace NotificationApi.UnitTests.Services
 
         [Test]
         public async Task Should_return_response_from_send_email()
-        {
+        {      
             
         _pollyRetryService.Setup(x => x.WaitAndRetryAsync<Exception, EmailNotificationResponse>
             (
