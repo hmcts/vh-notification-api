@@ -35,15 +35,15 @@ namespace NotificationApi.UnitTests.Services
         public async Task WaitAndRetryAsync_Does_Not_Retry()
         {
             var retryInvoked = false;
-
+            var returned = "returned";
             var result = await _pollyRetryService.WaitAndRetryAsync<Exception, object>
             (
                 3, i => TimeSpan.FromMilliseconds(1), retryAttempt => retryInvoked = true,
-                () => Task.FromResult<object>("returned")
+                () => Task.FromResult<object>(returned)
             );
 
             Assert.False(retryInvoked);
-            result.Should().Be("returned");
+            result.Should().Be(returned);
         }
 
         [Test]
