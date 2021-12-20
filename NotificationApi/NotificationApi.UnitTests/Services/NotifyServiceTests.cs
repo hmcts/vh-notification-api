@@ -1,15 +1,11 @@
 using AdminWebsite.Services;
 using Autofac.Extras.Moq;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Moq;
 using NotificationApi.DAL.Commands;
-using NotificationApi.DAL.Commands.Core;
-using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using NotificationApi.Services;
-using Notify.Interfaces;
 using Notify.Models.Responses;
 using NUnit.Framework;
 using System;
@@ -20,11 +16,6 @@ namespace NotificationApi.UnitTests.Services
 {
     public class NotifyServiceTests
     {
-        private Mock<IPollyRetryService> _pollyRetryService;
-        private Mock<ILogger<CreateNotificationService>> _loggerMock;
-        private Mock<IAsyncNotificationClient> _asyncNotificationClient;
-        private Mock<ICommandHandler> _commandHandlerMock;
-        private Mock<IQueryHandler> _queryHandlerMock;
         private Template _template;
         private CreateEmailNotificationCommand _createEmailNotificationCommand;
         private AutoMock _mocker;        
@@ -36,20 +27,8 @@ namespace NotificationApi.UnitTests.Services
         [SetUp]
         public void Setup()
         {
-            _mocker = AutoMock.GetLoose();
-            _loggerMock = new Mock<ILogger<CreateNotificationService>>();
-            _queryHandlerMock = new Mock<IQueryHandler>();
-            _commandHandlerMock = new Mock<ICommandHandler>();
-            _asyncNotificationClient = new Mock<IAsyncNotificationClient>();
-            _pollyRetryService = new Mock<IPollyRetryService>();
-
-            _createNotificationService = new CreateNotificationService(
-              _commandHandlerMock.Object,
-              _asyncNotificationClient.Object,
-              _queryHandlerMock.Object,
-              _pollyRetryService.Object,
-              _loggerMock.Object
-              );          
+            _mocker = AutoMock.GetLoose();          
+            _createNotificationService = _mocker.Create<CreateNotificationService>();             
             _emailResponseContent = new EmailResponseContent()
             {
                 body = "Email reponse Body"
@@ -72,33 +51,42 @@ namespace NotificationApi.UnitTests.Services
                 uri = "uri",
                 content = _emailResponseContent,
                 template = null
-            };          
+            };
+
+            _mocker.Mock<IPollyRetryService>().Setup(x => x.WaitAndRetryAsync<Exception, EmailNotificationResponse>
+               (
+                   It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), It.IsAny<Action<int>>(), It.IsAny<Func<EmailNotificationResponse, bool>>(), It.IsAny<Func<Task<EmailNotificationResponse>>>()
+               ))
+               .Callback(async (int retries, Func<int, TimeSpan> sleepDuration, Action<int> retryAction, Func<EmailNotificationResponse, bool> handleResultCondition, Func<Task<EmailNotificationResponse>> executeFunction) =>
+               {
+                   sleepDuration(1);
+                   retryAction(7);
+                   handleResultCondition(_expectedEmailNotificationResponse);
+                   await executeFunction();
+               })
+               .ReturnsAsync(_expectedEmailNotificationResponse);
+        }
+
+        [Test]
+        public async Task Should_verify_send_email_async_is_called_once()
+        {
+            await _createNotificationService.SendEmailAsyncRetry(_createEmailNotificationCommand.ContactEmail, _template.NotifyTemplateId.ToString(), _parameters, null);
+
+            _mocker.Mock<IPollyRetryService>()
+            .Verify(
+                x => x.WaitAndRetryAsync<Exception, EmailNotificationResponse>
+            (
+              It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), It.IsAny<Action<int>>(), It.IsAny<Func<EmailNotificationResponse, bool>>(), It.IsAny<Func<Task<EmailNotificationResponse>>>()
+            ), Times.Once);
         }
 
         [Test]
         public async Task Should_return_response_from_send_email()
-        {      
-            
-        _pollyRetryService.Setup(x => x.WaitAndRetryAsync<Exception, EmailNotificationResponse>
-            (
-                It.IsAny<int>(), It.IsAny<Func<int, TimeSpan>>(), It.IsAny<Action<int>>(), It.IsAny<Func<EmailNotificationResponse, bool>>(), It.IsAny<Func<Task<EmailNotificationResponse>>>()
-            ))
-            .Callback(async (int retries, Func<int, TimeSpan> sleepDuration, Action<int> retryAction, Func<EmailNotificationResponse, bool> handleResultCondition, Func<Task<EmailNotificationResponse>> executeFunction) =>
-            {
-                sleepDuration(1);
-                retryAction(7);
-                handleResultCondition(_expectedEmailNotificationResponse);
-                await executeFunction();
-            })
-            .ReturnsAsync(_expectedEmailNotificationResponse);
-
-            _mocker.Mock<IAsyncNotificationClient>()
-               .Setup(x => x.SendEmailAsync(_createEmailNotificationCommand.ContactEmail, _template.NotifyTemplateId.ToString(), _parameters, null, null)).ReturnsAsync(_expectedEmailNotificationResponse);
-          
+        {          
             var result = await _createNotificationService.SendEmailAsyncRetry(_createEmailNotificationCommand.ContactEmail, _template.NotifyTemplateId.ToString(), _parameters, null);
 
             result.Should().NotBeNull();
             result.Should().BeEquivalentTo(_expectedEmailNotificationResponse);
-        }      
+        }
     }
 }
