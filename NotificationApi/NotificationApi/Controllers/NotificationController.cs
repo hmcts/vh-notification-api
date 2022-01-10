@@ -71,7 +71,7 @@ namespace NotificationApi.Controllers
         /// <summary>
         /// Process callbacks from Gov Notify API
         /// </summary>
-        /// <returns> </returns>
+        /// <returns></returns>
         [HttpPost("callback")]
         [OpenApiOperation("HandleCallback")]
         [Authorize(AuthenticationSchemes = "Callback")]
