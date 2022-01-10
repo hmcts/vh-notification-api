@@ -3015,6 +3015,7 @@
           "NotificationApi.Contract": "1.0.0",
           "NotificationApi.DAL": "1.0.0",
           "NotificationApi.Domain": "1.0.0",
+          "Polly": "7.2.1",
           "Scrutor": "3.3.0",
           "VH.Core.Configuration": "0.1.12",
           "ZymLabs.NSwag.FluentValidation": "0.4.0"

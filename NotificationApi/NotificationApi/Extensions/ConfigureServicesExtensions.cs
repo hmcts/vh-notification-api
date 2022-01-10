@@ -1,3 +1,4 @@
+using AdminWebsite.Services;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -70,7 +71,9 @@ namespace NotificationApi.Extensions
             services.AddScoped<ICommandHandler, CommandHandler>();
             RegisterCommandHandlers(services);
             RegisterQueryHandlers(services);
-                        
+
+            services.AddSingleton<IPollyRetryService, PollyRetryService>();
+
             return services;
         }
 
