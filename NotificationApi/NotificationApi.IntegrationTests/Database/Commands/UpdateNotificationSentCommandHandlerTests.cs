@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -33,14 +34,17 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             const DeliveryStatus expectedDeliveryStatus = DeliveryStatus.Created;
             var command = new UpdateNotificationSentCommand(notification.Id, notification.ExternalId, notification.Payload);
 
+            Thread.Sleep(1000); // wait for a second
             await _handler.Handle(command);
             
             await using var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
             var updatedNotification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == notification.Id);
             updatedNotification.Should().NotBeNull();
             updatedNotification.DeliveryStatus.Should().Be(expectedDeliveryStatus);
+            updatedNotification.CreatedAt.Should().Be(notification.CreatedAt.Value);
+            updatedNotification.UpdatedAt.Should().BeAfter(updatedNotification.CreatedAt.Value);
         }
-        
+
         [Test]
         public void Should_Throw_Not_Found_Exception_When_Id_Does_Not_Exist()
         {

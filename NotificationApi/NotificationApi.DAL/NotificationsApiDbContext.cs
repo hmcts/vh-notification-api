@@ -61,8 +61,7 @@ namespace NotificationApi.DAL
         private void SetUpdatedDateValue()
         {
             foreach (var entry in ChangeTracker.Entries()
-                .Where(e => e.State == EntityState.Added ||
-                            e.State == EntityState.Modified))
+                .Where(e => e.State == EntityState.Modified))
             {
                 var updatedDateProperty =
                     entry.Properties.AsQueryable().FirstOrDefault(x => x.Metadata.Name == "UpdatedAt");
