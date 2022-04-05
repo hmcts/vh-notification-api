@@ -1,10 +1,9 @@
 using System;
-using NotificationApi.Domain.Ddd;
 using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.Domain
 {
-    public class Template : Entity<long>
+    public class Template : TrackableEntity<long>
     {
         public Guid NotifyTemplateId { get; }
         public NotificationType NotificationType { get; }

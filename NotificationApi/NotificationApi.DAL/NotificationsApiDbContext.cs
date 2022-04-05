@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.Domain;
 
@@ -43,22 +45,32 @@ namespace NotificationApi.DAL
                 }
             }
         }
-        
+
         public override int SaveChanges()
+        {
+            SetUpdatedDateValue();
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            SetUpdatedDateValue();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SetUpdatedDateValue()
         {
             foreach (var entry in ChangeTracker.Entries()
                 .Where(e => e.State == EntityState.Added ||
                             e.State == EntityState.Modified))
             {
                 var updatedDateProperty =
-                    entry.Properties.AsQueryable().FirstOrDefault(x => x.Metadata.Name == "UpdatedDate");
+                    entry.Properties.AsQueryable().FirstOrDefault(x => x.Metadata.Name == "UpdatedAt");
                 if (updatedDateProperty != null)
                 {
                     updatedDateProperty.CurrentValue = DateTime.UtcNow;
                 }
             }
-
-            return base.SaveChanges();
         }
     }
 }
