@@ -1,10 +1,9 @@
 using System;
-using NotificationApi.Domain.Ddd;
 using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.Domain
 {
-    public abstract class Notification : Entity<Guid>
+    public abstract class Notification : TrackableEntity<Guid>
     {
         public abstract MessageType MessageType { get; }
         public string Payload { get; private set; }

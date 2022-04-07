@@ -40,6 +40,9 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             notification.Should().NotBeNull();
             command.NotificationId.Should().NotBeEmpty();
             _notificationId = command.NotificationId;
+            notification.CreatedAt.Should().BeBefore(DateTime.UtcNow);
+            notification.UpdatedAt.Should().BeBefore(DateTime.UtcNow);
+            notification.CreatedAt.Should().Be(notification.UpdatedAt);
         }
 
         [TearDown]

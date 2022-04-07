@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -35,13 +36,16 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             var command = new UpdateNotificationDeliveryStatusCommand(notification.Id, notification.ExternalId, deliveryStatus);
 
             // Act
+            Thread.Sleep(1000); // wait for a second
             await _handler.Handle(command);
 
             // Assert
             await using var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
             var updatedNotification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == notification.Id);
             updatedNotification.Should().NotBeNull();
-            updatedNotification.DeliveryStatus.Should().Be(deliveryStatus);           
+            updatedNotification.DeliveryStatus.Should().Be(deliveryStatus);
+            updatedNotification.CreatedAt.Should().Be(notification.CreatedAt.Value);
+            updatedNotification.UpdatedAt.Should().BeAfter(updatedNotification.CreatedAt.Value);
         }
 
         [Test]
