@@ -108,5 +108,39 @@ namespace NotificationApi.AcceptanceTests.Steps
                 {"day month year", "12 October 2020"},
             };
         }
+
+        [Given(@"I have a hearing confirmation for a LIP email notification request with new template")]
+        public void GivenIHaveAHearingConfirmationForAlipEmailNotificationRequestWithNewTemplate()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.NewHearingReminderLIP;
+            var parameters = InitGenericConfirmationParams();
+            parameters.Add("name", $"{Faker.Name.FullName()}");
+            _context.CreateNotificationRequest =
+                AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
+
+        [Given(@"I have a hearing confirmation for a joh email notification request with new template")]
+        public void GivenIHaveAHearingConfirmationForAJohEmailNotificationRequestWithNewTemplate()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.NewHearingReminderJOH;
+            var parameters = InitGenericConfirmationParams();
+            parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
+            _context.CreateNotificationRequest =
+                AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
+
+        [Given(@"I have a hearing confirmation for a representative email notification request with new template")]
+        public void GivenIHaveAHearingConfirmationForARepresentativeEmailNotificationRequestWithNewTemplate()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.NewHearingReminderRepresentative;
+            var parameters = InitGenericConfirmationParams();
+            parameters.Add("solicitor name", $"{Faker.Name.FullName()}");
+            parameters.Add("client name", $"{Faker.Name.FullName()}");
+            _context.CreateNotificationRequest =
+                AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
     }
 }

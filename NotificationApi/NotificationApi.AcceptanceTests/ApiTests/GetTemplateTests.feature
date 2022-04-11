@@ -46,3 +46,6 @@ Scenario Outline: Get a template for a notification type
 		| HearingConfirmationStaffMember            |
 		| HearingConfirmationStaffMemberMultiDay    |
 		| StaffMemberDemoOrTest                     |
+    | NewHearingReminderLIP                     |
+    | NewHearingReminderRepresentative          |
+    | NewHearingReminderJOH                     |
