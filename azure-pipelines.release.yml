@@ -215,6 +215,12 @@ extends:
             value: $(HearingConfirmationStaffMemberMultiDay)
           - name: NotifyConfiguration:StaffMemberDemoOrTest
             value: $(StaffMemberDemoOrTest)
+          - name: NotifyConfiguration:NewHearingReminderLIP
+            value: $(NewHearingReminderLIP)
+          - name: NotifyConfiguration:NewHearingReminderRepresentative
+            value: $(NewHearingReminderRepresentative)
+          - name: NotifyConfiguration:NewHearingReminderJOH
+            value: $(NewHearingReminderJOH)
             
           # Connection strings
           - name: ConnectionStrings:VhNotificationsApi
@@ -320,3 +326,9 @@ extends:
             value: $(HearingConfirmationStaffMemberMultiDay)
           - name: NotifyConfiguration:StaffMemberDemoOrTest
             value: $(StaffMemberDemoOrTest)
+          - name: NotifyConfiguration:NewHearingReminderLIP
+            value: $(NewHearingReminderLIP)
+          - name: NotifyConfiguration:NewHearingReminderRepresentative
+            value: $(NewHearingReminderRepresentative)
+          - name: NotifyConfiguration:NewHearingReminderJOH
+            value: $(NewHearingReminderJOH)
