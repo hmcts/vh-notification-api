@@ -116,6 +116,7 @@ namespace NotificationApi.AcceptanceTests.Steps
             var templateType = NotificationType.NewHearingReminderLIP;
             var parameters = InitGenericConfirmationParams();
             parameters.Add("name", $"{Faker.Name.FullName()}");
+            parameters.Add("username", $"{Faker.Internet.Email()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
@@ -127,6 +128,7 @@ namespace NotificationApi.AcceptanceTests.Steps
             var templateType = NotificationType.NewHearingReminderJOH;
             var parameters = InitGenericConfirmationParams();
             parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
+            parameters.Add("username", $"{Faker.Internet.Email()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
@@ -139,6 +141,7 @@ namespace NotificationApi.AcceptanceTests.Steps
             var parameters = InitGenericConfirmationParams();
             parameters.Add("solicitor name", $"{Faker.Name.FullName()}");
             parameters.Add("client name", $"{Faker.Name.FullName()}");
+            parameters.Add("username", $"{Faker.Internet.Email()}");
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
