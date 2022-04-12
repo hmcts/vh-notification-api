@@ -18,17 +18,17 @@ namespace NotificationApi.DAL.Migrations
                     {
                         templateFactory.NewHearingReminderLIP, (int) NotificationType.NewHearingReminderLIP,
                         (int) MessageType.Email,
-                        "case name, case number, name, day month year, time"
+                        "case name, case number, name, day month year, time, username"
                     },
                     {
                         templateFactory.NewHearingReminderRepresentative, (int) NotificationType.NewHearingReminderRepresentative,
                         (int) MessageType.Email,
-                        "case name, case number, client name, solicitor name, day month year, time"
+                        "case name, case number, client name, solicitor name, day month year, time, username"
                     },
                     {
                         templateFactory.NewHearingReminderJOH, (int) NotificationType.NewHearingReminderJOH,
                         (int) MessageType.Email,
-                        "case name, case number, judicial office holder, day month year, time"
+                        "case name, case number, judicial office holder, day month year, time, username"
                     },
                 });
         }
