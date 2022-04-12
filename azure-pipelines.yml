@@ -134,6 +134,12 @@ parameters:
       value: $(HearingConfirmationStaffMemberMultiDay)
     - name: NotifyConfiguration:StaffMemberDemoOrTest
       value: $(StaffMemberDemoOrTest)
+    - name: NotifyConfiguration:NewHearingReminderLIP
+      value: $(NewHearingReminderLIP)
+    - name: NotifyConfiguration:NewHearingReminderRepresentative
+      value: $(NewHearingReminderRepresentative)
+    - name: NotifyConfiguration:NewHearingReminderJOH
+      value: $(NewHearingReminderJOH)
 
 - name: appSettings
   type: object
@@ -231,6 +237,12 @@ parameters:
     value: $(HearingConfirmationStaffMemberMultiDay)
   - name: NotifyConfiguration:StaffMemberDemoOrTest
     value: $(StaffMemberDemoOrTest)
+  - name: NotifyConfiguration:NewHearingReminderLIP
+    value: $(NewHearingReminderLIP)
+  - name: NotifyConfiguration:NewHearingReminderRepresentative
+    value: $(NewHearingReminderRepresentative)
+  - name: NotifyConfiguration:NewHearingReminderJOH
+    value: $(NewHearingReminderJOH)
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi

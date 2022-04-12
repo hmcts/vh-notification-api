@@ -38,6 +38,9 @@ namespace NotificationApi.Contract
         HearingAmendmentStaffMember = 33,
         HearingConfirmationStaffMember = 34,
         HearingConfirmationStaffMemberMultiDay = 35,
-        StaffMemberDemoOrTest = 36
+        StaffMemberDemoOrTest = 36,
+        NewHearingReminderLIP = 37,
+        NewHearingReminderRepresentative = 38,
+        NewHearingReminderJOH = 39
     }
 }

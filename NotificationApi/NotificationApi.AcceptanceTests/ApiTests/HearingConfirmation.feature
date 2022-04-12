@@ -44,3 +44,22 @@ Scenario: Create a hearing confirmation for a representative
 	When I send the create notification request
 	Then the api client should return true
 	And Notify should have my request
+
+Scenario: Create a new hearing confirmation template for a LIP
+  Given I have a hearing confirmation for a LIP email notification request with new template
+  When I send the create notification request
+  Then the api client should return true
+  And Notify should have my request
+
+Scenario: Create a new hearing confirmation template for a judicial office holder
+  Given I have a hearing confirmation for a joh email notification request with new template
+  When I send the create notification request
+  Then the api client should return true
+  And Notify should have my request
+
+Scenario: Create a new hearing confirmation template for a representative
+  Given I have a hearing confirmation for a representative email notification request with new template
+  When I send the create notification request
+  Then the api client should return true
+  And Notify should have my request
+
