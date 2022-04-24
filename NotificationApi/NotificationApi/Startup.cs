@@ -111,8 +111,8 @@ namespace NotificationApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.RunLatestMigrations();
-            
+            //app.RunLatestMigrations();
+            app.RunTemplateDataSeeding("Local");
             app.UseOpenApi();
             app.UseSwaggerUi3(c =>
             {
