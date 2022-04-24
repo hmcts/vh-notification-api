@@ -213,7 +213,7 @@ namespace NotificationApi
             { new Template(new Guid("F6023ACA-B9BE-4CF0-9D88-078A7BCC9B98"),NotificationType.StaffMemberDemoOrTest,MessageType.Email,"test type,date,time,case number,staff member",DateTime.UtcNow,DateTime.UtcNow ) },
             { new Template(new Guid("468DA234-9602-4759-895B-248329EDE20E"),NotificationType.NewHearingReminderLIP,MessageType.Email,"case name, case number, name, day month year, time, username",DateTime.UtcNow,DateTime.UtcNow ) },
             { new Template(new Guid("D0145ADE-2EC7-4FDF-A5B8-4C85318BDF36"),NotificationType.NewHearingReminderRepresentative,MessageType.Email,"case name, case number, client name, solicitor name, day month year, time, username",DateTime.UtcNow,DateTime.UtcNow ) },
-            { new Template(new Guid("33DB272D-D961-4596-AFC0-C19B109D390B"),NotificationType.NewHearingReminderJOH,MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",DateTime.UtcNow,DateTime.UtcNow ) },        #
+            { new Template(new Guid("33DB272D-D961-4596-AFC0-C19B109D390B"),NotificationType.NewHearingReminderJOH,MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",DateTime.UtcNow,DateTime.UtcNow ) },
         };
         
         private readonly IList<Template> _sourceTemplatesDemo = new List<Template>()
