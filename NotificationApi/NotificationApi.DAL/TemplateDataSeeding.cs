@@ -16,7 +16,7 @@ namespace NotificationApi
         public void Run(string environment)
         {
             _context.Database.EnsureCreated();
-            
+
             var saveChanges = false;
             
             var templates = _context.Templates;
@@ -24,10 +24,7 @@ namespace NotificationApi
 
             foreach(var template in sourceTemplates)
             {
-                if (!templates.Any(t => t.NotifyTemplateId == template.NotifyTemplateId &&
-                    t.NotificationType == template.NotificationType &&
-                    t.MessageType == template.MessageType &&
-                    t.Parameters.Trim() == template.Parameters.Trim()))
+                if (!templates.Any(t => t.NotifyTemplateId == template.NotifyTemplateId))
                 {
                     _context.Templates.Add(template);
                     saveChanges = true;

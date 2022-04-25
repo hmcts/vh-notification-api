@@ -167,6 +167,8 @@ parameters:
     value: $(notify-api-key)
   - name: NotifyConfiguration:CallbackSecret
     value: $(notify-callback-secret)
+    - name: NotifyConfiguration:Environment
+      value: $(notify-environment)          
   - name: NotifyConfiguration:CreateIndividual
     value: $(CreateIndividual)
   - name: NotifyConfiguration:CreateRepresentative
