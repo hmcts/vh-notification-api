@@ -200,6 +200,21 @@ namespace NotificationApi
                 new Template(new Guid("0A755E44-E29E-4BB6-81F2-648553E552BF"), NotificationType.StaffMemberDemoOrTest,
                     MessageType.Email, "test type,date,time,case number,staff member", DateTime.UtcNow, DateTime.UtcNow)
             },
+            { 
+                new Template(new Guid("E4636FBE-6466-4394-9775-A98FED84FD23"),NotificationType.NewHearingReminderLIP,
+                MessageType.Email,"case name, case number, name, day month year, time, username",DateTime.UtcNow,
+                DateTime.UtcNow ) 
+            },
+            { 
+                new Template(new Guid("1FB464A6-EB9F-404E-824E-41A6153E9B17"),NotificationType.NewHearingReminderRepresentative,
+                MessageType.Email,"case name, case number, client name, solicitor name, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow ) 
+            },
+            { 
+                new Template(new Guid("4A6FB490-4CB7-4441-9B00-CCA636A2C455"),NotificationType.NewHearingReminderJOH,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow ) 
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesPreview = new List<Template>()
