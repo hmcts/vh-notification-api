@@ -62,6 +62,8 @@ parameters:
       value: $(notify-api-key)
     - name: NotifyConfiguration:CallbackSecret
       value: $(notify-callback-secret)
+    - name: NotifyConfiguration:Environment
+      value: $(notify-environment)      
     - name: NotifyConfiguration:CreateIndividual
       value: $(CreateIndividual)
     - name: NotifyConfiguration:CreateRepresentative
@@ -165,6 +167,8 @@ parameters:
     value: $(notify-api-key)
   - name: NotifyConfiguration:CallbackSecret
     value: $(notify-callback-secret)
+  - name: NotifyConfiguration:Environment
+    value: $(notify-environment)          
   - name: NotifyConfiguration:CreateIndividual
     value: $(CreateIndividual)
   - name: NotifyConfiguration:CreateRepresentative
@@ -322,7 +326,7 @@ extends:
       sonarCloud_ExtraProperties: |
         sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
         sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*,**/Program.cs,**/Startup.cs,**/Testing.Common/**/*,**/NotificationApi.Common/**/*,**/NotificationApi.IntegrationTests/**/*,**/NotificationApi.UnitTests/**/*,**/NotificationApi/Extensions/*,**/NotificationApi.DAL/Migrations/**/*
-        sonar.cpd.exclusions=**/Program.cs,**/NotificationType.cs,**/Startup.cs,**/Testing.Common/**/*,**/NotificationApi/Swagger/**/*,NotificationApi/NotificationApi.DAL/Migrations/*
+        sonar.cpd.exclusions=**/Program.cs,**/NotificationType.cs,**/Startup.cs,**/Testing.Common/**/*,**/NotificationApi/Swagger/**/*,NotificationApi/NotificationApi.DAL/Migrations/*,NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
       StrykerBreak: 75
     ACTest: ${{ parameters.RunACTests }}
     releaseParameters:
