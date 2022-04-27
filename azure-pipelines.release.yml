@@ -145,6 +145,8 @@ extends:
             value: $(notify-api-key)
           - name: NotifyConfiguration:CallbackSecret
             value: $(notify-callback-secret)
+          - name: NotifyConfiguration:Environment
+            value: $(notify-environment)          
           - name: NotifyConfiguration:CreateIndividual
             value: $(CreateIndividual)
           - name: NotifyConfiguration:CreateRepresentative
@@ -217,6 +219,12 @@ extends:
             value: $(HearingConfirmationStaffMemberMultiDay)
           - name: NotifyConfiguration:StaffMemberDemoOrTest
             value: $(StaffMemberDemoOrTest)
+          - name: NotifyConfiguration:NewHearingReminderLIP
+            value: $(NewHearingReminderLIP)
+          - name: NotifyConfiguration:NewHearingReminderRepresentative
+            value: $(NewHearingReminderRepresentative)
+          - name: NotifyConfiguration:NewHearingReminderJOH
+            value: $(NewHearingReminderJOH)
             
           # Connection strings
           - name: ConnectionStrings:VhNotificationsApi
@@ -250,6 +258,8 @@ extends:
             value: $(notify-api-key)
           - name: NotifyConfiguration:CallbackSecret
             value: $(notify-callback-secret)
+          - name: NotifyConfiguration:Environment
+            value: $(notify-environment)          
           - name: NotifyConfiguration:CreateIndividual
             value: $(CreateIndividual)
           - name: NotifyConfiguration:CreateRepresentative
@@ -322,3 +332,9 @@ extends:
             value: $(HearingConfirmationStaffMemberMultiDay)
           - name: NotifyConfiguration:StaffMemberDemoOrTest
             value: $(StaffMemberDemoOrTest)
+          - name: NotifyConfiguration:NewHearingReminderLIP
+            value: $(NewHearingReminderLIP)
+          - name: NotifyConfiguration:NewHearingReminderRepresentative
+            value: $(NewHearingReminderRepresentative)
+          - name: NotifyConfiguration:NewHearingReminderJOH
+            value: $(NewHearingReminderJOH)

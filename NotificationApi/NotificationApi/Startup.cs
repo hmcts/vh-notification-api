@@ -110,7 +110,10 @@ namespace NotificationApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {            
+        {
+            var notifySettings = Configuration.GetSection("NotifyConfiguration").Get<NotifyConfiguration>();
+            app.RunTemplateDataSeeding(notifySettings.Environment);
+
             app.UseOpenApi();
             app.UseSwaggerUi3(c =>
             {

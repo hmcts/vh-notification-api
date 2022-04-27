@@ -17,5 +17,12 @@ namespace NotificationApi.Domain
             MessageType = messageType;
             Parameters = parameters;
         }
+
+        public Template(Guid notifyTemplateId, NotificationType notificationType, MessageType messageType, 
+            string parameters, DateTime createdAt, DateTime updatedAt): this(notifyTemplateId, notificationType, messageType, parameters)
+        {
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+        }
     }
 }
