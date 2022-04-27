@@ -1483,6 +1483,217 @@ namespace NotificationApi
             },
         };
 
+        private readonly IList<Template> _sourceTemplatesSandbox = new List<Template>()
+        {
+            {
+                new Template(new Guid("5DAFAA65-DD15-4FF1-9709-B4EC79E28109"), NotificationType.CreateIndividual,
+                    MessageType.Email, "name,username,random password", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("254C2827-B931-41D9-A134-87EECE8CEFC2"), NotificationType.CreateRepresentative,
+                    MessageType.Email, "name,username,random password", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("B960795B-AF58-483E-A25C-722155E3A1DE"), NotificationType.PasswordReset,
+                    MessageType.Email, "name,password", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("22EA73BB-31E1-46B5-B02C-C97D1C74608B"),
+                    NotificationType.HearingConfirmationJudge, MessageType.Email,
+                    "case name,case number,judge,day month year,time,courtroom account username,account password",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("F3B0A36C-4D9E-4805-999E-BD8B2ACD6506"), NotificationType.HearingConfirmationJoh,
+                    MessageType.Email, "case name,case number,judicial office holder,Day Month Year,time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("79026354-7790-4BCA-B62C-F7171D3A6F38"), NotificationType.HearingConfirmationLip,
+                    MessageType.Email, "case name,case number,name,Day Month Year,time", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("F3A3116B-BEDD-49ED-9977-74A81EB2B05A"),
+                    NotificationType.HearingConfirmationRepresentative, MessageType.Email,
+                    "case name,case number,client name,solicitor name,Day Month Year,time", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("4BC7572D-60CC-4C7C-BDC2-73E94B6609A7"), NotificationType.HearingReminderJoh,
+                    MessageType.Email, "case name,case number,judicial office holder,day month year,time,username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("414CCB68-0077-4409-B50D-DCD995BC9A64"), NotificationType.HearingReminderLip,
+                    MessageType.Email, "case name,case number,name,day month year,time,username", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("E4E74D79-F6C1-4E91-8745-3831D69D3ECB"),
+                    NotificationType.HearingReminderRepresentative, MessageType.Email,
+                    "case name,case number,client name,solicitor name,day month year,time,username", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("DE5CB558-9D62-4054-B73A-15BD52655B26"), NotificationType.HearingAmendmentJudge,
+                    MessageType.Email,
+                    "case name,case number,judge,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("DF178486-7770-41A6-9B9E-4B1C0A1017E3"), NotificationType.HearingAmendmentJoh,
+                    MessageType.Email,
+                    "case name,case number,judicial office holder,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("D6557723-A70E-40A0-A906-9181CDCB86BB"), NotificationType.HearingAmendmentLip,
+                    MessageType.Email,
+                    "case name,case number,name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("A80D6EE0-E9B4-415B-B187-194034A04065"),
+                    NotificationType.HearingAmendmentRepresentative, MessageType.Email,
+                    "case name,case number,client name,solicitor name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("F66336E6-C371-47C0-A538-D3797DF575DE"),
+                    NotificationType.HearingConfirmationJudgeMultiDay, MessageType.Email,
+                    "case name,case number,judge,Start Day Month Year,time,number of days,courtroom account username,account password",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("4EB2A8D5-9556-4306-8B82-6213809446BA"),
+                    NotificationType.HearingConfirmationJohMultiDay, MessageType.Email,
+                    "case name,case number,judicial office holder,Start Day Month Year,time,number of days,time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("3BB37FA1-A882-4BD7-8427-FE3F4D00E0F5"),
+                    NotificationType.HearingConfirmationLipMultiDay, MessageType.Email,
+                    "case name,case number,name,Start Day Month Year,time,number of days,time", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("9F3A1020-E5BC-466E-B31D-D95F6B554072"),
+                    NotificationType.HearingConfirmationRepresentativeMultiDay, MessageType.Email,
+                    "case name,case number,client name,solicitor name,Start Day Month Year,time,number of days,time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("5AEF0B6A-D746-4A99-B679-EA75EAFB1648"),
+                    NotificationType.HearingConfirmationEJudJudge, MessageType.Email,
+                    "case name,case number,judge,day month year,time", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("80969A3C-4B60-46BA-9163-11F764A4BA4B"),
+                    NotificationType.HearingConfirmationEJudJudgeMultiDay, MessageType.Email,
+                    "case name,case number,judge,Start Day Month Year,time,number of days", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("A63D188E-F21C-4D71-B107-536632D83C1A"),
+                    NotificationType.HearingAmendmentEJudJudge, MessageType.Email,
+                    "case name,case number,judge,New Day Month Year,Old Day Month Year,New time,Old time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("D205E122-7758-4EE6-8DDA-39DE202EA176"), NotificationType.HearingAmendmentEJudJoh,
+                    MessageType.Email, "case name,case number,judicial office holder,day month year,time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("67569EE5-8CDF-4A51-B7AF-9B1DCF7800F7"), NotificationType.HearingReminderEJudJoh,
+                    MessageType.Email, "case name,case number,judicial office holder,day month year,time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("6992E482-8BB4-4D41-A511-CB39D1DE080B"),
+                    NotificationType.HearingConfirmationEJudJoh, MessageType.Email,
+                    "case name,case number,judicial office holder,day month year,time", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("0DB88FE3-DD38-41A7-AA44-C2C6ADD31006"),
+                    NotificationType.HearingConfirmationEJudJohMultiDay, MessageType.Email,
+                    "case name,case number,judicial office holder,Start Day Month Year,time,number of days",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("F6D035BF-FD2F-44D2-902E-FA698E8F396F"), NotificationType.EJudJohDemoOrTest,
+                    MessageType.Email, "case number,test type,judicial office holder,username,date,time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("E5879631-1CFD-4439-8A02-95B612B1E719"), NotificationType.ParticipantDemoOrTest,
+                    MessageType.Email, "test type,case number,date,name,username,time", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("F17C499F-8183-4F2B-920C-3473CCE51D45"), NotificationType.EJudJudgeDemoOrTest,
+                    MessageType.Email, "test type,date,time,case number,Judge", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("080ADD48-4F87-4FD7-B878-05EEBCC469C4"), NotificationType.JudgeDemoOrTest,
+                    MessageType.Email, "test type,date,time,case number,Judge,courtroom account username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("1BDFD439-5923-4E00-9001-602A5FFDA801"),
+                    NotificationType.TelephoneHearingConfirmation, MessageType.Email,
+                    "case name,case number,name,day month year,time", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("EE4A9A9A-EA1E-4C07-B488-D94CFA2ACD07"),
+                    NotificationType.TelephoneHearingConfirmationMultiDay, MessageType.Email,
+                    "case name,case number,name,day month year,time,number of days", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("C8F47717-3001-408C-B1F3-91002F5F5A89"), NotificationType.CreateStaffMember,
+                    MessageType.Email, "Name,Username,Password", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("4719EC05-E46C-413F-86C0-EF7DC3AE2340"),
+                    NotificationType.HearingAmendmentStaffMember, MessageType.Email,
+                    "case name,case number,staff member,New Day Month Year,Old Day Month Year,New time,Old time",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("7D79D219-A0B9-44E4-91B0-F2C9FCF9ACEC"),
+                    NotificationType.HearingConfirmationStaffMember, MessageType.Email,
+                    "case name,case number,staff member,day month year,time,username", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("D2CA16E9-58CD-4A07-8E7C-B440D42FBFA9"),
+                    NotificationType.HearingConfirmationStaffMemberMultiDay, MessageType.Email,
+                    "case name,case number,staff member,Start Day Month Year,time,number of days,username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("82AD1652-1E23-425F-A06B-668125C98634"), NotificationType.StaffMemberDemoOrTest,
+                    MessageType.Email, "test type,date,time,case number,staff member", DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("8AD8FEC0-C692-41FC-9B8E-36F0CE3FF84C"), NotificationType.NewHearingReminderLIP,
+                    MessageType.Email, "case name, case number, name, day month year, time, username", DateTime.UtcNow,
+                    DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("1E7BFC5C-12E7-45FF-93FE-972820161D52"),
+                    NotificationType.NewHearingReminderRepresentative, MessageType.Email,
+                    "case name, case number, client name, solicitor name, day month year, time, username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("954E98DD-354A-4580-9855-C23FE16BA312"), NotificationType.NewHearingReminderJOH,
+                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+        };
+
         public IList<Template> Get(string environment)
         {
             switch (environment)
@@ -1493,6 +1704,8 @@ namespace NotificationApi
                     return _sourceTemplatesPreview;
                 case "AAT":
                     return _sourceTemplatesAAT;
+                case "Sandbox":
+                    return _sourceTemplatesSandbox;
                 case "Test1":
                     return _sourceTemplatesTest1;
                 case "Demo":
