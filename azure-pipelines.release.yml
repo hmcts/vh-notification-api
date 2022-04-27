@@ -77,7 +77,7 @@ extends:
     template: templates/vh-release.yml@templates
     parameters:
       databaseContextName: NotificationsApiDbContext
-      connectionStringSecretName: "VhNotificationApiDatabaseConnectionString"
+      connectionStringSecretName: "vhnotificationDatabaseConnectionString"
       ${{ if ne(variables['Build.Reason'], 'ResourceTrigger') }}:
         environments:
           - ${{ parameters.environment }}

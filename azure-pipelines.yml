@@ -299,7 +299,7 @@ extends:
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
     coreProjectName: NotificationApi.csproj
     databaseContextName: NotificationsApiDbContext
-    connectionStringSecretName: "VhNotificationApiDatabaseConnectionString"
+    connectionStringSecretName: "vhnotificationDatabaseConnectionString"
     testParameters:
       baseAgent: windows-latest
       coreProjectPath: NotificationApi/NotificationApi
