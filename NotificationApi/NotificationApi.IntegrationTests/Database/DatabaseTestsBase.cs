@@ -26,10 +26,7 @@ namespace NotificationApi.IntegrationTests.Database
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.UseSqlServer(_databaseConnectionString);
             NotifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
-
-            var context = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
-            context.Database.Migrate();
-            
+           
             TestDataManager = new TestDataManager(NotifyBookingsDbContextOptions);
         }
     }

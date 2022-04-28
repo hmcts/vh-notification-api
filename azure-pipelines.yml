@@ -297,6 +297,9 @@ extends:
     PackageApp: ${{ parameters.PackageApp }}
     PackageAcceptanceTests: ${{ parameters.PackageACTests }}
     Test: ${{ or(parameters.RunUnitTests, parameters.RunIntegTests, parameters.RunMutationTests) }}
+    coreProjectName: NotificationApi.csproj
+    databaseContextName: NotificationsApiDbContext
+    connectionStringSecretName: "vhnotificationDatabaseConnectionString"
     testParameters:
       baseAgent: windows-latest
       coreProjectPath: NotificationApi/NotificationApi

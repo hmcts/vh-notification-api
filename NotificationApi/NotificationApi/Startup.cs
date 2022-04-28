@@ -111,7 +111,6 @@ namespace NotificationApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.RunLatestMigrations();
             var notifySettings = Configuration.GetSection("NotifyConfiguration").Get<NotifyConfiguration>();
             app.RunTemplateDataSeeding(notifySettings.Environment);
 
