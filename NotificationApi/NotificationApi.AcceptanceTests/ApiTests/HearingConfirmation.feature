@@ -63,3 +63,8 @@ Scenario: Create a new hearing confirmation template for a representative
   Then the api client should return true
   And Notify should have my request
 
+  Scenario: Create a new hearing confirmation template for a ejudge judicial office holder
+  Given I have a hearing confirmation for a ejudge joh email notification request with new template
+  When I send the create notification request
+  Then the api client should return true
+  And Notify should have my request

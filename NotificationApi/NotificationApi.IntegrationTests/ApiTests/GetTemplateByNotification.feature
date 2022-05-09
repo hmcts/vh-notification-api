@@ -49,3 +49,4 @@ Scenario Outline: Successfully get a template for a notification type
     | NewHearingReminderLIP                     |
     | NewHearingReminderRepresentative          |
     | NewHearingReminderJOH                     |
+    | NewHearingReminderEJUD                    |

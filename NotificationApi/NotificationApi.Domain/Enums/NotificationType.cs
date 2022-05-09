@@ -41,6 +41,7 @@ namespace NotificationApi.Domain.Enums
         StaffMemberDemoOrTest = 36,
         NewHearingReminderLIP = 37,
         NewHearingReminderRepresentative = 38,
-        NewHearingReminderJOH = 39
+        NewHearingReminderJOH = 39,
+        NewHearingReminderEJUD = 40
     }
 }

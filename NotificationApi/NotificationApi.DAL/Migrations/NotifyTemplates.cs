@@ -43,5 +43,7 @@ namespace NotificationApi.DAL.Migrations
         public Guid? NewHearingReminderLIP { get; set; }
         public Guid? NewHearingReminderRepresentative { get; set; }
         public Guid? NewHearingReminderJOH { get; set; }
+        public Guid? NewHearingReminderEJUD { get; set; }
+        
     }
 }

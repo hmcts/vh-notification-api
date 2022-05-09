@@ -225,6 +225,8 @@ extends:
             value: $(NewHearingReminderRepresentative)
           - name: NotifyConfiguration:NewHearingReminderJOH
             value: $(NewHearingReminderJOH)
+          - name: NotifyConfiguration:NewHearingReminderEJUD
+            value: $(NewHearingReminderEJUD)
             
           # Connection strings
           - name: ConnectionStrings:VhNotificationsApi
@@ -338,3 +340,5 @@ extends:
             value: $(NewHearingReminderRepresentative)
           - name: NotifyConfiguration:NewHearingReminderJOH
             value: $(NewHearingReminderJOH)
+          - name: NotifyConfiguration:NewHearingReminderEJUD
+            value: $(NewHearingReminderEJUD)
