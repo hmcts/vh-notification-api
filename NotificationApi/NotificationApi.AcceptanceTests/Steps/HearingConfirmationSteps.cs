@@ -145,5 +145,18 @@ namespace NotificationApi.AcceptanceTests.Steps
             _context.CreateNotificationRequest =
                 AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
         }
+
+        [Given(@"I have a hearing confirmation for a ejudge joh email notification request with new template")]
+        public void GivenIHaveAHearingConfirmationForAEjudgeJohEmailNotificationRequestWithNewTemplate()
+        {
+            var messageType = MessageType.Email;
+            var templateType = NotificationType.NewHearingReminderEJUD;
+            var parameters = InitGenericConfirmationParams();
+            parameters.Add("judicial office holder", $"{Faker.Name.FullName()}");
+            parameters.Add("username", $"{Faker.Internet.Email()}");
+            _context.CreateNotificationRequest =
+                AddNotificationRequestBuilder.BuildRequest(messageType, templateType, parameters);
+        }
+
     }
 }

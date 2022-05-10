@@ -215,6 +215,11 @@ namespace NotificationApi
                 MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
                 DateTime.UtcNow,DateTime.UtcNow ) 
             },
+            {
+                new Template(new Guid("1e683018-cd1f-4c41-83c8-3686b697655e"),NotificationType.NewHearingReminderEJUD,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow )
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesPreview = new List<Template>()
@@ -426,6 +431,11 @@ namespace NotificationApi
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
             },
+            {
+                new Template(new Guid("3e4168c3-04fd-43fc-a863-6dcc38512cf0"),NotificationType.NewHearingReminderEJUD,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow )
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesAAT = new List<Template>()
@@ -636,7 +646,12 @@ namespace NotificationApi
                 new Template(new Guid("8A80D059-D075-45B2-88E0-3B2066E3189A"), NotificationType.NewHearingReminderJOH,
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
-            }
+            },
+            {
+                new Template(new Guid("03cd0de3-2f67-44cc-85a5-6c60e4046c8d"),NotificationType.NewHearingReminderEJUD,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow )
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesTest1 = new List<Template>()
@@ -847,6 +862,11 @@ namespace NotificationApi
                 new Template(new Guid("33DB272D-D961-4596-AFC0-C19B109D390B"), NotificationType.NewHearingReminderJOH,
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("62d3105b-d746-4b06-9cf3-c43b507682f1"),NotificationType.NewHearingReminderEJUD,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow )
             },
         };
 
@@ -1059,6 +1079,11 @@ namespace NotificationApi
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
             },
+            {
+                new Template(new Guid("cd49e07f-419e-4d1f-9904-6f1f8e9f2ce5"),NotificationType.NewHearingReminderEJUD,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow )
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesPreProd = new List<Template>()
@@ -1270,6 +1295,11 @@ namespace NotificationApi
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
             },
+            {
+                new Template(new Guid("df2324a3-26bd-4d16-8cb2-afd2a83e1c62"),NotificationType.NewHearingReminderEJUD,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow )
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesProd = new List<Template>()
@@ -1480,6 +1510,11 @@ namespace NotificationApi
                 new Template(new Guid("1abe2b66-87de-44a9-8e2b-fb82ec9d361f"), NotificationType.NewHearingReminderJOH,
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("7718d416-d223-4f9c-a6c3-4f4e484e1ced"),NotificationType.NewHearingReminderEJUD,
+                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                DateTime.UtcNow,DateTime.UtcNow )
             },
         };
 

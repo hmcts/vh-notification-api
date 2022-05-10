@@ -142,6 +142,8 @@ parameters:
       value: $(NewHearingReminderRepresentative)
     - name: NotifyConfiguration:NewHearingReminderJOH
       value: $(NewHearingReminderJOH)
+    - name: NotifyConfiguration:NewHearingReminderEJUD
+      value: $(NewHearingReminderEJUD)
 
 - name: appSettings
   type: object
@@ -247,6 +249,8 @@ parameters:
     value: $(NewHearingReminderRepresentative)
   - name: NotifyConfiguration:NewHearingReminderJOH
     value: $(NewHearingReminderJOH)
+  - name: NotifyConfiguration:NewHearingReminderEJUD
+    value: $(NewHearingReminderEJUD)
 
   # Connection strings
   - name: ConnectionStrings:VhNotificationsApi
