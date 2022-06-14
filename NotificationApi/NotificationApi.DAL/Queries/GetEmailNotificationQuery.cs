@@ -38,6 +38,6 @@ namespace NotificationApi.DAL.Queries
                 t.NotificationType == query.NotificationType &&
                 t.HearingRefId == query.HearingRefId &&
                 t.ParticipantRefId == query.ParticipantRefId &&
-                string.Equals(t.ToEmail.Trim(),query.ToEmail.Trim(), StringComparison.InvariantCultureIgnoreCase));
+                t.ToEmail.ToLower().Trim() ==query.ToEmail.Trim());
     }
 }
