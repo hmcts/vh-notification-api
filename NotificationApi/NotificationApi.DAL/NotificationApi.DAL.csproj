@@ -23,11 +23,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\NotificationApi.Common\NotificationApi.Common.csproj" />
     <ProjectReference Include="..\NotificationApi.Domain\NotificationApi.Domain.csproj" />
   </ItemGroup>

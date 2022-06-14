@@ -63,8 +63,17 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
-            var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
-            await _createNotificationService.CreateEmailNotificationAsync(notification, request.Parameters);            
+            var emailNotification = await _queryHandler.Handle<GetEmailNotificationQuery, EmailNotification>(
+                new GetEmailNotificationQuery(request.HearingId, request.ParticipantId,
+                    (NotificationType)request.NotificationType, request.ContactEmail));
+
+            if (emailNotification == null)
+            {
+                var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType,
+                    request.ContactEmail, request.ParticipantId, request.HearingId);
+                await _createNotificationService.CreateEmailNotificationAsync(notification, request.Parameters);
+            }
+
             return Ok();
         }
 
