@@ -29,10 +29,10 @@ namespace NotificationApi.IntegrationTests.Database.Queries
             const string email = "test@hmcts.net";
             var participantId = Guid.NewGuid();
             var hearingId = Guid.NewGuid();
-            var command = new CreateEmailNotificationCommand(notificationType, email, participantId, hearingId);
+            var command = new CreateEmailNotificationCommand(notificationType, email, participantId, hearingId, "scheduledDateTime:2022-06-19T16:16:38.024Z");
             await _commandHandler.Handle(command);
 
-            var query = new GetEmailNotificationQuery(hearingId, participantId, notificationType, email);
+            var query = new GetEmailNotificationQuery(hearingId, participantId, notificationType, email, "scheduledDateTime:2022-06-19T16:16:38.024Z");
             var result = await _handler.Handle(query);
             result.Should().NotBeNull();
         }

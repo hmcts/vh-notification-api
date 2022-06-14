@@ -22,7 +22,8 @@ namespace NotificationApi.Services
         private readonly IPollyRetryService _pollyRetryService;
         private readonly ILogger<CreateNotificationService> _logger;
 
-        public CreateNotificationService(ICommandHandler commandHandler, IAsyncNotificationClient asyncNotificationClient, IQueryHandler queryHandler, IPollyRetryService pollyRetryService, ILogger<CreateNotificationService> logger)
+        public CreateNotificationService(ICommandHandler commandHandler, IAsyncNotificationClient asyncNotificationClient, 
+            IQueryHandler queryHandler, IPollyRetryService pollyRetryService, ILogger<CreateNotificationService> logger)
         {
             _commandHandler = commandHandler;
             _asyncNotificationClient = asyncNotificationClient;
