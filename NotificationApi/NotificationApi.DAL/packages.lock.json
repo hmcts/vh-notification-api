@@ -4,12 +4,12 @@
     ".NETCoreApp,Version=v3.1": {
       "GovukNotify": {
         "type": "Direct",
-        "requested": "[4.0.0, )",
-        "resolved": "4.0.0",
-        "contentHash": "b53ojVaWEgy6jvEUWrUZKmPUWtHg/gKokPfmFMSWOBYoxGFls7CTsjIueFGiFX4JF2oCi+zjLzIo1odfxvOByA==",
+        "requested": "[6.0.0, )",
+        "resolved": "6.0.0",
+        "contentHash": "HCBh1BsDA4xEGV5pl4cBAJZncADRRk2yQ24MuoCPLGwBTv4fCrto7TX9NPFZhBjSrBbXou9ck/yetxuRbx7/nQ==",
         "dependencies": {
-          "JWT": "[7.0.0, 8.0.0)",
-          "Newtonsoft.Json": "10.0.3",
+          "JWT": "[7.1.0, 9.0.0)",
+          "Newtonsoft.Json": "[10.0.3, 14.0.0)",
           "System.Collections.Specialized": "4.3.0",
           "System.Reflection": "4.3.0",
           "System.Runtime.Extensions": "4.3.0"
