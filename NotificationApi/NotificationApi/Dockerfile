@@ -13,7 +13,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY NotificationApi .
-RUN dotnet restore --configfile nuget.config "NotificationApi/NotificationApi.csproj"
+RUN dotnet restore --configfile nuget.sds.config "NotificationApi/NotificationApi.csproj"
 
 WORKDIR "/src/NotificationApi"
 COPY --from=gitversion /version/AssemblyInfo.cs .
