@@ -75,7 +75,7 @@ variables:
     value: vh-infra-core-${{ parameters.env }}
 
   - name: efContextName
-    value: NotificationDbContext
+    value: NotificationsApiDbContext
   - name: efProjectName
     value: NotificationApi.csproj
   - name: vhKeyVault
