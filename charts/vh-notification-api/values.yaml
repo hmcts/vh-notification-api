@@ -16,7 +16,7 @@ java:
       resourceGroup: vh-infra-core-{{ .Values.global.environment }}
       usePodIdentity: true
       secrets:
-        - connectionstrings--vhnotification
+        - connectionstrings--vhnotificationsapi
         - applicationinsights--instrumentationkey
         - notifyconfiguration--apikey
         - notifyconfiguration--callbacksecret
