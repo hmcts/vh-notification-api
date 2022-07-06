@@ -16,9 +16,10 @@ java:
       resourceGroup: vh-infra-core-{{ .Values.global.environment }}
       usePodIdentity: true
       secrets:
-        - servicebusqueue--connectionstring
         - connectionstrings--vhnotification
         - applicationinsights--instrumentationkey
+        - notifyconfiguration--apikey
+        - notifyconfiguration--callbacksecret
     vh-notification-api:
       excludeEnvironmentSuffix: false
       resourceGroup: vh-infra-core-{{ .Values.global.environment }}
@@ -36,3 +37,4 @@ java:
     Logging__LogLevel__Default: debug
     Logging__LogLevel__System: debug
     Logging__LogLevel__Microsoft: debug
+    NotifyConfiguration__Environment: {{ .Values.global.environment }}
