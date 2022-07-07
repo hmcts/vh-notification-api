@@ -139,24 +139,6 @@ extends:
         - name: AzureAd:VhNotificationApiResourceId
           value: vh-notification-api-identifieruris
           secret: true
-        - name: Extra:vh-reporting-infra-upper:dbuserpasspreprod
-          value: dbuserpasspreprod
-          secret: true
-        - name: Extra:vh-reporting-infra-upper:dbuserpassprod
-          value: dbuserpassprod
-          secret: true
-        - name: Extra:vh-azure-devops-agent:storageAccount
-          value: storageAccount
-          secret: true
-        - name: Extra:vh-reporting-infra:dbuserpassdev
-          value: dbuserpassdev
-          secret: true
-        - name: Extra:vh-reporting-infra:dbuserpasstest1
-          value: dbuserpasstest1
-          secret: true
-        - name: Extra:vh-common:pipelinePAT
-          value: pipelinePAT
-          secret: true
 
         # GOV Notify Configuration
         - name: NotifyConfiguration:ApiKey
@@ -250,6 +232,20 @@ extends:
         - name: ConnectionStrings:VhNotificationsApi
           value: vhnotificationDatabaseConnectionString
           secret: true
+
+        # Extra
+        - name: Extra:vh-reporting-infra-upper:dbuserpasspreprod
+          value: dbuserpasspreprod
+        - name: Extra:vh-reporting-infra-upper:dbuserpassprod
+          value: dbuserpassprod
+        - name: Extra:vh-azure-devops-agent:storageAccount
+          value: storageAccount
+        - name: Extra:vh-reporting-infra:dbuserpassdev
+          value: dbuserpassdev
+        - name: Extra:vh-reporting-infra:dbuserpasstest1
+          value: dbuserpasstest1
+        - name: Extra:vh-common:pipelinePAT
+          value: pipelinePAT
 
       acceptanceTestSettings:
         # AzureAd
