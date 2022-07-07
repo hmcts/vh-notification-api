@@ -356,3 +356,17 @@ extends:
           value: $(NewHearingReminderJOH)
         - name: NotifyConfiguration:NewHearingReminderEJUD
           value: $(NewHearingReminderEJUD)
+
+        # Extra
+        - name: Extra:vh-reporting-infra-upper:dbuserpasspreprod
+          value: $(dbuserpasspreprod)
+        - name: Extra:vh-reporting-infra-upper:dbuserpassprod
+          value: $(dbuserpassprod)
+        - name: Extra:vh-azure-devops-agent:storageAccount
+          value: $(storageAccount)
+        - name: Extra:vh-reporting-infra:dbuserpassdev
+          value: $(dbuserpassdev)
+        - name: Extra:vh-reporting-infra:dbuserpasstest1
+          value: $(dbuserpasstest1)
+        - name: Extra:vh-common:pipelinePAT
+          value: $(pipelinePAT)
