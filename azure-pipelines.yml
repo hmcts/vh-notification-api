@@ -276,6 +276,10 @@ variables:
   - group: vh-apps-settings-generic
   - group: vh-preview
   - group: govuk-notify-preview
+  - group: vh-reporting-infra-upper
+  - group: vh-azure-devops-agent
+  - group: vh-reporting-infra
+  - group: vh-common
 
 trigger:
   branches:
