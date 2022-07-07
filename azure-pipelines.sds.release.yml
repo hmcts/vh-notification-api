@@ -88,7 +88,7 @@ stages:
       ${{ if eq(env, 'Prod') }}:
         condition: and(succeeded(), contains(variables['Build.SourceBranch'], 'refs/heads/release'))
       ${{ else }}:
-        condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
+        condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'VIH-8967')) # change me 
       dependsOn: Approve_Entity_Framework
       displayName: ${{ env }} EF Release
       variables:
@@ -144,11 +144,11 @@ stages:
 
 
 #####################################################
-# Approval Gate for Booking API Release. ############
+# Approval Gate for Notification API Release. #######
 
   - stage: Approve_Helm_Release
     displayName: 'Approve Helm Release'
-    ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+    ${{ if eq(variables['Build.SourceBranchName'], 'VIH-8967') }}:
       dependsOn:
         - Run_Entity_Framework_Dev
         - Run_Entity_Framework_Demo
@@ -205,7 +205,7 @@ stages:
               repositoryName:  ${{ variables.repositoryName }}
               imageName: "${{ variables.imageName }}"
               imageTags:
-                - ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+                - ${{ if eq(variables['Build.SourceBranchName'], 'VIH-8967') }}:
                   - '${{ variables.stagingTagName }}'
                 - ${{ if contains(variables['Build.SourceBranch'], 'refs/heads/release') }}:
                   - 'latest'
