@@ -234,17 +234,17 @@ extends:
           secret: true
 
         # Extra
-        - name: Extra:vh-reporting-infra-upper:dbuserpasspreprod
+        - name: Extra:VhReportingInfraUpper:DbUserPassPreprod
           value: $(dbuserpasspreprod)
-        - name: Extra:vh-reporting-infra-upper:dbuserpassprod
+        - name: Extra:VhReportingInfraUpper:DbUserPassProd
           value: $(dbuserpassprod)
-        - name: Extra:vh-azure-devops-agent:storageAccount
+        - name: Extra:VhAzureDevOpsAgent:StorageAccount
           value: $(storageAccount)
-        - name: Extra:vh-reporting-infra:dbuserpassdev
+        - name: Extra:VhReportingInfra:DbUserPassDev
           value: $(dbuserpassdev)
-        - name: Extra:vh-reporting-infra:dbuserpasstest1
+        - name: Extra:VhReportingInfra:DbUserPassTest1
           value: $(dbuserpasstest1)
-        - name: Extra:vh-common:pipelinePAT
+        - name: Extra:VhCommon:PipelinePAT
           value: $(pipelinePAT)
 
       acceptanceTestSettings:
@@ -358,15 +358,15 @@ extends:
           value: $(NewHearingReminderEJUD)
 
         # Extra
-        - name: Extra:vh-reporting-infra-upper:dbuserpasspreprod
+        - name: Extra:VhReportingInfraUpper:DbUserPassPreprod
           value: $(dbuserpasspreprod)
-        - name: Extra:vh-reporting-infra-upper:dbuserpassprod
+        - name: Extra:VhReportingInfraUpper:DbUserPassProd
           value: $(dbuserpassprod)
-        - name: Extra:vh-azure-devops-agent:storageAccount
+        - name: Extra:VhAzureDevOpsAgent:StorageAccount
           value: $(storageAccount)
-        - name: Extra:vh-reporting-infra:dbuserpassdev
+        - name: Extra:VhReportingInfra:DbUserPassDev
           value: $(dbuserpassdev)
-        - name: Extra:vh-reporting-infra:dbuserpasstest1
+        - name: Extra:VhReportingInfra:DbUserPassTest1
           value: $(dbuserpasstest1)
-        - name: Extra:vh-common:pipelinePAT
+        - name: Extra:VhCommon:PipelinePAT
           value: $(pipelinePAT)
