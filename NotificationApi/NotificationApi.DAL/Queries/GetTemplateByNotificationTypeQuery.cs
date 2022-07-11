@@ -25,8 +25,8 @@ namespace NotificationApi.DAL.Queries
             _notificationsApiDbContext = notificationsApiDbContext;
         }
 
-        public Task<Template> Handle(GetTemplateByNotificationTypeQuery query) =>
-            _notificationsApiDbContext.Templates.SingleOrDefaultAsync(t =>
+        public async Task<Template> Handle(GetTemplateByNotificationTypeQuery query) =>
+            await _notificationsApiDbContext.Templates.SingleOrDefaultAsync(t =>
                 t.NotificationType == query.NotificationType);
     }
 }

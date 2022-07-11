@@ -28,8 +28,8 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             var notificationType = NotificationType.CreateIndividual;
             const string email = "test@hmcts.net";
             var participantId = Guid.NewGuid();
-            var hearingId = Guid.NewGuid();            
-            var command = new CreateEmailNotificationCommand(notificationType, email, participantId, hearingId);
+            var hearingId = Guid.NewGuid();     
+            var command = new CreateEmailNotificationCommand(notificationType, email, participantId, hearingId, string.Empty);
             
             // Act
             await _handler.Handle(command);

@@ -35,7 +35,8 @@ namespace NotificationApi.UnitTests.Services
             };
             
             _template = new Template(Guid.NewGuid(), NotificationType.JudgeDemoOrTest, MessageType.Email, "param1, param2");
-            _createEmailNotificationCommand = new CreateEmailNotificationCommand(NotificationType.JudgeDemoOrTest, "testemail@gmail.com", Guid.NewGuid(), Guid.NewGuid());
+            _createEmailNotificationCommand = new CreateEmailNotificationCommand(NotificationType.JudgeDemoOrTest, 
+                "testemail@gmail.com", Guid.NewGuid(), Guid.NewGuid(), String.Empty);
             _parameters = new Dictionary<string, dynamic>
             {
                 { "Test param1Key", "Test param1Value" }

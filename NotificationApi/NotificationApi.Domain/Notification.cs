@@ -12,7 +12,7 @@ namespace NotificationApi.Domain
         public Guid? ParticipantRefId { get; }
         public Guid? HearingRefId { get; }
         public string ExternalId { get; private set; }
-
+        public string Parameters { get; set; }
         protected Notification(Guid id)
         {
             Id = id;
