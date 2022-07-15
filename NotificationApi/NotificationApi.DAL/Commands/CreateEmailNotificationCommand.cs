@@ -9,13 +9,14 @@ namespace NotificationApi.DAL.Commands
     public class CreateEmailNotificationCommand : ICommand
     {
         public CreateEmailNotificationCommand(NotificationType notificationType, string contactEmail,
-            Guid? participantId, Guid? hearingId)
+            Guid? participantId, Guid? hearingId, string parameters)
         {
             NotificationId = Guid.NewGuid();
             NotificationType = notificationType;
             ContactEmail = contactEmail;
             ParticipantId = participantId;
             HearingId = hearingId;
+            Parameters = parameters;
         }
 
         public Guid NotificationId { get; set; }
@@ -23,6 +24,7 @@ namespace NotificationApi.DAL.Commands
         public string ContactEmail { get; set; }
         public Guid? ParticipantId { get; set; }
         public Guid? HearingId { get; set; }
+        public string Parameters { get; set; }
     }
 
     public class CreateEmailNotificationCommandHandler : ICommandHandler<CreateEmailNotificationCommand>
@@ -38,6 +40,7 @@ namespace NotificationApi.DAL.Commands
         {
             var notification = new EmailNotification(command.NotificationId, command.NotificationType,
                 command.ContactEmail, command.ParticipantId, command.HearingId);
+            notification.Parameters = command.Parameters;
             _notificationsApiDbContext.Notifications.Add(notification);
             await _notificationsApiDbContext.SaveChangesAsync();
         }

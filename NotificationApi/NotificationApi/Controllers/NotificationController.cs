@@ -2,6 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NotificationApi.Common;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Contract.Responses;
@@ -63,8 +64,18 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
-            var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType, request.ContactEmail, request.ParticipantId, request.HearingId);
-            await _createNotificationService.CreateEmailNotificationAsync(notification, request.Parameters);            
+            var parameters = JsonConvert.SerializeObject(request.Parameters);
+            var emailNotification = await _queryHandler.Handle<GetEmailNotificationQuery, EmailNotification>(
+                new GetEmailNotificationQuery(request.HearingId, request.ParticipantId,
+                    (NotificationType)request.NotificationType, request.ContactEmail, parameters));
+
+            if (emailNotification == null)
+            {
+                var notification = new CreateEmailNotificationCommand((NotificationType)request.NotificationType,
+                    request.ContactEmail, request.ParticipantId, request.HearingId, parameters);
+                await _createNotificationService.CreateEmailNotificationAsync(notification, request.Parameters);
+            }
+
             return Ok();
         }
 
