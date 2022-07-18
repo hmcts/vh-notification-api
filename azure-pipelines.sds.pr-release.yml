@@ -20,7 +20,7 @@ variables:
     value: 'NotificationApi'
   - group: vh-notification-api
   - name: run_acceptance_tests
-    value: true
+    value: false
 
 stages:
 #####################################################
@@ -257,114 +257,114 @@ stages:
               environment: ${{ variables.env }}
               azureSubscription: ${{ variables.subscriptionName }}
               acceptanceTestSettings:
-              - name: Services:NotificationApiUrl
+              - name: Services__NotificationApiUrl
                 value: "https://vh-notification-api.dev.platform.hmcts.net"
-              - name: ApplicationInsights:InstrumentationKey
+              - name: ApplicationInsights__InstrumentationKey
                 value: applicationinsights--instrumentationkey
                 keyVaultName: vh-infra-core-${{ variables.env }}
                 secret: true
-              - name: AzureAd:ClientId
+              - name: AzureAd__ClientId
                 value: azuread--clientid
                 keyVaultName: vh-notification-api-${{ variables.env }}
                 secret: true
-              - name: AzureAd:ClientSecret
+              - name: AzureAd__ClientSecret
                 value: azuread--clientsecret
                 keyVaultName: vh-notification-api-${{ variables.env }}
                 secret: true
-              - name: AzureAd:TenantId
+              - name: AzureAd__TenantId
                 value: azuread--tenantid
                 keyVaultName: vh-infra-core-${{ variables.env }}
                 secret: true
-              - name: Services:NotificationApiResourceId
+              - name: Services__NotificationApiResourceId
                 value: azuread--identifieruri
                 keyVaultName: vh-notification-api-${{ variables.env }}
                 secret: true
               # GOV Notify Configuration
-              - name: NotifyConfiguration:ApiKey
+              - name: NotifyConfiguration__ApiKey
                 value: $(notify-api-key)
-              - name: NotifyConfiguration:CallbackSecret
+              - name: NotifyConfiguration__CallbackSecret
                 value: $(notify-callback-secret)
-              - name: NotifyConfiguration:Environment
+              - name: NotifyConfiguration__Environment
                 value: $(notify-environment)      
-              - name: NotifyConfiguration:CreateIndividual
+              - name: NotifyConfiguration__CreateIndividual
                 value: $(CreateIndividual)
-              - name: NotifyConfiguration:CreateRepresentative
+              - name: NotifyConfiguration__CreateRepresentative
                 value: $(CreateRepresentative)
-              - name: NotifyConfiguration:PasswordReset
+              - name: NotifyConfiguration__PasswordReset
                 value: $(PasswordReset)
-              - name: NotifyConfiguration:HearingConfirmationLip
+              - name: NotifyConfiguration__HearingConfirmationLip
                 value: $(HearingConfirmationLip)
-              - name: NotifyConfiguration:HearingConfirmationRepresentative
+              - name: NotifyConfiguration__HearingConfirmationRepresentative
                 value: $(HearingConfirmationRepresentative)
-              - name: NotifyConfiguration:HearingConfirmationJudge
+              - name: NotifyConfiguration__HearingConfirmationJudge
                 value: $(HearingConfirmationJudge)
-              - name: NotifyConfiguration:HearingConfirmationJoh
+              - name: NotifyConfiguration__HearingConfirmationJoh
                 value: $(HearingConfirmationJoh)
-              - name: NotifyConfiguration:HearingConfirmationLipMultiDay
+              - name: NotifyConfiguration__HearingConfirmationLipMultiDay
                 value: $(HearingConfirmationLipMultiDay)
-              - name: NotifyConfiguration:HearingConfirmationRepresentativeMultiDay
+              - name: NotifyConfiguration__HearingConfirmationRepresentativeMultiDay
                 value: $(HearingConfirmationRepresentativeMultiDay)
-              - name: NotifyConfiguration:HearingConfirmationJudgeMultiDay
+              - name: NotifyConfiguration__HearingConfirmationJudgeMultiDay
                 value: $(HearingConfirmationJudgeMultiDay)
-              - name: NotifyConfiguration:HearingConfirmationJohMultiDay
+              - name: NotifyConfiguration__HearingConfirmationJohMultiDay
                 value: $(HearingConfirmationJohMultiDay)
-              - name: NotifyConfiguration:HearingAmendmentLip
+              - name: NotifyConfiguration__HearingAmendmentLip
                 value: $(HearingAmendmentLip)
-              - name: NotifyConfiguration:HearingAmendmentRepresentative
+              - name: NotifyConfiguration__HearingAmendmentRepresentative
                 value: $(HearingAmendmentRepresentative)
-              - name: NotifyConfiguration:HearingAmendmentJudge
+              - name: NotifyConfiguration__HearingAmendmentJudge
                 value: $(HearingAmendmentJudge)
-              - name: NotifyConfiguration:HearingAmendmentJoh
+              - name: NotifyConfiguration__HearingAmendmentJoh
                 value: $(HearingAmendmentJoh)
-              - name: NotifyConfiguration:HearingReminderLip
+              - name: NotifyConfiguration__HearingReminderLip
                 value: $(HearingReminderLip)
-              - name: NotifyConfiguration:HearingReminderRepresentative
+              - name: NotifyConfiguration__HearingReminderRepresentative
                 value: $(HearingReminderRepresentative)
-              - name: NotifyConfiguration:HearingReminderJoh
+              - name: NotifyConfiguration__HearingReminderJoh
                 value: $(HearingReminderJoh)
-              - name: NotifyConfiguration:HearingConfirmationEJudJudge
+              - name: NotifyConfiguration__HearingConfirmationEJudJudge
                 value: $(HearingConfirmationEJudJudge)
-              - name: NotifyConfiguration:HearingConfirmationEJudJudgeMultiDay
+              - name: NotifyConfiguration__HearingConfirmationEJudJudgeMultiDay
                 value: $(HearingConfirmationEJudJudgeMultiDay)
-              - name: NotifyConfiguration:HearingAmendmentEJudJudge
+              - name: NotifyConfiguration__HearingAmendmentEJudJudge
                 value: $(HearingAmendmentEJudJudge)
-              - name: NotifyConfiguration:HearingAmendmentEJudJoh
+              - name: NotifyConfiguration__HearingAmendmentEJudJoh
                 value: $(HearingAmendmentEJudJoh)
-              - name: NotifyConfiguration:HearingReminderEJudJoh
+              - name: NotifyConfiguration__HearingReminderEJudJoh
                 value: $(HearingReminderEJudJoh)
-              - name: NotifyConfiguration:HearingConfirmationEJudJoh
+              - name: NotifyConfiguration__HearingConfirmationEJudJoh
                 value: $(HearingConfirmationEJudJoh)
-              - name: NotifyConfiguration:HearingConfirmationEJudJohMultiDay
+              - name: NotifyConfiguration__HearingConfirmationEJudJohMultiDay
                 value: $(HearingConfirmationEJudJohMultiDay)
-              - name: NotifyConfiguration:EJudJohDemoOrTest
+              - name: NotifyConfiguration__EJudJohDemoOrTest
                 value: $(EJudJohDemoOrTest)
-              - name: NotifyConfiguration:EJudJudgeDemoOrTest
+              - name: NotifyConfiguration__EJudJudgeDemoOrTest
                 value: $(EJudJudgeDemoOrTest)
-              - name: NotifyConfiguration:JudgeDemoOrTest
+              - name: NotifyConfiguration__JudgeDemoOrTest
                 value: $(JudgeDemoOrTest)
-              - name: NotifyConfiguration:ParticipantDemoOrTest
+              - name: NotifyConfiguration__ParticipantDemoOrTest
                 value: $(ParticipantDemoOrTest)
-              - name: NotifyConfiguration:TelephoneHearingConfirmation
+              - name: NotifyConfiguration__TelephoneHearingConfirmation
                 value: $(TelephoneHearingConfirmation)
-              - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
+              - name: NotifyConfiguration__TelephoneHearingConfirmationMultiDay
                 value: $(TelephoneHearingConfirmationMultiDay)
-              - name: NotifyConfiguration:CreateStaffMember
+              - name: NotifyConfiguration__CreateStaffMember
                 value: $(CreateStaffMember)
-              - name: NotifyConfiguration:HearingAmendmentStaffMember
+              - name: NotifyConfiguration__HearingAmendmentStaffMember
                 value: $(HearingAmendmentStaffMember)
-              - name: NotifyConfiguration:HearingConfirmationStaffMember
+              - name: NotifyConfiguration__HearingConfirmationStaffMember
                 value: $(HearingConfirmationStaffMember)
-              - name: NotifyConfiguration:HearingConfirmationStaffMemberMultiDay
+              - name: NotifyConfiguration__HearingConfirmationStaffMemberMultiDay
                 value: $(HearingConfirmationStaffMemberMultiDay)
-              - name: NotifyConfiguration:StaffMemberDemoOrTest
+              - name: NotifyConfiguration__StaffMemberDemoOrTest
                 value: $(StaffMemberDemoOrTest)
-              - name: NotifyConfiguration:NewHearingReminderLIP
+              - name: NotifyConfiguration__NewHearingReminderLIP
                 value: $(NewHearingReminderLIP)
-              - name: NotifyConfiguration:NewHearingReminderRepresentative
+              - name: NotifyConfiguration__NewHearingReminderRepresentative
                 value: $(NewHearingReminderRepresentative)
-              - name: NotifyConfiguration:NewHearingReminderJOH
+              - name: NotifyConfiguration__NewHearingReminderJOH
                 value: $(NewHearingReminderJOH)
-              - name: NotifyConfiguration:NewHearingReminderEJUD
+              - name: NotifyConfiguration__NewHearingReminderEJUD
                 value: $(NewHearingReminderEJUD)
                 
 #####################################################
