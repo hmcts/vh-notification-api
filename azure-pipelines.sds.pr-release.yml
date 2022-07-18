@@ -156,6 +156,8 @@ stages:
             parameters:
               coreProjectPath: $(projectPath)
               nugetProjectPath: $(projectPath)
+              nugetConfigPath: NotificationApi
+              useNugetConfig: true
           
 #####################################################
 # Run Entity Framework Dev. #########################
@@ -257,7 +259,6 @@ stages:
               acceptanceTestSettings:
               - name: Services:NotificationApiUrl
                 value: "https://vh-notification-api.dev.platform.hmcts.net"
-
               - name: ApplicationInsights:InstrumentationKey
                 value: applicationinsights--instrumentationkey
                 keyVaultName: vh-infra-core-${{ variables.env }}
@@ -278,7 +279,6 @@ stages:
                 value: azuread--identifieruri
                 keyVaultName: vh-notification-api-${{ variables.env }}
                 secret: true
-              
               # GOV Notify Configuration
               - name: NotifyConfiguration:ApiKey
                 value: $(notify-api-key)
