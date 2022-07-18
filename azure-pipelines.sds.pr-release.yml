@@ -15,11 +15,12 @@ pr:
 
 variables:
   - group: vh-github-app-credentials
+  - group: govuk-notify-dev
   - name: app_path
     value: 'NotificationApi'
   - group: vh-notification-api
   - name: run_acceptance_tests
-    value: false
+    value: true
 
 stages:
 #####################################################
@@ -254,32 +255,117 @@ stages:
               environment: ${{ variables.env }}
               azureSubscription: ${{ variables.subscriptionName }}
               acceptanceTestSettings:
-                - name: Services:NotificationApiUrl
-                  value: "https://vh-notification-api.dev.platform.hmcts.net"
-                - name: ApplicationInsights:InstrumentationKey
-                  value: applicationinsights--instrumentationkey
-                  keyVaultName: vh-infra-core-${{ variables.env }}
-                  secret: true
-                - name: AzureAd:ClientId
-                  value: azuread--clientid
-                  keyVaultName: vh-notification-api-${{ variables.env }}
-                  secret: true
-                - name: AzureAd:ClientSecret
-                  value: azuread--clientsecret
-                  keyVaultName: vh-notification-api-${{ variables.env }}
-                  secret: true
-                - name: Testing:UsernameStem
-                  value: $(notificationApiUsernameStem)
-                - name: UseServiceBusFake
-                  value: true
-                - name: AzureAd:TenantId
-                  value: azuread--tenantid
-                  keyVaultName: vh-infra-core-${{ variables.env }}
-                  secret: true
-                - name: Services:NotificationApiResourceId
-                  value: azuread--identifieruri
-                  keyVaultName: vh-notification-api-${{ variables.env }}
-                  secret: true
+              - name: Services:NotificationApiUrl
+                value: "https://vh-notification-api.dev.platform.hmcts.net"
+
+              - name: ApplicationInsights:InstrumentationKey
+                value: applicationinsights--instrumentationkey
+                keyVaultName: vh-infra-core-${{ variables.env }}
+                secret: true
+              - name: AzureAd:ClientId
+                value: azuread--clientid
+                keyVaultName: vh-notification-api-${{ variables.env }}
+                secret: true
+              - name: AzureAd:ClientSecret
+                value: azuread--clientsecret
+                keyVaultName: vh-notification-api-${{ variables.env }}
+                secret: true
+              - name: AzureAd:TenantId
+                value: azuread--tenantid
+                keyVaultName: vh-infra-core-${{ variables.env }}
+                secret: true
+              - name: Services:NotificationApiResourceId
+                value: azuread--identifieruri
+                keyVaultName: vh-notification-api-${{ variables.env }}
+                secret: true
+              
+              # GOV Notify Configuration
+              - name: NotifyConfiguration:ApiKey
+                value: $(notify-api-key)
+              - name: NotifyConfiguration:CallbackSecret
+                value: $(notify-callback-secret)
+              - name: NotifyConfiguration:Environment
+                value: $(notify-environment)      
+              - name: NotifyConfiguration:CreateIndividual
+                value: $(CreateIndividual)
+              - name: NotifyConfiguration:CreateRepresentative
+                value: $(CreateRepresentative)
+              - name: NotifyConfiguration:PasswordReset
+                value: $(PasswordReset)
+              - name: NotifyConfiguration:HearingConfirmationLip
+                value: $(HearingConfirmationLip)
+              - name: NotifyConfiguration:HearingConfirmationRepresentative
+                value: $(HearingConfirmationRepresentative)
+              - name: NotifyConfiguration:HearingConfirmationJudge
+                value: $(HearingConfirmationJudge)
+              - name: NotifyConfiguration:HearingConfirmationJoh
+                value: $(HearingConfirmationJoh)
+              - name: NotifyConfiguration:HearingConfirmationLipMultiDay
+                value: $(HearingConfirmationLipMultiDay)
+              - name: NotifyConfiguration:HearingConfirmationRepresentativeMultiDay
+                value: $(HearingConfirmationRepresentativeMultiDay)
+              - name: NotifyConfiguration:HearingConfirmationJudgeMultiDay
+                value: $(HearingConfirmationJudgeMultiDay)
+              - name: NotifyConfiguration:HearingConfirmationJohMultiDay
+                value: $(HearingConfirmationJohMultiDay)
+              - name: NotifyConfiguration:HearingAmendmentLip
+                value: $(HearingAmendmentLip)
+              - name: NotifyConfiguration:HearingAmendmentRepresentative
+                value: $(HearingAmendmentRepresentative)
+              - name: NotifyConfiguration:HearingAmendmentJudge
+                value: $(HearingAmendmentJudge)
+              - name: NotifyConfiguration:HearingAmendmentJoh
+                value: $(HearingAmendmentJoh)
+              - name: NotifyConfiguration:HearingReminderLip
+                value: $(HearingReminderLip)
+              - name: NotifyConfiguration:HearingReminderRepresentative
+                value: $(HearingReminderRepresentative)
+              - name: NotifyConfiguration:HearingReminderJoh
+                value: $(HearingReminderJoh)
+              - name: NotifyConfiguration:HearingConfirmationEJudJudge
+                value: $(HearingConfirmationEJudJudge)
+              - name: NotifyConfiguration:HearingConfirmationEJudJudgeMultiDay
+                value: $(HearingConfirmationEJudJudgeMultiDay)
+              - name: NotifyConfiguration:HearingAmendmentEJudJudge
+                value: $(HearingAmendmentEJudJudge)
+              - name: NotifyConfiguration:HearingAmendmentEJudJoh
+                value: $(HearingAmendmentEJudJoh)
+              - name: NotifyConfiguration:HearingReminderEJudJoh
+                value: $(HearingReminderEJudJoh)
+              - name: NotifyConfiguration:HearingConfirmationEJudJoh
+                value: $(HearingConfirmationEJudJoh)
+              - name: NotifyConfiguration:HearingConfirmationEJudJohMultiDay
+                value: $(HearingConfirmationEJudJohMultiDay)
+              - name: NotifyConfiguration:EJudJohDemoOrTest
+                value: $(EJudJohDemoOrTest)
+              - name: NotifyConfiguration:EJudJudgeDemoOrTest
+                value: $(EJudJudgeDemoOrTest)
+              - name: NotifyConfiguration:JudgeDemoOrTest
+                value: $(JudgeDemoOrTest)
+              - name: NotifyConfiguration:ParticipantDemoOrTest
+                value: $(ParticipantDemoOrTest)
+              - name: NotifyConfiguration:TelephoneHearingConfirmation
+                value: $(TelephoneHearingConfirmation)
+              - name: NotifyConfiguration:TelephoneHearingConfirmationMultiDay
+                value: $(TelephoneHearingConfirmationMultiDay)
+              - name: NotifyConfiguration:CreateStaffMember
+                value: $(CreateStaffMember)
+              - name: NotifyConfiguration:HearingAmendmentStaffMember
+                value: $(HearingAmendmentStaffMember)
+              - name: NotifyConfiguration:HearingConfirmationStaffMember
+                value: $(HearingConfirmationStaffMember)
+              - name: NotifyConfiguration:HearingConfirmationStaffMemberMultiDay
+                value: $(HearingConfirmationStaffMemberMultiDay)
+              - name: NotifyConfiguration:StaffMemberDemoOrTest
+                value: $(StaffMemberDemoOrTest)
+              - name: NotifyConfiguration:NewHearingReminderLIP
+                value: $(NewHearingReminderLIP)
+              - name: NotifyConfiguration:NewHearingReminderRepresentative
+                value: $(NewHearingReminderRepresentative)
+              - name: NotifyConfiguration:NewHearingReminderJOH
+                value: $(NewHearingReminderJOH)
+              - name: NotifyConfiguration:NewHearingReminderEJUD
+                value: $(NewHearingReminderEJUD)
                 
 #####################################################
 # Deploy Nuget Packages. #########################
