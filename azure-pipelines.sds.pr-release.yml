@@ -257,8 +257,16 @@ stages:
               environment: ${{ variables.env }}
               azureSubscription: ${{ variables.subscriptionName }}
               acceptanceTestSettings:
+              - name: ConnectionStrings:VhNotificationsApi
+                value: connectionstrings--vhnotificationsapi
+                keyVaultName: vh-infra-core-${{ variables.env }}
+                secret: true
               - name: Services:NotificationApiUrl
                 value: "https://vh-notification-api.dev.platform.hmcts.net"
+              - name: Services:VhNotificationApiResourceId
+                value: azuread--identifieruri
+                keyVaultName: vh-notification-api-${{ variables.env }}
+                secret: true
               - name: ApplicationInsights:InstrumentationKey
                 value: applicationinsights--instrumentationkey
                 keyVaultName: vh-infra-core-${{ variables.env }}
@@ -274,10 +282,6 @@ stages:
               - name: AzureAd:TenantId
                 value: azuread--tenantid
                 keyVaultName: vh-infra-core-${{ variables.env }}
-                secret: true
-              - name: Services:NotificationApiResourceId
-                value: azuread--identifieruri
-                keyVaultName: vh-notification-api-${{ variables.env }}
                 secret: true
               # GOV Notify Configuration
               - name: NotifyConfiguration:ApiKey
