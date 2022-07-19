@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -65,9 +67,10 @@ namespace NotificationApi.Controllers
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
             var parameters = JsonConvert.SerializeObject(request.Parameters);
-            var emailNotification = await _queryHandler.Handle<GetEmailNotificationQuery, EmailNotification>(
+            var emailNotifications = await _queryHandler.Handle<GetEmailNotificationQuery, IList<EmailNotification>>(
                 new GetEmailNotificationQuery(request.HearingId, request.ParticipantId,
-                    (NotificationType)request.NotificationType, request.ContactEmail, parameters));
+                    (NotificationType)request.NotificationType, request.ContactEmail));
+            var emailNotification = emailNotifications.SingleOrDefault(x => x.Parameters == parameters);
 
             if (emailNotification == null)
             {

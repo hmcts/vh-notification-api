@@ -15,20 +15,18 @@ namespace NotificationApi.DAL.Queries
         public Guid? HearingRefId { get; }
         public Guid? ParticipantRefId { get; }
         public string ToEmail { get; }
-        public string Parameters { get; set; }
 
         public GetEmailNotificationQuery(Guid? hearingRefId, Guid? participantRefId, 
-            NotificationType notificationType, string toEmail, string parameters)
+            NotificationType notificationType, string toEmail)
         {
             HearingRefId = hearingRefId;
             ParticipantRefId = participantRefId;
             NotificationType = notificationType;
             ToEmail = toEmail;
-            Parameters = parameters;
         }
     }
 
-    public class GetEmailNotificationQueryHandler : IQueryHandler<GetEmailNotificationQuery, EmailNotification>
+    public class GetEmailNotificationQueryHandler : IQueryHandler<GetEmailNotificationQuery, IList<EmailNotification>>
     {
         private readonly NotificationsApiDbContext _notificationsApiDbContext;
 
@@ -37,12 +35,11 @@ namespace NotificationApi.DAL.Queries
             _notificationsApiDbContext = notificationsApiDbContext;
         }
 
-        public async Task<EmailNotification> Handle(GetEmailNotificationQuery query) =>
-            await _notificationsApiDbContext.Notifications.OfType<EmailNotification>().SingleOrDefaultAsync(t =>
+        public async Task<IList<EmailNotification>> Handle(GetEmailNotificationQuery query) =>
+            await _notificationsApiDbContext.Notifications.OfType<EmailNotification>().Where(t =>
                 t.NotificationType == query.NotificationType &&
                 t.HearingRefId == query.HearingRefId &&
                 t.ParticipantRefId == query.ParticipantRefId &&
-                t.ToEmail.ToLower().Trim() == query.ToEmail.ToLower().Trim() &&
-                t.Parameters == query.Parameters);
+                t.ToEmail.ToLower().Trim() == query.ToEmail.ToLower().Trim() && t.Parameters != null).ToListAsync();
     }
 }
