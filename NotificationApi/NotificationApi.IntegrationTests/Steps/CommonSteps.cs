@@ -5,18 +5,6 @@ using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using NotificationApi.DAL.Queries;
-using Newtonsoft.Json;
-using NotificationApi.DAL;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
-using NotificationApi.Contract.Requests;
-using NotificationApi.Domain.Enums;
-using Newtonsoft.Json.Serialization;
-using NotificationApi.DAL.Queries.Core;
-using System.Collections.Generic;
-using NotificationApi.Domain;
 
 namespace NotificationApi.IntegrationTests.Steps
 {
@@ -31,7 +19,6 @@ namespace NotificationApi.IntegrationTests.Steps
         }
         
         [When(@"I send the request")]
-        [Then(@"I send the request")]
         public async Task WhenISendTheRequestToTheEndpoint()
         {
             _context.Response = _context.HttpMethod.Method switch
@@ -68,17 +55,6 @@ namespace NotificationApi.IntegrationTests.Steps
             var notification = await _context.TestDataManager.SeedSendingNotification();
             _context.TestRun.NotificationsCreated.Add(notification);
             TestContext.WriteLine($"New seeded conference id: {notification.Id}");
-        }
-
-        [Then(@"there should only be one notification")]
-        public async Task ThenThereShouldOnlyBeOneNotification()
-        {
-            var request = JsonConvert.DeserializeObject<AddNotificationRequest>(_context.HttpContent.ReadAsStringAsync().Result, 
-                new JsonSerializerSettings { ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() } });
-
-            var notifications = await _context.TestDataManager.GetNotifications(request.HearingId.Value, request.ParticipantId.Value,
-                (NotificationType)request.NotificationType, request.ContactEmail);
-            notifications.Count.Should().Be(1);
         }
     }
 }

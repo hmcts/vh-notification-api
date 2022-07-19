@@ -60,8 +60,6 @@ namespace NotificationApi.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NotificationType", "HearingRefId", "ParticipantRefId");
-
                     b.ToTable("Notification");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Notification");
