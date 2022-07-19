@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.DAL;
+using NotificationApi.DAL.Queries;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 
@@ -59,6 +60,14 @@ namespace NotificationApi.IntegrationTests.Helper
 
             db.RemoveRange(notifications);
             await db.SaveChangesAsync();
+        }
+
+        public async Task<IList<EmailNotification>> GetNotifications(Guid hearingId, Guid participantId, NotificationType notificationType, string contactEmail)
+        {
+            var query = new GetEmailNotificationQuery(hearingId, participantId, notificationType, contactEmail);
+            await using var db = new NotificationsApiDbContext(_dbContextOptions);
+            var handler = new GetEmailNotificationQueryHandler(db);
+            return await handler.Handle(query);
         }
     }
 }
