@@ -17,3 +17,11 @@ Scenario: Creating a password reset email notification
   Given I have a valid password reset email notification request
   When I send the request
   Then the response should have the status OK and success status True
+
+Scenario: Sending the same new user email notification twice to test idempotent
+  Given I have a valid new user email notification request 
+  When I send the request
+  Then the response should have the status OK and success status True
+  Then I send the request
+  Then the response should have the status OK and success status True
+  Then there should only be one notification
