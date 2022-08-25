@@ -9,7 +9,7 @@
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
     <UserSecretsId>fa265f5a-ee84-47a8-836c-4789584918e4</UserSecretsId>
   </PropertyGroup>
-
+    <PropertyGroup><ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles></PropertyGroup>
   <ItemGroup>      
     <PackageReference Include="FluentAssertions" Version="5.10.3" />      
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
