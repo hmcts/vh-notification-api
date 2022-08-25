@@ -304,7 +304,7 @@ extends:
     coreProjectName: NotificationApi.csproj
     databaseContextName: NotificationsApiDbContext
     connectionStringSecretName: "vhnotificationDatabaseConnectionString"
-    dotnetCoreVersion: '6.x'
+    netVersion: '6.x'
     testParameters:
       baseAgent: windows-latest
       coreProjectPath: NotificationApi/NotificationApi
