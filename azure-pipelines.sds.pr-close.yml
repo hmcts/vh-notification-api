@@ -5,7 +5,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: dotnet6-test-branch-sds
+      ref: master
       endpoint: hmcts
 
 pr: none

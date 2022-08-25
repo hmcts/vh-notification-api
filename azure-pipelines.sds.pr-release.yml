@@ -5,7 +5,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: dotnet6-test-branch-sds
+      ref: master
       endpoint: hmcts
       
 trigger: none
@@ -59,6 +59,7 @@ stages:
               #vstsFeedId: 'Video Hearings/vh-packages'
               nugetConfigPath: ${{ variables.app_path }} # Temp - Change To SDS Feed When Possible.
               unitTestProjectPath: "${{ variables.app_path }}/${{ variables.app_path }}.UnitTests"
+              dotnetCoreVersion: "6.x"
               coverletCoverageExclusions:
                 - "[NotificationApi.*Tests?]*"
                 - "[NotificationApi]Startup"
