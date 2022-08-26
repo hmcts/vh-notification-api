@@ -14,6 +14,7 @@ using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
 using Testing.Common.Security;
+using ConfigurationManager = AcceptanceTests.Common.Configuration.ConfigurationManager;
 
 namespace NotificationApi.AcceptanceTests.Hooks
 {
