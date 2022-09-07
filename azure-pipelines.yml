@@ -261,7 +261,7 @@ variables:
   - group: vh-domains-and-urls
   - group: vh-apps-settings-generic
   - group: vh-preview
-  - group: govuk-notify-preview
+  - group: govuk-notify-dev
 
 trigger:
   branches:

@@ -94,24 +94,14 @@ extends:
         appName: vh-notification-api-$(environment)
         resourceGroup: vh-notification-api-$(environment)
         variables:
-          - group: govuk-notify-preview
-            env:
-             - Preview
           - group: govuk-notify-dev
             env:
              - Dev
-          - group: govuk-notify-aat
-            env:
+             - Preview
              - AAT
-          - group: govuk-notify-sandbox
-            env:
              - Sandbox
-          - group: govuk-notify-test1
-            env:
              - Test1
              - Test2
-          - group: govuk-notify-demo
-            env:
              - Demo
           - group: govuk-notify-preprod
             env:
