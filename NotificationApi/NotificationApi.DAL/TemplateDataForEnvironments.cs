@@ -1749,18 +1749,14 @@ namespace NotificationApi
                     return _sourceTemplatesPreProd;
                 case "Prod":
                     return _sourceTemplatesProd;
-
-                    
-                case "dev":
-                    return _sourceTemplatesDev;
-                case "demo":
-                    return _sourceTemplatesTest1;
-                case "test":
-                    return _sourceTemplatesDemo;
-                case "ithc":
-                    return _sourceTemplatesAAT;
+                //SDS Environments
                 case "stg":
-                    return _sourceTemplatesPreProd;
+                case "ithc":
+                case "test": 
+                case "demo":     
+                case "dev":
+                case "lower":
+                    return _sourceTemplatesDev;
                 case "prod":
                     return _sourceTemplatesProd;
 
