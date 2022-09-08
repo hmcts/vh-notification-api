@@ -2,9 +2,11 @@ using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NotificationApi
 {
+    [ExcludeFromCodeCoverage]
     public class TemplateDataForEnvironments
     {
         private readonly IList<Template> _sourceTemplatesDev = new List<Template>()
