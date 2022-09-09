@@ -2,9 +2,11 @@ using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NotificationApi
 {
+    [ExcludeFromCodeCoverage]
     public class TemplateDataForEnvironments
     {
         private readonly IList<Template> _sourceTemplatesDev = new List<Template>()
@@ -1749,18 +1751,14 @@ namespace NotificationApi
                     return _sourceTemplatesPreProd;
                 case "Prod":
                     return _sourceTemplatesProd;
-
-                    
-                case "dev":
-                    return _sourceTemplatesDev;
-                case "demo":
-                    return _sourceTemplatesTest1;
-                case "test":
-                    return _sourceTemplatesDemo;
-                case "ithc":
-                    return _sourceTemplatesAAT;
+                //SDS Environments
                 case "stg":
-                    return _sourceTemplatesPreProd;
+                case "ithc":
+                case "test": 
+                case "demo":     
+                case "dev":
+                case "lower":
+                    return _sourceTemplatesDev;
                 case "prod":
                     return _sourceTemplatesProd;
 
