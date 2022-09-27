@@ -47,7 +47,12 @@ namespace NotificationApi.Services
         {
             var maxRetryAttempts = 2;
             var pauseBetweenFailures = TimeSpan.FromSeconds(5);
-
+            
+            _logger.LogDebug("Attempting notify with template: {id}",  notifyTemplateId);
+            _logger.LogDebug("Contact email: {email}",  contactEmail);
+            foreach (var parameter in requestParameters)
+                LoggerExtensions.LogDebug(_logger, "Parameters {key}:  {value}", parameter.Key,  parameter.Value);
+            
             var result = await _pollyRetryService.WaitAndRetryAsync<Exception, EmailNotificationResponse>
            (
                maxRetryAttempts,
