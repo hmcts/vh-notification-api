@@ -1761,9 +1761,8 @@ namespace NotificationApi
                     return _sourceTemplatesDev;
                 case "prod":
                     return _sourceTemplatesProd;
-
                 default:
-                    throw new Exception("Environment variable is not set - unable to find the list of templates");
+                    throw new ArgumentException($"Environment variable {environment} is not set - unable to find the list of templates");
             }
         }
     }
