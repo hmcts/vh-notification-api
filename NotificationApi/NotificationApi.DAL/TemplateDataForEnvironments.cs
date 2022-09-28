@@ -86,7 +86,7 @@ namespace NotificationApi
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
-                new Template(new Guid("F7E9BE27-5E7A-439D-B52E-4CFC56C9DD86"),
+                new Template(new Guid("04CD937D-C6EB-4932-A040-469123AFEF67"),
                     NotificationType.HearingConfirmationJudgeMultiDay, MessageType.Email,
                     "case name,case number,judge,Start Day Month Year,time,number of days,courtroom account username,account password",
                     DateTime.UtcNow, DateTime.UtcNow)
@@ -98,7 +98,7 @@ namespace NotificationApi
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
-                new Template(new Guid("04CD937D-C6EB-4932-A040-469123AFEF67"),
+                new Template(new Guid("F7E9BE27-5E7A-439D-B52E-4CFC56C9DD86"),
                     NotificationType.HearingConfirmationLipMultiDay, MessageType.Email,
                     "case name,case number,name,Start Day Month Year,time,number of days,time", DateTime.UtcNow,
                     DateTime.UtcNow)
