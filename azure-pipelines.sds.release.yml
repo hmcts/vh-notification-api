@@ -216,10 +216,10 @@ stages:
 # Deploy Nuget Packages. #########################
   - stage: Push_Nuget
     ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
-    dependsOn:
-      - Run_Entity_Framework_Dev
-      - Run_Entity_Framework_Staging
-      - Run_Entity_Framework_Test
+      dependsOn:
+        - Run_Entity_Framework_Dev
+        - Run_Entity_Framework_Staging
+        - Run_Entity_Framework_Test
     ${{ if contains(variables['Build.SourceBranch'], 'refs/heads/release') }}:
       dependsOn: Approve_Helm_Release
     displayName: Deploy Nuget Packages
