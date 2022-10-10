@@ -20,7 +20,7 @@ variables:
     value: 'NotificationApi'
   - group: vh-notification-api
   - name: run_acceptance_tests
-    value: false
+    value: true
 
 stages:
 #####################################################
