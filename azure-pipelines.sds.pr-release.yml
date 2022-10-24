@@ -123,7 +123,6 @@ stages:
       - job: Generate_Entity_Framework_Script
         displayName: "Generate Entity Framework Script"
         steps:
-
         - template: templates/Database/EntityFramework/generate-script.yaml@azTemplates
           parameters:
             outputPath: $(Build.StagingDirectory)
@@ -158,6 +157,7 @@ stages:
 # Run Entity Framework Dev. #########################
   - stage: Run_Entity_Framework_Dev
     dependsOn: Dock
+    condition: eq(lower(dependencies.Dock.outputs['Generate_Entity_Framework_Script.git.hasChanged']), 'true')
     displayName: Run Entity Framework Dev
     variables:
       - template: variables/dev.yaml
