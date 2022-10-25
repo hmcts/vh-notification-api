@@ -123,7 +123,6 @@ stages:
       - job: Generate_Entity_Framework_Script
         displayName: "Generate Entity Framework Script"
         steps:
-
         - template: templates/Database/EntityFramework/generate-script.yaml@azTemplates
           parameters:
             outputPath: $(Build.StagingDirectory)
@@ -158,6 +157,7 @@ stages:
 # Run Entity Framework Dev. #########################
   - stage: Run_Entity_Framework_Dev
     dependsOn: Dock
+    condition: eq(lower(dependencies.Dock.outputs['Generate_Entity_Framework_Script.git.hasChanged']), 'true')
     displayName: Run Entity Framework Dev
     variables:
       - template: variables/dev.yaml
@@ -190,6 +190,7 @@ stages:
   - stage: Install
     dependsOn: Run_Entity_Framework_Dev
     displayName: Deploy Helm Chart Dev AKS
+    condition: in(dependencies.Run_Entity_Framework_Dev.result, 'Succeeded', 'SucceededWithIssues', 'Skipped')
     variables:
       - template: variables/dev.yaml
       - template: variables/shared.yaml
@@ -291,16 +292,17 @@ stages:
 # Deploy Nuget Packages. #########################
   - stage: Push_Nuget
     dependsOn: Install
+    condition: in(dependencies.Install.result, 'Succeeded', 'SucceededWithIssues', 'Skipped')
     displayName: Deploy NuGet Packages
     variables:
-      - template: variables/dev.yaml
-      - template: variables/shared.yaml
-        parameters:
-          env: ${{ variables.env }}
+    - template: variables/dev.yaml
+    - template: variables/shared.yaml
+      parameters:
+        env: ${{ variables.env }}
     jobs: 
-      - job: Publish_Nuget
-        displayName: Publish NuGet Packages
-        steps:
-          - template: templates\dotnet\push-nuget-packages.yml@azTemplates
-            parameters:
-              vstsFeed: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
+    - job: Publish_Nuget
+      displayName: Publish NuGet Packages
+      steps:
+      - template: templates\dotnet\push-nuget-packages.yml@azTemplates
+        parameters:
+          vstsFeed: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
