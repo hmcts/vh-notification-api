@@ -252,6 +252,7 @@ stages:
         - job: AcceptanceTestsDev
           pool: VH Self Hosted
           displayName: Acceptance Tests Dev
+          dependsOn: aks_push
           steps:
           - template: templates/dotnet/run-acceptance-tests.yml@azTemplates
             parameters:
