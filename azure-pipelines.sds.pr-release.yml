@@ -143,7 +143,8 @@ stages:
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: PublishAcceptanceTests
-          displayName: Publish Acceptance Tests 
+          displayName: Publish Acceptance Tests
+          dependsOn: package_nuget
           variables:
             projectPath: NotificationApi/NotificationApi
           steps:
@@ -262,7 +263,7 @@ stages:
                 keyVaultName: vh-infra-core-${{ variables.env }}
                 secret: true
               - name: Services:NotificationApiUrl
-                value: "https://vh-notification-api.dev.platform.hmcts.net"
+                value: "https://vh-notification-api-pr-$(System.PullRequest.PullRequestNumber).dev.platform.hmcts.net"
               - name: Services:VhNotificationApiResourceId
                 value: azuread--identifieruri
                 keyVaultName: vh-notification-api-${{ variables.env }}
