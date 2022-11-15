@@ -250,13 +250,13 @@ stages:
 
       - job: CheckDeployment
         variables:
-          imageTag: $[ stageDependencies.Dock.Dock.outputs['dockerPush.newImageTag'] ]
+          imageTag: $[ stageDependencies.Dock.outputs['Dock.dockerPush.newImageTag'] ]
         steps:
           - template: templates\Containerisation\check-deployment.yaml@azTemplates
             parameters: 
               requiredImage: ${{ variables.imageTag }}
-              namespace: "vh"
-              deploymentName: "vh-notification-api"
+              namespace: 'vh'
+              deploymentName: 'vh-notification-api'
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: AcceptanceTestsDev

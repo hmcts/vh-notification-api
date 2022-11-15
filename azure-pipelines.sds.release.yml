@@ -280,15 +280,15 @@ stages:
         - Helm
       displayName: "Run Acceptance Tests"
       variables: 
-        - imageTag: $[ stageDependencies.Docker_Build_Push.Docker_Build.outputs['dockerPush.newImageTag'] ]
+        - imageTag: $[ stageDependencies.Docker_Build_Push.outputs['Docker_Build.dockerPush.newImageTag'] ]
       jobs:
         - job: CheckDeployment
           steps:
             - template: templates\Containerisation\check-deployment.yaml@azTemplates
               parameters: 
                 requiredImage: ${{ variables.imageTag }}
-                namespace: "vh"
-                deploymentName: "vh-notification-api"
+                namespace: 'vh'
+                deploymentName: 'vh-notification-api'
         
         - job: AcceptanceTestsStaging
           displayName: Acceptance Tests Staging
