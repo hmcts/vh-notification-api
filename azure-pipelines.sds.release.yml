@@ -212,7 +212,7 @@ stages:
                   - 'latest'
                   - '${{ variables.releaseTagName }}'
 
-#####################################################
+##################################################
 # Deploy Nuget Packages. #########################
   - stage: Push_Nuget
     ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
