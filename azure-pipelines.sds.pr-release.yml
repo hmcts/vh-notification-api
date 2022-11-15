@@ -20,7 +20,7 @@ variables:
     value: 'NotificationApi'
   - group: vh-notification-api
   - name: run_acceptance_tests
-    value: false
+    value: true
 
 stages:
 #####################################################
@@ -129,6 +129,7 @@ stages:
             contextName: ${{ variables.efContextName }}
             workingPath: $(System.DefaultWorkingDirectory)/NotificationApi/NotificationApi
             projectName: ${{ variables.efProjectName }}
+            migrationsPath: NotificationApi/NotificationApi.DAL/Migrations
 
       - job: package_nuget
         displayName: "Package NuGet Packages"
@@ -142,7 +143,8 @@ stages:
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: PublishAcceptanceTests
-          displayName: Publish Acceptance Tests 
+          displayName: Publish Acceptance Tests
+          dependsOn: package_nuget
           variables:
             projectPath: NotificationApi/NotificationApi
           steps:
@@ -151,6 +153,7 @@ stages:
               coreProjectPath: $(projectPath)
               nugetProjectPath: $(projectPath)
               nugetConfigPath: NotificationApi
+              netVersion: "6.x"
               useNugetConfig: true
           
 #####################################################
@@ -258,7 +261,9 @@ stages:
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: AcceptanceTestsDev
           dependsOn: CheckDeployment
+          pool: VH Self Hosted
           displayName: Acceptance Tests Dev
+          dependsOn: aks_push
           steps:
           - template: templates/dotnet/run-acceptance-tests.yml@azTemplates
             parameters:
@@ -270,7 +275,7 @@ stages:
                 keyVaultName: vh-infra-core-${{ variables.env }}
                 secret: true
               - name: Services:NotificationApiUrl
-                value: "https://vh-notification-api.dev.platform.hmcts.net"
+                value: "https://vh-notification-api-pr-$(System.PullRequest.PullRequestNumber).dev.platform.hmcts.net"
               - name: Services:VhNotificationApiResourceId
                 value: azuread--identifieruri
                 keyVaultName: vh-notification-api-${{ variables.env }}
@@ -299,7 +304,7 @@ stages:
               - name: NotifyConfiguration:Environment
                 value: $(notify-environment)      
                 
-#####################################################
+##################################################
 # Deploy Nuget Packages. #########################
   - stage: Push_Nuget
     dependsOn: Install
