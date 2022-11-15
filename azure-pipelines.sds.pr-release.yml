@@ -250,7 +250,7 @@ stages:
 
       - job: CheckDeployment
         variables:
-          - imageTag: $[ stageDependencies.Dock.Dock.outputs['dockerPush.newImageTag'] ]
+          imageTag: $[ stageDependencies.Dock.Dock.outputs['dockerPush.newImageTag'] ]
         steps:
           - template: teamplates\Containerisation\check-deployment.yaml@azTemplates
             parameters: 
