@@ -10,7 +10,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: add-deployment-check
+      ref: master
       endpoint: hmcts
 
 parameters:
