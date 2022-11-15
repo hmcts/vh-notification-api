@@ -252,7 +252,7 @@ stages:
         variables:
           imageTag: $[ stageDependencies.Dock.Dock.outputs['dockerPush.newImageTag'] ]
         steps:
-          - template: teamplates\Containerisation\check-deployment.yaml@azTemplates
+          - template: templates\Containerisation\check-deployment.yaml@azTemplates
             parameters: 
               requiredImage: ${{ variables.imageTag }}
               namespace: "vh"
