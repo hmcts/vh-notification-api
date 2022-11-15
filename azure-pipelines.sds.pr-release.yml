@@ -5,7 +5,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: master
+      ref: add-deployment-check
       endpoint: hmcts
       
 trigger: none
@@ -245,8 +245,19 @@ stages:
               dnsSubscriptionName: "${{ variables.dnsZoneSubscription }}"
               dnsResourceGroupName: "${{ variables.dnsZoneResourceGroup }}"
 
+      - job: CheckDeployment
+        variables:
+          - imageTag: $[ stageDependencies.Dock.Dock.outputs['dockerPush.newImageTag'] ]
+        steps:
+          - template: teamplates\Containerisation\check-deployment.yaml@azTemplates
+            parameters: 
+              requiredImage: ${{ variables.imageTag }}
+              namespace: "vh"
+              deploymentName: "vh-notification-api"
+
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: AcceptanceTestsDev
+          dependsOn: CheckDeployment
           displayName: Acceptance Tests Dev
           steps:
           - template: templates/dotnet/run-acceptance-tests.yml@azTemplates
