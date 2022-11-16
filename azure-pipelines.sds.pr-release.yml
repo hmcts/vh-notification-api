@@ -250,8 +250,6 @@ stages:
 
       - job: CheckDeployment
         dependsOn: aks_push
-        variables:
-          imageTag: $[ stageDependencies.Dock.Dock.outputs['dockerPush.newImageTag'] ]
         steps:
 
           - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
@@ -263,10 +261,11 @@ stages:
             parameters: 
               namespace: "vh"
               deploymentName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
-              requiredImage: "$(imageTag)"
+              requiredImage: "${{ variables.acrName }}.azurecr.io/${{ variables.repositoryName }}:${{ variables.prTagName }}"
               subscriptionName: "${{ variables.subscriptionName }}"
               resourceGroupName: "$(aksCluster.resourceGroup)"
               clusterName: "$(aksCluster.name)"
+              
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: AcceptanceTestsDev
