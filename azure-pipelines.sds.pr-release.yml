@@ -249,8 +249,9 @@ stages:
               dnsResourceGroupName: "${{ variables.dnsZoneResourceGroup }}"
 
       - job: CheckDeployment
+        dependsOn: aks_push
         variables:
-          imageTag: $[ stageDependencies.Dock.outputs['Dock.dockerPush.newImageTag'] ]
+          imageTag: $[ stageDependencies.Dock.Dock.outputs['dockerPush.newImageTag'] ]
         steps:
 
           - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
