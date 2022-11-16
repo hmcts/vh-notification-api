@@ -252,6 +252,12 @@ stages:
         variables:
           imageTag: $[ stageDependencies.Dock.outputs['Dock.dockerPush.newImageTag'] ]
         steps:
+
+          - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
+            parameters:
+              subscriptionName: "${{ variables.subscriptionName }}"
+              environment: ${{ variables.env }}
+
           - template: templates\Containerisation\check-deployment.yaml@azTemplates
             parameters: 
               namespace: "vh"
