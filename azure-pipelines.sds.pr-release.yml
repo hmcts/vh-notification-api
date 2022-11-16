@@ -261,7 +261,7 @@ stages:
           - template: templates\Containerisation\check-deployment.yaml@azTemplates
             parameters: 
               namespace: "vh"
-              deploymentName: "vh-notification-api"
+              deploymentName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
               requiredImage: "$(imageTag)"
               subscriptionName: "${{ variables.subscriptionName }}"
               resourceGroupName: "$(aksCluster.resourceGroup)"
