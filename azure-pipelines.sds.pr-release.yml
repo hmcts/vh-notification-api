@@ -254,9 +254,9 @@ stages:
         steps:
           - template: templates\Containerisation\check-deployment.yaml@azTemplates
             parameters: 
-              requiredImage: ${{ variables.imageTag }}
-              namespace: 'vh'
-              deploymentName: 'vh-notification-api'
+              namespace: "vh"
+              deploymentName: "vh-notification-api"
+              requiredImage: $(imageTag)
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: AcceptanceTestsDev
