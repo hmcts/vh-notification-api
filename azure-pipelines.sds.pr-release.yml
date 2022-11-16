@@ -258,8 +258,8 @@ stages:
               deploymentName: vh-notification-api
               requiredImage: $(imageTag)
               subscriptionName: ${{ variables.subscriptionName }}
-              resourceGroupName: "$(aksCluster.resourceGroup)
-              clusterName: "$(aksCluster.name)
+              resourceGroupName: $(aksCluster.resourceGroup)
+              clusterName: $(aksCluster.name)
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
         - job: AcceptanceTestsDev
