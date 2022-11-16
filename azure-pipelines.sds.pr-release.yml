@@ -326,4 +326,3 @@ stages:
       - template: templates\dotnet\push-nuget-packages.yml@azTemplates
         parameters:
           vstsFeed: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
-
