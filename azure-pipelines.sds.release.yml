@@ -278,17 +278,29 @@ stages:
       dependsOn: 
         - Docker_Build_Push
         - Helm
+      variables:
+        - template: variables/staging.yaml
+        - template: variables/shared.yaml
       displayName: "Run Acceptance Tests"
-      variables: 
-        - imageTag: $[ stageDependencies.Docker_Build_Push.outputs['Docker_Build.dockerPush.newImageTag'] ]
+
       jobs:
         - job: CheckDeployment
+          dependsOn: aks_push
           steps:
+
+            - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
+              parameters:
+                subscriptionName: "${{ variables.subscriptionName }}"
+                environment: ${{ variables.env }}
+
             - template: templates\Containerisation\check-deployment.yaml@azTemplates
               parameters: 
-                requiredImage: ${{ variables.imageTag }}
-                namespace: 'vh'
-                deploymentName: 'vh-notification-api'
+                namespace: "vh"
+                deploymentName: "${{ variables.chartName }}-${{ variables.stagingTagName }}"
+                requiredImage: "${{ variables.acrName }}.azurecr.io/${{ variables.repositoryName }}:${{ variables.stagingTagName }}"
+                subscriptionName: "${{ variables.subscriptionName }}"
+                resourceGroupName: "$(aksCluster.resourceGroup)"
+                clusterName: "$(aksCluster.name)"
         
         - job: AcceptanceTestsStaging
           displayName: Acceptance Tests Staging

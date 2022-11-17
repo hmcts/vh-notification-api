@@ -248,26 +248,26 @@ stages:
               dnsSubscriptionName: "${{ variables.dnsZoneSubscription }}"
               dnsResourceGroupName: "${{ variables.dnsZoneResourceGroup }}"
 
-      - job: CheckDeployment
-        dependsOn: aks_push
-        steps:
-
-          - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
-            parameters:
-              subscriptionName: "${{ variables.subscriptionName }}"
-              environment: ${{ variables.env }}
-
-          - template: templates\Containerisation\check-deployment.yaml@azTemplates
-            parameters: 
-              namespace: "vh"
-              deploymentName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
-              requiredImage: "${{ variables.acrName }}.azurecr.io/${{ variables.repositoryName }}:${{ variables.prTagName }}"
-              subscriptionName: "${{ variables.subscriptionName }}"
-              resourceGroupName: "$(aksCluster.resourceGroup)"
-              clusterName: "$(aksCluster.name)"
-              
-
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
+
+        - job: CheckDeployment
+          dependsOn: aks_push
+          steps:
+
+            - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
+              parameters:
+                subscriptionName: "${{ variables.subscriptionName }}"
+                environment: ${{ variables.env }}
+
+            - template: templates\Containerisation\check-deployment.yaml@azTemplates
+              parameters:
+                namespace: "vh"
+                deploymentName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
+                requiredImage: "${{ variables.acrName }}.azurecr.io/${{ variables.repositoryName }}:${{ variables.prTagName }}"
+                subscriptionName: "${{ variables.subscriptionName }}"
+                resourceGroupName: "$(aksCluster.resourceGroup)"
+                clusterName: "$(aksCluster.name)"
+              
         - job: AcceptanceTestsDev
           pool: VH Self Hosted
           displayName: Acceptance Tests Dev
