@@ -314,8 +314,8 @@ stages:
               - name: NotifyConfiguration:Environment
                 value: $(notify-environment)      
                 
-##################################################
-# Deploy Nuget Packages. #########################
+#################################################
+# Deploy Nuget Packages. ########################
   - stage: Push_Nuget
     dependsOn: Install
     condition: in(dependencies.Install.result, 'Succeeded', 'SucceededWithIssues', 'Skipped')
