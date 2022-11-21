@@ -23,8 +23,8 @@ variables:
     value: true
 
 stages:
-#####################################################
-# CI Build Checks. ##################################
+####################################################
+# CI Build Checks. #################################
   - stage: CI_Build
     displayName: CI Build
     variables: 
