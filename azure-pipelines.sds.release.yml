@@ -55,6 +55,21 @@ stages:
               vstsFeed: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
               gitVersionConfigPath: ${{ variables.git_version_config_path }}
 
+      - ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+        - job: PublishAcceptanceTests
+          displayName: Publish Acceptance Tests
+          dependsOn: package_nuget
+          variables:
+            projectPath: NotificationApi/NotificationApi
+          steps:
+          - template: templates\dotnet\publish-acceptance-tests.yml@azTemplates
+            parameters:
+              coreProjectPath: $(projectPath)
+              nugetProjectPath: $(projectPath)
+              nugetConfigPath: NotificationApi
+              netVersion: "6.x"
+              useNugetConfig: true
+
 #####################################################
 # Approval Gate for EF. #############################
 
