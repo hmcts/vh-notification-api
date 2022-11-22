@@ -253,20 +253,13 @@ stages:
         - job: CheckDeployment
           dependsOn: aks_push
           steps:
-
-            - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
-              parameters:
-                subscriptionName: "${{ variables.subscriptionName }}"
-                environment: ${{ variables.env }}
-
             - template: templates\Containerisation\check-deployment.yaml@azTemplates
               parameters:
                 namespace: "vh"
                 deploymentName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
                 requiredImage: "${{ variables.acrName }}.azurecr.io/${{ variables.repositoryName }}:${{ variables.prTagName }}"
                 subscriptionName: "${{ variables.subscriptionName }}"
-                resourceGroupName: "$(aksCluster.resourceGroup)"
-                clusterName: "$(aksCluster.name)"
+                env: ${{ variables.env }}
               
         - job: AcceptanceTestsDev
           pool: VH Self Hosted
