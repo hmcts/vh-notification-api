@@ -9,7 +9,7 @@ resources:
   repositories:
     - repository: azTemplates
       type: github
-      name: master
+      name: hmcts/azure-devops-templates
       ref: master
       endpoint: hmcts
 
