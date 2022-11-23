@@ -249,24 +249,12 @@ stages:
               dnsResourceGroupName: "${{ variables.dnsZoneResourceGroup }}"
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
-
-        - job: CheckDeployment
-          dependsOn: aks_push
-          steps:
-            - template: templates\Containerisation\check-deployment.yaml@azTemplates
-              parameters:
-                namespace: "vh"
-                deploymentName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
-                requiredImage: "${{ variables.acrName }}.azurecr.io/${{ variables.repositoryName }}:${{ variables.prTagName }}"
-                subscriptionName: "${{ variables.subscriptionName }}"
-                env: ${{ variables.env }}
               
         - job: AcceptanceTestsDev
           pool: VH Self Hosted
           displayName: Acceptance Tests Dev
           dependsOn: 
             - aks_push
-            - CheckDeployment
           steps:
           - template: templates/dotnet/run-acceptance-tests.yml@azTemplates
             parameters:
