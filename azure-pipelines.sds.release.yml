@@ -300,7 +300,6 @@ stages:
 
       jobs:
         - job: CheckDeployment
-          dependsOn: aks_push
           steps:
             - template: templates\Containerisation\check-deployment.yaml@azTemplates
               parameters: 
