@@ -23,8 +23,8 @@ variables:
     value: true
 
 stages:
-#####################################################
-# CI Build Checks. ##################################
+####################################################
+# CI Build Checks. #################################
   - stage: CI_Build
     displayName: CI Build
     variables: 
@@ -188,8 +188,8 @@ stages:
               kvSqlPasswordSecret: ${{ variables.vhSqlPasswordSecret }}
               kvSqlUsernameSecret: ${{ variables.vhSqlUsernameSecret }}
 
-#####################################################
-# Deploy Helm Chart to Dev. ######################### 
+###################################################
+# Deploy Helm Chart to Dev. ####################### 
   - stage: Install
     dependsOn: Run_Entity_Framework_Dev
     displayName: Deploy Helm Chart Dev AKS
@@ -249,10 +249,12 @@ stages:
               dnsResourceGroupName: "${{ variables.dnsZoneResourceGroup }}"
 
       - ${{ if eq(variables.run_acceptance_tests, true) }}:
+              
         - job: AcceptanceTestsDev
           pool: VH Self Hosted
           displayName: Acceptance Tests Dev
-          dependsOn: aks_push
+          dependsOn: 
+            - aks_push
           steps:
           - template: templates/dotnet/run-acceptance-tests.yml@azTemplates
             parameters:
@@ -293,8 +295,8 @@ stages:
               - name: NotifyConfiguration:Environment
                 value: $(notify-environment)      
                 
-##################################################
-# Deploy Nuget Packages. #########################
+#################################################
+# Deploy Nuget Packages. ########################
   - stage: Push_Nuget
     dependsOn: Install
     condition: in(dependencies.Install.result, 'Succeeded', 'SucceededWithIssues', 'Skipped')
