@@ -296,8 +296,8 @@ stages:
       variables:
         - template: variables/staging.yaml
         - template: variables/shared.yaml
-        parameters:
-          env: ${{ variables.env }}
+          parameters:
+            env: ${{ variables.env }}
       displayName: "Run Acceptance Tests"
 
       jobs:
