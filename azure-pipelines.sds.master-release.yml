@@ -237,6 +237,8 @@ stages:
     pool: VH Self Hosted
     dependsOn: CheckDeployment
     displayName: Acceptance Tests Staging
+    variables:
+    - group: govuk-notify-stg
     steps:
     - template: templates/dotnet/run-acceptance-tests.yml@azTemplates
       parameters:
