@@ -7,6 +7,8 @@ parameters:
     default: ''
 
 variables:
+  - name: appName
+    value: NotificationApi
 
   - name: nuget_org_name
     value: 'Video Hearings/vh-packages'
