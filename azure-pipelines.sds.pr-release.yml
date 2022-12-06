@@ -5,7 +5,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: add-dotnet-install-step
+      ref: master
       endpoint: hmcts
       
 trigger: none
