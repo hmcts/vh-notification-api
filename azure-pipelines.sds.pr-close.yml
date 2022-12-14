@@ -9,7 +9,10 @@ resources:
       endpoint: hmcts
 
 pr: none
-trigger: none
+trigger: none.
+
+pool: 
+  vmImage: ubuntu-22.04
 
 variables:
   - group: vh-github-app-credentials
