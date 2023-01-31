@@ -62,7 +62,7 @@ namespace NotificationApi.UnitTests.Middleware
             ExceptionMiddleware = new ExceptionMiddleware(RequestDelegateMock.Object.RequestDelegate);
             
             await ExceptionMiddleware.InvokeAsync(HttpContext);
-            Assert.AreEqual("application/json", HttpContext.Response.ContentType);
+            Assert.AreEqual("application/json; charset=utf-8", HttpContext.Response.ContentType);
             Assert.AreEqual((int) HttpStatusCode.InternalServerError, HttpContext.Response.StatusCode);
         }
     }

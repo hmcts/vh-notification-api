@@ -17,13 +17,14 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             _context = acTestContext;
         }
-        
+
         [Then(@"the api client should return true")]
         public void ThenApiClientShouldReturnTrue()
         {
-            _context.ApiClientResponse.Should().Be(true);
+            _context.ApiClientResponse.Should().Be(true,
+                $"VH API should have processed the request but instead the error from the api [{_context.ApiClientResponse.GetType()}] - {_context.ApiClientResponse} - {_context.ApiClientMessage}");
         }
-        
+
         [When(@"I send the create notification request")]
         public async Task WhenISendTheCreateNotificationRequest()
         {

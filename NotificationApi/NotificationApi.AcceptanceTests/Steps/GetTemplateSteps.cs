@@ -34,7 +34,10 @@ namespace NotificationApi.AcceptanceTests.Steps
         [Then(@"a template should return")]
         public void ThenTheTemplateShouldReturn()
         {
-            _context.ApiClientResponse.Should().BeOfType<NotificationTemplateResponse>();
+            _context.ApiClientResponse.Should()
+                .BeOfType<NotificationTemplateResponse>(
+                    $"because the template should be {_notificationType} but instead the error from the api {_context.ApiClientResponse.GetType()} - {_context.ApiClientResponse} - {_context.ApiClientMessage}"
+                    );
             var model = (NotificationTemplateResponse)_context.ApiClientResponse;
             model.Should().NotBeNull();
             model.NotificationType.Should().Be(_notificationType);
@@ -48,7 +51,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             var model = (NotificationTemplateResponse)_context.ApiClientResponse;
             var template = await _context.NotifyClient.GetTemplateByIdAsync(model.NotifyTemplateId.ToString());
-            template.Should().NotBeNull();
+            template.Should().NotBeNull($"Notify should have the template {model.NotificationType.ToString()} with the configured ID {model.NotifyTemplateId.ToString()}");
         }
     }
 }

@@ -39,8 +39,8 @@
         <PackageReference Include="Microsoft.Extensions.Logging.ApplicationInsights" Version="2.15.0" />
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
-        <PackageReference Include="NSwag.AspNetCore" Version="13.18.0" />
-        <PackageReference Include="NSwag.MSBuild" Version="13.9.4">
+        <PackageReference Include="NSwag.AspNetCore" Version="13.18.2" />
+        <PackageReference Include="NSwag.MSBuild" Version="13.18.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -71,9 +71,14 @@
         </Content>
     </ItemGroup>
 
-    <Target Name="NSwag" AfterTargets="Build" Condition="'$(TF_BUILD)'!='True' And '$(Configuration)' == 'Debug'">
+    <Target Name="NSwag" AfterTargets="Build" Condition="'$(TF_BUILD)'!='True' And '$(Configuration)' == 'Debug' ">
         <Copy SourceFiles="@(ReferencePath)" DestinationFolder="$(OutDir)References" />
-        <Exec Command="$(NSwagExe_Core31) run /runtime:NetCore31 /variables:ProjectPath=&quot;$(MSBuildProjectFullPath)&quot;" />
+        <Exec ConsoleToMSBuild="true" ContinueOnError="true" Command="$(NSwagExe_Net60) run /runtime:Net60 /variables:ProjectPath=&quot;$(MSBuildProjectFullPath)&quot;">
+            <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />
+            <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />
+        </Exec>
+        <Message Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' == '0'" Importance="low" />
+        <Error Text="$(NSwagOutput)" Condition="'$(NSwagExitCode)' != '0'" />
         <RemoveDir Directories="$(OutDir)References" />
     </Target>
 </Project>
