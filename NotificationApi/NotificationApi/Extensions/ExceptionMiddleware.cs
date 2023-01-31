@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NotificationApi.Common;
@@ -37,8 +38,14 @@ namespace NotificationApi.Extensions
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int) statusCode;
-                   
-            return context.Response.WriteAsync(exception.Message);
+            var sb = new StringBuilder(exception.Message);
+            var innerException = exception.InnerException;
+            while (innerException != null)
+            {
+                sb.Append($" {innerException.Message}");
+                innerException = innerException.InnerException;
+            }
+            return context.Response.WriteAsJsonAsync(sb.ToString());
         }
     }
 }
