@@ -36,7 +36,7 @@ namespace NotificationApi.AcceptanceTests.Steps
         {
             _context.ApiClientResponse.Should()
                 .BeOfType<NotificationTemplateResponse>(
-                    $"because the call should be successful but returned instead {_context.ApiClientResponse.GetType()} - {_context.ApiClientResponse}"
+                    $"because the call should be successful but returned instead {_context.ApiClientResponse.GetType()} - {_context.ApiClientResponse} - {_context.ApiClientMessage}"
                     );
             var model = (NotificationTemplateResponse)_context.ApiClientResponse;
             model.Should().NotBeNull();
