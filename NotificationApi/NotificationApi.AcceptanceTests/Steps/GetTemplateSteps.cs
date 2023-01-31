@@ -34,7 +34,10 @@ namespace NotificationApi.AcceptanceTests.Steps
         [Then(@"a template should return")]
         public void ThenTheTemplateShouldReturn()
         {
-            _context.ApiClientResponse.Should().BeOfType<NotificationTemplateResponse>();
+            _context.ApiClientResponse.Should()
+                .BeOfType<NotificationTemplateResponse>(
+                    $"because the call should be successful but returned instead {_context.ApiClientResponse.GetType()} - {_context.ApiClientResponse}"
+                    );
             var model = (NotificationTemplateResponse)_context.ApiClientResponse;
             model.Should().NotBeNull();
             model.NotificationType.Should().Be(_notificationType);

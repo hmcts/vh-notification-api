@@ -5,18 +5,10 @@ using System.Net;
 using FluentAssertions;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using NotificationApi.DAL.Queries;
 using Newtonsoft.Json;
-using NotificationApi.DAL;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using NotificationApi.Contract.Requests;
 using NotificationApi.Domain.Enums;
 using Newtonsoft.Json.Serialization;
-using NotificationApi.DAL.Queries.Core;
-using System.Collections.Generic;
-using NotificationApi.Domain;
 
 namespace NotificationApi.IntegrationTests.Steps
 {
