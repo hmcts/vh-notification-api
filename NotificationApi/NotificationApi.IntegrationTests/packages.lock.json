@@ -43,15 +43,6 @@
           "System.Diagnostics.DiagnosticSource": "6.0.0"
         }
       },
-      "Microsoft.EntityFrameworkCore.InMemory": {
-        "type": "Direct",
-        "requested": "[6.0.8, )",
-        "resolved": "6.0.8",
-        "contentHash": "18whJ+v9LFxqbWtq4ITV2i7f27DqCqdzJWjRH1rAVPlgmpR9QtD4FtPTSNmla3oXINOZ4Y7qNrvBiiXJrm2G4g==",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "6.0.8"
-        }
-      },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
         "requested": "[17.4.0, )",
