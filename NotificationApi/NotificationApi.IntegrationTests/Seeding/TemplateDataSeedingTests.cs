@@ -6,46 +6,48 @@ using NotificationApi.Contract;
 using NotificationApi.DAL;
 using NUnit.Framework;
 
-namespace NotificationApi.IntegrationTests.Seeding;
-
-[TestFixture]
-public class TemplateDataSeedingTests
+namespace NotificationApi.IntegrationTests.Seeding
 {
-    private NotificationsApiDbContext _dbContext;
-    private TemplateDataSeeding _sut;
 
-    [SetUp]
-    public void Setup()
+    [TestFixture]
+    public class TemplateDataSeedingTests
     {
-        var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
-        dbContextOptionsBuilder.EnableSensitiveDataLogging();
-        dbContextOptionsBuilder.UseInMemoryDatabase("VhNotificationsApi");
-        var notifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
-        _dbContext = new NotificationsApiDbContext(notifyBookingsDbContextOptions);
-        _sut = new TemplateDataSeeding(_dbContext);
-    }
+        private NotificationsApiDbContext _dbContext;
+        private TemplateDataSeeding _sut;
 
-    [Test]
-    public void should_add_templates_for_an_environment()
-    {
-        var environment = "Dev";
-        var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
-        
-        _sut.Run(environment);
+        [SetUp]
+        public void Setup()
+        {
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
+            dbContextOptionsBuilder.EnableSensitiveDataLogging();
+            dbContextOptionsBuilder.UseInMemoryDatabase("VhNotificationsApi");
+            var notifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
+            _dbContext = new NotificationsApiDbContext(notifyBookingsDbContextOptions);
+            _sut = new TemplateDataSeeding(_dbContext);
+        }
 
-        _dbContext.Templates.Count().Should().Be(expectedTotalTemplates);
-    }
+        [Test]
+        public void should_add_templates_for_an_environment()
+        {
+            var environment = "Dev";
+            var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
 
-    [Test]
-    public void should_remove_templates_where_id_do_not_match()
-    {
-        var oldEnvironment = "PreProd";
-        var newEnvironment = "Dev";
-        var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
-        
-        _sut.Run(oldEnvironment);
-        _sut.Run(newEnvironment);
-        
-        _dbContext.Templates.Count().Should().Be(expectedTotalTemplates);
+            _sut.Run(environment);
+
+            _dbContext.Templates.Count().Should().Be(expectedTotalTemplates);
+        }
+
+        [Test]
+        public void should_remove_templates_where_id_do_not_match()
+        {
+            var oldEnvironment = "PreProd";
+            var newEnvironment = "Dev";
+            var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
+
+            _sut.Run(oldEnvironment);
+            _sut.Run(newEnvironment);
+
+            _dbContext.Templates.Count().Should().Be(expectedTotalTemplates);
+        }
     }
 }
