@@ -59,7 +59,8 @@ namespace NotificationApi
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRequestModelValidatorService>());
             services.AddTransient<IValidatorFactory, RequestModelValidatorFactory>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("VhNotificationsApi")));
+                options.UseSqlServer(Configuration.GetConnectionString("VhNotificationsApi"),
+                    builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)));
         }
 
         private void RegisterSettings(IServiceCollection services)
