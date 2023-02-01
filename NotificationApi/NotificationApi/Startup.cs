@@ -54,8 +54,8 @@ namespace NotificationApi
             RegisterAuth(services);
             services.AddTransient<IRequestModelValidatorService, RequestModelValidatorService>();
 
-            services.AddMvc(opt => opt.Filters.Add(typeof(LoggingMiddleware))).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddMvc(opt => opt.Filters.Add(typeof(RequestModelValidatorFilter))).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+            services.AddMvc(opt => opt.Filters.Add(typeof(LoggingMiddleware)));
+            services.AddMvc(opt => opt.Filters.Add(typeof(RequestModelValidatorFilter)))
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRequestModelValidatorService>());
             services.AddTransient<IValidatorFactory, RequestModelValidatorFactory>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>

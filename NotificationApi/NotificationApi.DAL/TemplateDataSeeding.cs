@@ -17,23 +17,23 @@ namespace NotificationApi
         {
             _context.Database.EnsureCreated();
 
-            var saveChanges = false;
-            
             var templates = _context.Templates;
             var sourceTemplates = _templateDataForEnvironments.Get(environment);
 
-            foreach(var template in sourceTemplates)
+            foreach (var template in sourceTemplates)
             {
-                if (!templates.Any(t => t.NotifyTemplateId == template.NotifyTemplateId))
+                var existingTemplate = templates.FirstOrDefault(x => x.NotificationType == template.NotificationType);
+                if (existingTemplate == null)
                 {
                     _context.Templates.Add(template);
-                    saveChanges = true;
+                }
+                else if(existingTemplate.NotifyTemplateId != template.NotifyTemplateId)
+                {
+                    _context.Remove(existingTemplate);
+                    _context.Templates.Add(template);
                 }
             }
-            if (saveChanges)
-            {
-                _context.SaveChanges();
-            }
+            _context.SaveChanges();
         }
     }
 

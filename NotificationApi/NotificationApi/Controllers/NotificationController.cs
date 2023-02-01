@@ -40,7 +40,7 @@ namespace NotificationApi.Controllers
         [HttpGet("template/{notificationType}")]
         [OpenApiOperation("GetTemplateByNotificationType")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(string), (int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetTemplateByNotificationTypeAsync(Contract.NotificationType notificationType)
         {
@@ -62,7 +62,7 @@ namespace NotificationApi.Controllers
         [HttpPost]
         [OpenApiOperation("CreateNewNotification")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(string), (int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
@@ -90,7 +90,7 @@ namespace NotificationApi.Controllers
         [OpenApiOperation("HandleCallback")]
         [Authorize(AuthenticationSchemes = "Callback")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType((int) HttpStatusCode.InternalServerError)]
+        [ProducesResponseType(typeof(string), (int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType((int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> HandleCallbackAsync(NotificationCallbackRequest notificationCallbackRequest)
         {
