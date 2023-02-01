@@ -41,7 +41,7 @@ namespace NotificationApi.Controllers
         [OpenApiOperation("GetTemplateByNotificationType")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int) HttpStatusCode.InternalServerError)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetTemplateByNotificationTypeAsync(Contract.NotificationType notificationType)
         {
             var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery((NotificationType)notificationType));
@@ -63,7 +63,7 @@ namespace NotificationApi.Controllers
         [OpenApiOperation("CreateNewNotification")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int) HttpStatusCode.InternalServerError)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
             var parameters = JsonConvert.SerializeObject(request.Parameters);

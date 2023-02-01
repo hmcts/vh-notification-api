@@ -54,9 +54,12 @@ namespace NotificationApi
             RegisterAuth(services);
             services.AddTransient<IRequestModelValidatorService, RequestModelValidatorService>();
 
-            services.AddMvc(opt => opt.Filters.Add(typeof(LoggingMiddleware)));
-            services.AddMvc(opt => opt.Filters.Add(typeof(RequestModelValidatorFilter)))
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRequestModelValidatorService>());
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(typeof(LoggingMiddleware));
+                opt.Filters.Add(typeof(RequestModelValidatorFilter));
+                opt.Filters.Add(new ProducesResponseTypeAttribute(typeof(string), 500));
+            }).AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRequestModelValidatorService>());
             services.AddTransient<IValidatorFactory, RequestModelValidatorFactory>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("VhNotificationsApi"),

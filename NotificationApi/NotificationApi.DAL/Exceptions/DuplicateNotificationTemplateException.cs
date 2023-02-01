@@ -2,18 +2,20 @@ using System;
 using System.Runtime.Serialization;
 using NotificationApi.Domain.Enums;
 
-namespace NotificationApi.DAL.Exceptions;
-
-[Serializable]
-public class DuplicateNotificationTemplateException : Exception
+namespace NotificationApi.DAL.Exceptions
 {
-    public DuplicateNotificationTemplateException(NotificationType notificationType) : base(
-        $"Duplicate entry for notification type {notificationType} found")
+
+    [Serializable]
+    public class DuplicateNotificationTemplateException : Exception
     {
-    }
-        
-    protected DuplicateNotificationTemplateException(SerializationInfo info, StreamingContext context) 
-        : base(info, context)
-    {
+        public DuplicateNotificationTemplateException(NotificationType notificationType) : base(
+            $"Duplicate entry for notification type {notificationType} found")
+        {
+        }
+
+        protected DuplicateNotificationTemplateException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        {
+        }
     }
 }
