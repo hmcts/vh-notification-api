@@ -1,3 +1,4 @@
+using System;
 using NotificationApi.DAL;
 using System.Linq;
 
@@ -22,15 +23,25 @@ namespace NotificationApi
 
             foreach (var template in sourceTemplates)
             {
-                var existingTemplate = templates.FirstOrDefault(x => x.NotificationType == template.NotificationType);
-                if (existingTemplate == null)
+                var existingTemplates = templates.Where(x => x.NotificationType == template.NotificationType).ToList();
+
+                // if no templates exist for a given type, just add
+                if (!existingTemplates.Any())
                 {
                     _context.Templates.Add(template);
+                    _context.SaveChanges();
                 }
-                else if(existingTemplate.NotifyTemplateId != template.NotifyTemplateId)
+
+                // if multiple templates exist for a given type, remove all and add again from the source
+                var duplicateTemplates = existingTemplates.Count > 1;
+                var nonMatchingTemplate = existingTemplates.Count == 1 &&
+                                          existingTemplates[0].NotifyTemplateId != template.NotifyTemplateId;
+                
+                if (duplicateTemplates || nonMatchingTemplate)
                 {
-                    _context.Remove(existingTemplate);
+                    _context.Templates.RemoveRange(existingTemplates);
                     _context.Templates.Add(template);
+                    _context.SaveChanges();
                 }
             }
             _context.SaveChanges();
