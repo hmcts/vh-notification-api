@@ -29,6 +29,7 @@ namespace NotificationApi
                 if (!existingTemplates.Any())
                 {
                     _context.Templates.Add(template);
+                    _context.SaveChanges();
                 }
 
                 // if multiple templates exist for a given type, remove all and add again from the source
@@ -40,6 +41,7 @@ namespace NotificationApi
                 {
                     _context.Templates.RemoveRange(existingTemplates);
                     _context.Templates.Add(template);
+                    _context.SaveChanges();
                 }
             }
             _context.SaveChanges();
