@@ -67,19 +67,19 @@ stages:
               dockerComposeCommand: up
               arguments: --build --abort-on-container-exit
 
+          - task: PublishCodeCoverageResults@1
+            displayName: "Publish code coverage report"
+            inputs:
+              codeCoverageTool: "Cobertura"
+              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml"
+
           - task: PublishTestResults@2
             displayName: Publish test results
             inputs:
               testResultsFormat: "VSTest" # Options: JUnit, NUnit, VSTest, xUnit, cTest
               testResultsFiles: "**/*TestResults.trx"
               searchFolder: $(System.DefaultWorkingDirectory)/TestResults
-              failTaskOnFailedTests: false
-
-          - task: PublishCodeCoverageResults@1
-            displayName: "Publish code coverage report"
-            inputs:
-              codeCoverageTool: "Cobertura"
-              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml"
+              failTaskOnFailedTests: true
 
   ####################################################
   # Pre Release Tasks. ###############################
