@@ -10,16 +10,6 @@ using Notify.Models.Responses;
 
 namespace NotificationApi.IntegrationTests.Stubs;
 
-public class CreateNotificationServiceStub : ICreateNotificationService
-{
-    private readonly List<CreateEmailNotificationCommand> Requested = new();
-    public Task CreateEmailNotificationAsync(CreateEmailNotificationCommand notificationCommand, Dictionary<string, string> parameters)
-    {
-        Requested.Add(notificationCommand);
-        return Task.CompletedTask;
-    }
-}
-
 public class AsyncNotificationClientStub : IAsyncNotificationClient
 {
     public Task<string> GET(string url)
