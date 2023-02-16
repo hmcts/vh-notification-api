@@ -34,12 +34,5 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="specflow.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
-    <ItemGroup>
-        <Content Include="ApiTests\*.feature" />
-        <Content Include="ApiTests\*.feature.cs" />
-    </ItemGroup>
 </Project>
