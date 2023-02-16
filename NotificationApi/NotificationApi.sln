@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4078E3A9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationApi.AcceptanceTests", "NotificationApi.AcceptanceTests\NotificationApi.AcceptanceTests.csproj", "{B0F53513-880B-4409-BD93-AE3B668A6FD1}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1AA310C5-D155-44E7-A18D-4D2564868DE0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{E5BAE221-2CFD-48BE-B384-485E69064B87}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationApi.Client", "NotificationApi.Client\NotificationApi.Client.csproj", "{E63B741E-DB06-4894-9BF4-A7753C0502D8}"
@@ -71,10 +69,6 @@ Global
 		{B0F53513-880B-4409-BD93-AE3B668A6FD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0F53513-880B-4409-BD93-AE3B668A6FD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0F53513-880B-4409-BD93-AE3B668A6FD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AA310C5-D155-44E7-A18D-4D2564868DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AA310C5-D155-44E7-A18D-4D2564868DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AA310C5-D155-44E7-A18D-4D2564868DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AA310C5-D155-44E7-A18D-4D2564868DE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E63B741E-DB06-4894-9BF4-A7753C0502D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E63B741E-DB06-4894-9BF4-A7753C0502D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E63B741E-DB06-4894-9BF4-A7753C0502D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
