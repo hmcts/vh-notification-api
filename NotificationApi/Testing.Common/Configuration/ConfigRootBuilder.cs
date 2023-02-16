@@ -9,6 +9,7 @@ public static class ConfigRootBuilder
     {
         return new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
+            .AddJsonFile("appsettings.Production.json", true) // CI write variables in the pipeline to this file
             .AddUserSecrets(userSecretId)
             .AddEnvironmentVariables()
             .Build();
