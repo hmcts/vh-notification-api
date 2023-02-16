@@ -39,47 +39,26 @@ stages:
         steps:
           - checkout: self
 
-          - powershell: |
-              $ProjectKey = "$(Build.Repository.Name)" -ireplace "hmcts\/"
-              Write-Output ("Sonar Cloud project key: {0}" -f $ProjectKey)
-              Write-Host "##vso[task.setvariable variable=ProjectKey;]$ProjectKey"
-            displayName: Set Sonar Cloud Project Key
+          - template: templates/sonarCloud/prepare.yml@azTemplates
+            parameters:
+              ExtraProperties: |
+                sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/Coverage/coverage.opencover.xml
+                sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*,**/Program.cs,**/Startup.cs,**/Testing.Common/**/*,**/NotificationApi.Common/**/*,**/NotificationApi.IntegrationTests/**/*,**/NotificationApi.UnitTests/**/*,**/NotificationApi/Extensions/*,**/NotificationApi.DAL/Migrations/**/*
+                sonar.cpd.exclusions=**/Program.cs,**/NotificationType.cs,**/Startup.cs,**/Testing.Common/**/*,**/NotificationApi/Swagger/**/*,NotificationApi/NotificationApi.DAL/Migrations/*,NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
 
-          - bash: |
-              sed -i "s|</configuration>|<packageSourceCredentials><vh-packages><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"$(System.AccessToken)\" /></vh-packages></packageSourceCredentials></configuration>|" nuget.sds.config
-            displayName: Add NuGet Feed Authentication
-            workingDirectory: ${{ variables.appName }}
+          - template: stages\dotnet-tests\unit-tests.yml@azTemplates
+            parameters:
+              #vstsFeedId: 'Video Hearings/vh-packages'
+              dotnetCoreVersion: "6.x"
+              nugetConfigPath: ${{ variables.appName }} # Temp - Change To SDS Feed When Possible.
+              unitTestProjectPath: "${{ variables.appName }}/${{ variables.appName }}.UnitTests"
+              coverletCoverageExclusions:
+                - "[NotificationApi.*Tests?]*"
+                - "[NotificationApi]Startup"
+                - "[NotificationApi.Common]*"
+                - "[Testing.Common]*"
 
-          - task: DockerCompose@0
-            displayName: Runs tests
-            env:
-              SONAR_HOST: https://sonarcloud.io
-              SONAR_ORG: hmcts
-              SONAR_TOKEN: $(SonarLoginToken)
-              SONAR_PROJECT_KEY: $(ProjectKey)
-              PAT_TOKEN: $(System.AccessToken)
-              SONAR_PROJECT_VERSION: $(Build.BuildNumber)
-              SONAR_PROJECT_NAME: $(Build.Repository.Name)
-            inputs:
-              action: Run a Docker Compose command
-              dockerComposeFile: docker-compose.tests.yml
-              projectName: $(Build.Repository.Name)
-              dockerComposeCommand: up
-              arguments: --build --abort-on-container-exit
-
-          - task: PublishCodeCoverageResults@1
-            displayName: "Publish code coverage report"
-            inputs:
-              codeCoverageTool: "Cobertura"
-              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml"
-
-          - task: PublishTestResults@2
-            displayName: Publish test results
-            inputs:
-              testResultsFormat: "VSTest" # Options: JUnit, NUnit, VSTest, xUnit, cTest
-              testResultsFiles: "**/*TestResults.trx"
-              searchFolder: $(System.DefaultWorkingDirectory)/TestResults
-              failTaskOnFailedTests: true
+          - template: templates/sonarCloud/runAnalysis.yml@azTemplates
 
   ####################################################
   # Pre Release Tasks. ###############################
