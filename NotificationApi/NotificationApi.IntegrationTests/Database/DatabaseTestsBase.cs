@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NotificationApi.IntegrationTests.Helper;
 using NUnit.Framework;
+using Testing.Common.Configuration;
 
 namespace NotificationApi.IntegrationTests.Database
 {
@@ -15,19 +16,16 @@ namespace NotificationApi.IntegrationTests.Database
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            var configRootBuilder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables()
-                .AddUserSecrets<Startup>();
-
-            var configRoot = configRootBuilder.Build();
+            var configRoot = ConfigRootBuilder.Build();
             _databaseConnectionString = configRoot.GetConnectionString("VhNotificationsApi");
 
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.UseSqlServer(_databaseConnectionString);
             NotifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
-           
             TestDataManager = new TestDataManager(NotifyBookingsDbContextOptions);
+            
+            var context = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
+            context.Database.Migrate();
         }
     }
 }

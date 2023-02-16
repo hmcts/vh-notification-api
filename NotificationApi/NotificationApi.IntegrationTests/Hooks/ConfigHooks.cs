@@ -1,6 +1,5 @@
 using System.Net.Http;
 using AcceptanceTests.Common.Api;
-using AcceptanceTests.Common.Configuration;
 using FluentAssertions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -16,7 +15,7 @@ using NotificationApi.IntegrationTests.Helper;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
 using Testing.Common.Security;
-using ConfigurationManager = AcceptanceTests.Common.Configuration.ConfigurationManager;
+using VHConfigurationManager = AcceptanceTests.Common.Configuration.ConfigurationManager;
 
 namespace NotificationApi.IntegrationTests.Hooks
 {
@@ -27,7 +26,7 @@ namespace NotificationApi.IntegrationTests.Hooks
 
         public ConfigHooks(IntTestContext context)
         {
-            _configRoot = ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D");
+            _configRoot = ConfigRootBuilder.Build();
             context.Config = new Config();
             context.Tokens = new NotificationApiTokens();
         }
@@ -49,7 +48,7 @@ namespace NotificationApi.IntegrationTests.Hooks
         {
             var azureOptions = Options.Create(_configRoot.GetSection("AzureAd").Get<AzureAdConfiguration>());
             context.Config.AzureAdConfiguration = azureOptions.Value;
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
+            VHConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
             return azureOptions;
         }
         
@@ -57,7 +56,7 @@ namespace NotificationApi.IntegrationTests.Hooks
         {
             var notifyOptions =  Options.Create(_configRoot.GetSection("NotifyConfiguration").Get<NotifyConfiguration>()).Value;
             context.Config.NotifyConfiguration = notifyOptions;
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.NotifyConfiguration);
+            VHConfigurationManager.VerifyConfigValuesSet(context.Config.NotifyConfiguration);
             return notifyOptions;
         }
 
@@ -69,13 +68,13 @@ namespace NotificationApi.IntegrationTests.Hooks
         private void RegisterHearingServices(IntTestContext context)
         {
             context.Config.ServicesConfig = Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value;
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
+            VHConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
         }
 
         private void RegisterDatabaseSettings(IntTestContext context)
         {
             context.Config.DbConnection = Options.Create(_configRoot.GetSection("ConnectionStrings").Get<ConnectionStringsConfig>()).Value;
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.DbConnection);
+            VHConfigurationManager.VerifyConfigValuesSet(context.Config.DbConnection);
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.EnableSensitiveDataLogging();
             dbContextOptionsBuilder.UseSqlServer(context.Config.DbConnection.VhNotificationsApi);
