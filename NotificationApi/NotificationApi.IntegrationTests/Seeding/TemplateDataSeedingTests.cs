@@ -22,7 +22,7 @@ namespace NotificationApi.IntegrationTests.Seeding
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.EnableSensitiveDataLogging();
-            dbContextOptionsBuilder.UseInMemoryDatabase("VhNotificationsApi");
+            dbContextOptionsBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
             var notifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
             _dbContext = new NotificationsApiDbContext(notifyBookingsDbContextOptions);
             _sut = new TemplateDataSeeding(_dbContext);

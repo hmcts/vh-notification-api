@@ -17,6 +17,19 @@
           "System.Configuration.ConfigurationManager": "4.4.0"
         }
       },
+      "GovukNotify": {
+        "type": "Direct",
+        "requested": "[6.0.0, )",
+        "resolved": "6.0.0",
+        "contentHash": "HCBh1BsDA4xEGV5pl4cBAJZncADRRk2yQ24MuoCPLGwBTv4fCrto7TX9NPFZhBjSrBbXou9ck/yetxuRbx7/nQ==",
+        "dependencies": {
+          "JWT": "[7.1.0, 9.0.0)",
+          "Newtonsoft.Json": "[10.0.3, 14.0.0)",
+          "System.Collections.Specialized": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0"
+        }
+      },
       "Microsoft.AspNetCore.Mvc.Testing": {
         "type": "Direct",
         "requested": "[6.0.11, )",
@@ -252,18 +265,6 @@
         "type": "Transitive",
         "resolved": "19.0.3",
         "contentHash": "kq9feqMojMj9aABrHb/ABEPaH2Y4dSclseSahAru6qxCeqVQNLLTgw/6vZMauzI1yBUL2fz03ub5yEd5btLfvg=="
-      },
-      "GovukNotify": {
-        "type": "Transitive",
-        "resolved": "6.0.0",
-        "contentHash": "HCBh1BsDA4xEGV5pl4cBAJZncADRRk2yQ24MuoCPLGwBTv4fCrto7TX9NPFZhBjSrBbXou9ck/yetxuRbx7/nQ==",
-        "dependencies": {
-          "JWT": "[7.1.0, 9.0.0)",
-          "Newtonsoft.Json": "[10.0.3, 14.0.0)",
-          "System.Collections.Specialized": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Runtime.Extensions": "4.3.0"
-        }
       },
       "HtmlAgilityPack": {
         "type": "Transitive",
