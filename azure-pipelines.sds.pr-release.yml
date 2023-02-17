@@ -58,6 +58,18 @@ stages:
                 - "[NotificationApi.Common]*"
                 - "[Testing.Common]*"
 
+          - template: stages\dotnet-tests\unit-tests.yml@azTemplates
+            parameters:
+              #vstsFeedId: 'Video Hearings/vh-packages'
+              dotnetCoreVersion: "6.x"
+              nugetConfigPath: ${{ variables.appName }} # Temp - Change To SDS Feed When Possible.
+              unitTestProjectPath: "${{ variables.appName }}/${{ variables.appName }}.IntegrationTests"
+              coverletCoverageExclusions:
+                - "[NotificationApi.*Tests?]*"
+                - "[NotificationApi]Startup"
+                - "[NotificationApi.Common]*"
+                - "[Testing.Common]*"
+
           - template: templates/sonarCloud/runAnalysis.yml@azTemplates
 
   ####################################################
