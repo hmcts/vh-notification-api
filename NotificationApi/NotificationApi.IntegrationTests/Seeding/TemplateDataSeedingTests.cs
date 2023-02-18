@@ -44,7 +44,6 @@ namespace NotificationApi.IntegrationTests.Seeding
         {
             var templateDataForEnvironments = new TemplateDataForEnvironments();
             var preProdTemplates = templateDataForEnvironments.Get("PreProd");
-            var devTemplates = templateDataForEnvironments.Get("Dev");
             var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
 
             // imitate a database restore from another env
