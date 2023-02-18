@@ -19,9 +19,6 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         {
             builder.ConfigureTestServices(services =>
             {
-                var authorizationDescriptor = services.FirstOrDefault(d => d.ServiceType == typeof(IAuthorizationHandler));
-                if (authorizationDescriptor != null)
-                    services.Remove(authorizationDescriptor);
                 services.AddAuthentication(options =>
                 {
                     options.DefaultScheme = FakeJwtBearerDefaults.AuthenticationScheme;
