@@ -1,6 +1,6 @@
 # vh-notification-api
 
-[![Build Status](https://dev.azure.com/hmctsreform/VirtualHearings/_apis/build/status/Apps-CI/hmcts.vh-notification-api?repoName=hmcts%2Fvh-notification-api&branchName=VIH-6688_EndPoints)](https://dev.azure.com/hmctsreform/VirtualHearings/_build/latest?definitionId=188&repoName=hmcts%2Fvh-notification-api&branchName=VIH-6688_EndPoints)
+[![Build Status](https://dev.azure.com/hmctsreform/VirtualHearings/_apis/build/status/Apps-CI/hmcts.vh-notification-api?repoName=hmcts%2Fvh-notification-api&branchName=master)](https://dev.azure.com/hmctsreform/VirtualHearings/_build/latest?definitionId=188&repoName=hmcts%2Fvh-notification-api&branchName=master)
 
 [![NotificationApi.Client package in vh-packages feed in Azure Artifacts](https://feeds.dev.azure.com/hmctsreform/3f69a23d-fbc7-4541-afc7-4cccefcad773/_apis/public/Packaging/Feeds/e48b2732-376c-4052-ba97-b28783c9bab5/Packages/903ad9ea-874b-4201-9841-66894e4f6cc1/Badge)](https://dev.azure.com/hmctsreform/VirtualHearings/_packaging?_a=package&feed=e48b2732-376c-4052-ba97-b28783c9bab5&package=903ad9ea-874b-4201-9841-66894e4f6cc1&preferRelease=true)
 
