@@ -1,9 +1,7 @@
 using NotificationApi.DAL;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using NotificationApi.IntegrationTests.Helper;
 using NUnit.Framework;
-using Testing.Common.Configuration;
 
 namespace NotificationApi.IntegrationTests.Database
 {
@@ -15,9 +13,6 @@ namespace NotificationApi.IntegrationTests.Database
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            var configRoot = ConfigRootBuilder.Build();
-            configRoot.GetConnectionString("VhNotificationsApi");
-
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
             
