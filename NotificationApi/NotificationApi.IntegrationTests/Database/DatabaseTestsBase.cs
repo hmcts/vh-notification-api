@@ -20,16 +20,12 @@ namespace NotificationApi.IntegrationTests.Database
             _databaseConnectionString = configRoot.GetConnectionString("VhNotificationsApi");
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.UseSqlServer(_databaseConnectionString);
-            
+
             NotifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
             TestDataManager = new TestDataManager(NotifyBookingsDbContextOptions);
-            
-            var context = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
-            if (context.Database.IsRelational())
-            {
-                context.Database.Migrate();
-            }
 
+            var context = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);
+            context.Database.Migrate();
             new TemplateDataSeeding(context).Run("Dev");
         }
     }
