@@ -88,7 +88,7 @@ namespace NotificationApi.IntegrationTests.Api
             TestDataManager.NotificationsCreated.Clear();
         }
     
-        private NotificationCallbackRequest BuildRequest(Notification notification, string deliveryStatus)
+        private static NotificationCallbackRequest BuildRequest(Notification notification, string deliveryStatus)
         {
             return new NotificationCallbackRequest
             {
