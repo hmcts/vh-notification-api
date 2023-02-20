@@ -63,7 +63,6 @@ stages:
 
           - task: PublishCodeCoverageResults@1
             displayName: "Publish code coverage report"
-            condition: always()
             inputs:
               codeCoverageTool: "Cobertura"
               summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml"
