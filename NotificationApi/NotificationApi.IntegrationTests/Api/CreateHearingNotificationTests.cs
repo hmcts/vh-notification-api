@@ -81,7 +81,7 @@ namespace NotificationApi.IntegrationTests.Api
                 .Be(AddNotificationRequestValidation.MissingEmailMessage);
         }
 
-        private AddNotificationRequest BuildNewUserNotificationRequest(MessageType messageType,
+        private static AddNotificationRequest BuildNewUserNotificationRequest(MessageType messageType,
             NotificationType notificationType)
         {
             var parameters = new Dictionary<string, string>

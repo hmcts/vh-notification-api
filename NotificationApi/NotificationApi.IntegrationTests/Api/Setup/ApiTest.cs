@@ -50,7 +50,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         /// <summary>
         /// This will insert a random callback secret per test run
         /// </summary>
-        private void GenerateRandomCallbackSecret()
+        private static void GenerateRandomCallbackSecret()
         {
             var secret = Convert.ToBase64String(new HMACSHA256().Key);
             Environment.SetEnvironmentVariable(CallbackSecretConfigKey, secret);
