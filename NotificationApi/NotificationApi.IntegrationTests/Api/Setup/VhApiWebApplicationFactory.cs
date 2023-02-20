@@ -1,12 +1,9 @@
-using System.Linq;
 using System.Net.Http;
 using GST.Fake.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NotificationApi.DAL;
 using NotificationApi.IntegrationTests.Stubs;
 using Notify.Interfaces;
 
@@ -25,16 +22,6 @@ namespace NotificationApi.IntegrationTests.Api.Setup
                     options.DefaultChallengeScheme = FakeJwtBearerDefaults.AuthenticationScheme;
                 }).AddFakeJwtBearer();
                 services.AddScoped<IAsyncNotificationClient, AsyncNotificationClientStub>();
-                var descriptor = services.SingleOrDefault(
-                    d => d.ServiceType ==
-                         typeof(DbContextOptions<NotificationsApiDbContext>));
-
-                services.Remove(descriptor);
-
-                services.AddDbContext<NotificationsApiDbContext>(options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
-                }, ServiceLifetime.Singleton);
             });
             builder.UseEnvironment("Development");
         }

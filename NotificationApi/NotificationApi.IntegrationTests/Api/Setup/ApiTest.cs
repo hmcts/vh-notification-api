@@ -20,6 +20,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         protected DbContextOptions<NotificationsApiDbContext> DbOptions { get; private set; }
         private IConfigurationRoot _configRoot;
         private NotifyConfiguration _notifyConfiguration;
+        private string _databaseConnectionString;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -40,7 +41,8 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         private void InitTestDataManager()
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
-            dbContextOptionsBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
+            _databaseConnectionString = _configRoot.GetConnectionString("VhNotificationsApi");
+            dbContextOptionsBuilder.UseSqlServer(_databaseConnectionString);
             DbOptions = dbContextOptionsBuilder.Options;
             TestDataManager = new TestDataManager(dbContextOptionsBuilder.Options);
         }
