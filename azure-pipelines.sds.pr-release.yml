@@ -39,24 +39,18 @@ stages:
         steps:
           - checkout: self
 
-          - powershell: |
-              $ProjectKey = "$(Build.Repository.Name)" -ireplace "hmcts\/"
-              Write-Output ("Sonar Cloud project key: {0}" -f $ProjectKey)
-              Write-Host "##vso[task.setvariable variable=ProjectKey;]$ProjectKey"
-            displayName: Set Sonar Cloud Project Key
-
           - bash: |
               sed -i "s|</configuration>|<packageSourceCredentials><vh-packages><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"$(System.AccessToken)\" /></vh-packages></packageSourceCredentials></configuration>|" nuget.sds.config
             displayName: Add NuGet Feed Authentication
             workingDirectory: ${{ variables.appName }}
 
           - task: DockerCompose@0
-            displayName: Runs tests
+            displayName: Run unit & integration tests
             env:
               SONAR_HOST: https://sonarcloud.io
               SONAR_ORG: hmcts
               SONAR_TOKEN: $(SonarLoginToken)
-              SONAR_PROJECT_KEY: $(ProjectKey)
+              SONAR_PROJECT_KEY: $(gitRepoName)
               PAT_TOKEN: $(System.AccessToken)
               SONAR_PROJECT_VERSION: $(Build.BuildNumber)
               SONAR_PROJECT_NAME: $(Build.Repository.Name)
