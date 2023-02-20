@@ -41,32 +41,32 @@ stages:
 
           - bash: |
                sed -i "s|</configuration>|<packageSourceCredentials><vh-packages><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"$(System.AccessToken)\" /></vh-packages></packageSourceCredentials></configuration>|" nuget.sds.config
-             displayName: Add NuGet Feed Authentication
-             workingDirectory: ${{ variables.appName }}
+            displayName: Add NuGet Feed Authentication
+            workingDirectory: ${{ variables.appName }}
 
           - task: DockerCompose@0
-             displayName: Run unit & integration tests
-             env:
-               SONAR_HOST: https://sonarcloud.io
-               SONAR_ORG: hmcts
-               SONAR_TOKEN: $(SonarLoginToken)
-               SONAR_PROJECT_KEY: $(gitRepoName)
-               PAT_TOKEN: $(System.AccessToken)
-               SONAR_PROJECT_VERSION: $(Build.BuildNumber)
-               SONAR_PROJECT_NAME: $(Build.Repository.Name)
-             inputs:
-               action: Run a Docker Compose command
-               dockerComposeFile: docker-compose.tests.yml
-               projectName: $(Build.Repository.Name)
-               dockerComposeCommand: up
-               arguments: --build --abort-on-container-exit
+            displayName: Run unit & integration tests
+            env:
+              SONAR_HOST: https://sonarcloud.io
+              SONAR_ORG: hmcts
+              SONAR_TOKEN: $(SonarLoginToken)
+              SONAR_PROJECT_KEY: $(gitRepoName)
+              PAT_TOKEN: $(System.AccessToken)
+              SONAR_PROJECT_VERSION: $(Build.BuildNumber)
+              SONAR_PROJECT_NAME: $(Build.Repository.Name)
+            inputs:
+              action: Run a Docker Compose command
+              dockerComposeFile: docker-compose.tests.yml
+              projectName: $(Build.Repository.Name)
+              dockerComposeCommand: up
+              arguments: --build --abort-on-container-exit
 
           - task: PublishCodeCoverageResults@1
-             displayName: "Publish code coverage report"
-             condition: always()
-             inputs:
-               codeCoverageTool: "Cobertura"
-               summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml"
+            displayName: "Publish code coverage report"
+            condition: always()
+            inputs:
+              codeCoverageTool: "Cobertura"
+              summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml"
 
            - task: PublishTestResults@2
              displayName: Publish test results
