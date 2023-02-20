@@ -14,16 +14,6 @@ Include the vh-packages source
 https://pkgs.dev.azure.com/hmctsreform/VirtualHearings/_packaging/vh-packages/nuget/v3/index.json
 ```
 
-Include the govuk notify source
-
-```
-https://api.bintray.com/nuget/gov-uk-notify/nuget
-```
-
-## Setup templates locally
-
-Execute the environment template scripts to setup your local against it's respective notify environment
-
 ## Running code coverage
 
 First ensure you are running a terminal in the Notification Api directory of this repository and then run the following commands.
@@ -57,22 +47,6 @@ $ git config core.hooksPath .githooks
 The commit message will be validated by prepare-commit-msg hook.
 The commit message format should start with : 'feature/VIH-XXXX : ' folowing by 8 or more characters description of commit, otherwise the warning message will be presented.
 
-## Run Zap scan locally
-
-To run Zap scan locally update the following settings and run acceptance\integration tests
-
-User Secrets:
-
-- "Services:NotificationApiUrl": "https://NotificationApi_AC/"
-
-Update following configuration under appsettings.json under NotificationApi.AcceptanceTests or NotificationApi.IntegrationTests
-
-- "Services:NotificationApiUrl": "https://NotificationApi_AC/"
-- "ZapConfiguration:ZapScan": true
-- "ConnectionStrings:VhNotificationApi": "Server=localhost,1433;Database=VhNotificationApi;User=sa;Password=VeryStrongPassword!;" (IntegrationTest alone)
-
-Note: Ensure you have Docker desktop engine installed and setup
-
 ## Run Stryker
 
 To run stryker mutation test, go to UnitTest folder under command prompt and run the following command
@@ -105,12 +79,19 @@ dotnet tool update --global dotnet-stryker
 
 ## Running tests with Docker
 
+### Setup a local instance of Sonar
+
+``` shell
+docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
+```
+
 The unit and integration tests can be run inside a container. You will need a an access token to build the image locally
 
 Open a terminal at the root of the repo and run the following in a terminal to build the test image:
 
 ``` shell
 docker build . --file tests/Dockerfile -t notification-api-tests --build-arg PAT=<PAT TOKEN>
+docker run --name notification-api-local --network=host -it --mount src="$(pwd)",target=/app,type=bind notification-api-tests:latest
 ```
 
 ### Running all tests in Docker
