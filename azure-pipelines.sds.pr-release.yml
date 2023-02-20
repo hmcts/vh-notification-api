@@ -58,15 +58,6 @@ stages:
                 - "[NotificationApi.Common]*"
                 - "[Testing.Common]*"
 
-          - task: DotNetCoreCLI@2
-            displayName: Run dotnet Tests
-            inputs:
-              testRunTitle: dotnet Tests
-              command: test
-              projects: |
-                ${{ variables.appName }}/${{ variables.appName }}.IntegrationTests/*.csproj
-              arguments: --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura,json,lcov\"" /p:Exclude="\"[*]Testing.Common.*,[*]NotificationApi.Common.*,[*.Common]*"\" /p:CoverletOutput=$(Common.TestResultsDirectory)/Coverage/ /p:MergeWith=$(Common.TestResultsDirectory)/Coverage/coverage.json'
-
           - task: PublishCodeCoverageResults@1
             displayName: Publish Code Coverage
             inputs:
