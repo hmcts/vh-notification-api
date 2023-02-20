@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace NotificationApi.AcceptanceTests.ApiTests
 {
-    public class GetTemplateTests : ACApiTest
+    public class GetTemplateTests : AcApiTest
     {
         [TestCase(NotificationType.CreateIndividual)]
         [TestCase(NotificationType.CreateRepresentative)]
