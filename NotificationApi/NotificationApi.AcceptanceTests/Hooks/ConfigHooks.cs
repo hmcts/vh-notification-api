@@ -14,7 +14,7 @@ using NUnit.Framework;
 using TechTalk.SpecFlow;
 using Testing.Common.Configuration;
 using Testing.Common.Security;
-using ConfigurationManager = AcceptanceTests.Common.Configuration.ConfigurationManager;
+using VHConfigurationManager = AcceptanceTests.Common.Configuration.ConfigurationManager;
 
 namespace NotificationApi.AcceptanceTests.Hooks
 {
@@ -26,7 +26,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
         public ConfigHooks(AcTestContext context)
         {
             _configRoot =
-                ConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", "fa265f5a-ee84-47a8-836c-4789584918e4");
+                VHConfigurationManager.BuildConfig("4E35D845-27E7-4A19-BE78-CDA896BF907D", "fa265f5a-ee84-47a8-836c-4789584918e4");
             context.Config = new Config();
             context.Tokens = new NotificationApiTokens();
         }
@@ -52,7 +52,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
             context.Config.AzureAdConfiguration.ClientId.Should().NotBeNullOrWhiteSpace();
             context.Config.AzureAdConfiguration.ClientSecret.Should().NotBeNullOrWhiteSpace();
             context.Config.AzureAdConfiguration.TenantId.Should().NotBeNullOrWhiteSpace();
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
+            VHConfigurationManager.VerifyConfigValuesSet(context.Config.AzureAdConfiguration);
             TestContext.Out.WriteLine("Registering Azure secrets complete");
         }
 
@@ -62,12 +62,12 @@ namespace NotificationApi.AcceptanceTests.Hooks
             context.Config.ServicesConfig = GetTargetTestEnvironment() == string.Empty ? Options.Create(_configRoot.GetSection("Services").Get<ServicesConfiguration>()).Value :
                 Options.Create(_configRoot.GetSection($"Testing.{GetTargetTestEnvironment()}.Services").Get<ServicesConfiguration>()).Value;
             if (context.Config.ServicesConfig == null && GetTargetTestEnvironment() != string.Empty) throw new TestSecretsFileMissingException(GetTargetTestEnvironment());
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
+            VHConfigurationManager.VerifyConfigValuesSet(context.Config.ServicesConfig);
             
             context.Config.NotifyConfiguration = GetTargetTestEnvironment() == string.Empty ? Options.Create(_configRoot.GetSection("NotifyConfiguration").Get<NotifyConfiguration>()).Value
                     : Options.Create(_configRoot.GetSection($"Testing.{GetTargetTestEnvironment()}.NotifyConfiguration").Get<NotifyConfiguration>()).Value;
             if (context.Config.NotifyConfiguration == null && GetTargetTestEnvironment() != string.Empty) throw new TestSecretsFileMissingException(GetTargetTestEnvironment());
-            ConfigurationManager.VerifyConfigValuesSet(context.Config.NotifyConfiguration);
+            VHConfigurationManager.VerifyConfigValuesSet(context.Config.NotifyConfiguration);
             TestContext.Out.WriteLine("Registering hearing services complete");
         }
 
@@ -87,7 +87,7 @@ namespace NotificationApi.AcceptanceTests.Hooks
                 TenantId = context.Config.AzureAdConfiguration.TenantId
             };
 
-            context.Tokens.NotificationApiBearerToken = await ConfigurationManager.GetBearerToken(
+            context.Tokens.NotificationApiBearerToken = await VHConfigurationManager.GetBearerToken(
                 azureConfig, context.Config.ServicesConfig.VhNotificationApiResourceId);
             context.Tokens.NotificationApiBearerToken.Should().NotBeNullOrEmpty("Bearer token for api must be set");
 
