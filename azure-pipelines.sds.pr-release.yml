@@ -34,7 +34,7 @@ stages:
               chartPath: ${{ variables.chartPath }}
               chartValuesPath: ${{ variables.chartPath }}
 
-      - job: UnitTests
+      - job: UnitAndIntegrationTests
         displayName: "Unit & Integration Tests"
         steps:
           - checkout: self
