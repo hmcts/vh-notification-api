@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace NotificationApi.DAL
 {
+    [ExcludeFromCodeCoverage]
     public class DesignTimeHearingsContextFactory : IDesignTimeDbContextFactory<NotificationsApiDbContext>
     {
         public NotificationsApiDbContext CreateDbContext(string[] args)
