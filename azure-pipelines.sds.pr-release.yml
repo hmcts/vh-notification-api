@@ -65,6 +65,7 @@ stages:
             displayName: "Publish code coverage report"
             inputs:
               codeCoverageTool: "Cobertura"
+              pathToSources: $(Build.SourcesDirectory)
               summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/coverage.cobertura.xml"
 
           - task: PublishTestResults@2
