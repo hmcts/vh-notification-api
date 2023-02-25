@@ -34,7 +34,6 @@ services:
       - ./TestResults:/TestResults:rw
       - ./Coverage:/Coverage:rw
       - ./:/app:rw
-      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
     depends_on:
       - test-db
     networks:
@@ -46,7 +45,7 @@ services:
     expose:
       - 1433
     ports:
-      - 14330:1433
+      - 1433:1433
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=R4ndomP@assword

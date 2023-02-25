@@ -41,9 +41,12 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         private void InitTestDataManager()
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
-            _databaseConnectionString = _configRoot.GetConnectionString("VhNotificationsApi");
             dbContextOptionsBuilder.UseSqlServer(_databaseConnectionString);
             DbOptions = dbContextOptionsBuilder.Options;
+            
+            var context = new NotificationsApiDbContext(DbOptions);
+            context.Database.Migrate();
+            
             TestDataManager = new TestDataManager(dbContextOptionsBuilder.Options);
         }
 
@@ -65,6 +68,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         {
             _configRoot = ConfigRootBuilder.Build();
             _notifyConfiguration = _configRoot.GetSection("NotifyConfiguration").Get<NotifyConfiguration>();
+            _databaseConnectionString = _configRoot.GetConnectionString("VhNotificationsApi");
         }
     }
 }
