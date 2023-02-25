@@ -345,3 +345,4 @@ secrets.dev.yaml
 
 .DS_Store
 .env
+**/SpecFlow
