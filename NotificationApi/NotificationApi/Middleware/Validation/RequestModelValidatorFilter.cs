@@ -44,7 +44,8 @@ namespace NotificationApi.Middleware.Validation
             {
                 var errors = context.ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).ToList();
                 _logger.LogWarning($"Request Validation Failed: {string.Join("; ", errors)}");
-                context.Result = new BadRequestObjectResult(context.ModelState);
+                
+                context.Result = new BadRequestObjectResult(new ValidationProblemDetails(context.ModelState));
             }
             else
             {

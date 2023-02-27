@@ -59,7 +59,7 @@ namespace NotificationApi.IntegrationTests.Database.Queries
             var query = new GetTemplateByNotificationTypeQuery(_duplicateTemplate.NotificationType);
 
             var f = async () => { await _handler.Handle(query); };
-            f.Should().Throw<DuplicateNotificationTemplateException>();
+            await f.Should().ThrowAsync<DuplicateNotificationTemplateException>();
         }
     }
 }

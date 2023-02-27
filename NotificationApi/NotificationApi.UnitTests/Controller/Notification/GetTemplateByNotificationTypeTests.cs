@@ -50,7 +50,7 @@ namespace NotificationApi.UnitTests.Controller.Notification
                 okResult.Value.Should().BeOfType<NotificationTemplateResponse>();
                 var notificationTemplateResponse = okResult.Value as NotificationTemplateResponse;
                 notificationTemplateResponse.Id.Should().Be(template.Id);
-                notificationTemplateResponse.NotificationType.Should().Be((int)notificationType);
+                notificationTemplateResponse.NotificationType.Should().Be((Contract.NotificationType) notificationType);
                 notificationTemplateResponse.NotifyTemplateId.Should().Be(template.NotifyTemplateId);
                 notificationTemplateResponse.Parameters.Should().Be(template.Parameters);
             }
