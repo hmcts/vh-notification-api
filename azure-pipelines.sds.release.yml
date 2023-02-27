@@ -180,7 +180,7 @@ stages:
     displayName: Deploy Nuget Packages
     dependsOn: Approve_Helm_Release
     variables:
-    - template: variables/demo.yaml
+    - template: variables/production.yaml
     - template: variables/shared.yaml
       parameters:
         env: ${{ variables.env }}
