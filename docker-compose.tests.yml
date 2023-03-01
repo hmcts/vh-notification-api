@@ -7,7 +7,7 @@ networks:
 services:
 
   vh-notification-api-tests:
-    image: notification-api-tests
+    image: vh-api-tests
     build:
       context: ./
       dockerfile: tests/Dockerfile

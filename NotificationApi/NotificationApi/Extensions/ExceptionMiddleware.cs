@@ -46,7 +46,7 @@ namespace NotificationApi.Extensions
             }
         }
 
-        private Task HandleBadRequestAsync(HttpContext httpContext, ValidationProblemDetails problemDetails)
+        private static Task HandleBadRequestAsync(HttpContext httpContext, ValidationProblemDetails problemDetails)
         {
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
