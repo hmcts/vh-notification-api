@@ -14,17 +14,6 @@ Include the vh-packages source
 https://pkgs.dev.azure.com/hmctsreform/VirtualHearings/_packaging/vh-packages/nuget/v3/index.json
 ```
 
-## Running code coverage
-
-First ensure you are running a terminal in the Notification Api directory of this repository and then run the following commands.
-
-```bash
-dotnet test --no-build NotificationApi.UnitTests/NotificationApi.UnitTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura,json,lcov\"" /p:CoverletOutput=../Artifacts/Coverage/ /p:MergeWith='../Artifacts/Coverage/coverage.json' /p:Exclude="\"[*]NotificationApi.API.Extensions.*,[NotificationApi]NotificationApi.Startup,[NotificationApi]NotificationApi.Program,[*]NotificationApi.Swagger.*,[NotificationApi.*Tests?]*,[*]NotificationApi.DAL.Migrations.*,[*]NotificationApi.DAL.Mappings.*,[*]NotificationApi.Domain.Ddd.*,[*]NotificationApi.Domain.Validations.*,[NotificationApi.DAL]NotificationApi.DAL.NotificationApiDbContext,[NotificationApi.DAL]NotificationApi.DAL.DesignTimeHearingsContextFactory,[*]NotificationApi.Common.*,[*]Testing.Common.*"
-
-dotnet test --no-build NotificationApi.IntegrationTests/NotificationApi.IntegrationTests.csproj /p:CollectCoverage=true /p:CoverletOutputFormat="\"opencover,cobertura,json,lcov\"" /p:CoverletOutput=../Artifacts/Coverage/ /p:MergeWith='../Artifacts/Coverage/coverage.json' /p:Exclude="\"[*]NotificationApi.API.Extensions.*,[NotificationApi]NotificationApi.Startup,[NotificationApi]NotificationApi.Program,[*]NotificationApi.Swagger.*,[NotificationApi.*Tests?]*,[*]NotificationApi.DAL.Migrations.*,[*]NotificationApi.DAL.Mappings.*,[*]NotificationApi.Domain.Ddd.*,[*]NotificationApi.Domain.Validations.*,[NotificationApi.DAL]NotificationApi.DAL.NotificationApiDbContext,[NotificationApi.DAL]NotificationApi.DAL.DesignTimeHearingsContextFactory,[*]NotificationApi.Common.*,[*]Testing.Common.*"
-
-```
-
 ## Generate HTML Report
 
 Under the unit test project directory
