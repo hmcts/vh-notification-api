@@ -30,7 +30,7 @@ dotnet test --no-build NotificationApi.IntegrationTests/NotificationApi.Integrat
 Under the unit test project directory
 
 ```bash
-dotnet reportgenerator "-reports:../Artifacts/Coverage/coverage.opencover.xml" "-targetDir:../Artifacts/Coverage/Report" -reporttypes:HtmlInline_AzurePipelines
+dotnet reportgenerator "-reports:./Coverage/coverage.opencover.xml" "-targetDir:./Artifacts/Coverage/Report" -reporttypes:Html -sourcedirs:./NotificationApi
 ```
 
 ## Branch name
