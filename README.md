@@ -1,8 +1,19 @@
 # vh-notification-api
 
+## HMCTS
+
 [![Build Status](https://dev.azure.com/hmctsreform/VirtualHearings/_apis/build/status/Apps-CI/hmcts.vh-notification-api?repoName=hmcts%2Fvh-notification-api&branchName=master)](https://dev.azure.com/hmctsreform/VirtualHearings/_build/latest?definitionId=188&repoName=hmcts%2Fvh-notification-api&branchName=master)
 
-[![NotificationApi.Client package in vh-packages feed in Azure Artifacts](https://feeds.dev.azure.com/hmctsreform/3f69a23d-fbc7-4541-afc7-4cccefcad773/_apis/public/Packaging/Feeds/e48b2732-376c-4052-ba97-b28783c9bab5/Packages/903ad9ea-874b-4201-9841-66894e4f6cc1/Badge)](https://dev.azure.com/hmctsreform/VirtualHearings/_packaging?_a=package&feed=e48b2732-376c-4052-ba97-b28783c9bab5&package=903ad9ea-874b-4201-9841-66894e4f6cc1&preferRelease=true)
+[![NotificationApi.Client package in vh-packages feed in Azure Artifacts](https://feeds.dev.azure.com/hmctsreform/3f69a23d-fbc7-4541-afc7-4cccefcad773/_apis/public/Packaging/Feeds/vh-packages/Packages/903ad9ea-874b-4201-9841-66894e4f6cc1/Badge)](https://dev.azure.com/hmctsreform/VirtualHearings/_artifacts/feed/vh-packages/NuGet/NotificationApi.Client?preferRelease=true)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vh-notification-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=vh-notification-api)
+
+## SDS
+
+[![Build Status](https://dev.azure.com/hmcts/Video%20Hearings/_apis/build/status/vh-notification-api/hmcts.vh-notification-api.sds.master-release?repoName=hmcts%2Fvh-notification-api&branchName=master)](https://dev.azure.com/hmcts/Video%20Hearings/_build/latest?definitionId=667&repoName=hmcts%2Fvh-notification-api&branchName=master)
+
+[![NotificationApi.Client package in vh-packages feed in Azure Artifacts](https://feeds.dev.azure.com/hmcts/cf3711aa-2aed-4f62-81a8-2afaee0ce26d/_apis/public/Packaging/Feeds/vh-packages/Packages/78c7eb3c-06f9-4718-879a-7f75ceb5b6ac/Badge)](https://dev.azure.com/hmcts/Video%20Hearings/_artifacts/feed/vh-packages/NuGet/NotificationApi.Client?preferRelease=true)
+
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=vh-notification-api&metric=alert_status)](https://sonarcloud.io/dashboard?id=vh-notification-api)
 
@@ -12,6 +23,14 @@ Include the vh-packages source
 
 ```
 https://pkgs.dev.azure.com/hmctsreform/VirtualHearings/_packaging/vh-packages/nuget/v3/index.json
+```
+
+## Restore Tools
+
+Run the following in a terminal at the root of the repository
+
+``` shell
+dotnet tool restore
 ```
 
 ## Generate HTML Report
