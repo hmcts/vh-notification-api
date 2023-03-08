@@ -1,47 +1,51 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Identity.Client;
 using NotificationApi.Common.Configuration;
 
 namespace NotificationApi.Common.Security
 {
     public interface ITokenProvider
     {
-        string GetClientAccessToken(string clientId, string clientSecret, string clientResource);
-        AuthenticationResult GetAuthorisationResult(string clientId, string clientSecret, string clientResource);
+        Task<string> GetClientAccessToken(string clientId, string clientSecret, string clientResource);
+        Task<AuthenticationResult> GetAuthorisationResult(string clientId, string clientSecret, string clientResource);
     }
 
     public class AzureTokenProvider : ITokenProvider
-    {
-        private readonly AzureAdConfiguration _securitySettings;
-
-        public AzureTokenProvider(IOptions<AzureAdConfiguration> environmentConfiguration)
         {
-            _securitySettings = environmentConfiguration.Value;
-        }
-
-        public string GetClientAccessToken(string clientId, string clientSecret, string clientResource)
-        {
-            var result = GetAuthorisationResult(clientId, clientSecret, clientResource);
-            return result.AccessToken;
-        }
-
-        public AuthenticationResult GetAuthorisationResult(string clientId, string clientSecret, string clientResource)
-        {
-            AuthenticationResult result;
-            var credential = new ClientCredential(clientId, clientSecret);
-            var authContext = new AuthenticationContext($"{_securitySettings.Authority}{_securitySettings.TenantId}");
-
-            try
+            private readonly AzureAdConfiguration _securitySettings;
+    
+            public AzureTokenProvider(IOptions<AzureAdConfiguration> environmentConfiguration)
             {
-                result = authContext.AcquireTokenAsync(clientResource, credential).Result;
+                _securitySettings = environmentConfiguration.Value;
             }
-            catch (AdalException)
+    
+            public async Task<string> GetClientAccessToken(string clientId, string clientSecret, string clientResource)
             {
-                throw new UnauthorizedAccessException();
+                var result = await GetAuthorisationResult(clientId, clientSecret, clientResource);
+                return result.AccessToken;
             }
-
-            return result;
+    
+            public async Task<AuthenticationResult> GetAuthorisationResult(string clientId, string clientSecret,
+                string clientResource)
+            {
+                
+                AuthenticationResult result;
+                var authority = $"{_securitySettings.Authority}{_securitySettings.TenantId}";
+                var app = ConfidentialClientApplicationBuilder.Create(clientId).WithClientSecret(clientSecret)
+                    .WithAuthority(authority).Build();
+    
+                try
+                {
+                    result = await app.AcquireTokenForClient(new[] {$"{clientResource}/.default"}).ExecuteAsync();
+                }
+                catch (MsalServiceException)
+                {
+                    throw new UnauthorizedAccessException();
+                }
+    
+                return result;
+            }
         }
-    }
 }

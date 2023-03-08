@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using NotificationApi.Client;
@@ -24,15 +25,15 @@ public abstract class AcApiTest
     
 
     [OneTimeSetUp]
-    public void OneTimeSetup()
+    public async Task OneTimeSetup()
     {
         RegisterSettings();
-        InitApiClients();
+        await InitApiClients();
     }
 
-    private void InitApiClients()
+    private async Task InitApiClients()
     {
-        var apiToken = GenerateApiToken();
+        var apiToken = await GenerateApiToken();
         var notificationApiHttpClient = new HttpClient();
         notificationApiHttpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("bearer", apiToken);
@@ -49,9 +50,10 @@ public abstract class AcApiTest
 
     
 
-    private string GenerateApiToken()
+    private Task<string> GenerateApiToken()
     {
-        return new AzureTokenProvider(Options.Create(_azureConfiguration)).GetClientAccessToken(_azureConfiguration.ClientId,
+        var tokenProvider = new AzureTokenProvider(Options.Create(_azureConfiguration));
+        return tokenProvider.GetClientAccessToken(_azureConfiguration.ClientId,
             _azureConfiguration.ClientSecret, _serviceConfiguration.VhNotificationApiResourceId);
     }
     
