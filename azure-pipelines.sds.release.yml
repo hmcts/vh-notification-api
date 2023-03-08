@@ -17,6 +17,7 @@ parameters:
   type: object
   default:
   - Demo
+  - ITHC
   - Prod
 
 pool: 
@@ -66,6 +67,8 @@ stages:
       displayName: ${{ env }} EF Release
       dependsOn: Approve_Entity_Framework
       variables:
+      - ${{ if eq(env, 'ITHC') }}:
+        - template: variables/ithc.yaml
       - ${{ if eq(env, 'Demo') }}:
         - template: variables/demo.yaml
       - ${{ if eq(env, 'Prod') }}:
@@ -82,7 +85,7 @@ stages:
         - download: current
           displayName: Download Sql Artifact
 
-        - ${{ if or( eq(env, 'Staging'), eq(env, 'Prod') ) }}: 
+        - ${{ if or( eq(env, 'Staging'), eq(env, 'ITHC'), eq(env, 'Prod') ) }}: 
           - template: templates/Azure/Common/unlock-lock.yaml@azTemplates
             parameters:
               addOrDelete: delete
@@ -102,7 +105,7 @@ stages:
             kvSqlPasswordSecret: ${{ variables.vhSqlPasswordSecret }}
             kvSqlUsernameSecret: ${{ variables.vhSqlUsernameSecret }}
 
-        - ${{ if or( eq(env, 'Staging'), eq(env, 'Prod') ) }}: 
+        - ${{ if or( eq(env, 'Staging'),eq(env, 'ITHC'), eq(env, 'Prod') ) }}: 
           - template: templates/Azure/Common/unlock-lock.yaml@azTemplates
             parameters:
               addOrDelete: add
@@ -117,6 +120,7 @@ stages:
     displayName: 'Approve Helm Release'
     dependsOn: 
     - Run_Entity_Framework_Demo
+    - Run_Entity_Framework_ITHC
     - Run_Entity_Framework_Prod
     jobs:
     - job: waitForValidation
