@@ -13,7 +13,7 @@ namespace NotificationApi.AcceptanceTests.Steps
 
         public HearingAmendmentSteps(AcTestContext context)
         {
-            _context = context;
+            _context = context; 
         }
         
         [Given(@"I have a hearing amendment for a judge email notification request")]
