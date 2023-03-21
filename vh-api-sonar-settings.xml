@@ -3,6 +3,6 @@
     xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
     <Property Name="sonar.exclusions">**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, NotificationApi/NotificationApi.DAL/Migrations/*, NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs</Property>
     <Property Name="sonar.coverage.exclusions">**/NotificationApi/Swagger/**/*, **/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi.Common/**/*, **/NotificationApi.IntegrationTests/**/*, **/NotificationApi.UnitTests/**/*, **/NotificationApi/Extensions/*, **/NotificationApi.DAL/Migrations/**/*</Property>
-    <Property Name="sonar.cs.opencover.reportsPaths">coverage.opencover.xml</Property>
+    <Property Name="sonar.cs.opencover.reportsPaths">**/coverage.opencover.xml</Property>
     <Property Name="sonar.cpd.exclusions">**/NotificationType.cs</Property>
 </SonarQubeAnalysisProperties>
