@@ -11,8 +11,6 @@ services:
     build:
       context: ./
       dockerfile: tests/Dockerfile
-      args:
-        - PAT=$PAT_TOKEN
     entrypoint:
       [
         "/wait-for-it.sh",
