@@ -219,21 +219,21 @@ stages:
         - name: NotifyConfiguration:Environment
           value: $(notify-environment)
 
-  #####################################################
-  # Approval Release to Prod #############################
-  - stage: Approve_Production_Release
-    displayName: 'Approve Prod Release'
-    jobs:
-    - job: Approve_Production_Release
-      displayName: Approve Prod Release
-      pool: server
-      timeoutInMinutes: 10080 # 7 days
-      steps:
-      - task: ManualValidation@0
-        timeoutInMinutes: 110080 # 7 days
-        inputs:
-          instructions: 'Please Approve Release to Production'
-          onTimeout: 'reject'
+#####################################################
+# Approval Release to Prod #############################
+- stage: Approve_Production_Release
+  displayName: 'Approve Prod Release'
+  jobs:
+  - job: Approve_Production_Release
+    displayName: Approve Prod Release
+    pool: server
+    timeoutInMinutes: 10080 # 7 days
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 110080 # 7 days
+      inputs:
+        instructions: 'Please Approve Release to Production'
+        onTimeout: 'reject'
 
 #####################################################
 # Run Entity Framework Prod. #####################
