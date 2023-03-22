@@ -168,6 +168,7 @@ stages:
     - Helm_Staging
   displayName: Acceptance Tests Staging
   variables:
+  - group: govuk-notify-dev
   - group: vh-notification-api
   - template: variables/staging.yaml
   - template: variables/shared.yaml
