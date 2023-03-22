@@ -1,7 +1,7 @@
 name: $(Date:yyyyMMddHHmm)-$(Rev:r)
 
 trigger:
-  - release/**
+  - release/*
 
 pr: none
 
@@ -31,9 +31,9 @@ stages:
       parameters:
         outputPath: $(Build.StagingDirectory)
         contextName: ${{ variables.efContextName }}
-        workingPath: $(System.DefaultWorkingDirectory)/NotificationApi/NotificationApi 
+        workingPath: $(System.DefaultWorkingDirectory)/${{ variables.appName }}/${{ variables.appName }}
         projectName: ${{ variables.efProjectName }}
-        migrationsPath: NotificationApi/NotificationApi.DAL/Migrations
+        migrationsPath: ${{ variables.appName }}/${{ variables.appName }}.DAL/Migrations
 
   - job: PublishAcceptanceTests
     displayName: Publish Acceptance Tests
@@ -114,7 +114,7 @@ stages:
     - bash: |
         sed -i "s|</configuration>|<packageSourceCredentials><vh-packages><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"$(System.AccessToken)\" /></vh-packages></packageSourceCredentials></configuration>|" nuget.sds.config
       displayName: Add NuGet Feed Authentication
-      workingDirectory: NotificationApi
+      workingDirectory: ${{ variables.appPath }}
   
     - template: templates\Containerisation\docker\docker-compose.yaml@azTemplates
       parameters:
@@ -299,7 +299,7 @@ stages:
       - bash: |
           sed -i "s|</configuration>|<packageSourceCredentials><vh-packages><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"$(System.AccessToken)\" /></vh-packages></packageSourceCredentials></configuration>|" nuget.sds.config
         displayName: Add NuGet Feed Authentication
-        workingDirectory: NotificationApi
+        workingDirectory: ${{ variables.appPath }}
     
       - template: templates\Containerisation\docker\docker-compose.yaml@azTemplates
         parameters:
