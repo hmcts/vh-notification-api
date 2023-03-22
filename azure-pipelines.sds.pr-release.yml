@@ -5,7 +5,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: feature/vh-tests-inside-a-container
+      ref: master
       endpoint: hmcts
 
 trigger: none
