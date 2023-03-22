@@ -34,7 +34,7 @@ stages:
               chartPath: ${{ variables.chartPath }}
               chartValuesPath: ${{ variables.chartPath }}
 
-          - template: stages\dotnet-tests\unit-and-integration-tests-container.yml
+          - template: stages\dotnet-tests\unit-and-integration-tests-container.yml@azTemplates
             parameters:
               nugetConfigPath: nuget.sds.config # can remove this once the sds config file is removed
               appName: ${{ variables.appName }}
