@@ -243,6 +243,8 @@ stages:
   variables:
     - template: variables/production.yaml 
     - template: variables/shared.yaml
+      parameters:
+        env: ${{ variables.env }}
   jobs:
   - job: Run_Entity_Framework_Production
     pool:
