@@ -13,7 +13,7 @@ namespace NotificationApi.Extensions
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        
+
 
         public ExceptionMiddleware(RequestDelegate next)
         {
@@ -26,14 +26,14 @@ namespace NotificationApi.Extensions
             {
                 await _next(httpContext);
             }
-            catch(BadRequestException ex)
+            catch (BadRequestException ex)
             {
                 var modelState = new ModelStateDictionary();
                 modelState.AddModelError("request", ex.Message);
                 var problemDetails = new ValidationProblemDetails(modelState);
                 await HandleBadRequestAsync(httpContext, problemDetails);
             }
-            catch(NotificationDalException ex)
+            catch (NotificationDalException ex)
             {
                 var modelState = new ModelStateDictionary();
                 modelState.AddModelError("database", ex.Message);
@@ -46,7 +46,7 @@ namespace NotificationApi.Extensions
             }
         }
 
-        private Task HandleBadRequestAsync(HttpContext httpContext, ValidationProblemDetails problemDetails)
+        private static Task HandleBadRequestAsync(HttpContext httpContext, ValidationProblemDetails problemDetails)
         {
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
@@ -65,6 +65,7 @@ namespace NotificationApi.Extensions
                 sb.Append($" {innerException.Message}");
                 innerException = innerException.InnerException;
             }
+
             return context.Response.WriteAsJsonAsync(sb.ToString());
         }
     }
