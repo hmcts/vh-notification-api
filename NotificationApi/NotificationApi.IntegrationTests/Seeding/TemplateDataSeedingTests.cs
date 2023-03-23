@@ -22,7 +22,7 @@ namespace NotificationApi.IntegrationTests.Seeding
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
             dbContextOptionsBuilder.EnableSensitiveDataLogging();
-            dbContextOptionsBuilder.UseInMemoryDatabase("VhNotificationsApi");
+            dbContextOptionsBuilder.UseInMemoryDatabase("InMemoryDbForTesting");
             var notifyBookingsDbContextOptions = dbContextOptionsBuilder.Options;
             _dbContext = new NotificationsApiDbContext(notifyBookingsDbContextOptions);
             _sut = new TemplateDataSeeding(_dbContext);
@@ -44,7 +44,6 @@ namespace NotificationApi.IntegrationTests.Seeding
         {
             var templateDataForEnvironments = new TemplateDataForEnvironments();
             var preProdTemplates = templateDataForEnvironments.Get("PreProd");
-            var devTemplates = templateDataForEnvironments.Get("Dev");
             var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
 
             // imitate a database restore from another env

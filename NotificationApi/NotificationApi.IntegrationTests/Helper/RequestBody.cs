@@ -1,6 +1,6 @@
 using System.Net.Http;
 using System.Text;
-using AcceptanceTests.Common.Api.Helpers;
+using Testing.Common.Helper;
 
 namespace NotificationApi.IntegrationTests.Helper
 {
