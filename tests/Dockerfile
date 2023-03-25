@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim
 WORKDIR /app
 
+RUN git checkout v1-ferrarij-patch-1
+
 COPY README.md.md test.md
 
 ## Setting the Sonarqube Organization and Uri
