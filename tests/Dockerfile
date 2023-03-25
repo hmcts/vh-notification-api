@@ -1,6 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim
 WORKDIR /app
 
+COPY README.md.md test.md
+
 ## Setting the Sonarqube Organization and Uri
 ENV SONAR_ORG "hmcts"
 ENV SONAR_HOST "https://sonarcloud.io"
