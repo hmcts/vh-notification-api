@@ -21,9 +21,7 @@
 
 Include the vh-packages source
 
-```
-https://pkgs.dev.azure.com/hmctsreform/VirtualHearings/_packaging/vh-packages/nuget/v3/index.json
-```
+`https://pkgs.dev.azure.com/hmctsreform/VirtualHearings/_packaging/vh-packages/nuget/v3/index.json`
 
 ## Restore Tools
 
