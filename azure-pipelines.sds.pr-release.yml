@@ -49,6 +49,7 @@ stages:
                 sonar.cpd.exclusions=**/NotificationType.cs
                 sonar.exclusions=**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, NotificationApi/NotificationApi.DAL/Migrations/*, NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
                 sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*, **/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi.Common/**/*, **/NotificationApi.IntegrationTests/**/*, **/NotificationApi.UnitTests/**/*, **/NotificationApi/Extensions/*, **/NotificationApi.DAL/Migrations/**/*
+                sonar.verbose=true
 
   ####################################################
   # Pre Release Tasks. ###############################
