@@ -45,11 +45,10 @@ stages:
               appName: ${{ variables.appName }}
               dockerComposeTestFile: docker-compose.tests.yml
               sonarExtraProperties: |
-                sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml  
+                sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/coverage.opencover.xml
                 sonar.cpd.exclusions=**/NotificationType.cs
                 sonar.exclusions=**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, NotificationApi/NotificationApi.DAL/Migrations/*, NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
                 sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*, **/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi.Common/**/*, **/NotificationApi.IntegrationTests/**/*, **/NotificationApi.UnitTests/**/*, **/NotificationApi/Extensions/*, **/NotificationApi.DAL/Migrations/**/*
-                sonar.verbose=true
 
   ####################################################
   # Pre Release Tasks. ###############################
