@@ -8,6 +8,11 @@ resources:
       ref: master
       endpoint: hmcts
 
+parameters:
+  - name: pr_number
+    type: string
+    default: " "
+
 trigger: none
 
 pr:
@@ -101,6 +106,7 @@ stages:
       - template: variables/shared.yaml
         parameters:
           env: ${{ variables.env }}
+          prnumber: ${{ variables.pr_number }}
       - group: vh-github-app-credentials
     jobs:
       - job: Dock
@@ -184,6 +190,7 @@ stages:
       - template: variables/shared.yaml
         parameters:
           env: ${{ variables.env }}
+          prnumber: ${{ variables.pr_number }}
       - name: dnsRecordName
         value: vh-${{ variables.git_repo_name }}-${{ variables.prTagPrefix }}
     jobs:
@@ -242,6 +249,7 @@ stages:
       - template: variables/shared.yaml
         parameters:
           env: ${{ variables.env }}
+          prnumber: ${{ variables.pr_number }}
     jobs:
       - job: Publish_Nuget
         displayName: Publish NuGet Packages
@@ -262,6 +270,7 @@ stages:
       - template: variables/shared.yaml
         parameters:
           env: ${{ variables.env }}
+          prnumber: ${{ variables.pr_number }}
       - name: dnsRecordName
         value: vh-${{ variables.git_repo_name }}-${{ variables.prTagPrefix }}
     jobs:
@@ -279,7 +288,7 @@ stages:
                   keyVaultName: vh-infra-core-${{ variables.env }}
                   secret: true
                 - name: Services:NotificationApiUrl
-                  value: "https://vh-notification-api-pr-$(System.PullRequest.PullRequestNumber).dev.platform.hmcts.net"
+                  value: "https://vh-notification-api-pr-${{ variables.pr_number }}.dev.platform.hmcts.net"
                 - name: Services:VhNotificationApiResourceId
                   value: azuread--identifieruri
                   keyVaultName: vh-notification-api-${{ variables.env }}
