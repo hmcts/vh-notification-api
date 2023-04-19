@@ -13,6 +13,13 @@ parameters:
     type: string
     default: " "
 
+variables:
+  - name: pr_number
+    ${{ if eq(parameters.pr_number, ' ') }}:
+      value: $(System.PullRequest.PullRequestNumber)
+    ${{ else }}:
+      value: ${{ parameters.pr_number }}
+
 trigger: none
 
 pr:
