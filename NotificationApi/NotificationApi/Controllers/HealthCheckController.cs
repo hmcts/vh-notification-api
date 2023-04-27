@@ -10,6 +10,7 @@ using NotificationApi.DAL.Queries;
 using NotificationApi.DAL.Queries.Core;
 using NSwag.Annotations;
 
+
 namespace NotificationApi.Controllers
 {
     [Produces("application/json")]
