@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -5,6 +6,7 @@ using VH.Core.Configuration;
 
 namespace NotificationApi
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         protected Program()
@@ -19,13 +21,13 @@ namespace NotificationApi
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             const string vhInfraCore = "/mnt/secrets/vh-infra-core";
-			const string vhNotificationApi = "/mnt/secrets/vh-notification-api";
+            const string vhNotificationApi = "/mnt/secrets/vh-notification-api";
 
             return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((configBuilder) =>
                 {
                     configBuilder.AddAksKeyVaultSecretProvider(vhInfraCore);
-					configBuilder.AddAksKeyVaultSecretProvider(vhNotificationApi);
+                    configBuilder.AddAksKeyVaultSecretProvider(vhNotificationApi);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

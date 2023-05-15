@@ -13,6 +13,7 @@ namespace NotificationApi.IntegrationTests.Helper
     public class TestDataManager
     {
         private readonly DbContextOptions<NotificationsApiDbContext> _dbContextOptions;
+        public List<Notification> NotificationsCreated = new();
 
         public TestDataManager(DbContextOptions<NotificationsApiDbContext> dbContextOptions)
         {
@@ -40,7 +41,7 @@ namespace NotificationApi.IntegrationTests.Helper
             await using var db = new NotificationsApiDbContext(_dbContextOptions);
             await db.Notifications.AddAsync(notification);
             await db.SaveChangesAsync();
-
+            NotificationsCreated.Add(notification);
             return notification;
         }
 
