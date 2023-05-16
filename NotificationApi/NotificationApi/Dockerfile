@@ -8,7 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR /src
 COPY NotificationApi .
-RUN dotnet restore --configfile nuget.sds.config "NotificationApi/NotificationApi.csproj"
+RUN dotnet restore --configfile nuget.config "NotificationApi/NotificationApi.csproj"
 WORKDIR "/src/NotificationApi"
 RUN dotnet publish "NotificationApi.csproj" -c Release -o /app/publish
 
