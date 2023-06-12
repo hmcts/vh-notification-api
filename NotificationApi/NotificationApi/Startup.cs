@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using NotificationApi.Common.Configuration;
+using NotificationApi.Common.Util;
 using NotificationApi.DAL;
 using NotificationApi.Extensions;
 using NotificationApi.Middleware.Logging;
@@ -47,7 +48,8 @@ namespace NotificationApi
                 }));
 
             services.AddApplicationInsightsTelemetry(Configuration["ApplicationInsights:InstrumentationKey"]);
-
+            var envName = Configuration["Services:VhNotificationApiResourceId"]; 
+            services.AddSingleton<IFeatureToggles>(new FeatureToggles(Configuration["FeatureToggle:SdkKey"], envName));
             services.AddJsonOptions();
             RegisterSettings(services);
             services.AddCustomTypes();
