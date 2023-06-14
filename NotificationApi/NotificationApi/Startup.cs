@@ -1,6 +1,5 @@
 using System;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -61,8 +60,9 @@ namespace NotificationApi
                 opt.Filters.Add(typeof(LoggingMiddleware));
                 opt.Filters.Add(typeof(RequestModelValidatorFilter));
                 opt.Filters.Add(new ProducesResponseTypeAttribute(typeof(string), 500));
-            }).AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRequestModelValidatorService>());
-            services.AddTransient<IValidatorFactory, RequestModelValidatorFactory>();
+            });
+            
+            services.AddValidatorsFromAssemblyContaining<IRequestModelValidatorService>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("VhNotificationsApi"),
                     builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)));
