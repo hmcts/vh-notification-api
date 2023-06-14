@@ -42,6 +42,7 @@ namespace NotificationApi.Contract
         NewHearingReminderLIP = 37,
         NewHearingReminderRepresentative = 38,
         NewHearingReminderJOH = 39,
-        NewHearingReminderEJUD = 40
+        NewHearingReminderEJUD = 40,
+        NewUserLipFirst = 41
     }
 }

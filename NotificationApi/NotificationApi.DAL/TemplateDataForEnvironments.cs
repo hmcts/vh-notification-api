@@ -1,10 +1,10 @@
-using NotificationApi.Domain;
-using NotificationApi.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using NotificationApi.Domain;
+using NotificationApi.Domain.Enums;
 
-namespace NotificationApi
+namespace NotificationApi.DAL
 {
     [ExcludeFromCodeCoverage]
     public class TemplateDataForEnvironments
@@ -220,6 +220,11 @@ namespace NotificationApi
                 new Template(new Guid("1e683018-cd1f-4c41-83c8-3686b697655e"),NotificationType.NewHearingReminderEJUD,
                 MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
                 DateTime.UtcNow,DateTime.UtcNow )
+            },
+            {
+                new Template(new Guid("6c9be8bd-9aaa-468c-ad73-340fb0919b21"),NotificationType.NewUserLipFirst,
+                    MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
+                    DateTime.UtcNow,DateTime.UtcNow )
             },
         };
 
@@ -650,8 +655,7 @@ namespace NotificationApi
             },
             {
                 new Template(new Guid("03cd0de3-2f67-44cc-85a5-6c60e4046c8d"),NotificationType.NewHearingReminderEJUD,
-                MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
-                DateTime.UtcNow,DateTime.UtcNow )
+                MessageType.Email,"name, case name, case number", DateTime.UtcNow,DateTime.UtcNow )
             },
         };
 
@@ -1517,6 +1521,10 @@ namespace NotificationApi
                 MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
                 DateTime.UtcNow,DateTime.UtcNow )
             },
+            {
+                new Template(new Guid("dd4d6c03-0dc5-474c-82ed-0382c9f725c1"),NotificationType.NewHearingReminderEJUD,
+                    MessageType.Email,"name, case name, case number", DateTime.UtcNow,DateTime.UtcNow )
+            }
         };
 
         private readonly IList<Template> _sourceTemplatesSandbox = new List<Template>()

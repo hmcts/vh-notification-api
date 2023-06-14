@@ -19,7 +19,7 @@ java:
         - applicationinsights--instrumentationkey
         - azuread--tenantid
         - connectionstrings--vhnotificationsapi
-        - name: launchdarkly-client-id
+        - name: launchdarkly--sdkkey
           alias: FeatureToggle--SdkKey
     vh-notification-api:
       excludeEnvironmentSuffix: false

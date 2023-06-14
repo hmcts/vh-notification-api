@@ -4,9 +4,9 @@
     "net6.0": {
       "GovukNotify": {
         "type": "Direct",
-        "requested": "[6.0.0, )",
-        "resolved": "6.0.0",
-        "contentHash": "HCBh1BsDA4xEGV5pl4cBAJZncADRRk2yQ24MuoCPLGwBTv4fCrto7TX9NPFZhBjSrBbXou9ck/yetxuRbx7/nQ==",
+        "requested": "[6.1.0, )",
+        "resolved": "6.1.0",
+        "contentHash": "gQxZtymzwlSruHdTaQL0ItberaBspk2K2WgoHja5wn8Kyzq++fapT/9/7bMEbLKKyJ5eOdR9VjZxF7V9AZETzQ==",
         "dependencies": {
           "JWT": "[7.1.0, 9.0.0)",
           "Newtonsoft.Json": "[10.0.3, 14.0.0)",
