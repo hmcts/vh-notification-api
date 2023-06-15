@@ -222,7 +222,7 @@ namespace NotificationApi.DAL
                 DateTime.UtcNow,DateTime.UtcNow )
             },
             {
-                new Template(new Guid("6c9be8bd-9aaa-468c-ad73-340fb0919b21"),NotificationType.NewUserLipFirst,
+                new Template(new Guid("6c9be8bd-9aaa-468c-ad73-340fb0919b21"),NotificationType.NewUserLipWelcome,
                     MessageType.Email,"case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow,DateTime.UtcNow )
             },

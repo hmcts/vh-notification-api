@@ -45,7 +45,7 @@ namespace NotificationApi.AcceptanceTests.ApiTests
         [TestCase(NotificationType.NewHearingReminderRepresentative)]
         [TestCase(NotificationType.NewHearingReminderJOH)]
         [TestCase(NotificationType.NewHearingReminderEJUD)]
-        [TestCase(NotificationType.NewUserLipFirst)]
+        [TestCase(NotificationType.NewUserLipWelcome)]
         public async Task should_return_okay_and_template(NotificationType notificationType)
         {
             // act
