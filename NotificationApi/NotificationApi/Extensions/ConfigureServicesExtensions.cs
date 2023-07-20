@@ -1,5 +1,7 @@
+using System;
 using AdminWebsite.Services;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -17,6 +19,7 @@ using NotificationApi.Swagger;
 using Notify.Client;
 using Notify.Interfaces;
 using NSwag;
+using NSwag.Generation.AspNetCore;
 using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
 
@@ -27,27 +30,40 @@ namespace NotificationApi.Extensions
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             services.AddSingleton<FluentValidationSchemaProcessor>();
-            services.AddOpenApiDocument((document, serviceProvider) =>
+            var apiVersionDescription = services.BuildServiceProvider().GetService<IApiVersionDescriptionProvider>();
+            foreach (var versionDescription in apiVersionDescription.ApiVersionDescriptions)
             {
-                document.Title = "Notification API";
-                document.DocumentProcessors.Add(
-                    new SecurityDefinitionAppender("JWT",
-                        new OpenApiSecurityScheme
-                        {
-                            Type = OpenApiSecuritySchemeType.ApiKey,
-                            Name = "Authorization",
-                            In = OpenApiSecurityApiKeyLocation.Header,
-                            Description = "Type into the textbox: Bearer {your JWT token}.",
-                            Scheme = "bearer"
-                        }));
-                document.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-                document.OperationProcessors.Add(new AuthResponseOperationProcessor());
-                var fluentValidationSchemaProcessor = serviceProvider.GetService<FluentValidationSchemaProcessor>();
-
-                // Add the fluent validations schema processor
-                document.SchemaProcessors.Add(fluentValidationSchemaProcessor);
-            });
+                services.AddOpenApiDocument((configure, serviceProvider) =>
+                {
+                    ConfigureSwaggerForVersion(configure,serviceProvider, versionDescription.GroupName);
+                });
+            }
             return services;
+        }
+
+
+        private static void ConfigureSwaggerForVersion(AspNetCoreOpenApiDocumentGeneratorSettings configure, IServiceProvider serviceProvider, string version)
+        {
+            configure.DocumentName = version;
+            configure.ApiGroupNames = new[] { version };
+            configure.Title = "Notification API";
+            configure.Version = version;
+            configure.DocumentProcessors.Add(
+                new SecurityDefinitionAppender("JWT",
+                    new OpenApiSecurityScheme
+                    {
+                        Type = OpenApiSecuritySchemeType.ApiKey,
+                        Name = "Authorization",
+                        In = OpenApiSecurityApiKeyLocation.Header,
+                        Description = "Type into the textbox: Bearer {your JWT token}.",
+                        Scheme = "bearer"
+                    }));
+            configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+            configure.OperationProcessors.Add(new AuthResponseOperationProcessor());
+            var fluentValidationSchemaProcessor = serviceProvider.GetService<FluentValidationSchemaProcessor>();
+            
+            // Add the fluent validations schema processor
+            configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
         }
 
         public static IServiceCollection AddCustomTypes(this IServiceCollection services)

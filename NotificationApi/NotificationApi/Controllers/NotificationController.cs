@@ -22,7 +22,10 @@ namespace NotificationApi.Controllers
 {
     [Produces("application/json")]
     [Route("notification")]
+    [Route("v{version:apiVersion}/notification")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [AllowAnonymous]
     public class NotificationController : ControllerBase
     {
         private readonly IQueryHandler _queryHandler;
@@ -36,7 +39,8 @@ namespace NotificationApi.Controllers
             _commandHandler = commandHandler;
             _createNotificationService = createNotificationService;
         }
-
+        
+        [MapToApiVersion("1.0")]
         [HttpGet("template/{notificationType}")]
         [OpenApiOperation("GetTemplateByNotificationType")]
         [ProducesResponseType(typeof(NotificationTemplateResponse), (int)HttpStatusCode.OK)]
@@ -59,6 +63,7 @@ namespace NotificationApi.Controllers
             });
         }
 
+        [MapToApiVersion("1.0")]
         [HttpPost]
         [OpenApiOperation("CreateNewNotification")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -86,6 +91,7 @@ namespace NotificationApi.Controllers
         /// Process callbacks from Gov Notify API
         /// </summary>
         /// <returns></returns>
+        [MapToApiVersion("1.0")]
         [HttpPost("callback")]
         [OpenApiOperation("HandleCallback")]
         [Authorize(AuthenticationSchemes = "Callback")]

@@ -15,6 +15,7 @@ namespace NotificationApi.Controllers
     [Produces("application/json")]
     [AllowAnonymous]
     [ApiController]
+    [ApiVersion("1.0")]
     public class HealthCheckController : ControllerBase
     {
         private readonly IQueryHandler _queryHandler;
@@ -31,6 +32,7 @@ namespace NotificationApi.Controllers
         [OpenApiOperation("CheckServiceHealthAuth")]
         [ProducesResponseType(typeof(HealthResponse), (int) HttpStatusCode.OK)]
         [ProducesResponseType(typeof(HealthResponse), (int) HttpStatusCode.InternalServerError)]
+        [MapToApiVersion("1.0")]
         public async Task<IActionResult> HealthAsync()
         {
             var response = new HealthResponse {AppVersion = GetApplicationVersion()};
