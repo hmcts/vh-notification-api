@@ -193,8 +193,8 @@ stages:
                   value: azuread--identifieruri
                   keyVaultName: vh-notification-api-${{ variables.env }}
                   secret: true
-                - name: ApplicationInsights:InstrumentationKey
-                  value: applicationinsights--instrumentationkey
+                - name: ApplicationInsights:ConnectionString
+                  value: connectionstrings--applicationinsights
                   keyVaultName: vh-infra-core-${{ variables.env }}
                   secret: true
                 - name: AzureAd:ClientId
