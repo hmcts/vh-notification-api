@@ -49,6 +49,8 @@ namespace NotificationApi.AcceptanceTests.ApiTests
         [TestCase(NotificationType.NewUserLipWelcome)]
         [TestCase(NotificationType.NewUserLipConfirmation)]
         [TestCase(NotificationType.NewUserLipConfirmationMultiDay)]
+        [TestCase(NotificationType.ExistingUserLipConfirmation)]
+        [TestCase(NotificationType.ExistingUserLipConfirmationMultiDay)]
         public async Task should_return_okay_and_template(NotificationType notificationType)
         {
             // act
