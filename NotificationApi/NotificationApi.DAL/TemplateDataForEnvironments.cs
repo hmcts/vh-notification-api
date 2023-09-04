@@ -240,6 +240,18 @@ namespace NotificationApi.DAL
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
             },
+            {
+                new Template(new Guid("7458e52d-3954-4f33-bd2d-0a7d2de295fc"),
+                    NotificationType.ExistingUserLipConfirmation,
+                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("3d83ee22-71ef-47f6-9557-bdaf0c0eecae"),
+                    NotificationType.ExistingUserLipConfirmationMultiDay,
+                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesPreview = new List<Template>()
@@ -1552,6 +1564,18 @@ namespace NotificationApi.DAL
             {
                 new Template(new Guid("1fec5768-db1e-469a-87f0-ca0171907fcf"),
                     NotificationType.NewUserLipConfirmationMultiDay,
+                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("d150f04b-bce7-4532-b7c3-2ad02550a0ca"),
+                    NotificationType.ExistingUserLipConfirmation,
+                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    DateTime.UtcNow, DateTime.UtcNow)
+            },
+            {
+                new Template(new Guid("fb7a7bc9-b0f2-498b-b9b8-c9171238d5c2"),
+                    NotificationType.ExistingUserLipConfirmationMultiDay,
                     MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
                     DateTime.UtcNow, DateTime.UtcNow)
             },

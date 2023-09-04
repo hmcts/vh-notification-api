@@ -45,6 +45,8 @@ namespace NotificationApi.Domain.Enums
         NewHearingReminderEJUD = 40,
         NewUserLipWelcome = 41,
         NewUserLipConfirmation = 42,
-        NewUserLipConfirmationMultiDay = 43
+        NewUserLipConfirmationMultiDay = 43,
+        ExistingUserLipConfirmation = 44,
+        ExistingUserLipConfirmationMultiDay = 45
     }
 }
