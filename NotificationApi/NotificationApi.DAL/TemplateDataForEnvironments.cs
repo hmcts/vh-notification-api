@@ -9,6 +9,8 @@ namespace NotificationApi.DAL
     [ExcludeFromCodeCoverage]
     public class TemplateDataForEnvironments
     {
+        private const string CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME = "case name, case number, judicial office holder, day month year, time, username";
+        
         private readonly IList<Template> _sourceTemplatesDev = new List<Template>()
         {
             {
@@ -216,40 +218,40 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("4A6FB490-4CB7-4441-9B00-CCA636A2C455"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("1e683018-cd1f-4c41-83c8-3686b697655e"), NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("6c9be8bd-9aaa-468c-ad73-340fb0919b21"), NotificationType.NewUserLipWelcome,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("625bb8c7-b70b-4fde-867e-9e365285d756"), NotificationType.NewUserLipConfirmation,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("14917a84-8a87-4e5e-82d2-6d3402ce1395"),
                     NotificationType.NewUserLipConfirmationMultiDay,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("7458e52d-3954-4f33-bd2d-0a7d2de295fc"),
                     NotificationType.ExistingUserLipConfirmation,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("3d83ee22-71ef-47f6-9557-bdaf0c0eecae"),
                     NotificationType.ExistingUserLipConfirmationMultiDay,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
         };
@@ -460,12 +462,12 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("31955C3E-4664-4D7B-A2D3-35CD01B7E923"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("3e4168c3-04fd-43fc-a863-6dcc38512cf0"), NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
         };
@@ -676,7 +678,7 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("8A80D059-D075-45B2-88E0-3B2066E3189A"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
@@ -891,12 +893,12 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("33DB272D-D961-4596-AFC0-C19B109D390B"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("62d3105b-d746-4b06-9cf3-c43b507682f1"), NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
         };
@@ -1107,12 +1109,12 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("3f8359da-d714-4bf3-ba16-4ecf09d11895"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("cd49e07f-419e-4d1f-9904-6f1f8e9f2ce5"), NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
         };
@@ -1323,12 +1325,12 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("8e5e3059-b369-4049-bfa3-af94c4e24391"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("df2324a3-26bd-4d16-8cb2-afd2a83e1c62"), NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
         };
@@ -1539,12 +1541,12 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("1abe2b66-87de-44a9-8e2b-fb82ec9d361f"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("7718d416-d223-4f9c-a6c3-4f4e484e1ced"), NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
@@ -1553,30 +1555,30 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("dd4d6c03-0dc5-474c-82ed-0382c9f725c1"), NotificationType.NewUserLipWelcome,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("f3b2bde2-a207-42a1-ac31-42afc4c565c5"), NotificationType.NewUserLipConfirmation,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("1fec5768-db1e-469a-87f0-ca0171907fcf"),
                     NotificationType.NewUserLipConfirmationMultiDay,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("d150f04b-bce7-4532-b7c3-2ad02550a0ca"),
                     NotificationType.ExistingUserLipConfirmation,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
             {
                 new Template(new Guid("fb7a7bc9-b0f2-498b-b9b8-c9171238d5c2"),
                     NotificationType.ExistingUserLipConfirmationMultiDay,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
         };
@@ -1787,7 +1789,7 @@ namespace NotificationApi.DAL
             },
             {
                 new Template(new Guid("954E98DD-354A-4580-9855-C23FE16BA312"), NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, "case name, case number, judicial office holder, day month year, time, username",
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME,
                     DateTime.UtcNow, DateTime.UtcNow)
             },
         };
