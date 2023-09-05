@@ -37,6 +37,7 @@ namespace NotificationApi.AcceptanceTests.ApiTests
         [TestCase(NotificationType.EJudJudgeDemoOrTest)]
         [TestCase(NotificationType.TelephoneHearingConfirmation)]
         [TestCase(NotificationType.TelephoneHearingConfirmationMultiDay)]
+        [TestCase(NotificationType.CreateStaffMember)]
         [TestCase(NotificationType.HearingAmendmentStaffMember)]
         [TestCase(NotificationType.HearingConfirmationStaffMember)]
         [TestCase(NotificationType.HearingConfirmationStaffMemberMultiDay)]
@@ -46,6 +47,10 @@ namespace NotificationApi.AcceptanceTests.ApiTests
         [TestCase(NotificationType.NewHearingReminderJOH)]
         [TestCase(NotificationType.NewHearingReminderEJUD)]
         [TestCase(NotificationType.NewUserLipWelcome)]
+        [TestCase(NotificationType.NewUserLipConfirmation)]
+        [TestCase(NotificationType.NewUserLipConfirmationMultiDay)]
+        [TestCase(NotificationType.ExistingUserLipConfirmation)]
+        [TestCase(NotificationType.ExistingUserLipConfirmationMultiDay)]
         public async Task should_return_okay_and_template(NotificationType notificationType)
         {
             // act
