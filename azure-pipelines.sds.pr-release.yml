@@ -46,8 +46,8 @@ stages:
               dockerComposeTestFile: docker-compose.tests.yml
               sonarExtraProperties: |
                 sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/coverage.opencover.xml
-                sonar.cpd.exclusions=**/NotificationType.cs
-                sonar.exclusions=**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, NotificationApi/NotificationApi.DAL/Migrations/*, **/NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
+                sonar.cpd.exclusions=**/NotificationType.cs, **/TemplateDataForEnvironments.cs
+                sonar.exclusions=**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, NotificationApi/NotificationApi.DAL/Migrations/*, NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
                 sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*, **/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi.Common/**/*, **/NotificationApi.IntegrationTests/**/*, **/NotificationApi.UnitTests/**/*, **/NotificationApi/Extensions/*, **/NotificationApi.DAL/Migrations/**/*
 
   ####################################################
