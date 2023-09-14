@@ -116,13 +116,5 @@ namespace NotificationApi.Extensions
 
             return serviceCollection;
         }
-        
-        public static IServiceCollection AddVhHealthChecks(this IServiceCollection services)
-        {
-            services.AddHealthChecks()
-                .AddDbContextCheck<NotificationsApiDbContext>("Database VhNotificationsApi");
-            
-            return services;
-        }
     }
 }
