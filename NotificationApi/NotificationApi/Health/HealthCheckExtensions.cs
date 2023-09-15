@@ -10,7 +10,7 @@ public static class HealthCheckExtensions
     {
         services.AddHealthChecks()
             .AddCheck("self", () => HealthCheckResult.Healthy())
-            .AddDbContextCheck<NotificationsApiDbContext>("Database VhNotificationsApi", tags: new[] {"services"});
+            .AddDbContextCheck<NotificationsApiDbContext>("Database VhNotificationsApi", tags: new[] {"startup", "readiness"});
             
         return services;
     }
