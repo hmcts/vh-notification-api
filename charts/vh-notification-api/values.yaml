@@ -5,19 +5,8 @@ java:
   image: "sdshmctspublic.azurecr.io/vh/notification-api:latest"
   ingressHost: vh-notification-api.{{ .Values.global.environment }}.platform.hmcts.net
   livenessPath: /healthcheck/liveness
-  livenessDelay: 360
-  livenessPeriod: 120
-  livenessTimeout: 3
-  livenessFailureThreshold: 3
   readinessPath: /healthcheck/readiness
-  readinessDelay: 360
-  readinessPeriod: 120
-  readinessTimeout: 3
   startupPath: /healthcheck/startup
-  startupDelay: 360
-  startupPeriod: 120
-  startupFailureThreshold: 20
-  startupTimeout: 3
   releaseNameOverride: vh-notification-api
   replicas: 2
   keyVaults:
