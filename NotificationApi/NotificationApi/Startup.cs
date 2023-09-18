@@ -1,20 +1,27 @@
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using NotificationApi.Common.Configuration;
 using NotificationApi.Common.Util;
 using NotificationApi.DAL;
 using NotificationApi.Extensions;
+using NotificationApi.Health;
 using NotificationApi.Middleware.Logging;
 using NotificationApi.Middleware.Validation;
 
@@ -61,6 +68,8 @@ namespace NotificationApi
                 opt.Filters.Add(typeof(RequestModelValidatorFilter));
                 opt.Filters.Add(new ProducesResponseTypeAttribute(typeof(string), 500));
             });
+            
+            services.AddVhHealthChecks();
             
             services.AddValidatorsFromAssemblyContaining<IRequestModelValidatorService>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
@@ -146,7 +155,46 @@ namespace NotificationApi
             app.UseMiddleware<RequestBodyLoggingMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute(); 
+                
+                // TODO: need to update the config. currently this route is used for liveness and readiness checks
+                endpoints.MapHealthChecks("/healthcheck/liveness", new HealthCheckOptions()
+                {
+                    Predicate = check => check.Tags.Contains("self"),
+                    ResponseWriter = HealthCheckResponseWriter
+                });
+
+                // TODO: need to update the config. currently the liveness route is used for startup
+                endpoints.MapHealthChecks("/healthcheck/startup", new HealthCheckOptions()
+                {
+                    Predicate = check => check.Tags.Contains("startup"),
+                    ResponseWriter = HealthCheckResponseWriter
+                });
+                
+                // TODO: need to update the config. currently this route is used for liveness and readiness checks
+                endpoints.MapHealthChecks("/healthcheck/readiness", new HealthCheckOptions()
+                {
+                    Predicate = check => check.Tags.Contains("readiness"),
+                    ResponseWriter = HealthCheckResponseWriter
+                });
+            });
+        }
+        
+        private async Task HealthCheckResponseWriter(HttpContext context, HealthReport report)
+        {
+            var result = JsonConvert.SerializeObject(new
+            {
+                status = report.Status.ToString(),
+                details = report.Entries.Select(e => new
+                {
+                    key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status),
+                    error = e.Value.Exception?.Message
+                })
+            });
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(result);
         }
 
         private static void AddPolicies(AuthorizationOptions options)
