@@ -11,55 +11,56 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Newtonsoft.Json;
 using NotificationApi.DAL;
 
-namespace NotificationApi.Health;
-
-[ExcludeFromCodeCoverage]
-public static class HealthCheckExtensions
+namespace NotificationApi.Health
 {
-    public static IServiceCollection AddVhHealthChecks(this IServiceCollection services)
+    [ExcludeFromCodeCoverage]
+    public static class HealthCheckExtensions
     {
-        services.AddHealthChecks()
-            .AddCheck("self", () => HealthCheckResult.Healthy())
-            .AddDbContextCheck<NotificationsApiDbContext>("Database VhNotificationsApi", tags: new[] {"startup", "readiness"});
+        public static IServiceCollection AddVhHealthChecks(this IServiceCollection services)
+        {
+            services.AddHealthChecks()
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddDbContextCheck<NotificationsApiDbContext>("Database VhNotificationsApi", tags: new[] {"startup", "readiness"});
             
-        return services;
-    }
+            return services;
+        }
     
-    public static IEndpointRouteBuilder AddVhHealthCheckRouteMaps(this IEndpointRouteBuilder endpoints)
-    {
-        endpoints.MapHealthChecks("/healthcheck/liveness", new HealthCheckOptions()
+        public static IEndpointRouteBuilder AddVhHealthCheckRouteMaps(this IEndpointRouteBuilder endpoints)
         {
-            Predicate = check => check.Tags.Contains("self"),
-            ResponseWriter = HealthCheckResponseWriter
-        });
-
-        endpoints.MapHealthChecks("/healthcheck/startup", new HealthCheckOptions()
-        {
-            Predicate = check => check.Tags.Contains("startup"),
-            ResponseWriter = HealthCheckResponseWriter
-        });
-                
-        endpoints.MapHealthChecks("/healthcheck/readiness", new HealthCheckOptions()
-        {
-            Predicate = check => check.Tags.Contains("readiness"),
-            ResponseWriter = HealthCheckResponseWriter
-        });
-
-        return endpoints;
-    }
-
-    private static async Task HealthCheckResponseWriter(HttpContext context, HealthReport report)
-    {
-        var result = JsonConvert.SerializeObject(new
-        {
-            status = report.Status.ToString(),
-            details = report.Entries.Select(e => new
+            endpoints.MapHealthChecks("/healthcheck/liveness", new HealthCheckOptions()
             {
-                key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status),
-                error = e.Value.Exception?.Message
-            })
-        });
-        context.Response.ContentType = "application/json";
-        await context.Response.WriteAsync(result);
+                Predicate = check => check.Tags.Contains("self"),
+                ResponseWriter = HealthCheckResponseWriter
+            });
+
+            endpoints.MapHealthChecks("/healthcheck/startup", new HealthCheckOptions()
+            {
+                Predicate = check => check.Tags.Contains("startup"),
+                ResponseWriter = HealthCheckResponseWriter
+            });
+                
+            endpoints.MapHealthChecks("/healthcheck/readiness", new HealthCheckOptions()
+            {
+                Predicate = check => check.Tags.Contains("readiness"),
+                ResponseWriter = HealthCheckResponseWriter
+            });
+
+            return endpoints;
+        }
+
+        private static async Task HealthCheckResponseWriter(HttpContext context, HealthReport report)
+        {
+            var result = JsonConvert.SerializeObject(new
+            {
+                status = report.Status.ToString(),
+                details = report.Entries.Select(e => new
+                {
+                    key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status),
+                    error = e.Value.Exception?.Message
+                })
+            });
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(result);
+        }
     }
 }
