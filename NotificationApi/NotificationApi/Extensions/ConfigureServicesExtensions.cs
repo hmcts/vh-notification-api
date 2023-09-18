@@ -25,7 +25,7 @@ namespace NotificationApi.Extensions
 {
     public static class ConfigureServicesExtensions
     {
-        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        public static IServiceCollection AddVhSwagger(this IServiceCollection services)
         {
             services.AddSingleton<FluentValidationSchemaProcessor>();
             services.AddOpenApiDocument((document, serviceProvider) =>
