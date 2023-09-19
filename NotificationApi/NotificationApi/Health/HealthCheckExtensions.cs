@@ -44,6 +44,18 @@ namespace NotificationApi.Health
                 Predicate = check => check.Tags.Contains("readiness"),
                 ResponseWriter = HealthCheckResponseWriter
             });
+            
+            // keep this in for backwards compatibility until the load balancer is updated
+            endpoints.MapHealthChecks("/healthcheck/health", new HealthCheckOptions()
+            {
+                Predicate = check => check.Tags.Contains("self"),
+                ResponseWriter = HealthCheckResponseWriter
+            });
+            endpoints.MapHealthChecks("/health/liveness", new HealthCheckOptions()
+            {
+                Predicate = check => check.Tags.Contains("self"),
+                ResponseWriter = HealthCheckResponseWriter
+            });
 
             return endpoints;
         }
