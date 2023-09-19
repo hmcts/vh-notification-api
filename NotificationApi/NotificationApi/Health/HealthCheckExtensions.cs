@@ -27,33 +27,21 @@ namespace NotificationApi.Health
     
         public static IEndpointRouteBuilder AddVhHealthCheckRouteMaps(this IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapHealthChecks("/healthcheck/liveness", new HealthCheckOptions()
+            endpoints.MapHealthChecks("/health/liveness", new HealthCheckOptions()
             {
                 Predicate = check => check.Tags.Contains("self"),
                 ResponseWriter = HealthCheckResponseWriter
             });
 
-            endpoints.MapHealthChecks("/healthcheck/startup", new HealthCheckOptions()
+            endpoints.MapHealthChecks("/health/startup", new HealthCheckOptions()
             {
                 Predicate = check => check.Tags.Contains("startup"),
                 ResponseWriter = HealthCheckResponseWriter
             });
                 
-            endpoints.MapHealthChecks("/healthcheck/readiness", new HealthCheckOptions()
+            endpoints.MapHealthChecks("/health/readiness", new HealthCheckOptions()
             {
                 Predicate = check => check.Tags.Contains("readiness"),
-                ResponseWriter = HealthCheckResponseWriter
-            });
-            
-            // keep this in for backwards compatibility until the load balancer is updated
-            endpoints.MapHealthChecks("/healthcheck/health", new HealthCheckOptions()
-            {
-                Predicate = check => check.Tags.Contains("self"),
-                ResponseWriter = HealthCheckResponseWriter
-            });
-            endpoints.MapHealthChecks("/health/liveness", new HealthCheckOptions()
-            {
-                Predicate = check => check.Tags.Contains("self"),
                 ResponseWriter = HealthCheckResponseWriter
             });
 
