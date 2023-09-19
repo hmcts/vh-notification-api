@@ -15,6 +15,7 @@ using NotificationApi.Common.Configuration;
 using NotificationApi.Common.Util;
 using NotificationApi.DAL;
 using NotificationApi.Extensions;
+using NotificationApi.Health;
 using NotificationApi.Middleware.Logging;
 using NotificationApi.Middleware.Validation;
 
@@ -35,7 +36,7 @@ namespace NotificationApi
         {
             services.AddControllers()
                 .AddNewtonsoftJson();
-            services.AddSwagger();
+            services.AddVhSwagger();
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>
                 {
@@ -61,6 +62,8 @@ namespace NotificationApi
                 opt.Filters.Add(typeof(RequestModelValidatorFilter));
                 opt.Filters.Add(new ProducesResponseTypeAttribute(typeof(string), 500));
             });
+            
+            services.AddVhHealthChecks();
             
             services.AddValidatorsFromAssemblyContaining<IRequestModelValidatorService>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
@@ -146,9 +149,14 @@ namespace NotificationApi
             app.UseMiddleware<RequestBodyLoggingMiddleware>();
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
-        }
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDefaultControllerRoute();
 
+                endpoints.AddVhHealthCheckRouteMaps();
+            });
+        }
+        
         private static void AddPolicies(AuthorizationOptions options)
         {
             options.DefaultPolicy = new AuthorizationPolicyBuilder()
