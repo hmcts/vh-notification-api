@@ -37,7 +37,6 @@ namespace NotificationApi.AcceptanceTests.ApiTests
         [TestCase(NotificationType.EJudJudgeDemoOrTest)]
         [TestCase(NotificationType.TelephoneHearingConfirmation)]
         [TestCase(NotificationType.TelephoneHearingConfirmationMultiDay)]
-        [TestCase(NotificationType.CreateStaffMember)]
         [TestCase(NotificationType.HearingAmendmentStaffMember)]
         [TestCase(NotificationType.HearingConfirmationStaffMember)]
         [TestCase(NotificationType.HearingConfirmationStaffMemberMultiDay)]
