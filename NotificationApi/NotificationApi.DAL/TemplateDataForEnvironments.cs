@@ -225,6 +225,16 @@ namespace NotificationApi.DAL
                     NotificationType.ExistingUserLipConfirmationMultiDay,
                     MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
             },
+            {
+                CreateTemplate("cc5cbdca-6614-484d-8b2d-5446ebccb47b",
+                    NotificationType.NewHearingReminderLipSingleDay,
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+            },
+            {
+                CreateTemplate("5f1140fe-605e-49f7-a165-014f704f5d95",
+                    NotificationType.NewHearingReminderLipMultiDay,
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+            },
         };
 
         private readonly IList<Template> _sourceTemplatesPreview = new List<Template>()
@@ -1366,6 +1376,16 @@ namespace NotificationApi.DAL
             {
                 CreateTemplate("fb7a7bc9-b0f2-498b-b9b8-c9171238d5c2",
                     NotificationType.ExistingUserLipConfirmationMultiDay,
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+            },
+            {
+                CreateTemplate("f810856a-3cff-4774-a063-d087c32eb6a6",
+                    NotificationType.NewHearingReminderLipSingleDay,
+                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+            },
+            {
+                CreateTemplate("9417d80d-d424-400c-aa45-6d3b578fcd66",
+                    NotificationType.NewHearingReminderLipMultiDay,
                     MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
             },
         };

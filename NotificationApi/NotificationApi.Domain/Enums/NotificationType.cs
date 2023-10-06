@@ -47,6 +47,8 @@ namespace NotificationApi.Domain.Enums
         NewUserLipConfirmation = 42,
         NewUserLipConfirmationMultiDay = 43,
         ExistingUserLipConfirmation = 44,
-        ExistingUserLipConfirmationMultiDay = 45
+        ExistingUserLipConfirmationMultiDay = 45,
+        NewHearingReminderLipSingleDay = 46,
+        NewHearingReminderLipMultiDay = 47
     }
 }
