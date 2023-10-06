@@ -33,7 +33,7 @@ namespace NotificationApi.UnitTests.Validation
             request.Id = null;
             var result = await _validator.ValidateAsync(request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Exists(x => x.ErrorMessage == NotificationCallbackRequestValidation.MissingIdMessage)
+            result.Errors.Any(x => x.ErrorMessage == NotificationCallbackRequestValidation.MissingIdMessage)
                 .Should().BeTrue();
         }
         
@@ -44,7 +44,7 @@ namespace NotificationApi.UnitTests.Validation
             request.Reference = null;
             var result = await _validator.ValidateAsync(request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Exists(x => x.ErrorMessage == NotificationCallbackRequestValidation.MissingReferenceMessage)
+            result.Errors.Any(x => x.ErrorMessage == NotificationCallbackRequestValidation.MissingReferenceMessage)
                 .Should().BeTrue();
         }
         
@@ -55,7 +55,7 @@ namespace NotificationApi.UnitTests.Validation
             request.Reference = "unknown";
             var result = await _validator.ValidateAsync(request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Exists(x => x.ErrorMessage == NotificationCallbackRequestValidation.InvalidReferenceMessage)
+            result.Errors.Any(x => x.ErrorMessage == NotificationCallbackRequestValidation.InvalidReferenceMessage)
                 .Should().BeTrue();
         }
         
@@ -66,7 +66,7 @@ namespace NotificationApi.UnitTests.Validation
             request.Status = null;
             var result = await _validator.ValidateAsync(request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Exists(x => x.ErrorMessage == NotificationCallbackRequestValidation.MissingStatusMessage)
+            result.Errors.Any(x => x.ErrorMessage == NotificationCallbackRequestValidation.MissingStatusMessage)
                 .Should().BeTrue();
         }
         
@@ -77,7 +77,7 @@ namespace NotificationApi.UnitTests.Validation
             request.Status = "unknown";
             var result = await _validator.ValidateAsync(request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Exists(x => x.ErrorMessage == NotificationCallbackRequestValidation.InvalidStatusMessage)
+            result.Errors.Any(x => x.ErrorMessage == NotificationCallbackRequestValidation.InvalidStatusMessage)
                 .Should().BeTrue();
         }
 

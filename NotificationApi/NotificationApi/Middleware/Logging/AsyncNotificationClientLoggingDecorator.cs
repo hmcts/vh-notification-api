@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace NotificationApi.Middleware.Logging
 {
-    public abstract class AsyncNotificationClientLoggingDecorator : IAsyncNotificationClient
+    public class AsyncNotificationClientLoggingDecorator : IAsyncNotificationClient
     {
         private readonly IAsyncNotificationClient _underlyingNotificationClient;
 
         private readonly ILogger<AsyncNotificationClientLoggingDecorator> _logger;
 
-        protected AsyncNotificationClientLoggingDecorator(IAsyncNotificationClient underlyingNotificationClient, ILogger<AsyncNotificationClientLoggingDecorator> logger)
+        public AsyncNotificationClientLoggingDecorator(IAsyncNotificationClient underlyingNotificationClient, ILogger<AsyncNotificationClientLoggingDecorator> logger)
         {
             _underlyingNotificationClient = underlyingNotificationClient;
             _logger = logger;
@@ -164,7 +164,15 @@ namespace NotificationApi.Middleware.Logging
             _logger.LogDebug(ResponseLog, sw.ElapsedMilliseconds);
             return result;
         }
-
+        private async Task<TResult> LogAndHandle<T1, T2, T3, T4, TResult>(Dictionary<string, object> logParameters, Func<T1, T2, T3, T4, Task<TResult>> method, T1 param1, T2 param2, T3 param3, T4 param4)
+        {
+            using var loggerScope = _logger.BeginScope(logParameters);
+            _logger.LogDebug(RequestLog);
+            var sw = Stopwatch.StartNew();
+            var result = await method(param1, param2, param3, param4);
+            _logger.LogDebug(ResponseLog, sw.ElapsedMilliseconds);
+            return result;
+        }
         private async Task<TResult> LogAndHandle<T1, T2, T3, T4, T5, TResult>(Dictionary<string, object> logParameters, Func<T1, T2, T3, T4, T5, Task<TResult>> method, T1 param1, T2 param2, T3 param3, T4 param4, T5 param5)
         {
             using var loggerScope = _logger.BeginScope(logParameters);
