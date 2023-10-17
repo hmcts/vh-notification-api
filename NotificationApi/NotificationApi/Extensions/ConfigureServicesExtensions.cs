@@ -9,6 +9,7 @@ using NotificationApi.Common;
 using NotificationApi.Common.Configuration;
 using NotificationApi.Common.Helpers;
 using NotificationApi.Common.Security;
+using NotificationApi.DAL;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Middleware.Logging;
@@ -24,7 +25,7 @@ namespace NotificationApi.Extensions
 {
     public static class ConfigureServicesExtensions
     {
-        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        public static IServiceCollection AddVhSwagger(this IServiceCollection services)
         {
             services.AddSingleton<FluentValidationSchemaProcessor>();
             services.AddOpenApiDocument((document, serviceProvider) =>
