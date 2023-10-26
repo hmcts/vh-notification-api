@@ -8,8 +8,11 @@ using Notify.Models.Responses;
 
 namespace NotificationApi.IntegrationTests.Stubs
 {
+    public record SentEmailDto(string EmailAddress, string ExternalRefId);
     public class AsyncNotificationClientStub : IAsyncNotificationClient
     {
+        public List<SentEmailDto> SentEmails = new();
+        
         public Task<string> GET(string url)
         {
             throw new NotImplementedException();
@@ -94,6 +97,7 @@ namespace NotificationApi.IntegrationTests.Stubs
                     {fromEmail = "auto@test.com", body = "random content", subject = "Stub Message"},
                 uri = $"https://api.notifications.service.gov.uk/v2/notifications/{id}"
             };
+            SentEmails.Add(new SentEmailDto(emailAddress, id));
             return Task.FromResult(response);
         }
 

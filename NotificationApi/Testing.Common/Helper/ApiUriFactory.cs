@@ -10,5 +10,10 @@ namespace Testing.Common.Helper
             public static string GetTemplateByNotificationType(int notificationType) =>
                 $"{ApiRoot}/template/{notificationType}";
         }
+        
+        public static class ParticipantNotificationEndpoints
+        {
+            public static string SendParticipantWelcomeEmail => "participant-welcome-email";
+        }
     }
 }

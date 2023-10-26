@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net.Http;
 using GST.Fake.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
@@ -21,7 +22,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
                     options.DefaultAuthenticateScheme = FakeJwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = FakeJwtBearerDefaults.AuthenticationScheme;
                 }).AddFakeJwtBearer();
-                services.AddScoped<IAsyncNotificationClient, AsyncNotificationClientStub>();
+                services.AddSingleton<IAsyncNotificationClient, AsyncNotificationClientStub>();
             });
             builder.UseEnvironment("Development");
         }

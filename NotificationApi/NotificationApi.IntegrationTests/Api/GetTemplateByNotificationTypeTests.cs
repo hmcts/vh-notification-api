@@ -28,7 +28,7 @@ namespace NotificationApi.IntegrationTests.Api
             result.IsSuccessStatusCode.Should().BeTrue();
             var response = await ApiClientResponse.GetResponses<NotificationTemplateResponse>(result.Content);
             response.Should().NotBeNull();
-            response.NotificationType.Should().BeEquivalentTo(notificationType);
+            response.NotificationType.Should().Be(notificationType);
         }
 
         [Test]
