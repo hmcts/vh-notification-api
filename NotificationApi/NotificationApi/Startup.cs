@@ -65,7 +65,7 @@ namespace NotificationApi
             
             services.AddVhHealthChecks();
             
-            services.AddValidatorsFromAssemblyContaining<IRequestModelValidatorService>();
+            services.AddValidatorsFromAssemblyContaining<Startup>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("VhNotificationsApi"),
                     builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)));

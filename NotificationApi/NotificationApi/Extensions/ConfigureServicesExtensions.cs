@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using AdminWebsite.Services;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -27,7 +29,14 @@ namespace NotificationApi.Extensions
     {
         public static IServiceCollection AddVhSwagger(this IServiceCollection services)
         {
-            services.AddSingleton<FluentValidationSchemaProcessor>();
+            services.AddScoped(provider =>
+            {
+                var validationRules = provider.GetService<IEnumerable<FluentValidationRule>>();
+                var loggerFactory = provider.GetService<ILoggerFactory>();
+
+                return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
+            });
+            
             services.AddOpenApiDocument((document, serviceProvider) =>
             {
                 document.Title = "Notification API";
@@ -43,7 +52,8 @@ namespace NotificationApi.Extensions
                         }));
                 document.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
                 document.OperationProcessors.Add(new AuthResponseOperationProcessor());
-                var fluentValidationSchemaProcessor = serviceProvider.GetService<FluentValidationSchemaProcessor>();
+                var fluentValidationSchemaProcessor = serviceProvider.CreateScope().ServiceProvider
+                    .GetService<FluentValidationSchemaProcessor>();
 
                 // Add the fluent validations schema processor
                 document.SchemaProcessors.Add(fluentValidationSchemaProcessor);

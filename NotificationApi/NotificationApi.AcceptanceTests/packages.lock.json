@@ -96,19 +96,19 @@
       },
       "FluentValidation.AspNetCore": {
         "type": "Transitive",
-        "resolved": "11.3.0",
-        "contentHash": "jtFVgKnDFySyBlPS8bZbTKEEwJZnn11rXXJ2SQnjDhZ56rQqybBg9Joq4crRLz3y0QR8WoOq4iE4piV81w/Djg==",
+        "resolved": "11.2.2",
+        "contentHash": "jU/MHXqg9cnOU18dY75vorP2c2WDKMan4zegOPsoc34xZVjzTEtXP0fKvkDEdeaChUVooNWuRr27u9w3sYbEFA==",
         "dependencies": {
-          "FluentValidation": "11.5.1",
-          "FluentValidation.DependencyInjectionExtensions": "11.5.1"
+          "FluentValidation": "11.2.1",
+          "FluentValidation.DependencyInjectionExtensions": "11.2.1"
         }
       },
       "FluentValidation.DependencyInjectionExtensions": {
         "type": "Transitive",
-        "resolved": "11.5.1",
-        "contentHash": "iWM0LS1MDYX06pcjMEQKqHirl2zkjHlNV23mEJSoR1IZI7KQmTa0RcTtGEJpj5+iHvBCfrzP2mYKM4FtRKVb+A==",
+        "resolved": "11.2.1",
+        "contentHash": "WqR2kt0OidUCg9xS+YOoiDmdCu7EnYLLgQb/bX+5fTTVor+90dWmr1OdJaWlLZvg2nbwV9EfxA9FZp91+JmQtg==",
         "dependencies": {
-          "FluentValidation": "11.5.1",
+          "FluentValidation": "11.2.1",
           "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
         }
       },
@@ -2363,7 +2363,8 @@
         "type": "Project",
         "dependencies": {
           "Azure.Identity": "[1.3.0, )",
-          "FluentValidation.AspNetCore": "[11.3.0, )",
+          "FluentValidation": "[11.5.1, )",
+          "FluentValidation.AspNetCore": "[11.2.2, )",
           "GovukNotify": "[6.1.0, )",
           "Microsoft.ApplicationInsights.AspNetCore": "[2.15.0, )",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "[3.1.6, )",

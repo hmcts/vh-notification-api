@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -39,7 +40,9 @@ namespace NotificationApi.Controllers
         public async Task<IActionResult> SendParticipantWelcomeEmailAsync(NewUserWelcomeEmailRequest request)
         {
             // reject participant who is not a LIP
-            var notificationType = NotificationType.NewUserLipWelcome;
+            var notificationType = request.RoleName == RoleNames.Individual
+                ? NotificationType.NewUserLipWelcome
+                : throw new NotSupportedException($"Only LIPs are supported, provided role is {request.RoleName}");
             
             var parameters = new Dictionary<string, string>
             {
@@ -66,7 +69,7 @@ namespace NotificationApi.Controllers
         [OpenApiOperation("SendParticipantHearingConfirmationForNewUser")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public Task<IActionResult> SendParticipantHearingConfirmationForNewUserAsync()
+        public Task<IActionResult> SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request)
         {
             // reject participant who is not a LIP
             return Task.FromResult<IActionResult>(Ok());
@@ -80,7 +83,7 @@ namespace NotificationApi.Controllers
         [OpenApiOperation("SendParticipantHearingConfirmationForExistingUser")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public Task<IActionResult> SendParticipantHearingConfirmationForExistingUserAsync()
+        public Task<IActionResult> SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request)
         {
             // reject participant who is not a LIP
             return Task.FromResult<IActionResult>(Ok());
@@ -94,7 +97,7 @@ namespace NotificationApi.Controllers
         [OpenApiOperation("SendHearingReminderEmail")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public Task<IActionResult> SendHearingReminderEmailAsync()
+        public Task<IActionResult> SendHearingReminderEmailAsync(HearingReminderRequest request)
         {
             return Task.FromResult<IActionResult>(Ok());
         }

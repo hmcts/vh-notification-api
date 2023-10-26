@@ -1,23 +1,24 @@
 using FluentValidation;
 using NotificationApi.Contract.Requests;
 
-namespace NotificationApi.Validations;
-
-public class NewUserWelcomeEmailRequestValidation : AbstractValidator<NewUserWelcomeEmailRequest>
+namespace NotificationApi.Validations
 {
-    public static readonly string UnsupportedRoleMessage =
-        "Only participants with the role 'Individual' is currently supported";
-    public NewUserWelcomeEmailRequestValidation()
+    public class NewUserWelcomeEmailRequestValidation : AbstractValidator<NewUserWelcomeEmailRequest>
     {
-        RuleFor(x => x.HearingId).NotEmpty();
-        RuleFor(x => x.ContactEmail).EmailAddress();
-        RuleFor(x => x.ParticipantId).NotEmpty();
+        public static readonly string UnsupportedRoleMessage =
+            "Only participants with the role 'Individual' is currently supported";
+        public NewUserWelcomeEmailRequestValidation()
+        {
+            RuleFor(x => x.HearingId).NotEmpty();
+            RuleFor(x => x.ContactEmail).NotEmpty().EmailAddress();
+            RuleFor(x => x.ParticipantId).NotEmpty();
 
-        RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.CaseNumber).NotEmpty();
-        RuleFor(x => x.CaseName).NotEmpty();
+            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.CaseNumber).NotEmpty();
+            RuleFor(x => x.CaseName).NotEmpty();
             
-        // RoleName must be a RoleNames.Individual or RoleNames.Representative
-        RuleFor(x => x.RoleName).Must(x => x == RoleNames.Individual).WithMessage(UnsupportedRoleMessage);
+            // RoleName must be a RoleNames.Individual or RoleNames.Representative
+            RuleFor(x => x.RoleName).Must(x => x == RoleNames.Individual).WithMessage(UnsupportedRoleMessage);
+        }
     }
 }

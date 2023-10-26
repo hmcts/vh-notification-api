@@ -71,40 +71,40 @@ namespace NotificationApi.Client
         /// Send a hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync();
+        System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Send a hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Send a hearing confirmation email for a participant that already has a user account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync();
+        System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Send a hearing confirmation email for a participant that already has a user account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
         /// Send a hearing reminder email for a participant
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendHearingReminderEmailAsync();
+        System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Send a hearing reminder email for a participant
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendHearingReminderEmailAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -539,9 +539,9 @@ namespace NotificationApi.Client
         /// Send a hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync()
+        public virtual System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request)
         {
-            return SendParticipantHearingConfirmationForNewUserAsync(System.Threading.CancellationToken.None);
+            return SendParticipantHearingConfirmationForNewUserAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -549,8 +549,11 @@ namespace NotificationApi.Client
         /// Send a hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
         {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-single-day-hearing-confirmation-email-new-user");
 
@@ -560,7 +563,10 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -632,9 +638,9 @@ namespace NotificationApi.Client
         /// Send a hearing confirmation email for a participant that already has a user account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync()
+        public virtual System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request)
         {
-            return SendParticipantHearingConfirmationForExistingUserAsync(System.Threading.CancellationToken.None);
+            return SendParticipantHearingConfirmationForExistingUserAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -642,8 +648,11 @@ namespace NotificationApi.Client
         /// Send a hearing confirmation email for a participant that already has a user account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
         {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-single-day-hearing-confirmation-email-existing-user");
 
@@ -653,7 +662,10 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     PrepareRequest(client_, request_, urlBuilder_);
@@ -725,9 +737,9 @@ namespace NotificationApi.Client
         /// Send a hearing reminder email for a participant
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SendHearingReminderEmailAsync()
+        public virtual System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request)
         {
-            return SendHearingReminderEmailAsync(System.Threading.CancellationToken.None);
+            return SendHearingReminderEmailAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -735,8 +747,11 @@ namespace NotificationApi.Client
         /// Send a hearing reminder email for a participant
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SendHearingReminderEmailAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request, System.Threading.CancellationToken cancellationToken)
         {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-hearing-reminder-email");
 
@@ -746,7 +761,10 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
                     PrepareRequest(client_, request_, urlBuilder_);
