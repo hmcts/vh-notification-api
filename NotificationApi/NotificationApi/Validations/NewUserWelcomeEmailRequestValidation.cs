@@ -1,6 +1,3 @@
-using FluentValidation;
-using NotificationApi.Contract.Requests;
-
 namespace NotificationApi.Validations
 {
     public class NewUserWelcomeEmailRequestValidation : AbstractValidator<NewUserWelcomeEmailRequest>

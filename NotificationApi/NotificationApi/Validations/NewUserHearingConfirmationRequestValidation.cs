@@ -1,13 +1,10 @@
-using FluentValidation;
-using NotificationApi.Contract.Requests;
-
 namespace NotificationApi.Validations;
 
-public class NewUserHearingConfirmationRequestValidation : AbstractValidator<NewUserHearingConfirmationRequest>
+public class NewUserSingleDayHearingConfirmationRequestValidation : AbstractValidator<NewUserSingleDayHearingConfirmationRequest>
 {
     public static readonly string UnsupportedRoleMessage =
-        "Only participants with the role 'Individual' is currently supported";
-    public NewUserHearingConfirmationRequestValidation()
+        "Only participants with the role 'Individual' is currently supported for the new user single day hearing confirmation";
+    public NewUserSingleDayHearingConfirmationRequestValidation()
     {
         RuleFor(x => x.HearingId).NotEmpty();
         RuleFor(x => x.ContactEmail).NotEmpty().EmailAddress();

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentValidation;
 using FluentValidation.Results;
 
 namespace NotificationApi.Middleware.Validation

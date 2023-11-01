@@ -1,12 +1,8 @@
-using System.Linq;
 using System.Net.Http;
 using GST.Fake.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
-using NotificationApi.IntegrationTests.Stubs;
-using Notify.Interfaces;
 
 namespace NotificationApi.IntegrationTests.Api.Setup
 {

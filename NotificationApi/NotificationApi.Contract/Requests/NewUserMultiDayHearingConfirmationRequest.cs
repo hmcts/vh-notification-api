@@ -2,7 +2,7 @@ using System;
 
 namespace NotificationApi.Contract.Requests;
 
-public class HearingReminderRequest
+public class NewUserMultiDayHearingConfirmationRequest
 {
     /// <summary>
     /// The email address of the participant to send the email to
@@ -25,11 +25,6 @@ public class HearingReminderRequest
     public string RoleName { get; set; }
 
     /// <summary>
-    /// The first and last name of a participant
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
     /// The hearing case number
     /// </summary>
     public string CaseNumber { get; set; }
@@ -45,7 +40,22 @@ public class HearingReminderRequest
     public DateTime ScheduledDateTime { get; set; }
 
     /// <summary>
-    /// The existing participant's username
+    /// The new participant's username
     /// </summary>
     public string Username { get; set; }
+
+    /// <summary>
+    /// The new participant's temporary password
+    /// </summary>
+    public string RandomPassword { get; set; }
+
+    /// <summary>
+    /// The first and last name of a participant
+    /// </summary>
+    public string Name { get; set; }
+    
+    /// <summary>
+    /// The total number of days in the multi-day booking
+    /// </summary>
+    public int TotalDays { get; set; }
 }

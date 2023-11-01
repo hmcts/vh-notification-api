@@ -2,7 +2,7 @@ using System;
 
 namespace NotificationApi.Contract.Requests;
 
-public class ExistingUserHearingConfirmationRequest
+public class ExistingUserMultiDayHearingConfirmationRequest
 {
     /// <summary>
     /// The email address of the participant to send the email to
@@ -18,6 +18,16 @@ public class ExistingUserHearingConfirmationRequest
     /// The UUID of the participant in the booking
     /// </summary>
     public Guid? ParticipantId { get; set; }
+    
+    /// <summary>
+    /// The first and last name of a participant
+    /// </summary>
+    public string Name { get; set; }
+    
+    /// <summary>
+    /// The display name of a participant
+    /// </summary>
+    public string DisplayName { get; set; }
 
     /// <summary>
     /// The user role
@@ -43,4 +53,19 @@ public class ExistingUserHearingConfirmationRequest
     /// The existing participant's username
     /// </summary>
     public string Username { get; set; }
+    
+    /// <summary>
+    /// The total number of days in the multi-day booking
+    /// </summary>
+    public int TotalDays { get; set; }
+    
+    /// <summary>
+    /// The name of the person the participant is representing (if applicable)
+    /// </summary>
+    public string Representee { get; set; }
+    
+    public bool HasAJudiciaryUsername()
+    {
+        return ContactEmail?.Contains("judiciary", StringComparison.CurrentCultureIgnoreCase) ?? false;
+    }
 }

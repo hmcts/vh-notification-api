@@ -1,11 +1,7 @@
-using System;
-using System.Threading.Tasks;
-using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.DAL;
 using NotificationApi.DAL.Commands;
 using NotificationApi.Domain.Enums;
-using NUnit.Framework;
 
 namespace NotificationApi.IntegrationTests.Database.Commands
 {

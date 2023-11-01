@@ -1,8 +1,5 @@
-using System.Threading.Tasks;
-using FluentAssertions;
 using NotificationApi.DAL;
 using NotificationApi.DAL.Queries;
-using NUnit.Framework;
 
 namespace NotificationApi.IntegrationTests.Database.Queries
 {

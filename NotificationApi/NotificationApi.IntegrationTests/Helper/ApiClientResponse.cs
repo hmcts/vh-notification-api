@@ -1,6 +1,4 @@
 using System.Net.Http;
-using System.Threading.Tasks;
-using Testing.Common.Helper;
 
 namespace NotificationApi.IntegrationTests.Helper
 {

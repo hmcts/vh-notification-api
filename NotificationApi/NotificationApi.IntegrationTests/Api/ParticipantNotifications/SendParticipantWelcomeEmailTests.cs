@@ -1,21 +1,6 @@
-using System;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using NotificationApi.Contract;
-using NotificationApi.Contract.Requests;
-using NotificationApi.IntegrationTests.Api.Setup;
-using NotificationApi.IntegrationTests.Helper;
-using NotificationApi.IntegrationTests.Stubs;
-using NotificationApi.Validations;
-using Notify.Interfaces;
-using NUnit.Framework;
-using Testing.Common.Helper;
 
-namespace NotificationApi.IntegrationTests.Api
+namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
 {
     public class SendParticipantWelcomeEmailTests : ApiTest
     {
@@ -29,13 +14,17 @@ namespace NotificationApi.IntegrationTests.Api
             _notifyStub!.SentEmails.Clear();
         }
         
-        [Test]
-        public async Task should_return_validation_errors()
+        [TestCase(RoleNames.Representative)]
+        [TestCase(RoleNames.Judge)]
+        [TestCase(RoleNames.PanelMember)]
+        [TestCase(RoleNames.JudicialOfficeHolder)]
+        [TestCase(RoleNames.Winger)]
+        public async Task should_not_send_a_welcome_email_for_a(string roleName)
         {
             // arrange
             var request = new NewUserWelcomeEmailRequest
             {
-                RoleName = RoleNames.Representative,
+                RoleName = roleName
             };
 
             // act
@@ -55,7 +44,7 @@ namespace NotificationApi.IntegrationTests.Api
         }
 
         [Test]
-        public async Task should_return_ok()
+        public async Task should_send_a_welcome_email_for_a_lip()
         {
             // arrange
             var request = new NewUserWelcomeEmailRequest

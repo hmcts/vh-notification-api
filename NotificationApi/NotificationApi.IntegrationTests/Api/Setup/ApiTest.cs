@@ -1,11 +1,8 @@
-using System;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NotificationApi.Common.Configuration;
 using NotificationApi.DAL;
-using NotificationApi.IntegrationTests.Helper;
-using NUnit.Framework;
 using Testing.Common.Configuration;
 using Testing.Common.Security;
 

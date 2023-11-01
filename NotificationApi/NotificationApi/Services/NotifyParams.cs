@@ -26,5 +26,6 @@
         public const string NewTime = "New time";
         public const string OldDayMonthYear = "Old Day Month Year";
         public const string NewDayMonthYear = "New Day Month Year";
+        public const string TotalDays = "number of days";
     }
 }

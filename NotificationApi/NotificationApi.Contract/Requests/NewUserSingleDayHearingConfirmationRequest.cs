@@ -2,7 +2,7 @@ using System;
 
 namespace NotificationApi.Contract.Requests;
 
-public class NewUserHearingConfirmationRequest
+public class NewUserSingleDayHearingConfirmationRequest
 {
     /// <summary>
     /// The email address of the participant to send the email to
@@ -48,4 +48,9 @@ public class NewUserHearingConfirmationRequest
     /// The new participant's temporary password
     /// </summary>
     public string RandomPassword { get; set; }
+
+    /// <summary>
+    /// The first and last name of a participant
+    /// </summary>
+    public string Name { get; set; }
 }

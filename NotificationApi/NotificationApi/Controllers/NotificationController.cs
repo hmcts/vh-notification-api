@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NotificationApi.Common;
-using NotificationApi.Contract.Requests;
 using NotificationApi.Contract.Responses;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;

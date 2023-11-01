@@ -1,13 +1,5 @@
-using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
 using NotificationApi.Contract.Responses;
 using NotificationApi.DAL;
-using NotificationApi.IntegrationTests.Api.Setup;
-using NotificationApi.IntegrationTests.Helper;
-using NUnit.Framework;
-using Testing.Common.Helper;
 
 namespace NotificationApi.IntegrationTests.Api
 {

@@ -2332,6 +2332,11 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
+      "TimeZoneConverter": {
+        "type": "Transitive",
+        "resolved": "3.3.0",
+        "contentHash": "OeXMqNZ1Xt/9ehELN2khz8vT8wckg8VVa6Rx+XeYTdEIMaKETlSXkCzj4TuCGQ0L2SgXdpjGSh1XwZVusZE2Yw=="
+      },
       "VH.Core.Configuration": {
         "type": "Transitive",
         "resolved": "0.1.13",
@@ -2381,6 +2386,7 @@
           "NotificationApi.Domain": "[1.0.0, )",
           "Polly": "[7.2.1, )",
           "Scrutor": "[3.3.0, )",
+          "TimeZoneConverter": "[3.3.0, )",
           "VH.Core.Configuration": "[0.1.13, )",
           "ZymLabs.NSwag.FluentValidation": "[0.6.2, )"
         }

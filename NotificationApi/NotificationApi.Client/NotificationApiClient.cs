@@ -68,43 +68,82 @@ namespace NotificationApi.Client
         System.Threading.Tasks.Task SendParticipantWelcomeEmailAsync(NewUserWelcomeEmailRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
-        /// Send a hearing confirmation email for a participant that has a new account
+        /// Send a single day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request);
+        System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForNewUserEmailAsync(NewUserSingleDayHearingConfirmationRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Send a hearing confirmation email for a participant that has a new account
+        /// Send a single day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForNewUserEmailAsync(NewUserSingleDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
 
         /// <summary>
-        /// Send a hearing confirmation email for a participant that already has a user account
+        /// Send a multi-day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>
-        /// Send a hearing confirmation email for a participant that already has a user account
-        /// </summary>
-        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
-
-        /// <summary>
-        /// Send a hearing reminder email for a participant
-        /// </summary>
-        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request);
+        System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(NewUserMultiDayHearingConfirmationRequest request);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Send a hearing reminder email for a participant
+        /// Send a multi-day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(NewUserMultiDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Send a single day hearing confirmation email for a participant that already has a user account
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(ExistingUserSingleDayHearingConfirmationRequest request);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Send a single day hearing confirmation email for a participant that already has a user account
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(ExistingUserSingleDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Send a multi-day hearing confirmation email for a participant that already has a user account
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(ExistingUserMultiDayHearingConfirmationRequest request);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Send a multi-day hearing confirmation email for a participant that already has a user account
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(ExistingUserMultiDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Send a single day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendSingleDayHearingReminderEmailAsync(SingleDayHearingReminderRequest request);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Send a single day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendSingleDayHearingReminderEmailAsync(SingleDayHearingReminderRequest request, System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Send a multi day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendMultiDayHearingReminderEmailAsync(MultiDayHearingReminderRequest request);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Send a multi day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task SendMultiDayHearingReminderEmailAsync(MultiDayHearingReminderRequest request, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -536,20 +575,20 @@ namespace NotificationApi.Client
         }
 
         /// <summary>
-        /// Send a hearing confirmation email for a participant that has a new account
+        /// Send a single day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request)
+        public virtual System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForNewUserEmailAsync(NewUserSingleDayHearingConfirmationRequest request)
         {
-            return SendParticipantHearingConfirmationForNewUserAsync(request, System.Threading.CancellationToken.None);
+            return SendParticipantSingleDayHearingConfirmationForNewUserEmailAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Send a hearing confirmation email for a participant that has a new account
+        /// Send a single day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SendParticipantHearingConfirmationForNewUserAsync(NewUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForNewUserEmailAsync(NewUserSingleDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -635,20 +674,119 @@ namespace NotificationApi.Client
         }
 
         /// <summary>
-        /// Send a hearing confirmation email for a participant that already has a user account
+        /// Send a multi-day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request)
+        public virtual System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(NewUserMultiDayHearingConfirmationRequest request)
         {
-            return SendParticipantHearingConfirmationForExistingUserAsync(request, System.Threading.CancellationToken.None);
+            return SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Send a hearing confirmation email for a participant that already has a user account
+        /// Send a multi-day hearing confirmation email for a participant that has a new account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SendParticipantHearingConfirmationForExistingUserAsync(ExistingUserHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(NewUserMultiDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
+        {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-multi-day-hearing-confirmation-email-new-user");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new NotificationApiException<string>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new NotificationApiException<ValidationProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new NotificationApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Send a single day hearing confirmation email for a participant that already has a user account
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(ExistingUserSingleDayHearingConfirmationRequest request)
+        {
+            return SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(request, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Send a single day hearing confirmation email for a participant that already has a user account
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(ExistingUserSingleDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -734,26 +872,224 @@ namespace NotificationApi.Client
         }
 
         /// <summary>
-        /// Send a hearing reminder email for a participant
+        /// Send a multi-day hearing confirmation email for a participant that already has a user account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request)
+        public virtual System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(ExistingUserMultiDayHearingConfirmationRequest request)
         {
-            return SendHearingReminderEmailAsync(request, System.Threading.CancellationToken.None);
+            return SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(request, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
-        /// Send a hearing reminder email for a participant
+        /// Send a multi-day hearing confirmation email for a participant that already has a user account
         /// </summary>
         /// <exception cref="NotificationApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SendHearingReminderEmailAsync(HearingReminderRequest request, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(ExistingUserMultiDayHearingConfirmationRequest request, System.Threading.CancellationToken cancellationToken)
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-hearing-reminder-email");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-multi-day-hearing-confirmation-email-existing-user");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new NotificationApiException<string>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new NotificationApiException<ValidationProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new NotificationApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Send a single day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task SendSingleDayHearingReminderEmailAsync(SingleDayHearingReminderRequest request)
+        {
+            return SendSingleDayHearingReminderEmailAsync(request, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Send a single day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task SendSingleDayHearingReminderEmailAsync(SingleDayHearingReminderRequest request, System.Threading.CancellationToken cancellationToken)
+        {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-single-day-hearing-reminder-email");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new NotificationApiException<string>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ValidationProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new NotificationApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new NotificationApiException<ValidationProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new NotificationApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// Send a multi day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task SendMultiDayHearingReminderEmailAsync(MultiDayHearingReminderRequest request)
+        {
+            return SendMultiDayHearingReminderEmailAsync(request, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Send a multi day hearing reminder email for a participant
+        /// </summary>
+        /// <exception cref="NotificationApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task SendMultiDayHearingReminderEmailAsync(MultiDayHearingReminderRequest request, System.Threading.CancellationToken cancellationToken)
+        {
+            if (request == null)
+                throw new System.ArgumentNullException("request");
+
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/participant-multi-day-hearing-reminder-email");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
