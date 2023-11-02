@@ -55,15 +55,8 @@ namespace NotificationApi.Controllers
                 {NotifyParams.UserName, request.Username.ToLower()},
                 {NotifyParams.Password, request.Password}
             };
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail, null, null,
-                notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, null, null, notificationType, parametersJson,
-                parameters);
-
+            
+            await ProcessRequest(request.ContactEmail, null, null, notificationType, parameters);
             return Ok();
         }
 
@@ -82,15 +75,8 @@ namespace NotificationApi.Controllers
                 {NotifyParams.Name, request.Name},
                 {NotifyParams.Password, request.Password}
             };
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail, null, null,
-                notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, null, null, notificationType, parametersJson,
-                parameters);
-
+            
+            await ProcessRequest(request.ContactEmail, null, null, notificationType, parameters);
             return Ok();
         }
 
@@ -116,14 +102,9 @@ namespace NotificationApi.Controllers
                 {NotifyParams.CaseName, request.CaseName},
                 {NotifyParams.CaseNumber, request.CaseNumber}
             };
-            var parametersJson = JsonConvert.SerializeObject(parameters);
 
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail,
-                request.ParticipantId, request.HearingId, notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, request.ParticipantId, request.HearingId,
-                notificationType, parametersJson, parameters);
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
 
             return Ok();
         }
@@ -158,15 +139,8 @@ namespace NotificationApi.Controllers
                 {NotifyParams.RandomPassword, request.RandomPassword}
             };
 
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail,
-                request.ParticipantId, request.HearingId, notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, request.ParticipantId, request.HearingId,
-                notificationType, parametersJson, parameters);
-
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
             return Ok();
         }
 
@@ -180,8 +154,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(
             NewUserMultiDayHearingConfirmationRequest request)
-        {
-            // should I return bad request when _featureToggles.UsePostMay2023Template() is false?   
+        {   
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmationMultiDay,
@@ -202,15 +175,8 @@ namespace NotificationApi.Controllers
                 {NotifyParams.TotalDays, request.TotalDays.ToString()}
             };
 
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail,
-                request.ParticipantId, request.HearingId, notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, request.ParticipantId, request.HearingId,
-                notificationType, parametersJson, parameters);
-
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
             return Ok();
         }
 
@@ -268,14 +234,8 @@ namespace NotificationApi.Controllers
                 parameters.Add(NotifyParams.SolicitorName, request.Name);
             }
 
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail,
-                request.ParticipantId, request.HearingId, notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, request.ParticipantId, request.HearingId,
-                notificationType, parametersJson, parameters);
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
 
             return Ok();
         }
@@ -337,16 +297,8 @@ namespace NotificationApi.Controllers
                 parameters.Add(NotifyParams.SolicitorName, request.Name);
             }
 
-
-
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail,
-                request.ParticipantId, request.HearingId, notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, request.ParticipantId, request.HearingId,
-                notificationType, parametersJson, parameters);
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
 
             return Ok();
         }
@@ -397,16 +349,8 @@ namespace NotificationApi.Controllers
                 parameters.Add(NotifyParams.SolicitorName, request.Name);
             }
 
-
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail,
-                request.ParticipantId, request.HearingId, notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, request.ParticipantId, request.HearingId,
-                notificationType, parametersJson, parameters);
-
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
             return Ok();
         }
 
@@ -451,18 +395,26 @@ namespace NotificationApi.Controllers
                 parameters.Add(NotifyParams.SolicitorName, request.Name);
             }
 
-            var parametersJson = JsonConvert.SerializeObject(parameters);
-
-            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail,
-                request.ParticipantId, request.HearingId, notificationType, parametersJson);
-            if (hasNotificationAlreadyBeenSent) return Ok();
-
-            await SaveAndSendNotification(request.ContactEmail, request.ParticipantId, request.HearingId,
-                notificationType, parametersJson, parameters);
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
 
             return Ok();
         }
 
+        private async Task ProcessRequest(string contactEmail, Guid? participantId,
+            Guid? hearingId, NotificationType notificationType, Dictionary<string, string> parameters)
+        {
+            var parametersJson = JsonConvert.SerializeObject(parameters);
+            
+            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(contactEmail,
+                participantId, hearingId, notificationType, parametersJson);
+            if (hasNotificationAlreadyBeenSent) return;
+
+            await SaveAndSendNotification(contactEmail, participantId, hearingId,
+                notificationType, parametersJson, parameters);
+
+        }
+        
         private async Task<bool> HasNotificationAlreadyBeenSent(string contactEmail, Guid? participantId,
             Guid? hearingId, NotificationType notificationType,
             string parametersJson)

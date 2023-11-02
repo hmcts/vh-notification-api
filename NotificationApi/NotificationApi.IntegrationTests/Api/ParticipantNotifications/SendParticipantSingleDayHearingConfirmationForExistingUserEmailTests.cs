@@ -17,6 +17,29 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             _featureToggleStub = Application.Services.GetService(typeof(IFeatureToggles)) as FeatureTogglesStub;
             _featureToggleStub!.UseNew2023Templates = false;
         }
+
+        [Test]
+        public async Task should_return_bad_request_when_validation_fails()
+        {
+            // arrange
+            var request = new ExistingUserSingleDayHearingConfirmationRequest
+            {
+                RoleName = "MadeUp"
+            };
+
+            // act
+            using var client = Application.CreateClient();
+            var result = await client.PostAsync(
+                ApiUriFactory.ParticipantNotificationEndpoints.SendParticipantSingleDayHearingConfirmationForExistingUserEmail, RequestBody.Set(request));
+
+            // assert
+            result.IsSuccessStatusCode.Should().BeFalse(result.Content.ReadAsStringAsync().Result);
+            result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            var validationProblemDetails = await ApiClientResponse.GetResponses<ValidationProblemDetails>(result.Content);
+            validationProblemDetails.Errors.Should().ContainKey(nameof(request.Name));
+            validationProblemDetails.Errors.Should().ContainKey(nameof(request.CaseName));
+            validationProblemDetails.Errors.Should().ContainKey(nameof(request.CaseNumber));
+        }
         
         [Test]
         public async Task should_send_a_confirmation_email_for_a_non_judiciary_judicial_office_holder()
