@@ -34,13 +34,74 @@ namespace NotificationApi.Controllers
         }
 
         /// <summary>
+        /// Send an email with information about their new hearings account
+        /// </summary>
+        [HttpPost("participant-created-account-email")]
+        [OpenApiOperation("SendParticipantCreatedAccountEmail")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> SendParticipantCreatedAccountEmailAsync(SignInDetailsEmailRequest request)
+        {
+            var notificationType = request.RoleName switch
+            {
+                RoleNames.Individual => NotificationType.CreateIndividual,
+                RoleNames.Representative => NotificationType.CreateRepresentative,
+                _ => throw new NotSupportedException($"Provided role is not {request.RoleName}")
+            };
+
+            var parameters = new Dictionary<string, string>
+            {
+                {NotifyParams.Name, request.Name},
+                {NotifyParams.UserName, request.Username.ToLower()},
+                {NotifyParams.Password, request.Password}
+            };
+            var parametersJson = JsonConvert.SerializeObject(parameters);
+
+            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail, null, null,
+                notificationType, parametersJson);
+            if (hasNotificationAlreadyBeenSent) return Ok();
+
+            await SaveAndSendNotification(request.ContactEmail, null, null, notificationType, parametersJson,
+                parameters);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Send an email with a new temporary password
+        /// </summary>
+        [HttpPost("reset-password-email")]
+        [OpenApiOperation("SendResetPasswordEmail")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> SendResetPasswordEmailAsync(PasswordResetEmailRequest request)
+        {
+            var notificationType = NotificationType.PasswordReset;
+            var parameters = new Dictionary<string, string>
+            {
+                {NotifyParams.Name, request.Name},
+                {NotifyParams.Password, request.Password}
+            };
+            var parametersJson = JsonConvert.SerializeObject(parameters);
+
+            var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(request.ContactEmail, null, null,
+                notificationType, parametersJson);
+            if (hasNotificationAlreadyBeenSent) return Ok();
+
+            await SaveAndSendNotification(request.ContactEmail, null, null, notificationType, parametersJson,
+                parameters);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Send a welcome to VH email to a participant
         /// </summary>
         /// <returns></returns>
         [HttpPost("participant-welcome-email")]
         [OpenApiOperation("SendParticipantWelcomeEmail")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantWelcomeEmailAsync(NewUserWelcomeEmailRequest request)
         {
             var notificationType = request.RoleName switch
@@ -73,8 +134,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-single-day-hearing-confirmation-email-new-user")]
         [OpenApiOperation("SendParticipantSingleDayHearingConfirmationForNewUserEmail")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantSingleDayHearingConfirmationForNewUserEmailAsync(
             NewUserSingleDayHearingConfirmationRequest request)
         {
@@ -115,8 +176,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-multi-day-hearing-confirmation-email-new-user")]
         [OpenApiOperation("SendParticipantMultiDayHearingConfirmationForNewUserEmail")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(
             NewUserMultiDayHearingConfirmationRequest request)
         {
@@ -159,8 +220,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-single-day-hearing-confirmation-email-existing-user")]
         [OpenApiOperation("SendParticipantSingleDayHearingConfirmationForExistingUserEmail")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(
             ExistingUserSingleDayHearingConfirmationRequest request)
         {
@@ -225,8 +286,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-multi-day-hearing-confirmation-email-existing-user")]
         [OpenApiOperation("SendParticipantMultiDayHearingConfirmationForExistingUserEmail")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(
             ExistingUserMultiDayHearingConfirmationRequest request)
         {
@@ -296,8 +357,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-single-day-hearing-reminder-email")]
         [OpenApiOperation("SendSingleDayHearingReminderEmail")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendSingleDayHearingReminderEmailAsync(SingleDayHearingReminderRequest request)
         {
             var useNewTemplates = _featureToggles.UsePostMay2023Template();
@@ -355,8 +416,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-multi-day-hearing-reminder-email")]
         [OpenApiOperation("SendMultiDayHearingReminderEmail")]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendMultiDayHearingReminderEmailAsync(MultiDayHearingReminderRequest request)
         {
             // should I return bad request when _featureToggles.UsePostMay2023Template() is false?   

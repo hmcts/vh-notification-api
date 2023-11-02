@@ -1,5 +1,3 @@
-using System;
-
 namespace NotificationApi.Contract.Responses
 {
     public class NotificationTemplateResponse

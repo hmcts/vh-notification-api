@@ -20,6 +20,9 @@ namespace Testing.Common.Helper
             public static string SendParticipantMultiDayHearingConfirmationForExistingUserEmail => "participant-multi-day-hearing-confirmation-email-existing-user";
             public static string SendSingleDayHearingReminderEmail => "participant-single-day-hearing-reminder-email";
             public static string SendMultiDayHearingReminderEmail => "participant-multi-day-hearing-reminder-email";
+            public static string SendParticipantCreatedAccountEmail => "participant-created-account-email";
+            public static string SendParticipantPasswordResetEmail => "reset-password-email";
+            
             
         }
     }
