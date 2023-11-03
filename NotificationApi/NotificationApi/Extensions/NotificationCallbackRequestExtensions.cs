@@ -1,4 +1,3 @@
-using System;
 using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.Extensions

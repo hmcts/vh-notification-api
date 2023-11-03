@@ -1,14 +1,10 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Newtonsoft.Json;
 using NotificationApi.DAL;
 
 namespace NotificationApi.Health

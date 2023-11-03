@@ -1,6 +1,5 @@
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.AspNetCore.Http;
 

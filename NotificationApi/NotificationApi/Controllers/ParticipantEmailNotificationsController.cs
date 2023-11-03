@@ -1,20 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NotificationApi.Common;
-using NotificationApi.Common.Util;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Queries;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
-using NotificationApi.Extensions;
-using NotificationApi.Services;
-using NSwag.Annotations;
 
 namespace NotificationApi.Controllers
 {
@@ -39,8 +27,8 @@ namespace NotificationApi.Controllers
         /// </summary>
         [HttpPost("participant-created-account-email")]
         [OpenApiOperation("SendParticipantCreatedAccountEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantCreatedAccountEmailAsync(SignInDetailsEmailRequest request)
         {
             var notificationType = request.RoleName switch
@@ -50,13 +38,8 @@ namespace NotificationApi.Controllers
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.UserName, request.Username.ToLower()},
-                {NotifyParams.RandomPassword, request.Password}
-            };
-            
+            var parameters = NotificationParameterMapper.MapToV1AccountCreated(request);
+
             await ProcessRequest(request.ContactEmail, null, null, notificationType, parameters);
             return Ok();
         }
@@ -66,17 +49,13 @@ namespace NotificationApi.Controllers
         /// </summary>
         [HttpPost("reset-password-email")]
         [OpenApiOperation("SendResetPasswordEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendResetPasswordEmailAsync(PasswordResetEmailRequest request)
         {
             var notificationType = NotificationType.PasswordReset;
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.Password, request.Password}
-            };
-            
+            var parameters = NotificationParameterMapper.MapToPasswordReset(request);
+
             await ProcessRequest(request.ContactEmail, null, null, notificationType, parameters);
             return Ok();
         }
@@ -87,8 +66,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-welcome-email")]
         [OpenApiOperation("SendParticipantWelcomeEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantWelcomeEmailAsync(NewUserWelcomeEmailRequest request)
         {
             var notificationType = request.RoleName switch
@@ -97,12 +76,7 @@ namespace NotificationApi.Controllers
                 _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.CaseName, request.CaseName},
-                {NotifyParams.CaseNumber, request.CaseNumber}
-            };
+            var parameters = NotificationParameterMapper.MapToWelcomeEmail(request);
 
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
@@ -116,8 +90,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-single-day-hearing-confirmation-email-new-user")]
         [OpenApiOperation("SendParticipantSingleDayHearingConfirmationForNewUserEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantSingleDayHearingConfirmationForNewUserEmailAsync(
             NewUserSingleDayHearingConfirmationRequest request)
         {
@@ -127,18 +101,7 @@ namespace NotificationApi.Controllers
                 _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.CaseName, request.CaseName},
-                {NotifyParams.CaseNumber, request.CaseNumber},
-                {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
-                {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()},
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.UserName, request.Username.ToLower()},
-                {NotifyParams.RandomPassword, request.RandomPassword}
-            };
+            var parameters = NotificationParameterMapper.MapToSingleDayConfirmationNewUser(request);
 
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
@@ -151,30 +114,18 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-multi-day-hearing-confirmation-email-new-user")]
         [OpenApiOperation("SendParticipantMultiDayHearingConfirmationForNewUserEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantMultiDayHearingConfirmationForNewUserEmailAsync(
             NewUserMultiDayHearingConfirmationRequest request)
-        {   
+        {
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmationMultiDay,
                 _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.CaseName, request.CaseName},
-                {NotifyParams.CaseNumber, request.CaseNumber},
-                {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
-                {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()},
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.UserName, request.Username.ToLower()},
-                {NotifyParams.RandomPassword, request.RandomPassword},
-                {NotifyParams.TotalDays, request.TotalDays.ToString()}
-            };
+            var parameters = NotificationParameterMapper.MapToMultiDayConfirmationNewUser(request);
 
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
@@ -187,8 +138,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-single-day-hearing-confirmation-email-existing-user")]
         [OpenApiOperation("SendParticipantSingleDayHearingConfirmationForExistingUserEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(
             ExistingUserSingleDayHearingConfirmationRequest request)
         {
@@ -207,18 +158,7 @@ namespace NotificationApi.Controllers
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.CaseName, request.CaseName},
-                {NotifyParams.CaseNumber, request.CaseNumber},
-                {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
-                {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.UserName, request.Username.ToLower()},
-                {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()}
-            };
-
+            var parameters = NotificationParameterMapper.MapToSingleDayConfirmationExistingUser(request);
 
             if (request.RoleName == RoleNames.Judge)
             {
@@ -249,8 +189,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-multi-day-hearing-confirmation-email-existing-user")]
         [OpenApiOperation("SendParticipantMultiDayHearingConfirmationForExistingUserEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(
             ExistingUserMultiDayHearingConfirmationRequest request)
         {
@@ -271,19 +211,7 @@ namespace NotificationApi.Controllers
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.CaseName, request.CaseName},
-                {NotifyParams.CaseNumber, request.CaseNumber},
-                {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.StartDayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
-                {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
-                {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()},
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.UserName, request.Username.ToLower()},
-                {NotifyParams.TotalDays, request.TotalDays.ToString()},
-            };
+            var parameters = NotificationParameterMapper.MapToMultiDayConfirmationForExistingUser(request);
 
             if (request.RoleName == RoleNames.Judge)
             {
@@ -314,8 +242,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-single-day-hearing-reminder-email")]
         [OpenApiOperation("SendSingleDayHearingReminderEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendSingleDayHearingReminderEmailAsync(SingleDayHearingReminderRequest request)
         {
             var useNewTemplates = _featureToggles.UsePostMay2023Template();
@@ -331,17 +259,7 @@ namespace NotificationApi.Controllers
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.CaseName, request.CaseName},
-                {NotifyParams.CaseNumber, request.CaseNumber},
-                {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
-                {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()},
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.UserName, request.Username.ToLower()},
-            };
+            var parameters = NotificationParameterMapper.MapToSingleDayReminder(request);
 
             if (request.RoleName == RoleNames.JudicialOfficeHolder)
             {
@@ -365,8 +283,8 @@ namespace NotificationApi.Controllers
         /// <returns></returns>
         [HttpPost("participant-multi-day-hearing-reminder-email")]
         [OpenApiOperation("SendMultiDayHearingReminderEmail")]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendMultiDayHearingReminderEmailAsync(MultiDayHearingReminderRequest request)
         {
             var notificationType = request.RoleName switch
@@ -375,19 +293,8 @@ namespace NotificationApi.Controllers
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
-            var parameters = new Dictionary<string, string>
-            {
-                {NotifyParams.CaseName, request.CaseName},
-                {NotifyParams.CaseNumber, request.CaseNumber},
-                {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
-                {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()},
-                {NotifyParams.Name, request.Name},
-                {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
-                {NotifyParams.UserName, request.Username.ToLower()},
-                {NotifyParams.TotalDays, request.TotalDays.ToString()},
-            };
-            
+            var parameters = NotificationParameterMapper.MapToMultiDayReminder(request);
+
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
 
@@ -398,16 +305,15 @@ namespace NotificationApi.Controllers
             Guid? hearingId, NotificationType notificationType, Dictionary<string, string> parameters)
         {
             var parametersJson = JsonConvert.SerializeObject(parameters);
-            
+
             var hasNotificationAlreadyBeenSent = await HasNotificationAlreadyBeenSent(contactEmail,
                 participantId, hearingId, notificationType, parametersJson);
             if (hasNotificationAlreadyBeenSent) return;
 
             await SaveAndSendNotification(contactEmail, participantId, hearingId,
                 notificationType, parametersJson, parameters);
-
         }
-        
+
         private async Task<bool> HasNotificationAlreadyBeenSent(string contactEmail, Guid? participantId,
             Guid? hearingId, NotificationType notificationType,
             string parametersJson)
@@ -415,7 +321,7 @@ namespace NotificationApi.Controllers
             var emailNotifications = await _queryHandler.Handle<GetEmailNotificationQuery, IList<EmailNotification>>(
                 new GetEmailNotificationQuery(hearingId, participantId, notificationType, contactEmail));
 
-            // check if notification already exists with the same params
+            // check if notification already exists with the same param values
             return emailNotifications.Any(x => x.Parameters == parametersJson);
         }
 
@@ -431,15 +337,18 @@ namespace NotificationApi.Controllers
                 contactEmail, participantId, hearingId, parametersJson);
             await _createNotificationService.CreateEmailNotificationAsync(notification, parameters);
         }
-        
+
         private async Task AreAllParamsGiven(Dictionary<string, string> parameters, NotificationType notificationType)
         {
-            var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery(notificationType));
+            var template =
+                await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(
+                    new GetTemplateByNotificationTypeQuery(notificationType));
             if (template == null)
             {
                 throw new BadRequestException($"Invalid {nameof(notificationType)}: {notificationType}");
             }
-            var paramNames = template.Parameters.Split(',').Select(x=>x.Trim()).ToList();
+
+            var paramNames = template.Parameters.Split(',').Select(x => x.Trim()).ToList();
             var missingParams = paramNames.Where(x => !parameters.ContainsKey(x)).ToList();
             if (missingParams.Any())
             {

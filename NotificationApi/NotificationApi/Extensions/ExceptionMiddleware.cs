@@ -1,11 +1,6 @@
-﻿using System;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NotificationApi.Common;
 using NotificationApi.DAL.Exceptions;
 
 namespace NotificationApi.Extensions

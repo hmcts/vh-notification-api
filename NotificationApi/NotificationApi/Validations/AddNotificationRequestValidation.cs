@@ -1,4 +1,3 @@
-using System;
 using NotificationApi.Contract;
 
 namespace NotificationApi.Validations
