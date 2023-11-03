@@ -2,8 +2,6 @@ namespace NotificationApi.Validations;
 
 public class NewUserSingleDayHearingConfirmationRequestValidation : AbstractValidator<NewUserSingleDayHearingConfirmationRequest>
 {
-    public static readonly string UnsupportedRoleMessage =
-        "Only participants with the role 'Individual' is currently supported for the new user single day hearing confirmation";
     public NewUserSingleDayHearingConfirmationRequestValidation()
     {
         RuleFor(x => x.HearingId).NotEmpty();
@@ -15,8 +13,5 @@ public class NewUserSingleDayHearingConfirmationRequestValidation : AbstractVali
         RuleFor(x => x.ScheduledDateTime).NotEmpty();
         RuleFor(x => x.Username).NotEmpty();
         RuleFor(x => x.RandomPassword).NotEmpty();
-        
-        // RoleName must be a RoleNames.Individual or RoleNames.Representative
-        RuleFor(x => x.RoleName).Must(x => x == RoleNames.Individual).WithMessage(UnsupportedRoleMessage);
     }
 }

@@ -17,12 +17,21 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
     [TestCase(RoleNames.PanelMember)]
     [TestCase(RoleNames.JudicialOfficeHolder)]
     [TestCase(RoleNames.Winger)]
-    public async Task should_not_send_a_confirmation_email_for_a(string roleName)
+    public async Task should_not_send_a_single_day_confirmation_email_for_a(string roleName)
     {
         // arrange
         var request = new NewUserSingleDayHearingConfirmationRequest
         {
-            RoleName = roleName
+            RoleName = roleName,
+            Name = $"{Faker.Name.FullName()}",
+            CaseNumber = $"{Faker.RandomNumber.Next()}",
+            CaseName = $"{Faker.RandomNumber.Next()}",
+            HearingId = Guid.NewGuid(),
+            ParticipantId = Guid.NewGuid(),
+            ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
+            Username = $"{Guid.NewGuid()}@intautomation.com",
+            RandomPassword = "12345678dusausyd",
+            ScheduledDateTime = DateTime.UtcNow.AddDays(1),
         };
 
         // act
@@ -34,15 +43,15 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
         result.IsSuccessStatusCode.Should().BeFalse();
         result.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var validationProblemDetails = await ApiClientResponse.GetResponses<ValidationProblemDetails>(result.Content);
-        validationProblemDetails.Errors[$"{nameof(request.CaseName)}"].ToList()
-            .Exists(errorMessage => errorMessage.Contains("must not be empty")).Should().BeTrue();
-        validationProblemDetails.Errors[$"{nameof(request.RoleName)}"].Should().Contain(NewUserSingleDayHearingConfirmationRequestValidation.UnsupportedRoleMessage);
+        validationProblemDetails.Errors.Any(x =>
+            x.Value.Contains($"Only LIPs are supported, provided role is {roleName}")).Should().BeTrue();
+        
             
         _notifyStub.SentEmails.Count.Should().Be(0);
     }
         
     [Test]
-    public async Task should_send_a_confirmation_email_for_a_lip()
+    public async Task should_send_a_single_day_confirmation_email_for_a_lip()
     {
         // arrange
         var request = new NewUserSingleDayHearingConfirmationRequest
