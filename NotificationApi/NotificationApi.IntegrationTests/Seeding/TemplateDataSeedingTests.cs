@@ -39,7 +39,7 @@ namespace NotificationApi.IntegrationTests.Seeding
         public void should_remove_templates_where_id_do_not_match()
         {
             var templateDataForEnvironments = new TemplateDataForEnvironments();
-            var preProdTemplates = templateDataForEnvironments.Get("PreProd");
+            var preProdTemplates = templateDataForEnvironments.Get("prod");
             var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
 
             // imitate a database restore from another env
