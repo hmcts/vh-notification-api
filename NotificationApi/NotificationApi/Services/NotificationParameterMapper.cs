@@ -80,6 +80,24 @@ public static class NotificationParameterMapper
             {NotifyParams.UserName, request.Username.ToLower()},
             {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()}
         };
+        
+        if (request.RoleName == RoleNames.Judge)
+        {
+            parameters.Add(NotifyParams.Judge, request.DisplayName);
+            parameters.Add(NotifyParams.CourtroomAccountUserName, request.Username);
+        }
+
+        if (request.RoleName == RoleNames.JudicialOfficeHolder)
+        {
+            parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
+        }
+
+        if (request.RoleName == RoleNames.Representative)
+        {
+            parameters.Add(NotifyParams.ClientName, request.Representee);
+            parameters.Add(NotifyParams.SolicitorName, request.Name);
+        }
+        
         return parameters;
     }
     
@@ -99,6 +117,24 @@ public static class NotificationParameterMapper
             {NotifyParams.UserName, request.Username.ToLower()},
             {NotifyParams.TotalDays, request.TotalDays.ToString()},
         };
+        
+        if (request.RoleName == RoleNames.Judge)
+        {
+            parameters.Add(NotifyParams.Judge, request.DisplayName);
+            parameters.Add(NotifyParams.CourtroomAccountUserName, request.Username.ToLower());
+        }
+
+        if (request.RoleName == RoleNames.JudicialOfficeHolder)
+        {
+            parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
+        }
+
+        if (request.RoleName == RoleNames.Representative)
+        {
+            parameters.Add(NotifyParams.ClientName, request.Representee);
+            parameters.Add(NotifyParams.SolicitorName, request.Name);
+        }
+        
         return parameters;
     }
     
@@ -115,6 +151,17 @@ public static class NotificationParameterMapper
             {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
             {NotifyParams.UserName, request.Username.ToLower()},
         };
+        
+        if (request.RoleName == RoleNames.JudicialOfficeHolder)
+        {
+            parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
+        }
+
+        if (request.RoleName == RoleNames.Representative)
+        {
+            parameters.Add(NotifyParams.ClientName, request.Representee);
+            parameters.Add(NotifyParams.SolicitorName, request.Name);
+        }
         return parameters;
     }
     

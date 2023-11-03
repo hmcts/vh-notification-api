@@ -159,24 +159,7 @@ namespace NotificationApi.Controllers
             };
 
             var parameters = NotificationParameterMapper.MapToSingleDayConfirmationExistingUser(request);
-
-            if (request.RoleName == RoleNames.Judge)
-            {
-                parameters.Add(NotifyParams.Judge, request.DisplayName);
-                parameters.Add(NotifyParams.CourtroomAccountUserName, request.Username);
-            }
-
-            if (request.RoleName == RoleNames.JudicialOfficeHolder)
-            {
-                parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
-            }
-
-            if (request.RoleName == RoleNames.Representative)
-            {
-                parameters.Add(NotifyParams.ClientName, request.Representee);
-                parameters.Add(NotifyParams.SolicitorName, request.Name);
-            }
-
+            
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
 
@@ -213,23 +196,6 @@ namespace NotificationApi.Controllers
 
             var parameters = NotificationParameterMapper.MapToMultiDayConfirmationForExistingUser(request);
 
-            if (request.RoleName == RoleNames.Judge)
-            {
-                parameters.Add(NotifyParams.Judge, request.DisplayName);
-                parameters.Add(NotifyParams.CourtroomAccountUserName, request.Username.ToLower());
-            }
-
-            if (request.RoleName == RoleNames.JudicialOfficeHolder)
-            {
-                parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
-            }
-
-            if (request.RoleName == RoleNames.Representative)
-            {
-                parameters.Add(NotifyParams.ClientName, request.Representee);
-                parameters.Add(NotifyParams.SolicitorName, request.Name);
-            }
-
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
 
@@ -260,18 +226,7 @@ namespace NotificationApi.Controllers
             };
 
             var parameters = NotificationParameterMapper.MapToSingleDayReminder(request);
-
-            if (request.RoleName == RoleNames.JudicialOfficeHolder)
-            {
-                parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
-            }
-
-            if (request.RoleName == RoleNames.Representative)
-            {
-                parameters.Add(NotifyParams.ClientName, request.Representee);
-                parameters.Add(NotifyParams.SolicitorName, request.Name);
-            }
-
+            
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
             return Ok();
