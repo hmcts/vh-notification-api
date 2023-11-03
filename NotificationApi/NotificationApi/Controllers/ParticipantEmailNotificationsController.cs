@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NotificationApi.Common;
 using NotificationApi.Common.Util;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Queries;
@@ -46,14 +47,14 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.CreateIndividual,
                 RoleNames.Representative => NotificationType.CreateRepresentative,
-                _ => throw new NotSupportedException($"Provided role is not {request.RoleName}")
+                _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
             {
                 {NotifyParams.Name, request.Name},
                 {NotifyParams.UserName, request.Username.ToLower()},
-                {NotifyParams.Password, request.Password}
+                {NotifyParams.RandomPassword, request.Password}
             };
             
             await ProcessRequest(request.ContactEmail, null, null, notificationType, parameters);
@@ -93,7 +94,7 @@ namespace NotificationApi.Controllers
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipWelcome,
-                _ => throw new NotSupportedException($"Only LIPs are supported, provided role is {request.RoleName}")
+                _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
@@ -123,7 +124,7 @@ namespace NotificationApi.Controllers
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmation,
-                _ => throw new NotSupportedException($"Only LIPs are supported, provided role is {request.RoleName}")
+                _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
@@ -158,7 +159,7 @@ namespace NotificationApi.Controllers
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmationMultiDay,
-                _ => throw new NotSupportedException($"Only LIPs are supported, provided role is {request.RoleName}")
+                _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
@@ -203,7 +204,7 @@ namespace NotificationApi.Controllers
                     .HearingConfirmationEJudJoh,
                 RoleNames.Judge when !request.HasAJudiciaryUsername() => NotificationType.HearingConfirmationJudge,
                 RoleNames.Judge when request.HasAJudiciaryUsername() => NotificationType.HearingConfirmationEJudJudge,
-                _ => throw new NotSupportedException($"Provided role is not {request.RoleName}")
+                _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
@@ -212,6 +213,7 @@ namespace NotificationApi.Controllers
                 {NotifyParams.CaseName, request.CaseName},
                 {NotifyParams.CaseNumber, request.CaseNumber},
                 {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
+                {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
                 {NotifyParams.StartTime, request.ScheduledDateTime.ToEmailTimeGbLocale()},
                 {NotifyParams.UserName, request.Username.ToLower()},
                 {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()}
@@ -221,6 +223,7 @@ namespace NotificationApi.Controllers
             if (request.RoleName == RoleNames.Judge)
             {
                 parameters.Add(NotifyParams.Judge, request.DisplayName);
+                parameters.Add(NotifyParams.CourtroomAccountUserName, request.Username);
             }
 
             if (request.RoleName == RoleNames.JudicialOfficeHolder)
@@ -265,7 +268,7 @@ namespace NotificationApi.Controllers
                     .HearingConfirmationJudgeMultiDay,
                 RoleNames.Judge when request.HasAJudiciaryUsername() => NotificationType
                     .HearingConfirmationEJudJudgeMultiDay,
-                _ => throw new NotSupportedException($"Provided role is not {request.RoleName}")
+                _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
@@ -273,6 +276,7 @@ namespace NotificationApi.Controllers
                 {NotifyParams.CaseName, request.CaseName},
                 {NotifyParams.CaseNumber, request.CaseNumber},
                 {NotifyParams.Time, request.ScheduledDateTime.ToEmailTimeGbLocale()},
+                {NotifyParams.StartDayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
                 {NotifyParams.DayMonthYear, request.ScheduledDateTime.ToEmailDateGbLocale()},
                 {NotifyParams.DayMonthYearCy, request.ScheduledDateTime.ToEmailDateCyLocale()},
                 {NotifyParams.Name, request.Name},
@@ -284,6 +288,7 @@ namespace NotificationApi.Controllers
             if (request.RoleName == RoleNames.Judge)
             {
                 parameters.Add(NotifyParams.Judge, request.DisplayName);
+                parameters.Add(NotifyParams.CourtroomAccountUserName, request.Username.ToLower());
             }
 
             if (request.RoleName == RoleNames.JudicialOfficeHolder)
@@ -323,7 +328,7 @@ namespace NotificationApi.Controllers
                     .NewHearingReminderJOH,
                 RoleNames.JudicialOfficeHolder when request.HasAJudiciaryUsername() => NotificationType
                     .NewHearingReminderEJUD,
-                _ => throw new NotSupportedException($"Provided role is not {request.RoleName}")
+                _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
@@ -364,11 +369,10 @@ namespace NotificationApi.Controllers
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendMultiDayHearingReminderEmailAsync(MultiDayHearingReminderRequest request)
         {
-            // should I return bad request when _featureToggles.UsePostMay2023Template() is false?   
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewHearingReminderLipMultiDay,
-                _ => throw new NotSupportedException($"Provided role is not {request.RoleName}")
+                _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
             var parameters = new Dictionary<string, string>
@@ -383,18 +387,7 @@ namespace NotificationApi.Controllers
                 {NotifyParams.UserName, request.Username.ToLower()},
                 {NotifyParams.TotalDays, request.TotalDays.ToString()},
             };
-
-            if (request.RoleName == RoleNames.JudicialOfficeHolder)
-            {
-                parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
-            }
-
-            if (request.RoleName == RoleNames.Representative)
-            {
-                parameters.Add(NotifyParams.ClientName, request.Representee);
-                parameters.Add(NotifyParams.SolicitorName, request.Name);
-            }
-
+            
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);
 
@@ -433,9 +426,25 @@ namespace NotificationApi.Controllers
             NotificationType notificationType,
             string parametersJson, Dictionary<string, string> parameters)
         {
+            await AreAllParamsGiven(parameters, notificationType);
             var notification = new CreateEmailNotificationCommand(notificationType,
                 contactEmail, participantId, hearingId, parametersJson);
             await _createNotificationService.CreateEmailNotificationAsync(notification, parameters);
+        }
+        
+        private async Task AreAllParamsGiven(Dictionary<string, string> parameters, NotificationType notificationType)
+        {
+            var template = await _queryHandler.Handle<GetTemplateByNotificationTypeQuery, Template>(new GetTemplateByNotificationTypeQuery(notificationType));
+            if (template == null)
+            {
+                throw new BadRequestException($"Invalid {nameof(notificationType)}: {notificationType}");
+            }
+            var paramNames = template.Parameters.Split(',').Select(x=>x.Trim()).ToList();
+            var missingParams = paramNames.Where(x => !parameters.ContainsKey(x)).ToList();
+            if (missingParams.Any())
+            {
+                throw new BadRequestException($"Missing parameters: {string.Join(", ", missingParams)}");
+            }
         }
     }
 }

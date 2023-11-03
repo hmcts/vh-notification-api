@@ -35,9 +35,11 @@ namespace NotificationApi
                 // if multiple templates exist for a given type, remove all and add again from the source
                 var duplicateTemplates = existingTemplates.Count > 1;
                 var nonMatchingTemplate = existingTemplates.Count == 1 &&
-                                          existingTemplates[0].NotifyTemplateId != template.NotifyTemplateId;
-                
-                if (duplicateTemplates || nonMatchingTemplate)
+                                          existingTemplates[0].NotifyTemplateId != template.NotifyTemplateId
+                                          && existingTemplates[0].Parameters != template.Parameters;
+                var paramsDoNotMatch = existingTemplates.Count == 1 &&
+                                       existingTemplates[0].Parameters != template.Parameters;
+                if (duplicateTemplates || nonMatchingTemplate || paramsDoNotMatch)
                 {
                     _context.Templates.RemoveRange(existingTemplates);
                     _context.Templates.Add(template);

@@ -1,4 +1,4 @@
-﻿namespace NotificationApi.Services
+﻿namespace NotificationApi.Common
 {
     public static class NotifyParams
     {
