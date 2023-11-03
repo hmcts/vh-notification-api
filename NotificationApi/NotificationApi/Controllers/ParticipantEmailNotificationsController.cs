@@ -144,7 +144,7 @@ namespace NotificationApi.Controllers
             ExistingUserSingleDayHearingConfirmationRequest request)
         {
             var useNewTemplates = _featureToggles.UsePostMay2023Template();
-            NotificationType notificationType = request.RoleName switch
+            var notificationType = request.RoleName switch
             {
                 RoleNames.Individual when !useNewTemplates => NotificationType.HearingConfirmationLip,
                 RoleNames.Individual when useNewTemplates => NotificationType.ExistingUserLipConfirmation,
@@ -221,7 +221,7 @@ namespace NotificationApi.Controllers
                 RoleNames.JudicialOfficeHolder when !request.HasAJudiciaryUsername() => NotificationType
                     .NewHearingReminderJOH,
                 RoleNames.JudicialOfficeHolder when request.HasAJudiciaryUsername() => NotificationType
-                    .NewHearingReminderEJUD,
+                    .NewHearingReminderEJudJoh,
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
@@ -249,6 +249,39 @@ namespace NotificationApi.Controllers
             };
 
             var parameters = NotificationParameterMapper.MapToMultiDayReminder(request);
+
+            await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
+                notificationType, parameters);
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Send a hearing amendment email
+        /// </summary>
+        [HttpPost("participant-hearing-amendment-email")]
+        [OpenApiOperation("SendHearingAmendmentEmail")]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> SendHearingAmendmentEmailAsync(HearingAmendmentRequest request)
+        {
+            var notificationType = request.RoleName switch
+            {
+                RoleNames.Individual => NotificationType.HearingAmendmentLip,
+                RoleNames.Representative => NotificationType.HearingAmendmentRepresentative,
+                RoleNames.JudicialOfficeHolder when !request.HasAJudiciaryUsername() => NotificationType
+                    .HearingAmendmentJoh,
+                RoleNames.JudicialOfficeHolder when request.HasAJudiciaryUsername() => NotificationType
+                    .HearingAmendmentEJudJoh,
+                RoleNames.Judge when !request.HasAJudiciaryUsername() => NotificationType
+                    .HearingAmendmentJudge,
+                RoleNames.Judge when request.HasAJudiciaryUsername() => NotificationType
+                    .HearingAmendmentEJudJudge,
+                _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
+            };
+            
+            
+            var parameters = NotificationParameterMapper.MapToHearingAmendment(request);
 
             await ProcessRequest(request.ContactEmail, request.ParticipantId, request.HearingId,
                 notificationType, parameters);

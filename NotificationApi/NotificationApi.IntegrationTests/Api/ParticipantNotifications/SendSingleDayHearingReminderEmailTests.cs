@@ -8,10 +8,11 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
         public void Setup()
         {
             var scope = Application.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-            _notifyStub = scope.ServiceProvider.GetRequiredService<IAsyncNotificationClient>() as AsyncNotificationClientStub;
+            _notifyStub =
+                scope.ServiceProvider.GetRequiredService<IAsyncNotificationClient>() as AsyncNotificationClientStub;
             _notifyStub!.SentEmails.Clear();
         }
-        
+
         [Test]
         public async Task should_not_send_a_single_day_reminder_email_for_a_judge()
         {
@@ -32,13 +33,14 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             // act
             using var client = Application.CreateClient();
             var result = await client.PostAsync(
-                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail, RequestBody.Set(request));
+                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail,
+                RequestBody.Set(request));
 
 
             // assert
             result.IsSuccessStatusCode.Should().BeFalse(result.Content.ReadAsStringAsync().Result);
         }
-        
+
         [Test]
         public async Task should_send_a_single_day_reminder_email_for_a_judicial_office_holder()
         {
@@ -59,7 +61,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             // act
             using var client = Application.CreateClient();
             var result = await client.PostAsync(
-                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail, RequestBody.Set(request));
+                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail,
+                RequestBody.Set(request));
 
 
             // assert
@@ -70,11 +73,11 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
                 request.ContactEmail);
             notifications.Count.Should().Be(1);
             _notifyStub.SentEmails.Count.Should().Be(1);
-            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
-                                               && x.ExternalRefId == notifications[0].ExternalId 
+            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail
+                                               && x.ExternalRefId == notifications[0].ExternalId
             ).Should().BeTrue();
         }
-        
+
         [Test]
         public async Task should_send_a_single_day_reminder_email_for_a_judiciary_judicial_office_holder()
         {
@@ -95,22 +98,23 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             // act
             using var client = Application.CreateClient();
             var result = await client.PostAsync(
-                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail, RequestBody.Set(request));
+                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail,
+                RequestBody.Set(request));
 
 
             // assert
             result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
 
             var notifications = await TestDataManager.GetNotifications(request.HearingId,
-                request.ParticipantId, Domain.Enums.NotificationType.NewHearingReminderEJUD,
+                request.ParticipantId, Domain.Enums.NotificationType.NewHearingReminderEJudJoh,
                 request.ContactEmail);
             notifications.Count.Should().Be(1);
             _notifyStub.SentEmails.Count.Should().Be(1);
-            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
-                                               && x.ExternalRefId == notifications[0].ExternalId 
+            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail
+                                               && x.ExternalRefId == notifications[0].ExternalId
             ).Should().BeTrue();
         }
-        
+
         [Test]
         public async Task should_send_a_single_day_reminder_email_for_a_representative()
         {
@@ -132,7 +136,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             // act
             using var client = Application.CreateClient();
             var result = await client.PostAsync(
-                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail, RequestBody.Set(request));
+                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail,
+                RequestBody.Set(request));
 
 
             // assert
@@ -143,11 +148,11 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
                 request.ContactEmail);
             notifications.Count.Should().Be(1);
             _notifyStub.SentEmails.Count.Should().Be(1);
-            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
-                                               && x.ExternalRefId == notifications[0].ExternalId 
+            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail
+                                               && x.ExternalRefId == notifications[0].ExternalId
             ).Should().BeTrue();
         }
-        
+
         [Test]
         public async Task should_send_a_single_day_reminder_email_for_a_lip()
         {
@@ -168,7 +173,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             // act
             using var client = Application.CreateClient();
             var result = await client.PostAsync(
-                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail, RequestBody.Set(request));
+                ApiUriFactory.ParticipantNotificationEndpoints.SendSingleDayHearingReminderEmail,
+                RequestBody.Set(request));
 
 
             // assert
@@ -179,10 +185,10 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
                 request.ContactEmail);
             notifications.Count.Should().Be(1);
             _notifyStub.SentEmails.Count.Should().Be(1);
-            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
-                                               && x.ExternalRefId == notifications[0].ExternalId 
+            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail
+                                               && x.ExternalRefId == notifications[0].ExternalId
             ).Should().BeTrue();
         }
-        
+
     }
 }

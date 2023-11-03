@@ -181,4 +181,41 @@ public static class NotificationParameterMapper
         };
         return parameters;
     }
+
+    public static Dictionary<string, string> MapToHearingAmendment(HearingAmendmentRequest request)
+    {
+        var parameters = new Dictionary<string, string>
+        {
+            {NotifyParams.CaseName, request.CaseName},
+            {NotifyParams.CaseNumber, request.CaseNumber},
+            {NotifyParams.OldTime, request.PreviousScheduledDateTime.ToEmailTimeGbLocale()},
+            {NotifyParams.NewTime, request.NewScheduledDateTime.ToEmailTimeGbLocale()},
+            {NotifyParams.OldDayMonthYear, request.PreviousScheduledDateTime.ToEmailDateGbLocale()},
+            {NotifyParams.NewDayMonthYear, request.NewScheduledDateTime.ToEmailDateGbLocale()}
+        };
+        
+        if (request.RoleName == RoleNames.Judge)
+        {
+            parameters.Add(NotifyParams.Judge, request.DisplayName);
+            parameters.Add(NotifyParams.CourtroomAccountUserName, request.Username.ToLower());
+        }
+
+        if (request.RoleName == RoleNames.JudicialOfficeHolder)
+        {
+            parameters.Add(NotifyParams.JudicialOfficeHolder, request.Name);
+        }
+
+        if (request.RoleName == RoleNames.Individual)
+        {
+            parameters.Add(NotifyParams.Name, request.Name);
+        }
+
+        if (request.RoleName == RoleNames.Representative)
+        {
+            parameters.Add(NotifyParams.ClientName, request.Representee);
+            parameters.Add(NotifyParams.SolicitorName, request.Name);
+        }
+
+        return parameters;
+    }
 }

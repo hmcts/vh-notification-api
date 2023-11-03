@@ -53,6 +53,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [Obsolete("Please use the journey specific routes")]
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
             var parameters = JsonConvert.SerializeObject(request.Parameters);

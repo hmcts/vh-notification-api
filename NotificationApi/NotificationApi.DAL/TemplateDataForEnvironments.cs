@@ -10,8 +10,6 @@ namespace NotificationApi.DAL
     [ExcludeFromCodeCoverage]
     public class TemplateDataForEnvironments
     {
-        private const string CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME = "case name, case number, judicial office holder, day month year, time, username";
-
         private static Template CreateTemplate(string guid, NotificationType notificationType, MessageType messageType, string parameters)
         {
             return new Template(new Guid(guid), notificationType,
@@ -66,22 +64,22 @@ namespace NotificationApi.DAL
             {
                 CreateTemplate("3210895A-C096-4029-B43E-9FDE4642A254", NotificationType.HearingAmendmentJudge,
                     MessageType.Email,
-                    "case name,case number,judge,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.Judge},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime},{NotifyParams.CourtroomAccountUserName}")
             },
             {
                 CreateTemplate("715017DB-24B5-4117-A47D-0F935054A5A0", NotificationType.HearingAmendmentJoh,
                     MessageType.Email,
-                    "case name,case number,judicial office holder,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("197D2B04-A600-41AE-BF68-8021D6EA0057", NotificationType.HearingAmendmentLip,
                     MessageType.Email,
-                    "case name,case number,name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.Name},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("70C29995-D6D6-48D4-AB1B-6F957A776F30",
                     NotificationType.HearingAmendmentRepresentative, MessageType.Email,
-                    "case name,case number,client name,solicitor name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.ClientName},{NotifyParams.SolicitorName},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("04CD937D-C6EB-4932-A040-469123AFEF67",
@@ -116,11 +114,11 @@ namespace NotificationApi.DAL
             {
                 CreateTemplate("339EDA5B-2E21-4D75-A768-75648E801738",
                     NotificationType.HearingAmendmentEJudJudge, MessageType.Email,
-                    "case name,case number,judge,New Day Month Year,Old Day Month Year,New time,Old time")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.Judge},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("924E9BAE-0566-43DC-BE26-AAAB4B11F3C5", NotificationType.HearingAmendmentEJudJoh,
-                    MessageType.Email, "case name,case number,judicial office holder,day month year,time")
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("45C68EC6-D869-45E4-BC83-E547620E05F9", NotificationType.HearingReminderEJudJoh,
@@ -187,7 +185,7 @@ namespace NotificationApi.DAL
             },
             {
                 CreateTemplate("E4636FBE-6466-4394-9775-A98FED84FD23", NotificationType.NewHearingReminderLIP,
-                    MessageType.Email, "case name, case number, name, day month year, time, username")
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.Time},{NotifyParams.UserName}")
             },
             {
                 CreateTemplate("1FB464A6-EB9F-404E-824E-41A6153E9B17",
@@ -197,11 +195,11 @@ namespace NotificationApi.DAL
             },
             {
                 CreateTemplate("4A6FB490-4CB7-4441-9B00-CCA636A2C455", NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.DayMonthYear},{NotifyParams.Time},{NotifyParams.UserName}")
             },
             {
-                CreateTemplate("1e683018-cd1f-4c41-83c8-3686b697655e", NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+                CreateTemplate("1e683018-cd1f-4c41-83c8-3686b697655e", NotificationType.NewHearingReminderEJudJoh,
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.DayMonthYear},{NotifyParams.Time},{NotifyParams.UserName}")
             },
             {
                 CreateTemplate("6c9be8bd-9aaa-468c-ad73-340fb0919b21", NotificationType.NewUserLipWelcome,
@@ -288,22 +286,22 @@ namespace NotificationApi.DAL
             {
                 CreateTemplate("CA63D787-0378-4F8B-8994-0659D95FE273", NotificationType.HearingAmendmentJudge,
                     MessageType.Email,
-                    "case name,case number,judge,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.Judge},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime},{NotifyParams.CourtroomAccountUserName}")
             },
             {
                 CreateTemplate("2D10D852-DB3D-4715-978E-23B2FD4145FE", NotificationType.HearingAmendmentJoh,
                     MessageType.Email,
-                    "case name,case number,judicial office holder,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("02817327-5533-4051-AE69-3609DDEBA8FB", NotificationType.HearingAmendmentLip,
                     MessageType.Email,
-                    "case name,case number,name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.Name},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("5299AC1F-BF42-4C68-82BD-E9C0F0EE51BA",
                     NotificationType.HearingAmendmentRepresentative, MessageType.Email,
-                    "case name,case number,client name,solicitor name,New Day Month Year,Old Day Month Year,New time,Old time,courtroom account username,account password")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.ClientName},{NotifyParams.SolicitorName},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("E07120B8-7FB8-43B6-88D4-909953453F05",
@@ -338,11 +336,11 @@ namespace NotificationApi.DAL
             {
                 CreateTemplate("867C4F32-E60E-4A39-94A2-AFB0B0E4CB53",
                     NotificationType.HearingAmendmentEJudJudge, MessageType.Email,
-                    "case name,case number,judge,New Day Month Year,Old Day Month Year,New time,Old time")
+                    $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.Judge},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("CB0021C4-0919-49D3-AA47-42C7E8094244", NotificationType.HearingAmendmentEJudJoh,
-                    MessageType.Email, "case name,case number,judicial office holder,day month year,time")
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.NewDayMonthYear},{NotifyParams.NewTime},{NotifyParams.OldDayMonthYear},{NotifyParams.OldTime}")
             },
             {
                 CreateTemplate("22C8A32C-E30E-4337-A7A8-31D247B831B2", NotificationType.HearingReminderEJudJoh,
@@ -409,7 +407,7 @@ namespace NotificationApi.DAL
             },
             {
                 CreateTemplate("c29e6297-0201-4efe-823e-128a6e6a2a55", NotificationType.NewHearingReminderLIP,
-                    MessageType.Email, "case name, case number, name, day month year, time, username")
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.Time},{NotifyParams.UserName}")
             },
             {
                 CreateTemplate("a92de80a-6d96-413d-b515-904fdbbf2de8",
@@ -418,14 +416,14 @@ namespace NotificationApi.DAL
             },
             {
                 CreateTemplate("1abe2b66-87de-44a9-8e2b-fb82ec9d361f", NotificationType.NewHearingReminderJOH,
-                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.DayMonthYear},{NotifyParams.Time},{NotifyParams.UserName}")
             },
             {
-                CreateTemplate("7718d416-d223-4f9c-a6c3-4f4e484e1ced", NotificationType.NewHearingReminderEJUD,
-                    MessageType.Email, CASE_NAME__CASE_NUMBER__JUDICIAL_OFFICE_HOLDER__DAY_MONTH_YEAR__TIME__USERNAME)
+                CreateTemplate("7718d416-d223-4f9c-a6c3-4f4e484e1ced", NotificationType.NewHearingReminderEJudJoh,
+                    MessageType.Email, $"{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.JudicialOfficeHolder},{NotifyParams.DayMonthYear},{NotifyParams.Time},{NotifyParams.UserName}")
             },
             {
-                CreateTemplate("dd4d6c03-0dc5-474c-82ed-0382c9f725c1", NotificationType.NewHearingReminderEJUD,
+                CreateTemplate("dd4d6c03-0dc5-474c-82ed-0382c9f725c1", NotificationType.NewHearingReminderEJudJoh,
                     MessageType.Email, "name, case name, case number")
             },
             {

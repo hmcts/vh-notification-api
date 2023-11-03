@@ -33,7 +33,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         {
             Environment.SetEnvironmentVariable(CallbackSecretConfigKey, null);
         }
-
+        
         private void InitTestDataManager()
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();
