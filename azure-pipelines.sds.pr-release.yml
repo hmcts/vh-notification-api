@@ -33,8 +33,8 @@ stages:
             parameters:
               chartPath: ${{ variables.chartPath }}
               chartValuesPath: ${{ variables.chartPath }}
-              helmVersion: '3.12.3'
-              
+              helmVersion: "3.12.3"
+
       - job: UnitAndIntegrationTests
         displayName: "Unit and Integration Tests"
         steps:
@@ -47,7 +47,7 @@ stages:
               dockerComposeTestFile: docker-compose.tests.yml
               sonarExtraProperties: |
                 sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/coverage.opencover.xml
-                sonar.cpd.exclusions=**/NotificationType.cs, **/TemplateDataForEnvironments.cs
+                sonar.cpd.exclusions=**/NotificationType.cs,**/TemplateDataForEnvironments.cs,*/Validations/*.cs
                 sonar.exclusions=**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, NotificationApi/NotificationApi.DAL/Migrations/*, NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
                 sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*, **/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi.Common/**/*, **/NotificationApi.IntegrationTests/**/*, **/NotificationApi.UnitTests/**/*, **/NotificationApi/Extensions/*, **/NotificationApi.DAL/Migrations/**/*
 
