@@ -14,9 +14,7 @@ public class SendParticipantMultiDayHearingConfirmationForNewUserEmailTests : Ap
     
     [TestCase(RoleNames.Representative)]
     [TestCase(RoleNames.Judge)]
-    [TestCase(RoleNames.PanelMember)]
     [TestCase(RoleNames.JudicialOfficeHolder)]
-    [TestCase(RoleNames.Winger)]
     public async Task should_not_send_a_confirmation_email_for_a(string roleName)
     {
         // arrange

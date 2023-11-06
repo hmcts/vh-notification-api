@@ -2,8 +2,6 @@ namespace NotificationApi.Contract.Requests;
 
 public static class RoleNames
 {
-    public const string PanelMember = "PanelMember";
-    public const string Winger = "Winger";
     public const string Judge = "Judge";
     public const string JudicialOfficeHolder = "Judicial Office Holder";
     public const string Representative = "Representative";

@@ -16,9 +16,7 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
         
         [TestCase(RoleNames.Representative)]
         [TestCase(RoleNames.Judge)]
-        [TestCase(RoleNames.PanelMember)]
         [TestCase(RoleNames.JudicialOfficeHolder)]
-        [TestCase(RoleNames.Winger)]
         public async Task should_not_send_a_welcome_email_for_a(string roleName)
         {
             // arrange
