@@ -45,7 +45,7 @@ namespace NotificationApi.AcceptanceTests.ApiTests
         [TestCase(NotificationType.NewHearingReminderLIP)]
         [TestCase(NotificationType.NewHearingReminderRepresentative)]
         [TestCase(NotificationType.NewHearingReminderJOH)]
-        [TestCase(NotificationType.NewHearingReminderEJUD)]
+        [TestCase(NotificationType.NewHearingReminderEJudJoh)]
         [TestCase(NotificationType.NewUserLipWelcome)]
         [TestCase(NotificationType.NewUserLipConfirmation)]
         [TestCase(NotificationType.NewUserLipConfirmationMultiDay)]

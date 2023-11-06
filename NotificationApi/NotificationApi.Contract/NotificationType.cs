@@ -43,7 +43,7 @@ namespace NotificationApi.Contract
         NewHearingReminderLIP = 37,
         NewHearingReminderRepresentative = 38,
         NewHearingReminderJOH = 39,
-        NewHearingReminderEJUD = 40,
+        NewHearingReminderEJudJoh = 40,
         NewUserLipWelcome = 41,
         NewUserLipConfirmation = 42,
         NewUserLipConfirmationMultiDay = 43,
