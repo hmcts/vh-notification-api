@@ -41,7 +41,7 @@ namespace NotificationApi.UnitTests.Validation
             _request.MessageType = MessageType.Email;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingEmailMessage).Should()
+            result.Errors.Exists(x => x.ErrorMessage == AddNotificationRequestValidation.MissingEmailMessage).Should()
                 .BeTrue();
         }
         
@@ -51,7 +51,7 @@ namespace NotificationApi.UnitTests.Validation
             _request.HearingId = null;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingHearingIdMessage).Should()
+            result.Errors.Exists(x => x.ErrorMessage == AddNotificationRequestValidation.MissingHearingIdMessage).Should()
                 .BeTrue();
         }
         
@@ -61,7 +61,7 @@ namespace NotificationApi.UnitTests.Validation
             _request.MessageType = (MessageType)4;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidMessageTypeMessage).Should()
+            result.Errors.Exists(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidMessageTypeMessage).Should()
                 .BeTrue();
         }
         
@@ -71,7 +71,7 @@ namespace NotificationApi.UnitTests.Validation
             _request.NotificationType = (NotificationType)999;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidNotificationTypeMessage).Should()
+            result.Errors.Exists(x => x.ErrorMessage == AddNotificationRequestValidation.InvalidNotificationTypeMessage).Should()
                 .BeTrue();
         }
 
@@ -81,7 +81,7 @@ namespace NotificationApi.UnitTests.Validation
             _request.Parameters = null;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingParametersMessage).Should()
+            result.Errors.Exists(x => x.ErrorMessage == AddNotificationRequestValidation.MissingParametersMessage).Should()
                 .BeTrue();
         }
         
@@ -91,7 +91,7 @@ namespace NotificationApi.UnitTests.Validation
             _request.ParticipantId = null;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingParticipantIdMessage).Should()
+            result.Errors.Exists(x => x.ErrorMessage == AddNotificationRequestValidation.MissingParticipantIdMessage).Should()
                 .BeTrue();
         }
         
@@ -102,7 +102,7 @@ namespace NotificationApi.UnitTests.Validation
             _request.MessageType = MessageType.SMS;
             var result = await _validator.ValidateAsync(_request);
             result.IsValid.Should().BeFalse();
-            result.Errors.Any(x => x.ErrorMessage == AddNotificationRequestValidation.MissingPhoneNumberMessage).Should()
+            result.Errors.Exists(x => x.ErrorMessage == AddNotificationRequestValidation.MissingPhoneNumberMessage).Should()
                 .BeTrue();
         }
 

@@ -1,11 +1,7 @@
-using System;
-using System.Linq;
-using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.Contract;
 using NotificationApi.DAL;
 using NotificationApi.Domain;
-using NUnit.Framework;
 using MessageType = NotificationApi.Domain.Enums.MessageType;
 
 namespace NotificationApi.IntegrationTests.Seeding
@@ -43,7 +39,7 @@ namespace NotificationApi.IntegrationTests.Seeding
         public void should_remove_templates_where_id_do_not_match()
         {
             var templateDataForEnvironments = new TemplateDataForEnvironments();
-            var preProdTemplates = templateDataForEnvironments.Get("PreProd");
+            var preProdTemplates = templateDataForEnvironments.Get("prod");
             var expectedTotalTemplates = Enum.GetNames(typeof(NotificationType)).Length;
 
             // imitate a database restore from another env

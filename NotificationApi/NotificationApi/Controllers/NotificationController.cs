@@ -1,12 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NotificationApi.Common;
-using NotificationApi.Contract.Requests;
 using NotificationApi.Contract.Responses;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
@@ -14,9 +6,6 @@ using NotificationApi.DAL.Queries;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
-using NotificationApi.Extensions;
-using NotificationApi.Services;
-using NSwag.Annotations;
 
 namespace NotificationApi.Controllers
 {
@@ -64,6 +53,7 @@ namespace NotificationApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(string), (int) HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [Obsolete("Please use the journey specific routes")]
         public async Task<IActionResult> CreateNewNotificationAsync(AddNotificationRequest request)
         {
             var parameters = JsonConvert.SerializeObject(request.Parameters);

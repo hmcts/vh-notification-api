@@ -1,12 +1,8 @@
-using System;
-using System.Threading.Tasks;
-using FluentAssertions;
 using NotificationApi.DAL;
 using NotificationApi.DAL.Exceptions;
 using NotificationApi.DAL.Queries;
 using NotificationApi.Domain;
 using NotificationApi.Domain.Enums;
-using NUnit.Framework;
 
 namespace NotificationApi.IntegrationTests.Database.Queries
 {
@@ -59,7 +55,8 @@ namespace NotificationApi.IntegrationTests.Database.Queries
             var query = new GetTemplateByNotificationTypeQuery(_duplicateTemplate.NotificationType);
 
             var f = async () => { await _handler.Handle(query); };
-            f.Should().Throw<DuplicateNotificationTemplateException>();
+            await f.Should().ThrowAsync<DuplicateNotificationTemplateException>();
+
         }
     }
 }

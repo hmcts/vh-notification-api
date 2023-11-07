@@ -3,9 +3,8 @@ using GST.Fake.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
-using NotificationApi.IntegrationTests.Stubs;
-using Notify.Interfaces;
+using NotificationApi.Common.Util;
+using Testing.Common.Stubs;
 
 namespace NotificationApi.IntegrationTests.Api.Setup
 {
@@ -21,9 +20,16 @@ namespace NotificationApi.IntegrationTests.Api.Setup
                     options.DefaultAuthenticateScheme = FakeJwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = FakeJwtBearerDefaults.AuthenticationScheme;
                 }).AddFakeJwtBearer();
-                services.AddScoped<IAsyncNotificationClient, AsyncNotificationClientStub>();
+                
+                RegisterStubs(services);
             });
             builder.UseEnvironment("Development");
+        }
+        
+        private static void RegisterStubs(IServiceCollection services)
+        {
+            services.AddSingleton<IAsyncNotificationClient, AsyncNotificationClientStub>();
+            services.AddSingleton<IFeatureToggles, FeatureTogglesStub>();
         }
 
         protected override void ConfigureClient(HttpClient client)

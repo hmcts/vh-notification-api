@@ -1,8 +1,3 @@
-using System;
-using FluentValidation;
-using NotificationApi.Contract.Requests;
-using NotificationApi.Extensions;
-
 namespace NotificationApi.Validations
 {
     public class NotificationCallbackRequestValidation : AbstractValidator<NotificationCallbackRequest>

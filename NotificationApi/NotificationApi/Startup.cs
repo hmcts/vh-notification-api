@@ -1,10 +1,7 @@
-using System;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,9 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using NotificationApi.Common.Configuration;
-using NotificationApi.Common.Util;
 using NotificationApi.DAL;
-using NotificationApi.Extensions;
 using NotificationApi.Health;
 using NotificationApi.Middleware.Logging;
 using NotificationApi.Middleware.Validation;
@@ -65,7 +60,7 @@ namespace NotificationApi
             
             services.AddVhHealthChecks();
             
-            services.AddValidatorsFromAssemblyContaining<IRequestModelValidatorService>();
+            services.AddValidatorsFromAssemblyContaining<Startup>();
             services.AddDbContextPool<NotificationsApiDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("VhNotificationsApi"),
                     builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(5), null)));

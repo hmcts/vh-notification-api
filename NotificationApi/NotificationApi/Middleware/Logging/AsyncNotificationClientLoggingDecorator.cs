@@ -2,11 +2,8 @@ using Microsoft.Extensions.Logging;
 using Notify.Interfaces;
 using Notify.Models;
 using Notify.Models.Responses;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace NotificationApi.Middleware.Logging
 {

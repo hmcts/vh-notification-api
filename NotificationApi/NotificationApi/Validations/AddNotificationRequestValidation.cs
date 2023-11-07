@@ -1,7 +1,4 @@
-using System;
-using FluentValidation;
 using NotificationApi.Contract;
-using NotificationApi.Contract.Requests;
 
 namespace NotificationApi.Validations
 {

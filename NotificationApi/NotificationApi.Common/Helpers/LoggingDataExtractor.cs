@@ -38,8 +38,9 @@ namespace NotificationApi.Common.Helpers
                         result.Add(kvp.Key, kvp.Value);
                     }
                 }
-                else if (property.PropertyType != typeof(string) && property.PropertyType.GetInterfaces().Any(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+                else if (property.PropertyType != typeof(string) && Array.Exists(property.PropertyType.GetInterfaces(), x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
                 {
+                    
                     // Could handle IEnmerables here
                 }
                 else

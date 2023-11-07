@@ -1,5 +1,3 @@
-using System;
-using NotificationApi.Contract.Requests;
 using NotificationApi.Domain.Enums;
 
 namespace NotificationApi.Extensions

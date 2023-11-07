@@ -1,12 +1,8 @@
-using System;
 using System.Security.Cryptography;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NotificationApi.Common.Configuration;
 using NotificationApi.DAL;
-using NotificationApi.IntegrationTests.Helper;
-using NUnit.Framework;
 using Testing.Common.Configuration;
 using Testing.Common.Security;
 
@@ -15,7 +11,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
     public class ApiTest
     {
         private const string CallbackSecretConfigKey = "NotifyConfiguration:CallbackSecret";
-        protected WebApplicationFactory<Program> Application = null!;
+        protected VhApiWebApplicationFactory Application = null!;
         protected TestDataManager TestDataManager = null!;
         protected DbContextOptions<NotificationsApiDbContext> DbOptions { get; private set; }
         private IConfigurationRoot _configRoot;
@@ -37,7 +33,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         {
             Environment.SetEnvironmentVariable(CallbackSecretConfigKey, null);
         }
-
+        
         private void InitTestDataManager()
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<NotificationsApiDbContext>();

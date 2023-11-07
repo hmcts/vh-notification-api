@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NotificationApi.DAL;
 using NotificationApi.DAL.Queries;
@@ -63,7 +60,7 @@ namespace NotificationApi.IntegrationTests.Helper
             await db.SaveChangesAsync();
         }
 
-        public async Task<IList<EmailNotification>> GetNotifications(Guid hearingId, Guid participantId, NotificationType notificationType, string contactEmail)
+        public async Task<IList<EmailNotification>> GetNotifications(Guid? hearingId, Guid? participantId, NotificationType notificationType, string contactEmail)
         {
             var query = new GetEmailNotificationQuery(hearingId, participantId, notificationType, contactEmail);
             await using var db = new NotificationsApiDbContext(_dbContextOptions);
