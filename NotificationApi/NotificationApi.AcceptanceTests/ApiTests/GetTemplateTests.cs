@@ -53,6 +53,13 @@ namespace NotificationApi.AcceptanceTests.ApiTests
         [TestCase(NotificationType.ExistingUserLipConfirmationMultiDay)]
         [TestCase(NotificationType.NewHearingReminderLipSingleDay)]
         [TestCase(NotificationType.NewHearingReminderLipMultiDay)]
+        [TestCase(NotificationType.NewUserRepresentativeWelcome)]
+        [TestCase(NotificationType.NewUserRepresentativeConfirmation)]
+        [TestCase(NotificationType.NewUserRepresentativeConfirmationMultiDay)]
+        [TestCase(NotificationType.ExistingUserRepresentativeConfirmation)]
+        [TestCase(NotificationType.ExistingUserRepresentativeConfirmationMultiDay)]
+        [TestCase(NotificationType.NewHearingReminderRepresentativeSingleDay)]
+        [TestCase(NotificationType.NewHearingReminderRepresentativeMultiDay)]
         public async Task should_return_okay_and_template(NotificationType notificationType)
         {
             // act
@@ -64,6 +71,8 @@ namespace NotificationApi.AcceptanceTests.ApiTests
             response.Parameters.Should().NotBeNullOrWhiteSpace();
             response.NotifyTemplateId.Should().NotBeEmpty();
             response.Id.Should().BePositive();
+            var notifyTemplate = await NotifyClient.GetTemplateByIdAsync(response.NotifyTemplateId.ToString());
+            notifyTemplate.Should().NotBeNull();
         }
     }
 }

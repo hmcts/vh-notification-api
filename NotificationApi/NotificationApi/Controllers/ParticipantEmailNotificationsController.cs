@@ -73,7 +73,8 @@ namespace NotificationApi.Controllers
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipWelcome,
-                _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
+                RoleNames.Representative => NotificationType.NewUserRepresentativeWelcome,
+                _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
             };
 
             var parameters = NotificationParameterMapper.MapToWelcomeEmail(request);
@@ -98,6 +99,7 @@ namespace NotificationApi.Controllers
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmation,
+                RoleNames.Representative => NotificationType.NewUserRepresentativeConfirmation,
                 _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
             };
 
@@ -122,7 +124,8 @@ namespace NotificationApi.Controllers
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmationMultiDay,
-                _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
+                RoleNames.Representative => NotificationType.NewUserRepresentativeConfirmationMultiDay,
+                _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
             };
 
             var parameters = NotificationParameterMapper.MapToMultiDayConfirmationNewUser(request);
@@ -148,7 +151,8 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual when !useNewTemplates => NotificationType.HearingConfirmationLip,
                 RoleNames.Individual when useNewTemplates => NotificationType.ExistingUserLipConfirmation,
-                RoleNames.Representative => NotificationType.HearingConfirmationRepresentative,
+                RoleNames.Representative when !useNewTemplates=> NotificationType.HearingConfirmationRepresentative,
+                RoleNames.Representative when useNewTemplates => NotificationType.ExistingUserRepresentativeConfirmation,
                 RoleNames.JudicialOfficeHolder when !request.HasAJudiciaryUsername() => NotificationType
                     .HearingConfirmationJoh,
                 RoleNames.JudicialOfficeHolder when request.HasAJudiciaryUsername() => NotificationType
@@ -182,7 +186,8 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual when useNewTemplates => NotificationType.ExistingUserLipConfirmationMultiDay,
                 RoleNames.Individual when !useNewTemplates => NotificationType.HearingConfirmationLipMultiDay,
-                RoleNames.Representative => NotificationType.HearingConfirmationRepresentativeMultiDay,
+                RoleNames.Representative when useNewTemplates => NotificationType.ExistingUserRepresentativeConfirmationMultiDay,
+                RoleNames.Representative when !useNewTemplates => NotificationType.HearingConfirmationRepresentativeMultiDay,
                 RoleNames.JudicialOfficeHolder when !request.HasAJudiciaryUsername() => NotificationType
                     .HearingConfirmationJohMultiDay,
                 RoleNames.JudicialOfficeHolder when request.HasAJudiciaryUsername() => NotificationType
@@ -215,9 +220,10 @@ namespace NotificationApi.Controllers
             var useNewTemplates = _featureToggles.UsePostMay2023Template();
             var notificationType = request.RoleName switch
             {
-                RoleNames.Individual when useNewTemplates => NotificationType.NewHearingReminderLIP,
-                RoleNames.Individual when !useNewTemplates => NotificationType.NewHearingReminderLipSingleDay,
-                RoleNames.Representative => NotificationType.NewHearingReminderRepresentative,
+                RoleNames.Individual when useNewTemplates => NotificationType.NewHearingReminderLipSingleDay,
+                RoleNames.Individual when !useNewTemplates => NotificationType.NewHearingReminderLIP,
+                RoleNames.Representative when useNewTemplates  => NotificationType.NewHearingReminderRepresentativeSingleDay,
+                RoleNames.Representative when !useNewTemplates => NotificationType.NewHearingReminderRepresentative,
                 RoleNames.JudicialOfficeHolder when !request.HasAJudiciaryUsername() => NotificationType
                     .NewHearingReminderJOH,
                 RoleNames.JudicialOfficeHolder when request.HasAJudiciaryUsername() => NotificationType
@@ -245,6 +251,7 @@ namespace NotificationApi.Controllers
             var notificationType = request.RoleName switch
             {
                 RoleNames.Individual => NotificationType.NewHearingReminderLipMultiDay,
+                RoleNames.Representative => NotificationType.NewHearingReminderRepresentativeMultiDay,
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 

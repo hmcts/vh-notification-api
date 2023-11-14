@@ -51,9 +51,4 @@ public class MultiDayHearingReminderRequest
     ///     The total number of days in the multi-day booking
     /// </summary>
     public int TotalDays { get; set; }
-
-    /// <summary>
-    ///     The name of the person the participant is representing (if applicable)
-    /// </summary>
-    public string Representee { get; set; }
 }

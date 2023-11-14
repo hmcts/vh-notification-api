@@ -236,6 +236,42 @@ namespace NotificationApi.DAL
                     MessageType.Email,
                     $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.NumberOfDays},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
             },
+            /////////////////////////////////////////////////////// New Professional Templates
+            {
+                CreateTemplate("e9257299-49f2-4d9e-a123-335fdb1863d5", NotificationType.NewUserRepresentativeWelcome,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber}")
+            },
+            {
+                CreateTemplate("3fc658e9-d689-4b99-9905-960247ece1c8", NotificationType.NewUserRepresentativeConfirmation,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.UserName},{NotifyParams.RandomPassword},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("fac7d1ea-c863-491a-80d6-e0d7db67e040",
+                    NotificationType.NewUserRepresentativeConfirmationMultiDay,
+                    MessageType.Email, $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.NumberOfDays},{NotifyParams.UserName},{NotifyParams.RandomPassword},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("bd64e5d2-610f-449a-a925-3db10f913019",
+                    NotificationType.ExistingUserRepresentativeConfirmation,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("bc278f80-69a5-4e91-a0ef-4bfe2a52796e",
+                    NotificationType.ExistingUserRepresentativeConfirmationMultiDay,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy},{NotifyParams.NumberOfDays}")
+            },
+            {
+                CreateTemplate("cf7b6b30-a702-4542-9d5c-7471fe232ff8",
+                    NotificationType.NewHearingReminderRepresentativeSingleDay,
+                    MessageType.Email,
+                    $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("b465577c-af10-46eb-a94f-97b7d31eb86a",
+                    NotificationType.NewHearingReminderRepresentativeMultiDay,
+                    MessageType.Email,
+                    $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.NumberOfDays},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
+            }
         };
 
         private readonly IList<Template> _sourceTemplatesProd = new List<Template>()
@@ -460,6 +496,42 @@ namespace NotificationApi.DAL
                     MessageType.Email,
                     $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.NumberOfDays},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
             },
+            /////////////////////////////////////////////////////// New Professional Templates
+            {
+                CreateTemplate("479a46ca-2716-403a-9cc3-f6f607b57d33", NotificationType.NewUserRepresentativeWelcome,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber}")
+            },
+            {
+                CreateTemplate("46c8f6cf-a475-4711-a5bc-2ed80a152334", NotificationType.NewUserRepresentativeConfirmation,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.UserName},{NotifyParams.RandomPassword},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("2420bcc4-7c35-435c-bfa5-76d83f852854",
+                    NotificationType.NewUserRepresentativeConfirmationMultiDay,
+                    MessageType.Email, $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.NumberOfDays},{NotifyParams.UserName},{NotifyParams.RandomPassword},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("4229a74a-c7e8-4f64-95b1-969dfc85d9c8",
+                    NotificationType.ExistingUserRepresentativeConfirmation,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("88c51941-534d-4bf0-bd87-b0bca634de3c",
+                    NotificationType.ExistingUserRepresentativeConfirmationMultiDay,
+                    MessageType.Email, $"{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy},{NotifyParams.NumberOfDays}")
+            },
+            {
+                CreateTemplate("0aa67776-a45b-478a-b0c1-16e4a474b2f6",
+                    NotificationType.NewHearingReminderRepresentativeSingleDay,
+                    MessageType.Email,
+                    $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
+            },
+            {
+                CreateTemplate("606827d7-3714-447b-a6c2-ae457e6a0823",
+                    NotificationType.NewHearingReminderRepresentativeMultiDay,
+                    MessageType.Email,
+                    $"{NotifyParams.DayMonthYear},{NotifyParams.StartTime},{NotifyParams.Name},{NotifyParams.CaseName},{NotifyParams.CaseNumber},{NotifyParams.NumberOfDays},{NotifyParams.UserName},{NotifyParams.DayMonthYearCy}")
+            }
         };
 
 
