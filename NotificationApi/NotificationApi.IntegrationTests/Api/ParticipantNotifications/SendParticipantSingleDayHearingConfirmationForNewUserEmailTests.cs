@@ -12,7 +12,6 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
         _notifyStub!.SentEmails.Clear();
     }
     
-    [TestCase(RoleNames.Representative)]
     [TestCase(RoleNames.Judge)]
     [TestCase(RoleNames.JudicialOfficeHolder)]
     public async Task should_not_send_a_single_day_confirmation_email_for_a(string roleName)
@@ -49,7 +48,7 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
     }
         
     [Test]
-    public async Task should_send_a_single_day_confirmation_email_for_a_lip()
+    public async Task should_send_a_single_day_confirmation_email_for_a_new_lip()
     {
         // arrange
         var request = new NewUserSingleDayHearingConfirmationRequest
@@ -75,7 +74,43 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
         result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
   
         var notifications = await TestDataManager.GetNotifications(request.HearingId.Value, request.ParticipantId.Value,
-            (Domain.Enums.NotificationType)  Contract.NotificationType.NewUserLipConfirmation,
+            Domain.Enums.NotificationType.NewUserLipConfirmation,
+            request.ContactEmail);
+        notifications.Count.Should().Be(1);
+        _notifyStub.SentEmails.Count.Should().Be(1);
+        _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
+                                           && x.ExternalRefId == notifications[0].ExternalId 
+        ).Should().BeTrue();
+    }
+    
+    [Test]
+    public async Task should_send_a_single_day_confirmation_email_for_a_new_representative()
+    {
+        // arrange
+        var request = new NewUserSingleDayHearingConfirmationRequest
+        {
+            RoleName = RoleNames.Representative,
+            Name = $"{Faker.Name.FullName()}",
+            CaseNumber = $"{Faker.RandomNumber.Next()}",
+            CaseName = $"{Faker.RandomNumber.Next()}",
+            HearingId = Guid.NewGuid(),
+            ParticipantId = Guid.NewGuid(),
+            ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
+            Username = $"{Guid.NewGuid()}@intautomation.com",
+            RandomPassword = "12345678dusausyd",
+            ScheduledDateTime = DateTime.UtcNow.AddDays(1)
+        };
+
+        // act
+        using var client = Application.CreateClient();
+        var result = await client.PostAsync(
+            ApiUriFactory.ParticipantNotificationEndpoints.SendParticipantSingleDayHearingConfirmationForNewUserEmail, RequestBody.Set(request));
+
+        // assert
+        result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
+  
+        var notifications = await TestDataManager.GetNotifications(request.HearingId.Value, request.ParticipantId.Value,
+            Domain.Enums.NotificationType.NewUserRepresentativeConfirmation,
             request.ContactEmail);
         notifications.Count.Should().Be(1);
         _notifyStub.SentEmails.Count.Should().Be(1);

@@ -50,6 +50,13 @@ namespace NotificationApi.Contract
         ExistingUserLipConfirmation = 44,
         ExistingUserLipConfirmationMultiDay = 45,
         NewHearingReminderLipSingleDay = 46,
-        NewHearingReminderLipMultiDay = 47
+        NewHearingReminderLipMultiDay = 47,
+        NewUserRepresentativeWelcome = 48,
+        NewUserRepresentativeConfirmation = 49,
+        NewUserRepresentativeConfirmationMultiDay = 50,
+        ExistingUserRepresentativeConfirmation = 51,
+        ExistingUserRepresentativeConfirmationMultiDay = 52,
+        NewHearingReminderRepresentativeSingleDay = 53,
+        NewHearingReminderRepresentativeMultiDay = 54,
     }
 }

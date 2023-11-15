@@ -15,8 +15,6 @@ namespace NotificationApi.Validations
             RuleFor(x => x.ScheduledDateTime).NotEmpty();
             RuleFor(x => x.Username).NotEmpty();
             RuleFor(x => x.TotalDays).NotEmpty().GreaterThan(0);
-        
-            RuleFor(x=> x.Representee).NotEmpty().When(x => x.RoleName == RoleNames.Representative);
         }
     }
 }

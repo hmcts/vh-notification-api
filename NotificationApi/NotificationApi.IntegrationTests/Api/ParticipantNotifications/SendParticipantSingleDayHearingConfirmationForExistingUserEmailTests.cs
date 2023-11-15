@@ -184,9 +184,10 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
         }
         
         [Test]
-        public async Task should_send_a_confirmation_email_for_a_representative()
+        public async Task should_send_a_confirmation_email_for_a_representative_toggle_off()
         {
             // arrange
+            _featureToggleStub!.UseNew2023Templates = false;
             var request = new ExistingUserSingleDayHearingConfirmationRequest
             {
                 RoleName = RoleNames.Representative,
@@ -211,6 +212,43 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
   
             var notifications = await TestDataManager.GetNotifications(request.HearingId.Value,
                 request.ParticipantId.Value, Domain.Enums.NotificationType.HearingConfirmationRepresentative,
+                request.ContactEmail);
+            notifications.Count.Should().Be(1);
+            _notifyStub.SentEmails.Count.Should().Be(1);
+            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
+                                               && x.ExternalRefId == notifications[0].ExternalId 
+            ).Should().BeTrue();
+        }
+        
+        [Test]
+        public async Task should_send_a_confirmation_email_for_a_representative_toggle_on()
+        {
+            // arrange
+            _featureToggleStub!.UseNew2023Templates = true;
+            var request = new ExistingUserSingleDayHearingConfirmationRequest
+            {
+                RoleName = RoleNames.Representative,
+                Name = $"{Faker.Name.FullName()}",
+                CaseNumber = $"{Faker.RandomNumber.Next()}",
+                CaseName = $"{Faker.RandomNumber.Next()}",
+                HearingId = Guid.NewGuid(),
+                ParticipantId = Guid.NewGuid(),
+                ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
+                Username = $"{Guid.NewGuid()}@intautomation.com",
+                ScheduledDateTime = DateTime.UtcNow.AddDays(1),
+                Representee = $"{Faker.Name.FullName()}"
+            };
+
+            // act
+            using var client = Application.CreateClient();
+            var result = await client.PostAsync(
+                ApiUriFactory.ParticipantNotificationEndpoints.SendParticipantSingleDayHearingConfirmationForExistingUserEmail, RequestBody.Set(request));
+
+            // assert
+            result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
+  
+            var notifications = await TestDataManager.GetNotifications(request.HearingId.Value,
+                request.ParticipantId.Value, Domain.Enums.NotificationType.ExistingUserRepresentativeConfirmation,
                 request.ContactEmail);
             notifications.Count.Should().Be(1);
             _notifyStub.SentEmails.Count.Should().Be(1);
@@ -246,7 +284,7 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
   
             var notifications = await TestDataManager.GetNotifications(request.HearingId.Value, request.ParticipantId.Value,
-                (Domain.Enums.NotificationType)  Contract.NotificationType.HearingConfirmationLip,
+                Domain.Enums.NotificationType.HearingConfirmationLip,
                 request.ContactEmail);
             notifications.Count.Should().Be(1);
             _notifyStub.SentEmails.Count.Should().Be(1);
@@ -282,7 +320,7 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
   
             var notifications = await TestDataManager.GetNotifications(request.HearingId.Value, request.ParticipantId.Value,
-                (Domain.Enums.NotificationType)  Contract.NotificationType.ExistingUserLipConfirmation,
+                Domain.Enums.NotificationType.ExistingUserLipConfirmation,
                 request.ContactEmail);
             notifications.Count.Should().Be(1);
             _notifyStub.SentEmails.Count.Should().Be(1);
