@@ -187,6 +187,7 @@ public static class NotificationParameterMapper
         var parameters = new Dictionary<string, string>
         {
             {NotifyParams.CaseName, request.CaseName},
+            {NotifyParams.UserName, request.Username.ToLower()},
             {NotifyParams.CaseNumber, request.CaseNumber},
             {NotifyParams.OldTime, request.PreviousScheduledDateTime.ToEmailTimeGbLocale()},
             {NotifyParams.NewTime, request.NewScheduledDateTime.ToEmailTimeGbLocale()},
