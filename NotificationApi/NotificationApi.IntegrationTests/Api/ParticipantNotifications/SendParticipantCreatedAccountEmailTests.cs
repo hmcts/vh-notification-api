@@ -96,5 +96,36 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
                                                && x.ExternalRefId == notifications[0].ExternalId 
             ).Should().BeTrue();
         }
+
+        [Test]
+        public async Task should_send_a_created_account_email_for_a_judicial_office_holder()
+        {
+            // arrange
+            var request = new SignInDetailsEmailRequest
+            {
+                RoleName = RoleNames.JudicialOfficeHolder,
+                ContactEmail = $"{Guid.NewGuid()}@test.com",
+                Name = $"{Faker.Name.FullName()}",
+                Username = $"{Guid.NewGuid()}@test.com",
+                Password = $"{Faker.RandomNumber.Next()}",
+            };
+        
+            // act
+            using var client = Application.CreateClient();
+            var result = await client.PostAsync(
+                ApiUriFactory.ParticipantNotificationEndpoints.SendParticipantCreatedAccountEmail, RequestBody.Set(request));
+
+
+            // assert
+            result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
+
+            var notifications = await TestDataManager.GetNotifications(null, null,
+                Domain.Enums.NotificationType.CreateRepresentative, request.ContactEmail);
+            notifications.Count.Should().Be(1);
+            _notifyStub.SentEmails.Count.Should().Be(1);
+            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
+                                               && x.ExternalRefId == notifications[0].ExternalId 
+            ).Should().BeTrue();
+        }
     }
 }
