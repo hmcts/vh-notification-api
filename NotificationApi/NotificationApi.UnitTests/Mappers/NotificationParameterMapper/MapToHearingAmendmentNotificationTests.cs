@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
 using FluentAssertions;
 using NotificationApi.Common;
-using NotificationApi.Contract;
 using NotificationApi.Contract.Requests;
-using NotificationApi.Extensions;
-using NotificationApi.Services;
 using NUnit.Framework;
 
-namespace NotificationApi.UnitTests.Mappers.NotificationParameterMappers
+namespace NotificationApi.UnitTests.Mappers.NotificationParameterMapper
 {
     public class MapToHearingAmendmentNotificationTests
     {
@@ -37,7 +33,7 @@ namespace NotificationApi.UnitTests.Mappers.NotificationParameterMappers
             };
             
             //Act
-            var result = NotificationParameterMapper.MapToHearingAmendment(request);
+            var result = NotificationApi.Services.NotificationParameterMapper.MapToHearingAmendment(request);
 
             //Assert
             result.Should().NotBeNull();
