@@ -35,6 +35,7 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.CreateIndividual,
                 RoleNames.Representative => NotificationType.CreateRepresentative,
+                RoleNames.JudicialOfficeHolder => NotificationType.CreateRepresentative,
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
