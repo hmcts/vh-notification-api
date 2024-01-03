@@ -64,6 +64,6 @@ public class HearingAmendmentRequest
 
     public bool HasAJudiciaryUsername()
     {
-        return Username?.Contains("judiciary", StringComparison.CurrentCultureIgnoreCase) ?? false;
+        return Username.Contains("judiciary", StringComparison.CurrentCultureIgnoreCase);
     }
 }
