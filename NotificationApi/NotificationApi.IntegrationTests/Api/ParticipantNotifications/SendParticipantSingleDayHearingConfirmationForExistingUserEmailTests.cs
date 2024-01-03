@@ -149,7 +149,7 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
         
                 
         [Test]
-        public async Task should_send_a_confirmation_email_to_a_judiciary_email_for_a_non_judiciary_judge()
+        public async Task should_send_a_confirmation_email_to_a_judiciary_email_for_a_non_judiciary_judge_using_the_standard_template()
         {
             // arrange
             var request = new ExistingUserSingleDayHearingConfirmationRequest
