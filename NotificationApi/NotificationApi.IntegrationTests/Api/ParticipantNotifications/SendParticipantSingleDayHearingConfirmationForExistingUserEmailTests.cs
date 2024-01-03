@@ -161,8 +161,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
                 CaseName = $"{Faker.RandomNumber.Next()}",
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
-                ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
-                Username = $"{Guid.NewGuid()}@judiciary.com",
+                ContactEmail = $"{Guid.NewGuid()}@judiciary.com",
+                Username = $"{Guid.NewGuid()}@hearings.reform.com",
                 ScheduledDateTime = DateTime.UtcNow.AddDays(1),
             };
 

@@ -54,6 +54,6 @@ public class SingleDayHearingReminderRequest
 
     public bool HasAJudiciaryUsername()
     {
-        return Username.Contains("judiciary", StringComparison.CurrentCultureIgnoreCase);
+        return Username?.Contains("judiciary", StringComparison.CurrentCultureIgnoreCase) ?? false;
     }
 }
