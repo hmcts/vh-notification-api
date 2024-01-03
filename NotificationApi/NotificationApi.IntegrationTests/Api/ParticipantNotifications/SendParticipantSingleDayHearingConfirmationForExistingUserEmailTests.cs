@@ -147,6 +147,43 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             ).Should().BeTrue();
         }
         
+                
+        [Test]
+        public async Task should_send_a_confirmation_email_to_a_judiciary_email_for_a_non_judiciary_judge_using_the_standard_template()
+        {
+            // arrange
+            var request = new ExistingUserSingleDayHearingConfirmationRequest
+            {
+                RoleName = RoleNames.Judge,
+                Name = $"{Faker.Name.FullName()}",
+                DisplayName = "Judge Fudge",
+                CaseNumber = $"{Faker.RandomNumber.Next()}",
+                CaseName = $"{Faker.RandomNumber.Next()}",
+                HearingId = Guid.NewGuid(),
+                ParticipantId = Guid.NewGuid(),
+                ContactEmail = $"{Guid.NewGuid()}@judiciary.com",
+                Username = $"{Guid.NewGuid()}@hearings.reform.com",
+                ScheduledDateTime = DateTime.UtcNow.AddDays(1),
+            };
+
+            // act
+            using var client = Application.CreateClient();
+            var result = await client.PostAsync(
+                ApiUriFactory.ParticipantNotificationEndpoints.SendParticipantSingleDayHearingConfirmationForExistingUserEmail, RequestBody.Set(request));
+
+            // assert
+            result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
+
+            var notifications = await TestDataManager.GetNotifications(request.HearingId.Value,
+                request.ParticipantId.Value, Domain.Enums.NotificationType.HearingConfirmationJudge,
+                request.ContactEmail);
+            notifications.Count.Should().Be(1);
+            _notifyStub.SentEmails.Count.Should().Be(1);
+            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
+                                               && x.ExternalRefId == notifications[0].ExternalId 
+            ).Should().BeTrue();
+        }
+        
         [Test]
         public async Task should_send_a_confirmation_email_for_a_judiciary_judge()
         {

@@ -61,9 +61,4 @@ public class ExistingUserMultiDayHearingConfirmationRequest
     ///     The name of the person the participant is representing (if applicable)
     /// </summary>
     public string Representee { get; set; }
-
-    public bool HasAJudiciaryUsername()
-    {
-        return ContactEmail?.Contains("judiciary", StringComparison.CurrentCultureIgnoreCase) ?? false;
-    }
 }
