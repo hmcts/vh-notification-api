@@ -56,9 +56,4 @@ public class ExistingUserSingleDayHearingConfirmationRequest
     ///     The name of the person the participant is representing (if applicable)
     /// </summary>
     public string Representee { get; set; }
-
-    public bool HasAJudiciaryUsername()
-    {
-        return Username.Contains("judiciary", StringComparison.CurrentCultureIgnoreCase);
-    }
 }
