@@ -75,7 +75,6 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.NewUserLipWelcome,
                 RoleNames.Representative => NotificationType.NewUserRepresentativeWelcome,
-                RoleNames.JudicialOfficeHolder => NotificationType.CreateRepresentative,
                 _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
             };
 
