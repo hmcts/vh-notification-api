@@ -101,7 +101,8 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmation,
                 RoleNames.Representative => NotificationType.NewUserRepresentativeConfirmation,
-                _ => throw new BadRequestException($"Only LIPs are supported, provided role is {request.RoleName}")
+                RoleNames.JudicialOfficeHolder => NotificationType.CreateRepresentative,
+                _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
             };
 
             var parameters = NotificationParameterMapper.MapToSingleDayConfirmationNewUser(request);
