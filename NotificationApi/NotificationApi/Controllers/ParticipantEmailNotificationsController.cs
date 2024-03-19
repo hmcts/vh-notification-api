@@ -127,6 +127,10 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.NewUserLipConfirmationMultiDay,
                 RoleNames.Representative => NotificationType.NewUserRepresentativeConfirmationMultiDay,
+                RoleNames.JudicialOfficeHolder when !request.Username.IsJudiciaryUsername() => NotificationType
+                    .HearingConfirmationJoh,
+                RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
+                    .HearingConfirmationEJudJoh,
                 _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
             };
 
