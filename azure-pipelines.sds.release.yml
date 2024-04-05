@@ -348,8 +348,6 @@ stages:
   # Run Entity Framework Demo. #####################
   - stage: Run_Entity_Framework_Demo
     displayName: Demo EF Release
-    dependsOn:
-      - Pre_Run_Tasks
     variables:
       - template: variables/demo.yaml
       - template: variables/shared.yaml
