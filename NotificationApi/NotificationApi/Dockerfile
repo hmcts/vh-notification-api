@@ -5,7 +5,7 @@ EXPOSE 80
 EXPOSE 443
 
 # Publish .NET App
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS publish
 WORKDIR /src
 COPY NotificationApi .
 RUN dotnet restore --configfile nuget.config "NotificationApi/NotificationApi.csproj"
