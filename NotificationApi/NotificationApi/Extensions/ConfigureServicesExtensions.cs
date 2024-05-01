@@ -52,7 +52,7 @@ namespace NotificationApi.Extensions
                     .GetService<FluentValidationSchemaProcessor>();
 
                 // Add the fluent validations schema processor
-                document.SchemaProcessors.Add(fluentValidationSchemaProcessor);
+                document.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
             });
             return services;
         }

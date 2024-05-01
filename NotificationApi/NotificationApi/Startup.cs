@@ -119,7 +119,7 @@ namespace NotificationApi
             app.RunTemplateDataSeeding(notifySettings.Environment);
 
             app.UseOpenApi();
-            app.UseSwaggerUi3(c =>
+            app.UseSwaggerUi(c =>
             {
                 c.DocumentTitle = "Notifications API V1";
             });

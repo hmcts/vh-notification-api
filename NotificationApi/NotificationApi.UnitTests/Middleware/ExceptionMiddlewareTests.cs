@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using NotificationApi.Extensions;
@@ -50,7 +51,7 @@ namespace NotificationApi.UnitTests.Middleware
 
             await ExceptionMiddleware.InvokeAsync(HttpContext);
 
-            Assert.AreEqual((int) HttpStatusCode.BadRequest, HttpContext.Response.StatusCode);
+            HttpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
         }
 
         [Test]
@@ -62,8 +63,8 @@ namespace NotificationApi.UnitTests.Middleware
             ExceptionMiddleware = new ExceptionMiddleware(RequestDelegateMock.Object.RequestDelegate);
             
             await ExceptionMiddleware.InvokeAsync(HttpContext);
-            Assert.AreEqual("application/json; charset=utf-8", HttpContext.Response.ContentType);
-            Assert.AreEqual((int) HttpStatusCode.InternalServerError, HttpContext.Response.StatusCode);
+            HttpContext.Response.ContentType.Should().Be("application/json; charset=utf-8");
+            HttpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.InternalServerError);
         }
     }
 }

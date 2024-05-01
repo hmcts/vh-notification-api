@@ -5,7 +5,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: master
+      ref: upgrade-dotnet-default
       endpoint: hmcts
 
 trigger: none
@@ -45,6 +45,7 @@ stages:
               nugetConfigPath: nuget.config
               appName: ${{ variables.appName }}
               dockerComposeTestFile: docker-compose.tests.yml
+              dotnetversion: 8.x
               sonarExtraProperties: |
                 sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/coverage.opencover.xml
                 sonar.cpd.exclusions=**/NotificationType.cs,**/TemplateDataForEnvironments.cs,*/Validations/*.cs,**/Services/NotificationParameterMapper.cs
@@ -86,6 +87,7 @@ stages:
         steps:
           - template: templates\dotnet\publish-acceptance-tests.yml@azTemplates
             parameters:
+              dotnetversion: 8.x
               vstsFeedId: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
               coreProjectPath: $(projectPath)
 
