@@ -15,14 +15,12 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         {
             builder.ConfigureTestServices(services =>
             {
-                var fakeJwtBearerScheme = "Fake Bearer";
-                
                 services.AddAuthentication(options =>
                 {
-                    options.DefaultScheme = fakeJwtBearerScheme;
-                    options.DefaultAuthenticateScheme = fakeJwtBearerScheme;
-                    options.DefaultChallengeScheme = fakeJwtBearerScheme;
-                }).AddFakeJwtBearer(fakeJwtBearerScheme, options => _ = options);
+                    options.DefaultScheme = FakeJwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = FakeJwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = FakeJwtBearerDefaults.AuthenticationScheme;
+                }).AddFakeJwtBearer();
                 
                 RegisterStubs(services);
             });
@@ -38,7 +36,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         protected override void ConfigureClient(HttpClient client)
         {
             base.ConfigureClient(client);
-            client.SetFakeBearerToken("admin", ["ROLE_ADMIN"]);
+            client.SetFakeBearerToken("admin", new[] { "ROLE_ADMIN", "ROLE_GENTLEMAN" });
         }
     }
 }
