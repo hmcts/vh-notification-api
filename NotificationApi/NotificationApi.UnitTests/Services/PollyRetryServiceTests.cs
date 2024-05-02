@@ -8,7 +8,7 @@ namespace NotificationApi.UnitTests.Services
 {
     public class PollyRetryServiceTests
     {
-        private readonly IPollyRetryService _pollyRetryService;
+        private readonly PollyRetryService _pollyRetryService;
 
         public PollyRetryServiceTests()
         {
