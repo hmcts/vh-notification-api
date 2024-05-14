@@ -10,6 +10,8 @@ namespace NotificationApi.IntegrationTests.Api.Setup
 {
     public class VhApiWebApplicationFactory : WebApplicationFactory<Program>
     {
+        private static readonly string[] Roles = { "ROLE_ADMIN", "ROLE_GENTLEMAN" };
+        
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureTestServices(services =>
@@ -35,7 +37,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
         protected override void ConfigureClient(HttpClient client)
         {
             base.ConfigureClient(client);
-            client.SetFakeBearerToken("admin", new[] { "ROLE_ADMIN", "ROLE_GENTLEMAN" });
+            client.SetFakeBearerToken("admin", Roles);
         }
     }
 }

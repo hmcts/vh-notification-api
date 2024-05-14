@@ -8,7 +8,7 @@ namespace NotificationApi.UnitTests.Services
 {
     public class PollyRetryServiceTests
     {
-        private readonly IPollyRetryService _pollyRetryService;
+        private readonly PollyRetryService _pollyRetryService;
 
         public PollyRetryServiceTests()
         {
@@ -27,8 +27,8 @@ namespace NotificationApi.UnitTests.Services
                 () => throw new Exception("What")
 #pragma warning restore S3626 // Jump statements should not be redundant
             );
-
-            Assert.True(retryInvoked);
+            
+            retryInvoked.Should().BeTrue();
         }
 
         [Test]
@@ -41,8 +41,8 @@ namespace NotificationApi.UnitTests.Services
                 3, i => TimeSpan.FromMilliseconds(1), retryAttempt => retryInvoked = true,
                 () => Task.FromResult<object>(returned)
             );
-
-            Assert.False(retryInvoked);
+            
+            retryInvoked.Should().BeFalse();
             result.Should().Be(returned);
         }
 
@@ -64,7 +64,7 @@ namespace NotificationApi.UnitTests.Services
             }
             catch
             {
-                Assert.True(retryInvoked);
+                retryInvoked.Should().BeTrue();
             }
         }
 
@@ -79,8 +79,8 @@ namespace NotificationApi.UnitTests.Services
                 x => !x.Success,
                 () => Task.FromResult(new EmailNotificationResponseTest { Success = false })
             );
-
-            Assert.True(retryInvoked);
+            
+            retryInvoked.Should().BeTrue();
         }
 
         [Test]
@@ -94,8 +94,8 @@ namespace NotificationApi.UnitTests.Services
                 x => !x.Success,
                 () => Task.FromResult(new EmailNotificationResponseTest { Success = true })
             );
-
-            Assert.False(retryInvoked);
+            
+            retryInvoked.Should().BeFalse();
 
             result.Success.Should().BeTrue();
         }
