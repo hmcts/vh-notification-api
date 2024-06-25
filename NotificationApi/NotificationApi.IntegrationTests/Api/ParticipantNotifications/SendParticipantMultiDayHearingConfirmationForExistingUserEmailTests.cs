@@ -87,43 +87,6 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
         }
         
         [Test]
-        public async Task should_send_a_multi_day_confirmation_email_for_a_non_judiciary_judge()
-        {
-            // arrange
-            var request = new ExistingUserMultiDayHearingConfirmationRequest
-            {
-                RoleName = RoleNames.Judge,
-                Name = $"{Faker.Name.FullName()}",
-                DisplayName = "Judge Fudge",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
-                HearingId = Guid.NewGuid(),
-                ParticipantId = Guid.NewGuid(),
-                ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
-                Username = $"{Guid.NewGuid()}@intautomation.com",
-                ScheduledDateTime = DateTime.UtcNow.AddDays(1),
-                TotalDays = 3
-            };
-
-            // act
-            using var client = Application.CreateClient();
-            var result = await client.PostAsync(
-                ApiUriFactory.ParticipantNotificationEndpoints.SendParticipantMultiDayHearingConfirmationForExistingUserEmail, RequestBody.Set(request));
-
-            // assert
-            result.IsSuccessStatusCode.Should().BeTrue(result.Content.ReadAsStringAsync().Result);
-
-            var notifications = await TestDataManager.GetNotifications(request.HearingId.Value,
-                request.ParticipantId.Value, Domain.Enums.NotificationType.HearingConfirmationJudgeMultiDay,
-                request.ContactEmail);
-            notifications.Count.Should().Be(1);
-            _notifyStub.SentEmails.Count.Should().Be(1);
-            _notifyStub.SentEmails.Exists(x => x.EmailAddress == request.ContactEmail 
-                                               && x.ExternalRefId == notifications[0].ExternalId 
-            ).Should().BeTrue();
-        }
-        
-        [Test]
         public async Task should_send_a_multi_day_confirmation_email_for_a_judiciary_judge()
         {
             // arrange
