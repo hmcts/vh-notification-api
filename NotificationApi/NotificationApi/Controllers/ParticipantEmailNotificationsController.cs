@@ -150,7 +150,10 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.ExistingUserLipConfirmation,
                 RoleNames.Representative => NotificationType.ExistingUserRepresentativeConfirmation,
-                RoleNames.JudicialOfficeHolder => NotificationType.HearingConfirmationEJudJoh,
+                RoleNames.JudicialOfficeHolder when !request.Username.IsJudiciaryUsername() => NotificationType
+                    .HearingConfirmationJoh,
+                RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
+                    .HearingConfirmationEJudJoh,
                 RoleNames.Judge => NotificationType.HearingConfirmationEJudJudge,
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
@@ -178,7 +181,9 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.ExistingUserLipConfirmationMultiDay,
                 RoleNames.Representative => NotificationType.ExistingUserRepresentativeConfirmationMultiDay,
-                RoleNames.JudicialOfficeHolder => NotificationType
+                RoleNames.JudicialOfficeHolder when !request.Username.IsJudiciaryUsername() => NotificationType
+                    .HearingConfirmationJohMultiDay,
+                RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
                     .HearingConfirmationEJudJohMultiDay,
                 RoleNames.Judge => NotificationType
                     .HearingConfirmationEJudJudgeMultiDay,
@@ -207,7 +212,9 @@ namespace NotificationApi.Controllers
             {
                 RoleNames.Individual => NotificationType.NewHearingReminderLipSingleDay,
                 RoleNames.Representative => NotificationType.NewHearingReminderRepresentativeSingleDay,
-                RoleNames.JudicialOfficeHolder => NotificationType
+                RoleNames.JudicialOfficeHolder when !request.Username.IsJudiciaryUsername() => NotificationType
+                    .NewHearingReminderJOH,
+                RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
                     .NewHearingReminderEJudJoh,
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
