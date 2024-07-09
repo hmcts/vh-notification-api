@@ -154,7 +154,8 @@ namespace NotificationApi.Controllers
                     .HearingConfirmationJoh,
                 RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
                     .HearingConfirmationEJudJoh,
-                RoleNames.Judge => NotificationType.HearingConfirmationEJudJudge,
+                RoleNames.Judge when !request.Username.IsJudiciaryUsername() => NotificationType.HearingConfirmationJudge,
+                RoleNames.Judge when request.Username.IsJudiciaryUsername() => NotificationType.HearingConfirmationEJudJudge,
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
 
@@ -185,7 +186,9 @@ namespace NotificationApi.Controllers
                     .HearingConfirmationJohMultiDay,
                 RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
                     .HearingConfirmationEJudJohMultiDay,
-                RoleNames.Judge => NotificationType
+                RoleNames.Judge when !request.Username.IsJudiciaryUsername() => NotificationType
+                    .HearingConfirmationJudgeMultiDay,
+                RoleNames.Judge when request.Username.IsJudiciaryUsername() => NotificationType
                     .HearingConfirmationEJudJudgeMultiDay,
                 _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
             };
