@@ -18,6 +18,7 @@ parameters:
   type: object
   default:
   - Dev
+  - Demo
 
 pool: 
   vmImage: ubuntu-22.04
