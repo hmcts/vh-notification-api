@@ -43,7 +43,7 @@ namespace NotificationApi
                 }));
 
             services.AddApplicationInsightsTelemetry();
-            var envName = Configuration["Services:VhNotificationApiResourceId"]; 
+            var envName = Configuration["Services:VhNotificationApiResourceId"];
             services.AddSingleton<IFeatureToggles>(new FeatureToggles(Configuration["FeatureToggle:SdkKey"], envName));
             services.AddJsonOptions();
             RegisterSettings(services);

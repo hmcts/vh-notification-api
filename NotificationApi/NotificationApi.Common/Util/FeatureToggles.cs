@@ -8,7 +8,6 @@ namespace NotificationApi.Common.Util
 {
     public interface IFeatureToggles
     {
-        bool UsePostMay2023Template();
     }
     
     public class FeatureToggles : IFeatureToggles
@@ -16,7 +15,6 @@ namespace NotificationApi.Common.Util
         private readonly ILdClient _ldClient;
         private readonly Context _context;
         private const string LdUser = "vh-notification-api";
-        private const string NewNotifyTemplatesToggleKey = "notify-post-may-2023-templates";
 
         public FeatureToggles(string sdkKey, string environmentName)
         {
@@ -24,16 +22,6 @@ namespace NotificationApi.Common.Util
                 .Logging(Components.Logging(Logs.ToWriter(Console.Out)).Level(LogLevel.Warn)).Build();
             _context = Context.Builder(LdUser).Name(environmentName).Build();
             _ldClient = new LdClient(config);
-        }
-        
-        public bool UsePostMay2023Template()
-        {
-            if (!_ldClient.Initialized)
-            {
-                throw new InvalidOperationException("LaunchDarkly client not initialized");
-            }
-
-            return _ldClient.BoolVariation(NewNotifyTemplatesToggleKey, _context);
         }
     }
 }
