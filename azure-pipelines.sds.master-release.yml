@@ -27,13 +27,11 @@ parameters:
     buildPushImage: false
     publishNuget: false
     pushHelmChart: false
-    dependsOn: 'Manual_Approval_dev'
   - env: 'test'
     requireApproval: true
     buildPushImage: true
     publishNuget: false
     pushHelmChart: false
-    dependsOn: 'Manual_Approval_test'
 
 pool: 
   vmImage: ubuntu-22.04
@@ -93,7 +91,7 @@ stages:
     displayName: EF Release ${{ stage.env }}
     dependsOn: 
     - Pre_Run_Tasks
-    ${{ if eq(parameters.stage.requireApproval, true) }}:
+    - ${{ if stage.requireApproval }}:
       - Manual_Approval_${{ stage.env }}
       
     variables:
