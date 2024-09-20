@@ -20,12 +20,18 @@ parameters:
   - env: 'dev'
     requireApproval: false
     buildPushImage: true
+    publishNuget: true
+    pushHelmChart: true
   - env: 'demo'
     requireApproval: true
     buildPushImage: false
+    publishNuget: false
+    pushHelmChart: false
   - env: 'test'
     requireApproval: true
     buildPushImage: true
+    publishNuget: false
+    pushHelmChart: false
 
 pool: 
   vmImage: ubuntu-22.04
@@ -148,11 +154,11 @@ stages:
           imageTags:
             - '${{ variables.imageTagName }}'
 
-- ${{ if eq( ${{ stage.env }}, 'dev') }}:
 #####################################################
 # Deploy Nuget Packages. ############################
-  - stage: Push_Nuget
-    displayName: Deploy Nuget Packages
+  - stage: Push_Nuget_${{ stage.env }}
+    displayName: Deploy Nuget Packages ${{ stage.env }}
+    condition: eq('${{ stage.publishNuget }}', true)
     dependsOn:
       - Run_Entity_Framework_${{ stage.env }}
     variables:
@@ -160,8 +166,8 @@ stages:
       parameters:
         env: ${{ variables.env }}
     jobs: 
-    - job: Publish_Nuget
-      displayName: Publish NuGet Packages
+    - job: Publish_Nuget_${{ stage.env }}
+      displayName: Publish NuGet Packages ${{ stage.env }}
       steps:
       - template: templates\dotnet\push-nuget-packages.yml@azTemplates
         parameters:
@@ -169,16 +175,17 @@ stages:
 
   #########################################
   # Push Helm Charts to Repo. #############
-  - stage: Helm
-    displayName: Push Helm Charts
+  - stage: Helm_${{ stage.env }}
+    displayName: Push Helm Charts ${{ stage.env }}
+    condition: eq('${{ stage.pushHelmChart }}', true)
     dependsOn: Docker_Build_Push_${{ stage.env }}
     variables:
     - template: variables/dev.yaml
     - template: variables/shared.yaml
     - group: vh-github-app-credentials
     jobs:
-    - job: Helm
-      displayName: "Helm Push"
+    - job: Helm_${{ stage.env }}
+      displayName: Helm Push ${{ stage.env }}
       steps:
       - checkout: self
 
