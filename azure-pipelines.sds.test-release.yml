@@ -23,9 +23,9 @@ pool:
 stages:
 #####################################################
 # Manual Approval ########################
-- stage: Manual_Approval_$(env)
+- stage: Manual_Approval
   jobs:
-    - job: Approve_$(env)
+    - job: Approve
       displayName: 'Approve to $(env)'
       pool: server
       timeoutInMinutes: 10080 # 7 Days
@@ -38,9 +38,9 @@ stages:
 
 #####################################################
 # Pre Run Tasks. ####################################
-- stage: Pre_Run_Tasks_$(env)
+- stage: Pre_Run_Tasks
   displayName: Pre-Release Tasks
-  dependsOn: Manual_Approval_$(env)
+  dependsOn: Manual_Approval
   jobs:
   - job: Generate_Entity_Framework_Script
     displayName: "Generate Entity Framework Script"
@@ -65,12 +65,12 @@ stages:
 
 #####################################################
 # Run Entity Framework. #############################
-- stage: Run_Entity_Framework_$(env)
+- stage: Run_Entity_Framework
   displayName: $(env) EF Release
-  dependsOn: Pre_Run_Tasks_$(env)
+  dependsOn: Pre_Run_Tasks
 
   jobs:
-  - job: Run_Entity_Framework_$(env)
+  - job: Run_Entity_Framework
     displayName: Run Entity Framework $(env)
     pool:
       vmImage: 'windows-latest' # MUST BE RUN ON WINDOWS
@@ -95,7 +95,7 @@ stages:
 - stage: Docker_Build_Push
   displayName: Docker Build & Push Image
   dependsOn:
-    - Run_Entity_Framework_$(env)
+    - Run_Entity_Framework
   jobs:
   - job: Docker_Build
     displayName: "Docker Build and Push"
