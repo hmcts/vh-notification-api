@@ -93,7 +93,7 @@ stages:
     displayName: EF Release ${{ stage.env }}
     dependsOn: 
     - Pre_Run_Tasks
-    - ${{ if eq(parameter.stage.requireApproval, true) }}:
+    - ${{ if eq(parameters.stage.requireApproval, true) }}:
       - Manual_Approval_${{ stage.env }}
       
     variables:
