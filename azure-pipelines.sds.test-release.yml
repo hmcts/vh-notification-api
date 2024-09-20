@@ -16,6 +16,8 @@ resources:
 variables:
   - template: variables/test.yaml
   - template: variables/shared.yaml
+    parameters:
+      env: $(env)
 
 pool: 
   vmImage: ubuntu-22.04
