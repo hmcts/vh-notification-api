@@ -94,7 +94,7 @@ stages:
     dependsOn: 
     - Pre_Run_Tasks
     - ${{ if eq(parameter.stage.requireApproval, true) }}:
-     - Manual_Approval_${{ stage.env }}
+      - Manual_Approval_${{ stage.env }}
       
     variables:
     - template: variables/${{ lower(stage.env) }}.yaml
