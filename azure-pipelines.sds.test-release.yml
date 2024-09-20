@@ -25,29 +25,29 @@ pool:
 stages:
 #####################################################
 # Manual Approval ########################
-- stage: Manual_Approval_${{ env }}
+- stage: Manual_Approval_${{ environment }}
   jobs:
-    - job: Approve_${{ env }}
-      displayName: 'Approve to ${{ env }}'
+    - job: Approve_${{ environment }}
+      displayName: 'Approve to ${{ environment }}'
       pool: server
       timeoutInMinutes: 10080 # 7 Days
       steps:
         - task: ManualValidation@0
           timeoutInMinutes: 10080 # 7 Days
           inputs:
-            instructions: 'Please Approve run to ${{ env }}'
+            instructions: 'Please Approve run to ${{ environment }}'
             onTimeout: 'reject'
-    - job: Helm_${{ env }}
+    - job: Helm_${{ environment }}
       variables:
         - template: variables/shared.yaml
           parameters:
-            env: ${{ env }}
+            env: ${{ environment }}
 
 #####################################################
 # Pre Run Tasks. ####################################
-- stage: Pre_Run_Tasks_${{ env }}
+- stage: Pre_Run_Tasks_${{ environment }}
   displayName: Pre-Release Tasks
-  dependsOn: Manual_Approval_${{ env }}
+  dependsOn: Manual_Approval_${{ environment }}
   variables:
   - template: variables/shared.yaml
   - template: variables/dev.yaml
@@ -75,17 +75,17 @@ stages:
 
 #####################################################
 # Run Entity Framework. #############################
-- stage: Run_Entity_Framework_${{ env }}
-  displayName: ${{ env }} EF Release
-  dependsOn: Pre_Run_Tasks_${{ env }}
+- stage: Run_Entity_Framework_${{ environment }}
+  displayName: ${{ environment }} EF Release
+  dependsOn: Pre_Run_Tasks_${{ environment }}
   variables:
   - template: variables/${{ lower(env) }}.yaml
   - template: variables/shared.yaml
     parameters:
       env: ${{ variables.env }}
   jobs:
-  - job: Run_Entity_Framework_${{ env }}
-    displayName: Run Entity Framework ${{ env }}
+  - job: Run_Entity_Framework_${{ environment }}
+    displayName: Run Entity Framework ${{ environment }}
     pool:
       vmImage: 'windows-latest' # MUST BE RUN ON WINDOWS
     steps:
@@ -109,7 +109,7 @@ stages:
 - stage: Docker_Build_Push
   displayName: Docker Build & Push Image
   dependsOn:
-    - Run_Entity_Framework_${{ env }}
+    - Run_Entity_Framework_${{ environment }}
   variables:
     - template: variables/dev.yaml
     - template: variables/shared.yaml
