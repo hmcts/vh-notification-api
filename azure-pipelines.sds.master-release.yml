@@ -148,7 +148,7 @@ stages:
           imageTags:
             - '${{ variables.imageTagName }}'
 
-- ${{ if eq(stage.env, 'dev') }}:
+- ${{ if eq( ${{ stage.env }}, 'dev') }}:
 #####################################################
 # Deploy Nuget Packages. ############################
   - stage: Push_Nuget
