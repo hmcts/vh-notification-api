@@ -73,7 +73,7 @@ stages:
 - ${{ each stage in parameters.stages }}:
   - stage: Manual_Approval_${{ stage.env }}
     displayName: Manual Approval ${{ stage.env }}
-    condition: eq(stage.requireApproval, true)
+    condition: eq('${{ stage.requireApproval }}', true)
     dependsOn: Pre_Run_Tasks
     jobs:
       - job: Approve
@@ -93,8 +93,8 @@ stages:
     displayName: EF Release ${{ stage.env }}
     dependsOn: 
     - Pre_Run_Tasks
-    - ${{ if eq(stage.requireApproval , true) }}:
-      - Manual_Approval_${{ stage.env }}
+    - ${{ if stage.dependsOn }}: 
+      - ${{ stage.dependsOn }}
       
     variables:
     - template: variables/${{ lower(stage.env) }}.yaml
