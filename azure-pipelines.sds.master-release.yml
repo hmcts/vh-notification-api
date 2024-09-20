@@ -69,7 +69,7 @@ stages:
 # Manual Approval ###################################
 - ${{ each stage in parameters.stages }}:
   - stage: Manual_Approval_${{ stage.env }}
-    displayName: Manual Approval ${{ stage.env }}
+    displayName: Approval ${{ stage.env }}
     condition: eq('${{ stage.requireApproval }}', true)
     dependsOn: Pre_Run_Tasks
     jobs:
