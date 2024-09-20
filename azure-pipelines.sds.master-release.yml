@@ -90,8 +90,10 @@ stages:
   - stage: Run_Entity_Framework_${{ stage.env }}
     displayName: EF Release ${{ stage.env }}
     dependsOn: 
+    - Pre_Run_Tasks
     - ${{ if eq('${{ stage.requireApproval }}', true) }}:
       - Manual_Approval_${{ stage.env }}
+      
     variables:
     - template: variables/${{ lower(stage.env) }}.yaml
     - template: variables/shared.yaml
