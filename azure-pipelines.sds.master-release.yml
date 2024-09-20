@@ -22,7 +22,6 @@ parameters:
     buildPushImage: true
     publishNuget: true
     pushHelmChart: true
-    dependsOn:
   - env: 'demo'
     requireApproval: true
     buildPushImage: false
@@ -94,7 +93,8 @@ stages:
     displayName: EF Release ${{ stage.env }}
     dependsOn: 
     - Pre_Run_Tasks
-    - ${{ stage.dependsOn }}
+    - ${{ if stage.dependsOn }}: 
+      - ${{ stage.dependsOn }}
       
     variables:
     - template: variables/${{ lower(stage.env) }}.yaml
