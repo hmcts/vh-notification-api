@@ -17,7 +17,12 @@ variables:
   - template: variables/test.yaml
   - template: variables/shared.yaml
     parameters:
-      env: $(env)
+      env: ${{ variables.env }}
+
+parameters:
+- name: environment
+  type: string
+  default: test
 
 pool: 
   vmImage: ubuntu-22.04
@@ -28,14 +33,14 @@ stages:
 - stage: Manual_Approval
   jobs:
     - job: Approve
-      displayName: 'Approve to $(env)'
+      displayName: 'Approve to ${{ variables.env }}'
       pool: server
       timeoutInMinutes: 10080 # 7 Days
       steps:
         - task: ManualValidation@0
           timeoutInMinutes: 10080 # 7 Days
           inputs:
-            instructions: 'Please Approve run to $(env)'
+            instructions: 'Please Approve run to ${{ variables.env }}'
             onTimeout: 'reject'
 
 #####################################################
@@ -68,12 +73,12 @@ stages:
 #####################################################
 # Run Entity Framework. #############################
 - stage: Run_Entity_Framework
-  displayName: $(env) EF Release
+  displayName: ${{ variables.env }} EF Release
   dependsOn: Pre_Run_Tasks
 
   jobs:
   - job: Run_Entity_Framework
-    displayName: Run Entity Framework $(env)
+    displayName: Run Entity Framework ${{ variables.env }}
     pool:
       vmImage: 'windows-latest' # MUST BE RUN ON WINDOWS
     steps:
