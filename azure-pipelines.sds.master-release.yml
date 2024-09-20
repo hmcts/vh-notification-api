@@ -157,49 +157,51 @@ stages:
 
 #####################################################
 # Deploy Nuget Packages. ############################
-  - stage: Push_Nuget_${{ stage.env }}
-    displayName: Deploy Nuget Packages ${{ stage.env }}
-    condition: eq('${{ stage.publishNuget }}', true)
-    dependsOn:
-      - Run_Entity_Framework_${{ stage.env }}
-    variables:
-    - template: variables/shared.yaml
-      parameters:
-        env: ${{ variables.env }}
-    jobs: 
-    - job: Publish_Nuget_${{ stage.env }}
-      displayName: Publish NuGet Packages ${{ stage.env }}
-      steps:
-      - template: templates\dotnet\push-nuget-packages.yml@azTemplates
+  - ${{ if eq(stage.publishNuget, true }}:
+    - stage: Push_Nuget_${{ stage.env }}
+      displayName: Deploy Nuget Packages ${{ stage.env }}
+      # condition: eq('${{ stage.publishNuget }}', true)
+      dependsOn:
+        - Run_Entity_Framework_${{ stage.env }}
+      variables:
+      - template: variables/shared.yaml
         parameters:
-          vstsFeed: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
+          env: ${{ variables.env }}
+      jobs: 
+      - job: Publish_Nuget_${{ stage.env }}
+        displayName: Publish NuGet Packages ${{ stage.env }}
+        steps:
+        - template: templates\dotnet\push-nuget-packages.yml@azTemplates
+          parameters:
+            vstsFeed: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
 
   #########################################
   # Push Helm Charts to Repo. #############
-  - stage: Helm_${{ stage.env }}
-    displayName: Push Helm Charts ${{ stage.env }}
-    condition: eq('${{ stage.pushHelmChart }}', true)
-    dependsOn: Docker_Build_Push_${{ stage.env }}
-    variables:
-    - template: variables/dev.yaml
-    - template: variables/shared.yaml
-    - group: vh-github-app-credentials
-    jobs:
-    - job: Helm_${{ stage.env }}
-      displayName: Helm Push ${{ stage.env }}
-      steps:
-      - checkout: self
+  - ${{ if eq(stage.pushHelmChart, true }}:
+    - stage: Helm_${{ stage.env }}
+      displayName: Push Helm Charts ${{ stage.env }}
+      # condition: eq('${{ stage.pushHelmChart }}', true)
+      dependsOn: Docker_Build_Push_${{ stage.env }}
+      variables:
+      - template: variables/dev.yaml
+      - template: variables/shared.yaml
+      - group: vh-github-app-credentials
+      jobs:
+      - job: Helm_${{ stage.env }}
+        displayName: Helm Push ${{ stage.env }}
+        steps:
+        - checkout: self
 
-      - template: templates\Github\get-app-token.yaml@azTemplates
-        parameters:
-          privateKeyFileName: ${{ variables.gh_app_private_key_file_name }}
-          appId: $(gh_app_app_id)
+        - template: templates\Github\get-app-token.yaml@azTemplates
+          parameters:
+            privateKeyFileName: ${{ variables.gh_app_private_key_file_name }}
+            appId: $(gh_app_app_id)
 
-      - template: templates\Github\push-to-helm-chart-repo.yaml@azTemplates
-        parameters:
-          chartName: ${{ variables.chartName }}
-          chartPath: ${{ variables.chartPath }}
-          githubToken: $(githubappinstall.token)
-          githubUsername: $(gh_app_name)
-          githubEmail: "$(gh_app_app_id)+$(gh_app_name)[bot]@users.noreply.github.com"
-          subDirectory: ${{ variables.subDirectory }}
+        - template: templates\Github\push-to-helm-chart-repo.yaml@azTemplates
+          parameters:
+            chartName: ${{ variables.chartName }}
+            chartPath: ${{ variables.chartPath }}
+            githubToken: $(githubappinstall.token)
+            githubUsername: $(gh_app_name)
+            githubEmail: "$(gh_app_app_id)+$(gh_app_name)[bot]@users.noreply.github.com"
+            subDirectory: ${{ variables.subDirectory }}
