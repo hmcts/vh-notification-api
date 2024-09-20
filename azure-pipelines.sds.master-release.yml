@@ -121,7 +121,7 @@ stages:
 
 #####################################################
 # Build Docker Image & Push. ########################
-  - ${{ if eq(stage.buildPushImage, true }}:
+  - ${{ if eq(stage.buildPushImage, true)  }}:
     - stage: Docker_Build_Push_${{ stage.env }}
       displayName: Build & Push ${{ stage.env }}
       # condition: eq('${{ stage.buildPushImage }}', true)
@@ -158,7 +158,7 @@ stages:
 
 #####################################################
 # Deploy Nuget Packages. ############################
-  - ${{ if eq(stage.publishNuget, true }}:
+  - ${{ if eq(stage.publishNuget, true) }}:
     - stage: Push_Nuget_${{ stage.env }}
       displayName: Deploy Nuget Packages ${{ stage.env }}
       # condition: eq('${{ stage.publishNuget }}', true)
@@ -178,7 +178,7 @@ stages:
 
   #########################################
   # Push Helm Charts to Repo. #############
-  - ${{ if eq(stage.pushHelmChart, true }}:
+  - ${{ if eq(stage.pushHelmChart, true) }}:
     - stage: Helm_${{ stage.env }}
       displayName: Push Helm Charts ${{ stage.env }}
       # condition: eq('${{ stage.pushHelmChart }}', true)
