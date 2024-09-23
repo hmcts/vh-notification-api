@@ -1,8 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration.KeyPerFile;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using VH.Core.Configuration;
 
 namespace NotificationApi
 {
@@ -20,14 +21,23 @@ namespace NotificationApi
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            const string vhInfraCore = "/mnt/secrets/vh-infra-core";
-            const string vhNotificationApi = "/mnt/secrets/vh-notification-api";
+            const string vhInfraCore = "vh-infra-core";
+            const string vhNotificationApi = "vh-notification-api";
+            var keyVaults = new[] { vhInfraCore, vhNotificationApi };
 
             return Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((configBuilder) =>
                 {
-                    configBuilder.AddAksKeyVaultSecretProvider(vhInfraCore);
-                    configBuilder.AddAksKeyVaultSecretProvider(vhNotificationApi);
+                    
+                    foreach (var keyVault in keyVaults)
+                    {
+                        var filePath = $"/mnt/secrets/{keyVault}";
+                        if (Directory.Exists(filePath))
+                        {
+                            configBuilder.Add(GetKeyPerFileSource(filePath));    
+                        }
+                        
+                    }
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
@@ -36,5 +46,18 @@ namespace NotificationApi
                     webBuilder.UseStartup<Startup>();
                 });
         }
+        
+        private static KeyPerFileConfigurationSource GetKeyPerFileSource(string filePath)
+        {
+            return new KeyPerFileConfigurationSource
+            {
+                FileProvider = new PhysicalFileProvider(filePath),
+                Optional = true,
+                ReloadOnChange = true,
+                SectionDelimiter = "--" // Set your custom delimiter here
+            };
+        }
     }
+    
+    
 }
