@@ -12,14 +12,12 @@ namespace NotificationApi.Controllers
     {
         private readonly IQueryHandler _queryHandler;
         private readonly ICreateNotificationService _createNotificationService;
-        private readonly IFeatureToggles _featureToggles;
 
         public ParticipantEmailNotificationsController(IQueryHandler queryHandler,
-            ICreateNotificationService createNotificationService, IFeatureToggles featureToggles)
+            ICreateNotificationService createNotificationService)
         {
             _queryHandler = queryHandler;
             _createNotificationService = createNotificationService;
-            _featureToggles = featureToggles;
         }
 
         /// <summary>
@@ -148,13 +146,10 @@ namespace NotificationApi.Controllers
         public async Task<IActionResult> SendParticipantSingleDayHearingConfirmationForExistingUserEmailAsync(
             ExistingUserSingleDayHearingConfirmationRequest request)
         {
-            var useNewTemplates = _featureToggles.UsePostMay2023Template();
             var notificationType = request.RoleName switch
             {
-                RoleNames.Individual when !useNewTemplates => NotificationType.HearingConfirmationLip,
-                RoleNames.Individual when useNewTemplates => NotificationType.ExistingUserLipConfirmation,
-                RoleNames.Representative when !useNewTemplates=> NotificationType.HearingConfirmationRepresentative,
-                RoleNames.Representative when useNewTemplates => NotificationType.ExistingUserRepresentativeConfirmation,
+                RoleNames.Individual => NotificationType.ExistingUserLipConfirmation,
+                RoleNames.Representative => NotificationType.ExistingUserRepresentativeConfirmation,
                 RoleNames.JudicialOfficeHolder when !request.Username.IsJudiciaryUsername() => NotificationType
                     .HearingConfirmationJoh,
                 RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
@@ -183,13 +178,10 @@ namespace NotificationApi.Controllers
         public async Task<IActionResult> SendParticipantMultiDayHearingConfirmationForExistingUserEmailAsync(
             ExistingUserMultiDayHearingConfirmationRequest request)
         {
-            var useNewTemplates = _featureToggles.UsePostMay2023Template();
             var notificationType = request.RoleName switch
             {
-                RoleNames.Individual when useNewTemplates => NotificationType.ExistingUserLipConfirmationMultiDay,
-                RoleNames.Individual when !useNewTemplates => NotificationType.HearingConfirmationLipMultiDay,
-                RoleNames.Representative when useNewTemplates => NotificationType.ExistingUserRepresentativeConfirmationMultiDay,
-                RoleNames.Representative when !useNewTemplates => NotificationType.HearingConfirmationRepresentativeMultiDay,
+                RoleNames.Individual => NotificationType.ExistingUserLipConfirmationMultiDay,
+                RoleNames.Representative => NotificationType.ExistingUserRepresentativeConfirmationMultiDay,
                 RoleNames.JudicialOfficeHolder when !request.Username.IsJudiciaryUsername() => NotificationType
                     .HearingConfirmationJohMultiDay,
                 RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
@@ -219,13 +211,10 @@ namespace NotificationApi.Controllers
         [ProducesResponseType(typeof(ValidationProblemDetails), (int) HttpStatusCode.BadRequest)]
         public async Task<IActionResult> SendSingleDayHearingReminderEmailAsync(SingleDayHearingReminderRequest request)
         {
-            var useNewTemplates = _featureToggles.UsePostMay2023Template();
             var notificationType = request.RoleName switch
             {
-                RoleNames.Individual when useNewTemplates => NotificationType.NewHearingReminderLipSingleDay,
-                RoleNames.Individual when !useNewTemplates => NotificationType.NewHearingReminderLIP,
-                RoleNames.Representative when useNewTemplates  => NotificationType.NewHearingReminderRepresentativeSingleDay,
-                RoleNames.Representative when !useNewTemplates => NotificationType.NewHearingReminderRepresentative,
+                RoleNames.Individual => NotificationType.NewHearingReminderLipSingleDay,
+                RoleNames.Representative => NotificationType.NewHearingReminderRepresentativeSingleDay,
                 RoleNames.JudicialOfficeHolder when !request.Username.IsJudiciaryUsername() => NotificationType
                     .NewHearingReminderJOH,
                 RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
