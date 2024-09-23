@@ -124,7 +124,6 @@ stages:
   - ${{ if eq(stage.buildPushImage, true)  }}:
     - stage: Docker_Build_Push_${{ stage.env }}
       displayName: Build & Push ${{ stage.env }}
-      # condition: eq('${{ stage.buildPushImage }}', true)
       dependsOn:
         - Run_Entity_Framework_${{ stage.env }}
       variables:
@@ -161,7 +160,6 @@ stages:
   - ${{ if eq(stage.publishNuget, true) }}:
     - stage: Push_Nuget_${{ stage.env }}
       displayName: Deploy Nuget Packages ${{ stage.env }}
-      # condition: eq('${{ stage.publishNuget }}', true)
       dependsOn:
         - Run_Entity_Framework_${{ stage.env }}
       variables:
@@ -181,7 +179,6 @@ stages:
   - ${{ if eq(stage.pushHelmChart, true) }}:
     - stage: Helm_${{ stage.env }}
       displayName: Push Helm Charts ${{ stage.env }}
-      # condition: eq('${{ stage.pushHelmChart }}', true)
       dependsOn: Docker_Build_Push_${{ stage.env }}
       variables:
       - template: variables/dev.yaml
