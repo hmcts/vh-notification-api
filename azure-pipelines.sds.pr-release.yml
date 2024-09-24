@@ -91,7 +91,10 @@ stages:
               netVersion: ${{ variables.dotnetVersion }}
               vstsFeedId: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
               coreProjectPath: $(projectPath)
-
+  #####################################################
+  # Build Docker Image & Generate EF Script. ##########
+  - stage: Dock
+  
   ##################################################
   # Deploy Nuget Packages. #########################
   - stage: Push_Nuget
@@ -109,10 +112,6 @@ stages:
           - template: templates\dotnet\push-nuget-packages.yml@azTemplates
             parameters:
               vstsFeed: "${{ variables.nuget_org_name }}/${{ variables.nuget_feed_name }}"
-
-  #####################################################
-  # Build Docker Image & Generate EF Script. ##########
-  - stage: Dock
     displayName: Docker Build & Push Image
     variables:
       - group: aks-cluster-info
