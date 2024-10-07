@@ -65,6 +65,31 @@ stages:
           gitVersionConfigPath: ${{ variables.git_version_config_path }}
 
 #####################################################
+# CI Build Tasks. ###################################
+- stage: CI_Build
+  dependsOn: []
+  variables:
+    - template: variables/shared.yaml
+  displayName: Test & Sonar
+  jobs:
+    - job: UnitAndIntegrationTests
+      displayName: 'Unit and Integration Tests'
+      steps:
+        - checkout: self
+
+        - template: templates/dotnet/build-test-analyse.yml@azTemplates
+          parameters:
+            dotnetVersion: ${{ variables.dotnetVersion }}
+            nugetConfigPath: nuget.config
+            appName: ${{ variables.appName }}
+            dockerComposeTestFile: docker-compose.tests.yml
+            sonarExtraProperties: |
+              sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/coverage.opencover.xml
+              sonar.cpd.exclusions=**/NotificationType.cs,**/TemplateDataForEnvironments.cs,*/Validations/*.cs,**/Services/NotificationParameterMapper.cs
+              sonar.exclusions=**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, NotificationApi/NotificationApi.DAL/Migrations/*, NotificationApi/NotificationApi.DAL/TemplateDataForEnvironments.cs
+              sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*, **/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi.Common/**/*, **/NotificationApi.IntegrationTests/**/*, **/NotificationApi.UnitTests/**/*, **/NotificationApi/Extensions/*, **/NotificationApi.DAL/Migrations/**/*
+
+#####################################################
 # Manual Approval ###################################
 - ${{ each stage in parameters.stages }}:
   - stage: Manual_Approval_${{ stage.env }}
