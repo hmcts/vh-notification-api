@@ -1,7 +1,6 @@
 namespace NotificationApi.Contract
 {
     // Public contract for NotificationApi.Domain.Enums.NotificationType
-    [Obsolete("Will be replaced with a new endpoint")]
     public enum NotificationType
     {
         CreateIndividual = 1,
