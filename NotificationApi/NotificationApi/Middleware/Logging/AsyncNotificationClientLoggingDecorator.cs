@@ -7,7 +7,7 @@ using System.Net.Http;
 
 namespace NotificationApi.Middleware.Logging
 {
-    public abstract class AsyncNotificationClientLoggingDecorator(
+    public class AsyncNotificationClientLoggingDecorator(
         IAsyncNotificationClient underlyingNotificationClient,
         ILogger<AsyncNotificationClientLoggingDecorator> logger)
         : IAsyncNotificationClient
