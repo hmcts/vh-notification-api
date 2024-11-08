@@ -59,7 +59,7 @@ public abstract class AcApiTest
     
     private string GenerateCallbackToken()
     {
-        return new CustomJwtTokenProvider().GenerateTokenForCallbackEndpoint(_notifyConfiguration.CallbackSecret, 60);
+        return CustomJwtTokenProvider.GenerateTokenForCallbackEndpoint(_notifyConfiguration.CallbackSecret, 60);
     }
 
     private void RegisterSettings()

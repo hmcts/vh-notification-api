@@ -11,7 +11,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
 {
     public class UpdateNotificationSentCommandHandlerTests : DatabaseTestsBase
     {
-        private readonly List<Notification> _notifications = new List<Notification>();
+        private readonly List<Notification> _notifications = new();
         private UpdateNotificationSentCommandHandler _handler;
 
         [SetUp]
@@ -29,7 +29,6 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             const DeliveryStatus expectedDeliveryStatus = DeliveryStatus.Created;
             var command = new UpdateNotificationSentCommand(notification.Id, notification.ExternalId, notification.Payload);
 
-            Thread.Sleep(1000); // wait for a second
             await _handler.Handle(command);
             
             await using var db = new NotificationsApiDbContext(NotifyBookingsDbContextOptions);

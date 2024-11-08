@@ -1,9 +1,7 @@
-namespace NotificationApi.Contract
+namespace NotificationApi.Contract;
+
+public enum MessageType
 {
-    // Public contract for NotificationApi.Domain.Enums.MessageType
-    public enum MessageType
-    {
-        Email = 1,
-        SMS = 2
-    }
+    Email = 1,
+    SMS = 2
 }
