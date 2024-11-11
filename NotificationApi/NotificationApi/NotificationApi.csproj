@@ -71,19 +71,6 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Properties\ServiceDependencies\vh-notification-api-demo - Web Deploy\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Properties\ServiceDependencies\vh-notification-api-demo - Web Deploy\profile.arm.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Properties\ServiceDependencies\" />
-    </ItemGroup>
-
     <Target Name="NSwag" AfterTargets="Build" Condition="'$(TF_BUILD)'!='True' And '$(Configuration)' == 'Debug' ">
         <Copy SourceFiles="@(ReferencePath)" DestinationFolder="$(OutDir)References" />
         <Exec ConsoleToMSBuild="true" ContinueOnError="true" Command="$(NSwagExe_Net60) run /runtime:Net60 /variables:ProjectPath=&quot;$(MSBuildProjectFullPath)&quot;">
