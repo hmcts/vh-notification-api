@@ -57,7 +57,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
 
         protected string GenerateCallbackToken()
         {
-            return new CustomJwtTokenProvider().GenerateTokenForCallbackEndpoint(_notifyConfiguration.CallbackSecret, 60);
+            return CustomJwtTokenProvider.GenerateTokenForCallbackEndpoint(_notifyConfiguration.CallbackSecret, 60);
         }
 
         private void RegisterSettings()

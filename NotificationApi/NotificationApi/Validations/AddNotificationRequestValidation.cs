@@ -4,13 +4,13 @@ namespace NotificationApi.Validations
 {
     public class AddNotificationRequestValidation : AbstractValidator<AddNotificationRequest>
     {
-        public static readonly string MissingParametersMessage = "Parameters are required";
-        public static readonly string MissingEmailMessage = "Email is required";
-        public static readonly string MissingHearingIdMessage = "HearingId is required";
-        public static readonly string InvalidMessageTypeMessage = "Message type is invalid";
-        public static readonly string InvalidNotificationTypeMessage = "Notification type is invalid";
-        public static readonly string MissingParticipantIdMessage = "Participant is required";
-        public static readonly string MissingPhoneNumberMessage = "Phone number is required";
+        public const string MissingParametersMessage = "Parameters are required";
+        public const string MissingEmailMessage = "Email is required";
+        public const string MissingHearingIdMessage = "HearingId is required";
+        public const string InvalidMessageTypeMessage = "Message type is invalid";
+        public const string InvalidNotificationTypeMessage = "Notification type is invalid";
+        public const string MissingParticipantIdMessage = "Participant is required";
+        public const string MissingPhoneNumberMessage = "Phone number is required";
         
         public AddNotificationRequestValidation()
         {
@@ -23,15 +23,15 @@ namespace NotificationApi.Validations
             RuleFor(x => x.PhoneNumber).NotEmpty().When(IsPhone).WithMessage(MissingPhoneNumberMessage);
         }
 
-        private bool ValidNotificationType(NotificationType value) => Enum.IsDefined(typeof(NotificationType), value);
+        private static bool ValidNotificationType(NotificationType value) => Enum.IsDefined(typeof(NotificationType), value);
 
-        private bool ValidMessageType(MessageType value) => Enum.IsDefined(typeof(MessageType), value);
+        private static bool ValidMessageType(MessageType value) => Enum.IsDefined(typeof(MessageType), value);
 
-        private bool IsEmail(AddNotificationRequest arg) => arg.MessageType == MessageType.Email;
+        private static bool IsEmail(AddNotificationRequest arg) => arg.MessageType == MessageType.Email;
 
-        private bool IsPhone(AddNotificationRequest arg) => arg.MessageType == MessageType.SMS;
+        private static bool IsPhone(AddNotificationRequest arg) => arg.MessageType == MessageType.SMS;
 
-        private bool IsHearingNotification(AddNotificationRequest arg) =>
+        private static bool IsHearingNotification(AddNotificationRequest arg) =>
             arg.NotificationType != NotificationType.PasswordReset;
     }
 }

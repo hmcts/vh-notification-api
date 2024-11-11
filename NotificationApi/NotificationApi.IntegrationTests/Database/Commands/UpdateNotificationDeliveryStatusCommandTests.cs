@@ -11,7 +11,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
 {
     public class UpdateNotificationDeliveryStatusCommandTests : DatabaseTestsBase
     {
-        private readonly List<Notification> _notifications = new List<Notification>();
+        private readonly List<Notification> _notifications = [];
         private UpdateNotificationDeliveryStatusCommandHandler _handler;
         
         [SetUp]
@@ -31,7 +31,6 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             var command = new UpdateNotificationDeliveryStatusCommand(notification.Id, notification.ExternalId, deliveryStatus);
 
             // Act
-            Thread.Sleep(1000); // wait for a second
             await _handler.Handle(command);
 
             // Assert
@@ -39,6 +38,7 @@ namespace NotificationApi.IntegrationTests.Database.Commands
             var updatedNotification = await db.Notifications.SingleOrDefaultAsync(x => x.Id == notification.Id);
             updatedNotification.Should().NotBeNull();
             updatedNotification.DeliveryStatus.Should().Be(deliveryStatus);
+            updatedNotification.CreatedAt.Should().NotBeNull();
             updatedNotification.CreatedAt.Should().Be(notification.CreatedAt.Value);
             updatedNotification.UpdatedAt.Should().BeAfter(updatedNotification.CreatedAt.Value);
         }

@@ -4,27 +4,20 @@ using Microsoft.Extensions.Logging;
 
 namespace NotificationApi.Middleware.Validation
 {
-    public class RequestModelValidatorFilter : IAsyncActionFilter
+    public class RequestModelValidatorFilter(
+        IRequestModelValidatorService requestModelValidatorService,
+        ILogger<RequestModelValidatorFilter> logger)
+        : IAsyncActionFilter
     {
-        private readonly IRequestModelValidatorService _requestModelValidatorService;
-        private readonly ILogger<RequestModelValidatorFilter> _logger;
-
-        public RequestModelValidatorFilter(IRequestModelValidatorService requestModelValidatorService,
-            ILogger<RequestModelValidatorFilter> logger)
-        {
-            _requestModelValidatorService = requestModelValidatorService;
-            _logger = logger;
-        }
-
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            _logger.LogDebug("Processing request");
+            logger.LogDebug("Processing request");
             foreach (var property in context.ActionDescriptor.Parameters)
             {
                 var valuePair = context.ActionArguments.SingleOrDefault(x => x.Key == property.Name);
                 if (property.BindingInfo?.BindingSource == BindingSource.Body)
                 {
-                    var validationFailures = _requestModelValidatorService.Validate(property.ParameterType, valuePair.Value);
+                    var validationFailures = requestModelValidatorService.Validate(property.ParameterType, valuePair.Value);
                     context.ModelState.AddFluentValidationErrors(validationFailures);
                 }
                 
@@ -38,7 +31,7 @@ namespace NotificationApi.Middleware.Validation
             if (!context.ModelState.IsValid)
             {
                 var errors = context.ModelState.Values.SelectMany(v => v.Errors.Select(b => b.ErrorMessage)).ToList();
-                _logger.LogWarning($"Request Validation Failed: {string.Join("; ", errors)}");
+                logger.LogWarning("Request Validation Failed: {Join}", string.Join("; ", errors));
                 context.Result = new BadRequestObjectResult(new ValidationProblemDetails(context.ModelState));
             }
             else

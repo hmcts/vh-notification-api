@@ -1,28 +1,24 @@
 using System;
 using NotificationApi.Domain.Enums;
 
-namespace NotificationApi.Domain
+namespace NotificationApi.Domain;
+
+public class Template(
+    Guid notifyTemplateId,
+    NotificationType notificationType,
+    MessageType messageType,
+    string parameters)
+    : TrackableEntity<long>
 {
-    public class Template : TrackableEntity<long>
+    public Guid NotifyTemplateId { get; } = notifyTemplateId;
+    public NotificationType NotificationType { get; } = notificationType;
+    public MessageType MessageType { get; } = messageType;
+    public string Parameters { get; } = parameters;
+    
+    public Template(Guid notifyTemplateId, NotificationType notificationType, MessageType messageType,
+        string parameters, DateTime createdAt, DateTime updatedAt): this(notifyTemplateId, notificationType, messageType, parameters)
     {
-        public Guid NotifyTemplateId { get; }
-        public NotificationType NotificationType { get; }
-        public MessageType MessageType { get; }
-        public string Parameters { get; }
-
-        public Template(Guid notifyTemplateId, NotificationType notificationType, MessageType messageType, string parameters)
-        {
-            NotifyTemplateId = notifyTemplateId;
-            NotificationType = notificationType;
-            MessageType = messageType;
-            Parameters = parameters;
-        }
-
-        public Template(Guid notifyTemplateId, NotificationType notificationType, MessageType messageType, 
-            string parameters, DateTime createdAt, DateTime updatedAt): this(notifyTemplateId, notificationType, messageType, parameters)
-        {
-            CreatedAt = createdAt;
-            UpdatedAt = updatedAt;
-        }
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
     }
 }

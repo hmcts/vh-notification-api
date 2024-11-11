@@ -6,23 +6,14 @@ using NotificationApi.Common.Helpers;
 
 namespace NotificationApi.Middleware.Logging
 {
-    public class LoggingMiddleware : IAsyncActionFilter
+    public class LoggingMiddleware(ILogger<LoggingMiddleware> logger, ILoggingDataExtractor loggingDataExtractor)
+        : IAsyncActionFilter
     {
-        private readonly ILogger<LoggingMiddleware> _logger;
-
-        private readonly ILoggingDataExtractor _loggingDataExtractor;
-
-        public LoggingMiddleware(ILogger<LoggingMiddleware> logger, ILoggingDataExtractor loggingDataExtractor)
-        {
-            _logger = logger;
-            _loggingDataExtractor = loggingDataExtractor;
-        }
-
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var properties = context.ActionDescriptor.Parameters
                 .Select(p => context.ActionArguments.SingleOrDefault(x => x.Key == p.Name))
-                .SelectMany(pv => _loggingDataExtractor.ConvertToDictionary(pv.Value, pv.Key))
+                .SelectMany(pv => loggingDataExtractor.ConvertToDictionary(pv.Value, pv.Key))
                 .ToDictionary(x => x.Key, x => x.Value);
 
             if (context.ActionDescriptor is ControllerActionDescriptor actionDescriptor)
@@ -32,18 +23,18 @@ namespace NotificationApi.Middleware.Logging
                 properties.Add(nameof(actionDescriptor.DisplayName), actionDescriptor.DisplayName);
             }
 
-            using (_logger.BeginScope(properties))
+            using (logger.BeginScope(properties))
             {
-                _logger.LogDebug("Starting request");
+                logger.LogDebug("Starting request");
                 var sw = Stopwatch.StartNew();
                 var action = await next();
                 if (action.Exception != null)
                 {
                     var ex = action.Exception;
-                    _logger.LogError(ex, ex.Message);
+                    logger.LogError(ex, "An error occurred: {Message}", ex.Message);
                 }
 
-                _logger.LogDebug("Handled request in {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
+                logger.LogDebug("Handled request in {ElapsedMilliseconds}ms", sw.ElapsedMilliseconds);
             }
         }
     }

@@ -27,6 +27,13 @@ namespace NotificationApi.Common.Helpers
                 return result;
             }
 
+            IterateTypeProperties(input, path, debth, type, result);
+
+            return result;
+        }
+        
+        private void IterateTypeProperties(object input, string path, int debth, Type type, Dictionary<string, object> result)
+        {
             foreach (var property in type.GetProperties())
             {
                 var value = property.GetValue(input);
@@ -48,11 +55,9 @@ namespace NotificationApi.Common.Helpers
                     result.Add(GetPath(path, property.Name), value);
                 }
             }
-
-            return result;
         }
-
-        private string GetPath(string path, string property) => $"{path}{(string.IsNullOrEmpty(path) ? string.Empty : ".")}{property}";
+        
+        private static string GetPath(string path, string property) => $"{path}{(string.IsNullOrEmpty(path) ? string.Empty : ".")}{property}";
 
         /// <summary>
         /// Pass in type to see if we should recuse deeper
@@ -60,6 +65,6 @@ namespace NotificationApi.Common.Helpers
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        private bool IsCustomType(Type type) => !type.IsEnum && type.AssemblyQualifiedName.StartsWith(this.GetType().AssemblyQualifiedName.Split('.')[0]);
+        private bool IsCustomType(Type type) => !type.IsEnum && type.AssemblyQualifiedName!.StartsWith(GetType().AssemblyQualifiedName!.Split('.')[0]);
     }
 }
