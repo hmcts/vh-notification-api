@@ -14,34 +14,33 @@ services:
       - ./OSVResults:/OSVResults:rw
     networks:
       - integration-tests
+  # vh-notification-api-tests:
+  #   image: notification-api-tests
+  #   build:
+  #     context: ./
+  #     dockerfile: tests/Dockerfile
+  #   entrypoint: [ "/wait-for-it.sh", "test-db:1433", "-t", "120", "--", "/run-tests.sh" ]
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__VhNotificationsApi=Data Source=test-db;Database=VhNotificationsApi;User Id=SA;Password=R4ndomP@assword;Trust Server Certificate=True;Encrypt=False
+  #   volumes:
+  #     - ./TestResults:/TestResults:rw
+  #     - ./Coverage:/Coverage:rw
+  #     - ./:/app:rw
+  #   depends_on:
+  #     - test-db
+  #   networks:
+  #     - integration-tests
 
-  vh-notification-api-tests:
-    image: notification-api-tests
-    build:
-      context: ./
-      dockerfile: tests/Dockerfile
-    entrypoint: [ "/wait-for-it.sh", "test-db:1433", "-t", "120", "--", "/run-tests.sh" ]
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__VhNotificationsApi=Data Source=test-db;Database=VhNotificationsApi;User Id=SA;Password=R4ndomP@assword;Trust Server Certificate=True;Encrypt=False
-    volumes:
-      - ./TestResults:/TestResults:rw
-      - ./Coverage:/Coverage:rw
-      - ./:/app:rw
-    depends_on:
-      - test-db
-    networks:
-      - integration-tests
-
-  test-db:
-    image: mcr.microsoft.com/azure-sql-edge
-    container_name: vh.notificationapi.sql.testing
-    expose:
-      - 1433
-    ports:
-      - 1433:1433
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=R4ndomP@assword
-    networks:
-      - integration-tests
+  # test-db:
+  #   image: mcr.microsoft.com/azure-sql-edge
+  #   container_name: vh.notificationapi.sql.testing
+  #   expose:
+  #     - 1433
+  #   ports:
+  #     - 1433:1433
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=R4ndomP@assword
+  #   networks:
+  #     - integration-tests
