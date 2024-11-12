@@ -102,6 +102,16 @@
         "resolved": "9.24.0.89429",
         "contentHash": "Ozk4LVpLNHhd+mmYKiG/WYtUUBZFknpkRy5JwTq4YfmT2wPA16vev5s/42urrN27ZV+01Kb5aYKJt3EI+5jPdw=="
       },
+      "System.Security.Cryptography.Xml": {
+        "type": "Direct",
+        "requested": "[4.7.1, )",
+        "resolved": "4.7.1",
+        "contentHash": "ddAre1QiT5cACLNWLLE3Smk61yhHr4IzQbt0FZiHsD63aFse0xSjbQU3+Fycc5elKhqNwgwk7ueOh3x9Rv9uIg==",
+        "dependencies": {
+          "System.Security.Cryptography.Pkcs": "4.7.0",
+          "System.Security.Permissions": "4.7.0"
+        }
+      },
       "Azure.Core": {
         "type": "Transitive",
         "resolved": "1.38.0",
@@ -3042,15 +3052,6 @@
           "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.0"
         }
       },
-      "System.Security.Cryptography.Xml": {
-        "type": "Transitive",
-        "resolved": "4.5.0",
-        "contentHash": "i2Jn6rGXR63J0zIklImGRkDIJL4b1NfPSEbIVHBlqoIb12lfXIigCbDRpDmIEzwSo/v1U5y/rYJdzZYSyCWxvg==",
-        "dependencies": {
-          "System.Security.Cryptography.Pkcs": "4.5.0",
-          "System.Security.Permissions": "4.5.0"
-        }
-      },
       "System.Security.Permissions": {
         "type": "Transitive",
         "resolved": "7.0.0",
@@ -3282,7 +3283,8 @@
           "Microsoft.Extensions.Configuration.UserSecrets": "[8.0.1, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "NotificationApi.Common": "[1.0.0, )",
-          "NotificationApi.Domain": "[1.0.0, )"
+          "NotificationApi.Domain": "[1.0.0, )",
+          "System.Formats.Asn1": "[8.0.1, )"
         }
       },
       "notificationapi.domain": {

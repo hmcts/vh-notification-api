@@ -3086,7 +3086,8 @@
           "Microsoft.Extensions.Configuration.UserSecrets": "[8.0.1, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "NotificationApi.Common": "[1.0.0, )",
-          "NotificationApi.Domain": "[1.0.0, )"
+          "NotificationApi.Domain": "[1.0.0, )",
+          "System.Formats.Asn1": "[8.0.1, )"
         }
       },
       "notificationapi.domain": {
