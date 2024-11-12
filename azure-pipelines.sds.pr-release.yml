@@ -49,8 +49,6 @@ stages:
               includeOsvResults: true
               sonarExtraProperties: |
                 sonar.cs.opencover.reportsPaths=$(System.DefaultWorkingDirectory)/coverage.opencover.xml
-                sonar.verbose=true
-                sonar.sarifReportPaths=$(System.DefaultWorkingDirectory)/OSVResults/scan-results.sarif.json
                 sonar.cpd.exclusions=**/NotificationType.cs,**/TemplateDataForEnvironments.cs,*/Validations/*.cs,**/Services/NotificationParameterMapper.cs
                 sonar.exclusions=**/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi/Swagger/**/*, **/NotificationApi.DAL/Migrations/**, **/NotificationApi.DAL/TemplateDataForEnvironments.cs
                 sonar.coverage.exclusions=**/NotificationApi/Swagger/**/*, **/Program.cs, **/Startup.cs, **/Testing.Common/**/*, **/NotificationApi.Common/**/*, **/NotificationApi.IntegrationTests/**/*, **/NotificationApi.UnitTests/**/*, **/NotificationApi/Extensions/*, **/NotificationApi.DAL/Migrations/**/*
