@@ -15,6 +15,8 @@ namespace NotificationApi.AcceptanceTests.ApiTests;
 
 public abstract class AcApiTest
 {
+    protected readonly Bogus.Faker Faker = new();
+    
     private IConfigurationRoot _configRoot;
     private AzureAdConfiguration _azureConfiguration;
     private ServicesConfiguration _serviceConfiguration;

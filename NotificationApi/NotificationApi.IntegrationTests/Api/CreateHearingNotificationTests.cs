@@ -73,9 +73,10 @@ namespace NotificationApi.IntegrationTests.Api
         private static AddNotificationRequest BuildNewUserNotificationRequest(MessageType messageType,
             NotificationType notificationType)
         {
+            
             var parameters = new Dictionary<string, string>
             {
-                {"name", $"{Faker.Name.FullName()}"},
+                {"name", $"{new Bogus.Faker().Name.FullName()}"},
                 {"username", $"{Guid.NewGuid()}@intautomation.com"},
                 {"random password", "inttestpassword!"}
             };

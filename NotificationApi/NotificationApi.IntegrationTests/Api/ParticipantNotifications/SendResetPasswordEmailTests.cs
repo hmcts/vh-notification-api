@@ -50,7 +50,7 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             {
                 ContactEmail = $"{Guid.NewGuid()}@test.com",
                 Name = $"{Faker.Name.FullName()}",
-                Password = $"{Faker.RandomNumber.Next()}",
+                Password = $"{Faker.Random.Number(1,1000)}",
             };
 
             // act

@@ -20,8 +20,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             {
                 RoleName = RoleNames.Judge,
                 Name = $"{Faker.Name.FullName()}",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
+                CaseNumber = $"{Faker.Random.Number(1,1000)}",
+                CaseName = $"{Faker.Random.Number(1,1000)}",
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
                 ContactEmail = $"{Guid.NewGuid()}@test.com",
@@ -48,8 +48,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             {
                 RoleName = RoleNames.JudicialOfficeHolder,
                 Name = $"{Faker.Name.FullName()}",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
+                CaseNumber = $"{Faker.Random.Number(1,1000)}",
+                CaseName = $"{Faker.Random.Number(1,1000)}",
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
                 ContactEmail = $"{Guid.NewGuid()}@test.com",
@@ -76,8 +76,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             {
                 RoleName = RoleNames.Representative,
                 Name = $"{Faker.Name.FullName()}",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
+                CaseNumber = $"{Faker.Random.Number(1,1000)}",
+                CaseName = $"{Faker.Random.Number(1,1000)}",
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
                 ContactEmail = $"{Guid.NewGuid()}@test.com",
@@ -112,8 +112,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             {
                 RoleName = RoleNames.Individual,
                 Name = $"{Faker.Name.FullName()}",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
+                CaseNumber = $"{Faker.Random.Number(1,1000)}",
+                CaseName = $"{Faker.Random.Number(1,1000)}",
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
                 ContactEmail = $"{Guid.NewGuid()}@test.com",

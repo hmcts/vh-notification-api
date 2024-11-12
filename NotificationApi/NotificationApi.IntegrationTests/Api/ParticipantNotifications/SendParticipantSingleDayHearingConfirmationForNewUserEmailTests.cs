@@ -20,8 +20,8 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
         {
             RoleName = roleName,
             Name = $"{Faker.Name.FullName()}",
-            CaseNumber = $"{Faker.RandomNumber.Next()}",
-            CaseName = $"{Faker.RandomNumber.Next()}",
+            CaseNumber = $"{Faker.Random.Number(1,1000)}",
+            CaseName = $"{Faker.Random.Number(1,1000)}",
             HearingId = Guid.NewGuid(),
             ParticipantId = Guid.NewGuid(),
             ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
@@ -54,8 +54,8 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
         {
             RoleName = RoleNames.Individual,
             Name = $"{Faker.Name.FullName()}",
-            CaseNumber = $"{Faker.RandomNumber.Next()}",
-            CaseName = $"{Faker.RandomNumber.Next()}",
+            CaseNumber = $"{Faker.Random.Number(1,1000)}",
+            CaseName = $"{Faker.Random.Number(1,1000)}",
             HearingId = Guid.NewGuid(),
             ParticipantId = Guid.NewGuid(),
             ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
@@ -90,8 +90,8 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
         {
             RoleName = RoleNames.Representative,
             Name = $"{Faker.Name.FullName()}",
-            CaseNumber = $"{Faker.RandomNumber.Next()}",
-            CaseName = $"{Faker.RandomNumber.Next()}",
+            CaseNumber = $"{Faker.Random.Number(1,1000)}",
+            CaseName = $"{Faker.Random.Number(1,1000)}",
             HearingId = Guid.NewGuid(),
             ParticipantId = Guid.NewGuid(),
             ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
@@ -126,8 +126,8 @@ public class SendParticipantSingleDayHearingConfirmationForNewUserEmailTests : A
         {
             RoleName = RoleNames.JudicialOfficeHolder,
             Name = $"{Faker.Name.FullName()}",
-            CaseNumber = $"{Faker.RandomNumber.Next()}",
-            CaseName = $"{Faker.RandomNumber.Next()}",
+            CaseNumber = $"{Faker.Random.Number(1,1000)}",
+            CaseName = $"{Faker.Random.Number(1,1000)}",
             HearingId = Guid.NewGuid(),
             ParticipantId = Guid.NewGuid(),
             ContactEmail = $"{Guid.NewGuid()}@intautomation.com",
