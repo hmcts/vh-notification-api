@@ -1,23 +1,25 @@
+version: '3.4'
+
 networks:
   integration-tests:
     driver: bridge
 
 services:
-  vh-notification-osv:
-    image: ghcr.io/google/osv-scanner:latest
-    container_name: notification-osv-scanner
-    entrypoint: sh -c "/osv-scanner -r --format table app || /osv-scanner -r --format sarif --output /OSVResults/scan-results.sarif.json app || true"
-    volumes:
-      - ./:/app:rw
-      - ./OSVResults:/OSVResults:rw
-    networks:
-      - integration-tests
+
   vh-notification-api-tests:
     image: notification-api-tests
     build:
       context: ./
       dockerfile: tests/Dockerfile
-    entrypoint: [ "/wait-for-it.sh", "test-db:1433", "-t", "120", "--", "/run-tests.sh" ]
+    entrypoint:
+      [
+        "/wait-for-it.sh",
+        "test-db:1433",
+        "-t",
+        "120",
+        "--",
+        "/run-tests.sh"
+      ]
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__VhNotificationsApi=Data Source=test-db;Database=VhNotificationsApi;User Id=SA;Password=R4ndomP@assword;Trust Server Certificate=True;Encrypt=False
