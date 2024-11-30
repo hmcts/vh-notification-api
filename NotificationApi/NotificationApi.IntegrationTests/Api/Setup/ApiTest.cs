@@ -10,6 +10,7 @@ namespace NotificationApi.IntegrationTests.Api.Setup
 {
     public class ApiTest
     {
+        protected readonly Bogus.Faker Faker = new();
         private const string CallbackSecretConfigKey = "NotifyConfiguration:CallbackSecret";
         protected VhApiWebApplicationFactory Application = null!;
         protected TestDataManager TestDataManager = null!;

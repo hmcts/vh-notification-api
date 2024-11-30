@@ -20,8 +20,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             {
                 RoleName = roleName,
                 Name = $"{Faker.Name.FullName()}",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
+                CaseNumber = $"{Faker.Random.Number(1,1000)}",
+                CaseName = $"{Faker.Random.Number(1,1000)}",
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
                 ContactEmail = $"{Guid.NewGuid()}@intautomation.com"
@@ -49,8 +49,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             var request = new NewUserWelcomeEmailRequest
             {
                 Name = $"{Faker.Name.FullName()}",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
+                CaseNumber = $"{Faker.Random.Number(1,1000)}",
+                CaseName = $"{Faker.Random.Number(1,1000)}",
                 RoleName = RoleNames.Individual,
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
@@ -85,8 +85,8 @@ namespace NotificationApi.IntegrationTests.Api.ParticipantNotifications
             var request = new NewUserWelcomeEmailRequest
             {
                 Name = $"{Faker.Name.FullName()}",
-                CaseNumber = $"{Faker.RandomNumber.Next()}",
-                CaseName = $"{Faker.RandomNumber.Next()}",
+                CaseNumber = $"{Faker.Random.Number(1,1000)}",
+                CaseName = $"{Faker.Random.Number(1,1000)}",
                 RoleName = RoleNames.Representative,
                 HearingId = Guid.NewGuid(),
                 ParticipantId = Guid.NewGuid(),
