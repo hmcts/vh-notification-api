@@ -1,7 +1,6 @@
 using System.Net.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace NotificationApi.Client
 {
@@ -13,9 +12,7 @@ namespace NotificationApi.Client
             {
                 ReadResponseAsString = true
             };
-            apiClient.JsonSerializerSettings.ContractResolver = new DefaultContractResolver {NamingStrategy = new SnakeCaseNamingStrategy()};
-            apiClient.JsonSerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-            apiClient.JsonSerializerSettings.Converters.Add(new StringEnumConverter());
+            
             return apiClient;
         }
         
@@ -24,6 +21,13 @@ namespace NotificationApi.Client
             var apiClient = GetClient(httpClient);
             apiClient.BaseUrl = baseUrl;
             return apiClient;
+        }
+        
+        static partial void UpdateJsonSerializerSettings(JsonSerializerOptions settings)
+        {
+            settings.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
+            settings.WriteIndented = true;
+            settings.Converters.Add(new JsonStringEnumConverter());
         }
     }
 }
