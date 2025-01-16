@@ -27,7 +27,8 @@ namespace NotificationApi.Client
         {
             settings.PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower;
             settings.WriteIndented = true;
-            settings.Converters.Add(new JsonStringEnumConverter());
+            settings.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            settings.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
         }
     }
 }
