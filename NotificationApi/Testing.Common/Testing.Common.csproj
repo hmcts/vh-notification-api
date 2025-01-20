@@ -2,7 +2,6 @@
   <ItemGroup>
     <PackageReference Include="Bogus" Version="35.6.1" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
@@ -19,9 +18,12 @@
     <ProjectReference Include="..\NotificationApi.Contract\NotificationApi.Contract.csproj" />
     <ProjectReference Include="..\NotificationApi.Domain\NotificationApi.Domain.csproj" />
   </ItemGroup>
-    <ItemGroup>
-        <None Update="TestAudioFiles\TestAudioFile.mp4">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
+  <ItemGroup>
+      <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+   <ItemGroup>
+       <None Update="TestAudioFiles\TestAudioFile.mp4">
+           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+       </None>
+   </ItemGroup>
 </Project>

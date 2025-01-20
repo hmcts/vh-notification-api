@@ -198,7 +198,7 @@ namespace NotificationApi.Client
         #pragma warning restore 8618
 
         private System.Net.Http.HttpClient _httpClient;
-        private static System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(CreateSerializerSettings, true);
+        private static System.Lazy<System.Text.Json.JsonSerializerOptions> _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings, true);
 
     #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NotificationApiClient(System.Net.Http.HttpClient httpClient)
@@ -208,9 +208,9 @@ namespace NotificationApi.Client
             _httpClient = httpClient;
         }
 
-        private static Newtonsoft.Json.JsonSerializerSettings CreateSerializerSettings()
+        private static System.Text.Json.JsonSerializerOptions CreateSerializerSettings()
         {
-            var settings = new Newtonsoft.Json.JsonSerializerSettings();
+            var settings = new System.Text.Json.JsonSerializerOptions();
             UpdateJsonSerializerSettings(settings);
             return settings;
         }
@@ -226,9 +226,9 @@ namespace NotificationApi.Client
             }
         }
 
-        public Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
+        public System.Text.Json.JsonSerializerOptions JsonSerializerSettings { get { return _settings.Value; } }
 
-        static partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
+        static partial void UpdateJsonSerializerSettings(System.Text.Json.JsonSerializerOptions settings);
 
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
@@ -259,8 +259,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(notificationCallbackRequest, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(notificationCallbackRequest, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -464,8 +464,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -567,8 +567,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -670,8 +670,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -773,8 +773,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -876,8 +876,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -979,8 +979,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -1082,8 +1082,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -1185,8 +1185,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -1288,8 +1288,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -1391,8 +1391,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -1494,8 +1494,8 @@ namespace NotificationApi.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(request, _settings.Value);
-                    var content_ = new System.Net.Http.StringContent(json_);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(request, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -1599,10 +1599,10 @@ namespace NotificationApi.Client
                 var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    var typedBody = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(responseText, JsonSerializerSettings);
+                    var typedBody = System.Text.Json.JsonSerializer.Deserialize<T>(responseText, JsonSerializerSettings);
                     return new ObjectResponseResult<T>(typedBody, responseText);
                 }
-                catch (Newtonsoft.Json.JsonException exception)
+                catch (System.Text.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
                     throw new NotificationApiException(message, (int)response.StatusCode, responseText, headers, exception);
@@ -1613,15 +1613,12 @@ namespace NotificationApi.Client
                 try
                 {
                     using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-                    using (var streamReader = new System.IO.StreamReader(responseStream))
-                    using (var jsonTextReader = new Newtonsoft.Json.JsonTextReader(streamReader))
                     {
-                        var serializer = Newtonsoft.Json.JsonSerializer.Create(JsonSerializerSettings);
-                        var typedBody = serializer.Deserialize<T>(jsonTextReader);
+                        var typedBody = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(responseStream, JsonSerializerSettings, cancellationToken).ConfigureAwait(false);
                         return new ObjectResponseResult<T>(typedBody, string.Empty);
                     }
                 }
-                catch (Newtonsoft.Json.JsonException exception)
+                catch (System.Text.Json.JsonException exception)
                 {
                     var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
                     throw new NotificationApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
