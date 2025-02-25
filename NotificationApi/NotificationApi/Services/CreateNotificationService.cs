@@ -1,3 +1,4 @@
+using System.Globalization;
 using AdminWebsite.Services;
 using NotificationApi.DAL.Commands;
 using NotificationApi.DAL.Commands.Core;
@@ -41,11 +42,14 @@ namespace NotificationApi.Services
 
         public async Task<EmailNotificationResponse> SendEmailAsyncRetry(string contactEmail, string notifyTemplateId, Dictionary<string, dynamic> requestParameters, string notificationId)
         {
-            var maxRetryAttempts = 2;
+            const int maxRetryAttempts = 2;
             var pauseBetweenFailures = TimeSpan.FromSeconds(5);
+
+            // Convert to punycode in order to support diacritic characters in the email address
+            var encodedContactEmail = ConvertEmailToPunycode(contactEmail);
             
             _logger.LogDebug("Attempting notify with template: {id}",  notifyTemplateId);
-            _logger.LogDebug("Contact email: {email}",  contactEmail);
+            _logger.LogDebug("Contact email: {email}",  encodedContactEmail);
             foreach (var parameter in requestParameters)
                 LoggerExtensions.LogDebug(_logger, "Parameters {key}:  {value}", parameter.Key,  parameter.Value);
             
@@ -58,9 +62,28 @@ namespace NotificationApi.Services
                          "Failed to send email to send email to the NotifyAPi for notifcationId {Hearing}. Retrying attempt {RetryAttempt}", notificationId, retryAttempt
                        ),
                callResult => callResult == null,
-               () => _asyncNotificationClient.SendEmailAsync(contactEmail, notifyTemplateId, requestParameters, notificationId)
+               () => _asyncNotificationClient.SendEmailAsync(encodedContactEmail, notifyTemplateId, requestParameters, notificationId)
            );
             return result;
+        }
+
+        private static string ConvertEmailToPunycode(string email)
+        {
+            // Split local part and domain
+            var parts = email.Split('@');
+
+            var localPart = parts[0];
+            var domainPart = parts[1];
+
+            // Convert domain part to Punycode
+            var idn = new IdnMapping();
+            var punycodeLocal = idn.GetAscii(localPart);
+            var punycodeDomain = idn.GetAscii(domainPart);
+
+            // Construct the Punycode email
+            var punycodeEmail = $"{punycodeLocal}@{punycodeDomain}";
+
+            return punycodeEmail;
         }
     }
 }
