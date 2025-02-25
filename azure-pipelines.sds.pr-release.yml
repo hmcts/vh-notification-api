@@ -5,7 +5,7 @@ resources:
     - repository: azTemplates
       type: github
       name: hmcts/azure-devops-templates
-      ref: apply-git-version-before-docker-build
+      ref: master
       endpoint: hmcts
 
 trigger: none
@@ -30,7 +30,7 @@ stages:
       - group: vh-github-app-credentials
     jobs:
       - job: Dock
-        displayName: "Build and Push Image ${{ variables.git_repo_name }}"
+        displayName: 'Build and Push Image ${{ variables.git_repo_name }}'
         steps:
           - checkout: self
             fetchTags: true
@@ -47,12 +47,24 @@ stages:
               chartBranch: $(System.PullRequest.SourceBranch)
               githubToken: $(githubappinstall.token)
               githubUsername: $(gh_app_name)
-              githubEmail: "$(gh_app_app_id)+$(gh_app_name)[bot]@users.noreply.github.com"
+              githubEmail: '$(gh_app_app_id)+$(gh_app_name)[bot]@users.noreply.github.com'
 
           - bash: |
               sed -i "s|</configuration>|<packageSourceCredentials><vh-packages><add key=\"Username\" value=\"PAT\" /><add key=\"ClearTextPassword\" value=\"$(System.AccessToken)\" /></vh-packages></packageSourceCredentials></configuration>|" nuget.config
             displayName: Add NuGet Feed Authentication
             workingDirectory: ${{ variables.appName }}
+
+          - task: gitversion/setup@3
+            displayName: Install GitVersion
+            inputs:
+              versionSpec: '5.x'
+
+          - task: gitversion/execute@3
+            displayName: Determine Version for App
+            inputs:
+              useConfigFile: true
+              configFilePath: '${{ variables.git_version_config_path }}'
+              updateAssemblyInfo: true
 
           - template: templates\Containerisation\docker\docker-compose.yaml@azTemplates
             parameters:
@@ -67,10 +79,10 @@ stages:
               repositoryName: ${{ variables.repositoryName }}
               imageName: "${{ replace(variables.git_repo_name, '-', '') }}"
               imageTags:
-                - "${{ variables.prTagName }}"
+                - '${{ variables.prTagName }}'
 
   #####################################################
-   # Deploy Helm Chart to Dev. #########################
+  # Deploy Helm Chart to Dev. #########################
   - stage: Install
     displayName: Deploy Helm Chart Dev AKS
     variables:
@@ -87,16 +99,16 @@ stages:
         steps:
           - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
             parameters:
-              subscriptionName: "${{ variables.subscriptionName }}"
+              subscriptionName: '${{ variables.subscriptionName }}'
               environment: ${{ variables.env }}
 
           - template: templates/Containerisation/helm/helm-uninstall.yaml@azTemplates
             parameters:
-              namespace: "vh"
-              releaseName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
-              azureSubscription: "${{ variables.subscriptionName }}"
-              aksResourceGroupName: "$(aksCluster.resourceGroup)"
-              aksClusterName: "$(aksCluster.name)"
+              namespace: 'vh'
+              releaseName: '${{ variables.chartName }}-${{ variables.prTagPrefix }}'
+              azureSubscription: '${{ variables.subscriptionName }}'
+              aksResourceGroupName: '$(aksCluster.resourceGroup)'
+              aksClusterName: '$(aksCluster.name)'
 
       - job: aks_push
         displayName: Deploy To Dev AKS
@@ -104,7 +116,7 @@ stages:
         steps:
           - template: templates\Azure\Aks\get-active-cluster.yaml@azTemplates
             parameters:
-              subscriptionName: "${{ variables.subscriptionName }}"
+              subscriptionName: '${{ variables.subscriptionName }}'
               environment: ${{ variables.env }}
           - template: templates/Containerisation/helm/helm-install.yaml@azTemplates
             parameters:
@@ -115,14 +127,14 @@ stages:
               acrName: ${{ variables.acrName }}
               repositoryName: ${{ variables.repositoryName }}
               prTagName: ${{ variables.prTagName }}
-              releaseName: "${{ variables.chartName }}-${{ variables.prTagPrefix }}"
+              releaseName: '${{ variables.chartName }}-${{ variables.prTagPrefix }}'
               dnsRecordName: ${{ variables.dnsRecordName }}
               dnsZone: ${{ variables.dnsZone }}
               env: ${{ variables.env }}
               chartName: ${{ variables.chartName }}
               chartPath: ${{ variables.chartPath }}
-              subscriptionName: "${{ variables.subscriptionName }}"
-              aksResourceGroupName: "$(aksCluster.resourceGroup)"
-              aksClusterName: "$(aksCluster.name)"
-              dnsSubscriptionName: "${{ variables.dnsZoneSubscription }}"
-              dnsResourceGroupName: "${{ variables.dnsZoneResourceGroup }}"
+              subscriptionName: '${{ variables.subscriptionName }}'
+              aksResourceGroupName: '$(aksCluster.resourceGroup)'
+              aksClusterName: '$(aksCluster.name)'
+              dnsSubscriptionName: '${{ variables.dnsZoneSubscription }}'
+              dnsResourceGroupName: '${{ variables.dnsZoneResourceGroup }}'
