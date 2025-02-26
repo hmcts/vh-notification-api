@@ -54,18 +54,6 @@ stages:
             displayName: Add NuGet Feed Authentication
             workingDirectory: ${{ variables.appName }}
 
-          - task: gitversion/setup@3
-            displayName: Install GitVersion
-            inputs:
-              versionSpec: '5.x'
-
-          - task: gitversion/execute@3
-            displayName: Determine Version for App
-            inputs:
-              useConfigFile: true
-              configFilePath: '${{ variables.git_version_config_path }}'
-              updateAssemblyInfo: true
-
           - template: templates\Containerisation\docker\docker-compose.yaml@azTemplates
             parameters:
               azureSubscription: ${{ variables.acrSubscription }}

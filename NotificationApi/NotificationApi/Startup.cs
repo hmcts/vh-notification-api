@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -149,6 +151,9 @@ namespace NotificationApi
                 endpoints.MapDefaultControllerRoute();
 
                 endpoints.AddVhHealthCheckRouteMaps();
+                
+                endpoints.MapGet("api/version2", () => Results.Ok(AppVersionRetriever.GetAppVersion()))
+                    .WithName("GetBuildVersion");
             });
         }
         
