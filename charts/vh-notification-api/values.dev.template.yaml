@@ -3,6 +3,7 @@ java:
   image: '${IMAGE_NAME}'
   ingressHost: ${SERVICE_FQDN}
   releaseNameOverride: ${RELEASE_NAME}
+  disableTraefikTls: false
   environment:
     SERVICES__NOTIFICATIONAPIRESOURCEID: http://vh-notification-api.dev.platform.hmcts.net
 
