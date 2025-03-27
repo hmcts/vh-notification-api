@@ -29,7 +29,7 @@ public class ParticipantEmailNotificationsController(
             RoleNames.Individual => NotificationType.CreateIndividual,
             RoleNames.Representative => NotificationType.CreateRepresentative,
             RoleNames.JudicialOfficeHolder => NotificationType.CreateRepresentative,
-            _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
+            _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
         };
         
         var parameters = NotificationParameterMapper.MapToV1AccountCreated(request);
@@ -185,7 +185,7 @@ public class ParticipantEmailNotificationsController(
                 .HearingConfirmationJudgeMultiDay,
             RoleNames.Judge when request.Username.IsJudiciaryUsername() => NotificationType
                 .HearingConfirmationEJudJudgeMultiDay,
-            _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
+            _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
         };
         
         var parameters = NotificationParameterMapper.MapToMultiDayConfirmationForExistingUser(request);
@@ -214,7 +214,7 @@ public class ParticipantEmailNotificationsController(
                 .NewHearingReminderJOH,
             RoleNames.JudicialOfficeHolder when request.Username.IsJudiciaryUsername() => NotificationType
                 .NewHearingReminderEJudJoh,
-            _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
+            _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
         };
         
         var parameters = NotificationParameterMapper.MapToSingleDayReminder(request);
@@ -238,7 +238,7 @@ public class ParticipantEmailNotificationsController(
         {
             RoleNames.Individual => NotificationType.NewHearingReminderLipMultiDay,
             RoleNames.Representative => NotificationType.NewHearingReminderRepresentativeMultiDay,
-            _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
+            _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
         };
         
         var parameters = NotificationParameterMapper.MapToMultiDayReminder(request);
@@ -270,7 +270,7 @@ public class ParticipantEmailNotificationsController(
                 .HearingAmendmentJudge,
             RoleNames.Judge when request.Username.IsJudiciaryUsername() => NotificationType
                 .HearingAmendmentEJudJudge,
-            _ => throw new BadRequestException($"Provided role is not {request.RoleName}")
+            _ => throw new BadRequestException($"Role is not supported, provided role is {request.RoleName}")
         };
         
         
