@@ -7,6 +7,7 @@ using NotificationApi.Domain;
 using Notify.Interfaces;
 using Notify.Models.Responses;
 using Microsoft.Extensions.Logging;
+using NotificationApi.Common.Logging;
 
 namespace NotificationApi.Services
 {
@@ -43,23 +44,20 @@ namespace NotificationApi.Services
         {
             var maxRetryAttempts = 2;
             var pauseBetweenFailures = TimeSpan.FromSeconds(5);
-            
-            _logger.LogDebug("Attempting notify with template: {id}",  notifyTemplateId);
-            _logger.LogDebug("Contact email: {email}",  contactEmail);
+
+            _logger.LogAttemptingNotify(notifyTemplateId);
+            _logger.LogContactEmail(contactEmail);
             foreach (var parameter in requestParameters)
-                LoggerExtensions.LogDebug(_logger, "Parameters {key}:  {value}", parameter.Key,  parameter.Value);
-            
+                CreateNotificationServiceLogger.LogParameters(_logger, parameter.Key, parameter.Value.ToString());
+
             var result = await _pollyRetryService.WaitAndRetryAsync<Exception, EmailNotificationResponse>
-           (
-               maxRetryAttempts,
-               _ => pauseBetweenFailures,
-               retryAttempt =>
-                   _logger.LogWarning(
-                         "Failed to send email to send email to the NotifyAPi for notifcationId {Hearing}. Retrying attempt {RetryAttempt}", notificationId, retryAttempt
-                       ),
-               callResult => callResult == null,
-               () => _asyncNotificationClient.SendEmailAsync(contactEmail, notifyTemplateId, requestParameters, notificationId)
-           );
+            (
+                maxRetryAttempts,
+                _ => pauseBetweenFailures,
+                retryAttempt => _logger.LogRetryAttempt(notificationId, retryAttempt),
+                callResult => callResult == null,
+                () => _asyncNotificationClient.SendEmailAsync(contactEmail, notifyTemplateId, requestParameters, notificationId)
+            );
             return result;
         }
     }
