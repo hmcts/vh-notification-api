@@ -256,7 +256,6 @@ stages:
     displayName: Acceptance Tests Dev
     variables:
       - group: govuk-notify-dev
-      - group: vh-notification-api
       - template: variables/dev.yaml
       - template: variables/shared.yaml
         parameters:
