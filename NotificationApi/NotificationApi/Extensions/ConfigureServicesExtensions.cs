@@ -8,7 +8,6 @@ using Newtonsoft.Json.Serialization;
 using NotificationApi.Common.Configuration;
 using NotificationApi.Common.Helpers;
 using NotificationApi.Common.Security;
-using NotificationApi.DAL;
 using NotificationApi.DAL.Commands.Core;
 using NotificationApi.DAL.Queries.Core;
 using NotificationApi.Middleware.Logging;
@@ -32,10 +31,11 @@ namespace NotificationApi.Extensions
 
                 return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
             });
-            
+
             services.AddOpenApiDocument((document, serviceProvider) =>
             {
                 document.Title = "Notification API";
+                document.Version = AppVersionRetriever.GetAppVersion();
                 document.DocumentProcessors.Add(
                     new SecurityDefinitionAppender("JWT",
                         new OpenApiSecurityScheme
